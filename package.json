@@ -1,0 +1,34 @@
+{
+  "name": "snaplib-node-npm-fs",
+  "version": "0.1.0",
+  "description": "Node based npm file system API",
+  "type": "commonjs",
+  "main": "scripts/npm/init/init.js",
+  "scripts": {
+    "clean": "node scripts/npm/js/clean.js",
+    "init": "node scripts/npm/js/init.js",
+    "test": "mocha src/test/*",
+    "tsc": "tsc",
+    "tsc-scripts": "tsc -m CommonJS -p scripts/npm/ts --outDir scripts/npm/js",
+    "tsc-src": "tsc -m CommonJS -p src/main/ts --outDir build/js",
+    "ts": "",
+    "ts-script-init": "ts-node scripts/npm/ts/init/init.ts",
+    "ts-script-root-dir": "ts-node scripts/npm/ts/root-dir/RootDir.ts"
+  },
+  "keywords": [
+    "npm",
+    "project",
+    "snaplib",
+    "build"
+  ],
+  "author": "Snap",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.9",
+    "async": "^3.2.0",
+    "mocha": "^8.2.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.1.2"
+  }
+}
