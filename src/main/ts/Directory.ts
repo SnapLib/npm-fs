@@ -52,8 +52,8 @@ export class Directory extends AbstractElement
 
     public containsIgnoreCase(nameOrPath: string): boolean
     {
-        return this.getContentNames().some(contentName => nameOrPath.localeCompare(contentName))
-            || this.getContentPaths().some(contentPath => nameOrPath.localeCompare(contentPath))
+        return this.getContentNames().some(contentName => nameOrPath.localeCompare(contentName, 'en', {sensitivity: 'base'}) === 0)
+            || this.getContentPaths().some(contentPath => nameOrPath.localeCompare(contentPath, 'en', {sensitivity: 'base'}) === 0)
     }
 
     public containsFile(fileNameOrPath: string): boolean
@@ -64,8 +64,8 @@ export class Directory extends AbstractElement
 
     public containsFileIgnoreCase(nameOrPath: string): boolean
     {
-        return this.getFileNames().some(fileName => nameOrPath.localeCompare(fileName))
-            || this.getFilePaths().some(filePath => nameOrPath.localeCompare(filePath))
+        return this.getFileNames().some(fileName => nameOrPath.localeCompare(fileName, 'en', {sensitivity: 'base'}) === 0)
+            || this.getFilePaths().some(filePath => nameOrPath.localeCompare(filePath, 'en', {sensitivity: 'base'}) === 0)
     }
 
     public containsDir(dirNameOrPath: string): boolean
@@ -76,8 +76,8 @@ export class Directory extends AbstractElement
 
     public containsDirIgnoreCase(nameOrPath: string): boolean
     {
-        return this.getDirNames().some(dirName => nameOrPath.localeCompare(dirName))
-            || this.getDirPaths().some(dirPath => nameOrPath.localeCompare(dirPath))
+        return this.getDirNames().some(dirName => nameOrPath.localeCompare(dirName, 'en', {sensitivity: 'base'}) === 0)
+            || this.getDirPaths().some(dirPath => nameOrPath.localeCompare(dirPath, 'en', {sensitivity: 'base'}) === 0)
     }
 
     public size(): number
