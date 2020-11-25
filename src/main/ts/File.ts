@@ -1,4 +1,4 @@
-import { AbstractElement, Type } from "./AbstractElement";
+import { AbstractElement } from "./AbstractElement";
 import * as fs from 'fs';
 import * as pathModule from 'path';
 
@@ -6,7 +6,7 @@ export class File extends AbstractElement
 {
     constructor(filePath: string)
     {
-        super(filePath, Type.FILE);
+        super(filePath, {isDirectory: false, isFile: true});
     }
 
     public getContents(): ReadonlyArray<string>
