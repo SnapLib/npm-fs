@@ -10,25 +10,24 @@
     "test": "mocha src/test/*",
     "tsc": "tsc",
     "tsc-scripts": "tsc -m CommonJS -p scripts/npm/ts --outDir scripts/npm/js",
-    "tsc-src": "tsc -m CommonJS -p src/main/ts --outDir build/js",
+    "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap true --strict true --removeComments true -p src/main/ts/tsconfig.json --outDir build/js",
     "ts": "",
     "ts-script-init": "ts-node scripts/npm/ts/init/init.ts",
     "ts-script-root-dir": "ts-node scripts/npm/ts/root-dir/RootDir.ts"
   },
   "keywords": [
+    "snaplib",
+    "node",
     "npm",
     "project",
-    "snaplib",
-    "build"
+    "build",
+    "system"
   ],
   "author": "Snap",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^14.14.9",
-    "async": "^3.2.0",
     "mocha": "^8.2.1",
-    "rimraf": "^3.0.2",
-    "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
   }
 }
