@@ -1,17 +1,12 @@
-import { AbstractElement } from "./AbstractElement";
+import { AbstractElement, Type } from "./AbstractElement";
 import * as fs from 'fs';
 import * as pathModule from 'path';
 
-export class Directory extends AbstractElement
+export class File extends AbstractElement
 {
-    constructor(directoryPath: string)
+    constructor(filePath: string)
     {
-        super(directoryPath);
-
-        if (this.isDir())
-        {
-            throw new FileWithDirectoryPathError(this.path);
-        }
+        super(filePath, Type.FILE);
     }
 
     public getContents(): ReadonlyArray<string>
@@ -22,13 +17,5 @@ export class Directory extends AbstractElement
     public size(): number
     {
         return super.size();
-    }
-}
-
-class FileWithDirectoryPathError extends Error
-{
-    public constructor(path: string)
-    {
-        super('File path of "' + path + '" points to a directory');
     }
 }

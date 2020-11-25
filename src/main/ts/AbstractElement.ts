@@ -8,11 +8,25 @@ export class AbstractElement implements Element
     readonly name: string;
     readonly parent: string;
 
-    public constructor(path: string)
+    public constructor(path: string, elementType?: Type)
     {
-        this.path = path;
-        this.name = pathModule.basename(path);
-        this.parent = path.split(pathModule.delimiter).slice(1)[0]
+        if (elementType !== undefined)
+        {
+            if (elementType === Type.DIRECTORY && fs.lstatSync(this.path).isFile())
+            {
+                throw new DirectoryWithFilePathError(this.path);
+            }
+            else if (elementType === Type.FILE && fs.lstatSync(this.path).isDirectory())
+            {
+                throw new FileWithDirectoryPathError(this.path);
+            }
+        }
+        else
+        {
+            this.path = path;
+            this.name = pathModule.basename(path);
+            this.parent = path.split(pathModule.delimiter).slice(1)[0]
+        }
     }
 
     public getContents(): ReadonlyArray<string>
@@ -40,6 +54,29 @@ export class AbstractElement implements Element
         throw new MissingMethodImplementationError("Missing getSize() method implementation");
     }
 
+}
+
+export enum Type
+{
+    DIRECTORY = 1,
+    FILE = 2
+
+}
+
+class DirectoryWithFilePathError extends Error
+{
+    public constructor(path: string)
+    {
+        super('Directory path of "' + path + '" points to a file');
+    }
+}
+
+class FileWithDirectoryPathError extends Error
+{
+    public constructor(path: string)
+    {
+        super('File path of "' + path + '" points to a directory');
+    }
 }
 
 class MissingMethodImplementationError extends Error
