@@ -41,14 +41,14 @@ export class AbstractElement implements Element
             {
                 this.path = path;
                 this.name = pathModule.basename(path);
-                this.parent = path.split(pathModule.delimiter).slice(1)[0]
+                this.parent = path.split(pathModule.sep).slice(1)[0]
             }
         }
         else
         {
             this.path = path;
             this.name = pathModule.basename(path);
-            this.parent = path.split(pathModule.delimiter).slice(1)[0]
+            this.parent = path.split(pathModule.sep).slice(1)[0]
         }
     }
 
