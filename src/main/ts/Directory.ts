@@ -1,12 +1,30 @@
-import { AbstractElement } from "./AbstractElement";
+import { AbstractElement, ElementStatus } from "./AbstractElement";
 import * as fs from 'fs';
 import * as pathModule from 'path';
 
 export class Directory extends AbstractElement
 {
-    constructor(directoryPath: string)
+    constructor(directoryPath: string, directoryStatus?: ElementStatus)
     {
-        super(directoryPath, {isDirectory: true, isFile: false});
+        if (directoryStatus)
+        {
+            if (directoryStatus.isDirectory === false)
+            {
+                throw new IllegalDirectoryStatusError("false directory status for directory");
+            }
+            else if (directoryStatus.isFile)
+            {
+                throw new IllegalDirectoryStatusError("true file status for directory");
+            }
+            else
+            {
+                super(directoryPath, directoryStatus);
+            }
+        }
+        else
+        {
+            super(directoryPath, {isDirectory: true, isFile: false});
+        }
     }
 
     public getContentNames(): ReadonlyArray<string>
@@ -78,5 +96,13 @@ export class Directory extends AbstractElement
     public size(): number
     {
         return this.getContentNames().length;
+    }
+}
+
+class IllegalDirectoryStatusError extends Error
+{
+    public constructor(msg: string)
+    {
+        super(msg);
     }
 }
