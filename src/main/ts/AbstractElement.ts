@@ -1,6 +1,6 @@
+import { Element } from "./Element";
 import * as fs from 'fs';
 import * as pathModule from 'path';
-import { Element } from "./Element";
 
 export class AbstractElement implements Element
 {
@@ -8,17 +8,28 @@ export class AbstractElement implements Element
     readonly name: string;
     readonly parent: string;
 
-    public constructor(path: string, elementType?: Type)
+    public constructor(path: string, elementStatus?: ElementStatus)
     {
-        if (elementType !== undefined)
+        if (elementStatus)
         {
-            if (elementType === Type.DIRECTORY && fs.lstatSync(this.path).isFile())
+            if (elementStatus.exists)
             {
-                throw new DirectoryWithFilePathError(this.path);
+                if ( ! fs.existsSync(path))
+                {
+                    throw new ElementDoesNotExistError(path);
+                }
+                else if (elementStatus.isDirectory && fs.lstatSync(this.path).isFile())
+                {
+                    throw new DirectoryWithFilePathError(path);
+                }
+                else if (elementStatus.isFile && fs.lstatSync(this.path).isDirectory())
+                {
+                    throw new FileWithDirectoryPathError(path);
+                }
             }
-            else if (elementType === Type.FILE && fs.lstatSync(this.path).isDirectory())
+            else if (elementStatus.exists === false && fs.existsSync(path))
             {
-                throw new FileWithDirectoryPathError(this.path);
+                throw new PreExistingElementError(path);
             }
         }
         else
@@ -56,11 +67,27 @@ export class AbstractElement implements Element
 
 }
 
-export enum Type
+export class ElementStatus
 {
-    DIRECTORY = 1,
-    FILE = 2
+    readonly exists?: boolean;
+    readonly isFile?: boolean;
+    readonly isDirectory?: boolean;
+}
 
+class ElementDoesNotExistError extends Error
+{
+    public constructor(path: string)
+    {
+        super(path);
+    }
+}
+
+class PreExistingElementError extends Error
+{
+    public constructor(path: string)
+    {
+        super(path);
+    }
 }
 
 class DirectoryWithFilePathError extends Error
