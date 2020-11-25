@@ -18,7 +18,7 @@ export class File extends AbstractElement
             }
             else
             {
-                super(filePath, fileStatus);
+                super(filePath, {exists: fileStatus.exists, isDirectory: fileStatus.isDirectory ?? false, isFile: fileStatus.isFile ?? true});
             }
         }
         else

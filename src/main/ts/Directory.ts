@@ -18,7 +18,7 @@ export class Directory extends AbstractElement
             }
             else
             {
-                super(directoryPath, directoryStatus);
+                super(directoryPath, {exists: directoryStatus.exists, isDirectory: directoryStatus.isDirectory ?? true, isFile: directoryStatus.isFile ?? false});
             }
         }
         else
