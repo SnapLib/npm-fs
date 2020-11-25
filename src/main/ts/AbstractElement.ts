@@ -18,18 +18,30 @@ export class AbstractElement implements Element
                 {
                     throw new ElementDoesNotExistError(path);
                 }
-                else if (elementStatus.isDirectory && fs.lstatSync(this.path).isFile())
+                else if (elementStatus.isDirectory && fs.lstatSync(path).isFile())
                 {
                     throw new DirectoryWithFilePathError(path);
                 }
-                else if (elementStatus.isFile && fs.lstatSync(this.path).isDirectory())
+                else if (elementStatus.isFile && fs.lstatSync(path).isDirectory())
                 {
                     throw new FileWithDirectoryPathError(path);
+                }
+                else
+                {
+                    this.path = path;
+                    this.name = pathModule.basename(path);
+                    this.parent = path.split(pathModule.delimiter).slice(1)[0]
                 }
             }
             else if (elementStatus.exists === false && fs.existsSync(path))
             {
                 throw new PreExistingElementError(path);
+            }
+            else
+            {
+                this.path = path;
+                this.name = pathModule.basename(path);
+                this.parent = path.split(pathModule.delimiter).slice(1)[0]
             }
         }
         else
