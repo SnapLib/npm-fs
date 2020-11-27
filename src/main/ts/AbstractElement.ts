@@ -4,9 +4,9 @@ import * as pathModule from 'path';
 
 export class AbstractElement implements Element
 {
-    readonly path: string;
-    readonly name: string;
-    readonly parent: string;
+    public readonly path: string;
+    public readonly name: string;
+    public readonly parent: string;
 
     public constructor(path: string, elementStatus?: ElementStatus)
     {
