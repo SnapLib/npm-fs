@@ -1,10 +1,10 @@
 import { AbstractElement, ElementStatus } from "./AbstractElement";
 import * as fs from 'fs';
-import * as pathModule from 'path';
+import * as path from 'path';
 
 export class Directory extends AbstractElement
 {
-    constructor(directoryPath: string, directoryStatus?: ElementStatus)
+    public constructor(directoryPath: string, directoryStatus?: ElementStatus)
     {
         if (directoryStatus)
         {
@@ -34,7 +34,7 @@ export class Directory extends AbstractElement
 
     public getContentPaths(): ReadonlyArray<string>
     {
-        return this.getContentNames().map<string>(dirContentName => pathModule.join(this.path, dirContentName));
+        return this.getContentNames().map<string>(dirContentName => path.join(this.path, dirContentName));
     }
 
     public getDirPaths(): ReadonlyArray<string>
@@ -44,7 +44,7 @@ export class Directory extends AbstractElement
 
     public getDirNames(): ReadonlyArray<string>
     {
-        return this.getDirPaths().map(dirPath => pathModule.basename(dirPath));
+        return this.getDirPaths().map<string>(dirPath => path.basename(dirPath));
     }
 
     public getFilePaths(): ReadonlyArray<string>
@@ -54,7 +54,7 @@ export class Directory extends AbstractElement
 
     public getFileNames(): ReadonlyArray<string>
     {
-        return this.getFilePaths().map(filePath => pathModule.basename(filePath));
+        return this.getFilePaths().map(filePath => path.basename(filePath));
     }
 
     public contains(nameOrPath: string): boolean
