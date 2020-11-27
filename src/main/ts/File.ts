@@ -4,7 +4,7 @@ import * as pathModule from 'path';
 
 export class File extends AbstractElement
 {
-    constructor(filePath: string, fileStatus?: ElementStatus)
+    public constructor(filePath: string, fileStatus?: ElementStatus)
     {
         if (fileStatus)
         {
