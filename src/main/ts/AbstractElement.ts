@@ -1,4 +1,5 @@
 import { Element } from "./Element";
+import { ElementStatus } from "./ElementStatus";
 import * as fs from 'fs';
 import * as pathModule from 'path';
 
@@ -35,22 +36,27 @@ export class AbstractElement implements Element
                 {
                     throw new ElementDoesNotExistError(elementPath);
                 }
-                // If pre-existing element should be a directory but is a file
-                else if (elementStatus.isDirectory && fs.lstatSync(elementPath).isFile())
+                // If pre-existing element should be a directory or not a file but is a file
+                else if (elementStatus.isDirectory ||  elementStatus.isFile === false && fs.lstatSync(elementPath).isFile())
                 {
                     throw new DirectoryWithFilePathError(elementPath);
                 }
-                // If pre-existing element should be a file but is a directory
-                else if (elementStatus.isFile && fs.lstatSync(elementPath).isDirectory())
+                // If pre-existing element should be a file or not a directory but is a directory
+                else if (elementStatus.isFile || elementStatus.isDirectory === false && fs.lstatSync(elementPath).isDirectory())
                 {
                     throw new FileWithDirectoryPathError(elementPath);
                 }
             }
-
-            this.path = elementPath;
-            this.name = pathModule.basename(elementPath);
-            this.parent = pathModule.dirname(elementPath)
         }
+        // If no element status has been set and element is pre-existing
+        else if (fs.existsSync(elementPath))
+        {
+            throw new PreExistingElementError(elementPath);
+        }
+
+        this.path = elementPath;
+        this.name = pathModule.basename(elementPath);
+        this.parent = pathModule.dirname(elementPath)
     }
 
     public getContents(): ReadonlyArray<string>
@@ -78,13 +84,6 @@ export class AbstractElement implements Element
         throw new MissingMethodImplementationError("missing size() method implementation");
     }
 
-}
-
-export class ElementStatus
-{
-    readonly exists?: boolean;
-    readonly isFile?: boolean;
-    readonly isDirectory?: boolean;
 }
 
 class ElementStatusConflictError extends Error
