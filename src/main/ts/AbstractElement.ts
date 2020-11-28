@@ -8,53 +8,70 @@ export class AbstractElement implements Element
     public readonly name: string;
     public readonly parent: string;
 
-    public constructor(path: string, elementStatus?: ElementStatus)
+    public constructor(elementPath: string, elementStatus?: ElementStatus)
     {
         if (elementStatus)
         {
-            if (elementStatus.exists)
+            // If element is set to be both directory and a file
+            if (elementStatus.isDirectory && elementStatus.isFile)
             {
-                if ( ! fs.existsSync(path))
+                throw new ElementStatusConflictError("element directory and file status both set to true");
+            }
+            // If element is set to not be a directory or a file
+            else if (elementStatus.isDirectory === false && elementStatus.isFile === false)
+            {
+                throw new ElementStatusConflictError("element directory and file status both set to false");
+            }
+
+            // If element should not be pre-existing file or directory but is
+            if (elementStatus.exists === false && fs.existsSync(elementPath))
+            {
+                throw new PreExistingElementError(elementPath);
+            }
+            // If element should be pre-existing file or directory
+            else if (elementStatus.exists)
+            {
+                // If element should be pre-existing file or directory but doesn't exist
+                if ( ! fs.existsSync(elementPath))
                 {
-                    throw new ElementDoesNotExistError(path);
+                    throw new ElementDoesNotExistError(elementPath);
                 }
-                else if (elementStatus.isDirectory && fs.lstatSync(path).isFile())
+                // If pre-existing element should be a directory but is a file
+                else if (elementStatus.isDirectory && fs.lstatSync(elementPath).isFile())
                 {
-                    throw new DirectoryWithFilePathError(path);
+                    throw new DirectoryWithFilePathError(elementPath);
                 }
-                else if (elementStatus.isFile && fs.lstatSync(path).isDirectory())
+                // If pre-existing element should be a file but is a directory
+                else if (elementStatus.isFile && fs.lstatSync(elementPath).isDirectory())
                 {
-                    throw new FileWithDirectoryPathError(path);
+                    throw new FileWithDirectoryPathError(elementPath);
                 }
                 else
                 {
-                    this.path = path;
-                    this.name = pathModule.basename(path);
-                    this.parent = path.split(pathModule.delimiter).slice(1)[0]
+                    this.path = elementPath;
+                    this.name = pathModule.basename(elementPath);
+                    this.parent = pathModule.dirname(elementPath)
                 }
-            }
-            else if (elementStatus.exists === false && fs.existsSync(path))
-            {
-                throw new PreExistingElementError(path);
             }
             else
             {
-                this.path = path;
-                this.name = pathModule.basename(path);
-                this.parent = path.split(pathModule.sep).slice(1)[0]
+                this.path = elementPath;
+                this.name = pathModule.basename(elementPath);
+                this.parent = pathModule.dirname(elementPath)
             }
         }
+        // If no element status properties are set
         else
         {
-            this.path = path;
-            this.name = pathModule.basename(path);
-            this.parent = path.split(pathModule.sep).slice(1)[0]
+            this.path = elementPath;
+            this.name = pathModule.basename(elementPath);
+            this.parent = pathModule.dirname(elementPath)
         }
     }
 
     public getContents(): ReadonlyArray<string>
     {
-        throw new MissingMethodImplementationError("Missing getContents() method implementation");
+        throw new MissingMethodImplementationError("missing getContents() method implementation");
     }
 
     public exists(): boolean
@@ -74,7 +91,7 @@ export class AbstractElement implements Element
 
     public size(): number
     {
-        throw new MissingMethodImplementationError("Missing getSize() method implementation");
+        throw new MissingMethodImplementationError("missing getSize() method implementation");
     }
 
 }
@@ -86,41 +103,49 @@ export class ElementStatus
     readonly isDirectory?: boolean;
 }
 
+class ElementStatusConflictError extends Error
+{
+    constructor(msg: string)
+    {
+        super(msg);
+    }
+}
+
 class ElementDoesNotExistError extends Error
 {
-    public constructor(path: string)
+    constructor(path: string)
     {
-        super(path);
+        super(`path "${path}" does not exist`);
     }
 }
 
 class PreExistingElementError extends Error
 {
-    public constructor(path: string)
+    constructor(path: string)
     {
-        super(path);
+        super(`path "${path}" already exist`);
     }
 }
 
 class DirectoryWithFilePathError extends Error
 {
-    public constructor(path: string)
+    constructor(path: string)
     {
-        super('Directory path of "' + path + '" points to a file');
+        super(`directory path of "${path}" points to a file`);
     }
 }
 
 class FileWithDirectoryPathError extends Error
 {
-    public constructor(path: string)
+    constructor(path: string)
     {
-        super('File path of "' + path + '" points to a directory');
+        super(`file path of "${path}" points to a directory`);
     }
 }
 
 class MissingMethodImplementationError extends Error
 {
-    public constructor(msg: string)
+    constructor(msg: string)
     {
         super(msg);
     }
