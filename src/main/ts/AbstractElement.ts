@@ -123,7 +123,7 @@ class PreExistingElementError extends Error
 {
     constructor(path: string)
     {
-        super(`path "${path}" already exist`);
+        super(`path "${path}" already exists`);
     }
 }
 
