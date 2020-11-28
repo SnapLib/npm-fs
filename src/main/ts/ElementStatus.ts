@@ -16,7 +16,7 @@ export class ElementStatus
         }
 
         this.exists = exists;
-        
+
         this.isDirectory = isDirectory !== undefined ? isDirectory
                            : isFile !== undefined ? ! isFile
                            : true;
