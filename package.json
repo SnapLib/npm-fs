@@ -7,11 +7,11 @@
   "scripts": {
     "clean": "node scripts/npm/js/clean.js",
     "init": "node scripts/npm/js/init.js",
-    "test": "mocha src/test/*",
+    "test": "mocha -r ts-node/register src/test/ts/*.ts",
     "tsc": "tsc",
     "tsc-scripts": "tsc -m CommonJS -p scripts/npm/ts --outDir scripts/npm/js",
     "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap true --strict true --removeComments true -p src/main/ts/tsconfig.json --outDir build/js",
-    "ts": "",
+    "ts": "ts-node src/main/ts/root/RootDirectory.ts",
     "ts-script-init": "ts-node scripts/npm/ts/init/init.ts",
     "ts-script-root-dir": "ts-node scripts/npm/ts/root-dir/RootDir.ts"
   },
@@ -27,8 +27,16 @@
   "license": "MIT",
   "devDependencies": {
     "@microsoft/tsdoc": "^0.12.21",
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.9",
+    "@types/npm": "^2.0.31",
+    "chai": "^4.2.0",
     "mocha": "^8.2.1",
+    "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
+  },
+  "dependencies": {
+    "npm": "^6.14.9"
   }
 }
