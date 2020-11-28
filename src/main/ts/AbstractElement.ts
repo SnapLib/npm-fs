@@ -22,9 +22,8 @@ export class AbstractElement implements Element
             {
                 throw new ElementStatusConflictError("element directory and file status both set to false");
             }
-
-            // If element should not be pre-existing file or directory but is
-            if (elementStatus.exists === false && fs.existsSync(elementPath))
+            // If element is not specified to be pre-existing or specified to not exist but does
+            else if ( ! elementStatus.exists && fs.existsSync(elementPath))
             {
                 throw new PreExistingElementError(elementPath);
             }
@@ -46,23 +45,8 @@ export class AbstractElement implements Element
                 {
                     throw new FileWithDirectoryPathError(elementPath);
                 }
-                else
-                {
-                    this.path = elementPath;
-                    this.name = pathModule.basename(elementPath);
-                    this.parent = pathModule.dirname(elementPath)
-                }
             }
-            else
-            {
-                this.path = elementPath;
-                this.name = pathModule.basename(elementPath);
-                this.parent = pathModule.dirname(elementPath)
-            }
-        }
-        // If no element status properties are set
-        else
-        {
+
             this.path = elementPath;
             this.name = pathModule.basename(elementPath);
             this.parent = pathModule.dirname(elementPath)
@@ -91,7 +75,7 @@ export class AbstractElement implements Element
 
     public size(): number
     {
-        throw new MissingMethodImplementationError("missing getSize() method implementation");
+        throw new MissingMethodImplementationError("missing size() method implementation");
     }
 
 }
