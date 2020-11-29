@@ -10,7 +10,7 @@ export class ElementStatus
         {
             throw new IllegalElementStatusExistsPropertyError(`exists element property can't be ${exists}`);
         }
-        else if (isDirectory !== undefined || isFile !== undefined && isDirectory === isFile)
+        else if ((ElementStatus.isDefined(isDirectory) || ElementStatus.isDefined(isFile)) && isDirectory === isFile)
         {
             throw new ElementStatusPropertyConflictError(`directory and file property status of ${isDirectory}`);
         }
@@ -24,6 +24,11 @@ export class ElementStatus
         this.isFile = isFile !== undefined ? isFile
                       : isDirectory !== undefined ? ! isDirectory
                       : false;
+    }
+
+    private static isDefined(prop: boolean): boolean
+    {
+        return prop !== undefined && prop !== null;
     }
 }
 
