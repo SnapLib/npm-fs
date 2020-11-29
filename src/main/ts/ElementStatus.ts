@@ -26,7 +26,7 @@ export class ElementStatus
                       : false;
     }
 
-    private static isDefined(prop: boolean): boolean
+    private static isDefined(prop: any): boolean
     {
         return prop !== undefined && prop !== null;
     }
