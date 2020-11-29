@@ -371,7 +371,7 @@ describe("exists property gets set correctly", () => {
         assert.isTrue(new ElementStatus(true).exists,
             "new ElementStatus(true).exists did not return true")
     });
-    
+
     it("new ElementStatus(false).exists returns false", () => {
         assert.isFalse(new ElementStatus(false).exists,
             "new ElementStatus(false).exists did not return false")
