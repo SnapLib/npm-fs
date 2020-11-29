@@ -5,15 +5,13 @@
   "type": "commonjs",
   "main": "scripts/npm/init/init.js",
   "scripts": {
-    "clean": "node scripts/npm/js/clean.js",
-    "init": "node scripts/npm/js/init.js",
+    "clean": "rimraf build",
+    "mocha": "mocha -r ts-node/register",
     "test": "mocha -r ts-node/register src/test/ts/*.ts",
     "tsc": "tsc",
-    "tsc-scripts": "tsc -m CommonJS -p scripts/npm/ts --outDir scripts/npm/js",
-    "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap true --strict true --removeComments true -p src/main/ts/tsconfig.json --outDir build/js",
+    "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap true --strict true --removeComments false -p src/main/ts/tsconfig.json --outDir build/js",
     "ts": "ts-node src/main/ts/root/RootDirectory.ts",
-    "ts-script-init": "ts-node scripts/npm/ts/init/init.ts",
-    "ts-script-root-dir": "ts-node scripts/npm/ts/root-dir/RootDir.ts"
+    "ts-node": "ts-node"
   },
   "keywords": [
     "snaplib",
@@ -33,6 +31,7 @@
     "@types/npm": "^2.0.31",
     "chai": "^4.2.0",
     "mocha": "^8.2.1",
+    "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
     "typescript": "^4.1.2"
   },
