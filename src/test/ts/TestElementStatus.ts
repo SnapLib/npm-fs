@@ -370,22 +370,39 @@ describe("Properties defaults correctly", () => {
     context("isDirectory is true when only exist property is set", () => {
 
         it("isDirectory is true when only exists property is set to true", () => {
-            assert.isTrue(new ElementStatus(true).isDirectory, "isDirectory did not default to true when only exists property is set to true")
+            assert.isTrue(new ElementStatus(true).isDirectory,
+                "isDirectory did not default to true when only exists property is set to true")
         });
 
         it("isDirectory is true when only exists property is set to false", () => {
-            assert.isTrue(new ElementStatus(false).isDirectory, "isDirectory did not default to true when only exists property is set to false")
+            assert.isTrue(new ElementStatus(false).isDirectory,
+                "isDirectory did not default to true when only exists property is set to false")
         });
     });
 
     context("isFile is false when only exist property is set", () => {
 
         it("isFile is false when only exists property is set to true", () => {
-            assert.isFalse(new ElementStatus(true).isFile, "isFile did not default to false when only exists property is set to true")
+            assert.isFalse(new ElementStatus(true).isFile,
+                "isFile did not default to false when only exists property is set to true")
         });
 
         it("isFile is false when only exists property is set to false", () => {
-            assert.isFalse(new ElementStatus(false).isFile, "isFile did not default to false when only exists property is set to false")
+            assert.isFalse(new ElementStatus(false).isFile,
+                "isFile did not default to false when only exists property is set to false")
+        });
+    });
+
+    context("isFile is true when isDirectory property is set to false", () => {
+
+        it("isFile is true when exists is true and isDirectory is false", () => {
+            assert.isTrue(new ElementStatus(true, false).isFile,
+                "isFile did not default to true when exists property set to true and isDirectory set to false")
+        });
+
+        it("isFile is true when exists is false and isDirectory is false", () => {
+            assert.isTrue(new ElementStatus(false, false).isFile,
+                "isFile did not default to true when exists property set to false and isDirectory set to false")
         });
     });
 });
