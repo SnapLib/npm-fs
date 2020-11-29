@@ -1,6 +1,6 @@
 export class ElementStatus
 {
-    public readonly exists?: boolean;
+    public readonly exists: boolean;
     public readonly isDirectory?: boolean;
     public readonly isFile?: boolean;
 
