@@ -17,12 +17,12 @@ export class ElementStatus
 
         this.exists = exists;
 
-        this.isDirectory = isDirectory !== undefined ? isDirectory
-                           : isFile !== undefined ? ! isFile
+        this.isDirectory = ElementStatus.isDefined(isDirectory) ? isDirectory
+                           : ElementStatus.isDefined(isFile) ? ! isFile
                            : true;
 
-        this.isFile = isFile !== undefined ? isFile
-                      : isDirectory !== undefined ? ! isDirectory
+        this.isFile = ElementStatus.isDefined(isFile) ? isFile
+                      : ElementStatus.isDefined(isDirectory) ? ! isDirectory
                       : false;
     }
 
