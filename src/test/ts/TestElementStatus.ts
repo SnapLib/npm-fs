@@ -342,7 +342,7 @@ describe("new ElementStatus(...) invalid constructors", () => {
         });
     });
 
-    context("invalid triple argument constructors with equal directory and file\nproperties", () => {
+    context("invalid triple argument constructors with equally set directory and file\nproperties", () => {
 
         it("new ElementStatus(true, true, true) should throw", () => {
             assert.throws(() => new ElementStatus(true, true, true),
@@ -366,43 +366,300 @@ describe("new ElementStatus(...) invalid constructors", () => {
     });
 });
 
-describe("Properties defaults correctly", () => {
+describe("exists property gets set correctly", () => {
+    it("new ElementStatus(true).exists returns true", () => {
+        assert.isTrue(new ElementStatus(true).exists,
+            "new ElementStatus(true).exists did not return true")
+    });
+    
+    it("new ElementStatus(false).exists returns false", () => {
+        assert.isFalse(new ElementStatus(false).exists,
+            "new ElementStatus(false).exists did not return false")
+    });
+});
+
+describe("isDirectory defaults correctly", () => {
+
     context("isDirectory is true when only exist property is set", () => {
 
-        it("isDirectory is true when only exists property is set to true", () => {
+        it("new ElementStatus(true).isDirectory returns true", () => {
             assert.isTrue(new ElementStatus(true).isDirectory,
-                "isDirectory did not default to true when only exists property is set to true")
+                "new ElementStatus(true).isDirectory did not return true")
         });
 
-        it("isDirectory is true when only exists property is set to false", () => {
+        it("new ElementStatus(false).isDirectory returns true", () => {
             assert.isTrue(new ElementStatus(false).isDirectory,
-                "isDirectory did not default to true when only exists property is set to false")
+                "new ElementStatus(false).isDirectory did not return true")
         });
     });
 
-    context("isFile is false when only exist property is set", () => {
+    context("isDirectory is true when its value is explicitly unset", () => {
 
-        it("isFile is false when only exists property is set to true", () => {
-            assert.isFalse(new ElementStatus(true).isFile,
-                "isFile did not default to false when only exists property is set to true")
+        it("new ElementStatus(true, undefined).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, undefined).isDirectory,
+                "new ElementStatus(true, undefined).isDirectory did not return true")
         });
 
-        it("isFile is false when only exists property is set to false", () => {
+        it("new ElementStatus(true, null).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, null).isDirectory,
+                "new ElementStatus(true, null).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, undefined).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, undefined).isDirectory,
+                "new ElementStatus(false, undefined).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, null).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, null).isDirectory,
+                "new ElementStatus(false, null).isDirectory did not return true")
+        });
+    });
+
+    context("isDirectory is true when isFile is false", () => {
+
+        it("new ElementStatus(true, true, false).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, true, false).isDirectory,
+                "new ElementStatus(true, true, false).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(true, undefined, false).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, undefined, false).isDirectory,
+                "new ElementStatus(true, undefined, false).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(true, null, false).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, null, false).isDirectory,
+                "new ElementStatus(true, null, false).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, true, false).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, true, false).isDirectory,
+                "new ElementStatus(false, true, false).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, undefined, false).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, undefined, false).isDirectory,
+                "new ElementStatus(false, undefined, false).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, null, false).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, null, false).isDirectory,
+                "new ElementStatus(false, null, false).isDirectory did not return true")
+        });
+    });
+
+    context("isDirectory is true when isDirectory and isFile is explicitly unset", () => {
+
+        it("new ElementStatus(true, undefined, undefined).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, undefined, undefined).isDirectory,
+                "new ElementStatus(true, undefined, undefined).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(true, null, null).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, null, null).isDirectory,
+                "new ElementStatus(true, null, null).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(true, undefined, null).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, undefined, null).isDirectory,
+                "new ElementStatus(true, undefined, null).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(true, null, undefined).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(true, null, undefined).isDirectory,
+                "new ElementStatus(true, null, undefined).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, undefined, undefined).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, undefined, undefined).isDirectory,
+                "new ElementStatus(false, undefined, undefined).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, null, null).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, null, null).isDirectory,
+                "new ElementStatus(false, null, null).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, undefined, null).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, undefined, null).isDirectory,
+                "new ElementStatus(false, undefined, null).isDirectory did not return true")
+        });
+
+        it("new ElementStatus(false, null, undefined).isDirectory returns true", () => {
+            assert.isTrue(new ElementStatus(false, null, undefined).isDirectory,
+                "new ElementStatus(false, null, undefined).isDirectory did not return true")
+        });
+    });
+
+    context("isDirectory is false when isFile is true", () => {
+
+        it("new ElementStatus(true, false, true).isDirectory returns false", () => {
+            assert.isFalse(new ElementStatus(true, false, true).isDirectory,
+                "new ElementStatus(true, false, true).isDirectory did not return false")
+        });
+
+        it("new ElementStatus(true, undefined, true).isDirectory returns false", () => {
+            assert.isFalse(new ElementStatus(true, undefined, true).isDirectory,
+                "new ElementStatus(true, undefined, true).isDirectory did not return false")
+        });
+
+        it("new ElementStatus(true, null, true).isDirectory returns false", () => {
+            assert.isFalse(new ElementStatus(true, null, true).isDirectory,
+                "new ElementStatus(true, null, true).isDirectory did not return false")
+        });
+
+        it("new ElementStatus(false, false, true).isDirectory returns false", () => {
+            assert.isFalse(new ElementStatus(false, false, true).isDirectory,
+                "new ElementStatus(false, false, true).isDirectory did not return false")
+        });
+
+        it("new ElementStatus(false, undefined, true).isDirectory returns false", () => {
+            assert.isFalse(new ElementStatus(false, undefined, true).isDirectory,
+                "new ElementStatus(false, undefined, true).isDirectory did not return false")
+        });
+
+        it("new ElementStatus(false, null, true).isDirectory returns false", () => {
+            assert.isFalse(new ElementStatus(false, null, true).isDirectory,
+                "new ElementStatus(false, null, true).isDirectory did not return false")
+        });
+    });
+});
+
+describe("isFile defaults correctly", () => {
+
+    context("isFile is false when only exist property is set", () => {
+
+        it("new ElementStatus(true).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true).isFile,
+                "new ElementStatus(true).isFile did not return false")
+        });
+
+        it("new ElementStatus(false).isFile returns false", () => {
             assert.isFalse(new ElementStatus(false).isFile,
-                "isFile did not default to false when only exists property is set to false")
+                "new ElementStatus(false).isFile did not return false")
+        });
+    });
+
+    context("isFile is false when isDirectory property is set to true", () => {
+
+        it("new ElementStatus(true, true).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true, true).isFile,
+                "new ElementStatus(true, true).isFile did not return false")
+        });
+
+        it("new ElementStatus(false, true).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(false, true).isFile,
+                "new ElementStatus(false, true).isFile did not return false")
+        });
+    });
+
+    context("isFile is false when isDirectory property is explicitly unset", () => {
+
+        it("new ElementStatus(true, undefined).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true, undefined).isFile,
+                "new ElementStatus(true, undefined).isFile did not return false")
+        });
+
+        it("new ElementStatus(true, null).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true, null).isFile,
+                "new ElementStatus(true, null).isFile did not return false")
+        });
+
+        it("new ElementStatus(false, undefined).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(false, undefined).isFile,
+                "new ElementStatus(false, undefined).isFile did not return false")
+        });
+
+        it("new ElementStatus(false, null).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(false, null).isFile,
+                "new ElementStatus(false, null).isFile did not return false")
+        });
+    });
+
+    context("isFile is false when isDirectory and isFile property is explicitly unset", () => {
+
+        it("new ElementStatus(true, undefined, undefined).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true, undefined, undefined).isFile,
+                "new ElementStatus(true, undefined, undefined).isFile did not return false")
+        });
+
+        it("new ElementStatus(true, null, null).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true, null, null).isFile,
+                "new ElementStatus(true, null, null).isFile did not return false")
+        });
+
+        it("new ElementStatus(true, undefined, null).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true, undefined, null).isFile,
+                "new ElementStatus(true, undefined, null).isFile did not return false")
+        });
+
+        it("new ElementStatus(true, null, undefined).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(true, null, undefined).isFile,
+                "new ElementStatus(true, null, undefined).isFile did not return false")
+        });
+
+        it("new ElementStatus(false, undefined, undefined).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(false, undefined, undefined).isFile,
+                "new ElementStatus(false, undefined, undefined).isFile did not return false")
+        });
+
+        it("new ElementStatus(false, null, null).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(false, null, null).isFile,
+                "new ElementStatus(false, null, null).isFile did not return false")
+        });
+
+        it("new ElementStatus(false, undefined, null).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(false, undefined, null).isFile,
+                "new ElementStatus(false, undefined, null).isFile did not return false")
+        });
+
+        it("new ElementStatus(false, null, undefined).isFile returns false", () => {
+            assert.isFalse(new ElementStatus(false, null, undefined).isFile,
+                "new ElementStatus(false, null, undefined).isFile did not return false")
         });
     });
 
     context("isFile is true when isDirectory property is set to false", () => {
 
-        it("isFile is true when exists is true and isDirectory is false", () => {
+        it("new ElementStatus(true, false).isFile returns true", () => {
             assert.isTrue(new ElementStatus(true, false).isFile,
-                "isFile did not default to true when exists property set to true and isDirectory set to false")
+                "new ElementStatus(true, false).isFile did not return true")
         });
 
-        it("isFile is true when exists is false and isDirectory is false", () => {
+        it("new ElementStatus(true, false, true).isFile returns true", () => {
+            assert.isTrue(new ElementStatus(true, false, true).isFile,
+                "new ElementStatus(true, false, true).isFile did not return true")
+        });
+
+        it("new ElementStatus(true, false, undefined).isFile returns true", () => {
+            assert.isTrue(new ElementStatus(true, false, undefined).isFile,
+                "new ElementStatus(true, false, undefined).isFile did not return true")
+        });
+
+        it("new ElementStatus(true, false, null).isFile returns true", () => {
+            assert.isTrue(new ElementStatus(true, false, null).isFile,
+                "new ElementStatus(true, false, null).isFile did not return true")
+        });
+
+        it("new ElementStatus(false, false).isFile returns true", () => {
             assert.isTrue(new ElementStatus(false, false).isFile,
-                "isFile did not default to true when exists property set to false and isDirectory set to false")
+                "new ElementStatus(false, false).isFile did not return true")
+        });
+
+        it("new ElementStatus(false, false, true).isFile returns true", () => {
+            assert.isTrue(new ElementStatus(false, false, true).isFile,
+                "new ElementStatus(false, false, true).isFile did not return true")
+        });
+
+        it("new ElementStatus(false, false, undefined).isFile returns true", () => {
+            assert.isTrue(new ElementStatus(false, false, undefined).isFile,
+                "new ElementStatus(false, false, undefined).isFile did not return true")
+        });
+
+        it("new ElementStatus(false, false, null).isFile returns true", () => {
+            assert.isTrue(new ElementStatus(false, false, null).isFile,
+                "new ElementStatus(false, false, null).isFile did not return true")
         });
     });
 });
