@@ -4,7 +4,7 @@ import 'mocha';
 
 describe("new ElementStatus(...) valid constructors", () => {
 
-    context("single boolean argument constructor", () => {
+    context("valid single boolean argument constructors", () => {
 
         it("new ElementStatus(true) should not throw", () => {
             assert.doesNotThrow(() => new ElementStatus(true),
@@ -17,7 +17,7 @@ describe("new ElementStatus(...) valid constructors", () => {
         });
     });
 
-    context("double argument constructor with set directory property", () => {
+    context("valid double argument constructors with set directory property", () => {
 
         it("new ElementStatus(true, true) should not throw", () => {
             assert.doesNotThrow(() => new ElementStatus(true, true),
@@ -40,7 +40,7 @@ describe("new ElementStatus(...) valid constructors", () => {
         });
     });
 
-    context("double argument constructor with unset directory property", () => {
+    context("valid double argument constructors with unset directory property", () => {
 
         it("new ElementStatus(true, undefined) should not throw", () => {
             assert.doesNotThrow(() => new ElementStatus(true, undefined),
@@ -63,7 +63,7 @@ describe("new ElementStatus(...) valid constructors", () => {
         });
     });
 
-    context("triple argument constructor with set directory and file property", () => {
+    context("valid triple argument constructors with set directory and file property", () => {
 
         it("new ElementStatus(true, true, false) should not throw", () => {
             assert.doesNotThrow(() => new ElementStatus(true, true, false),
@@ -86,7 +86,7 @@ describe("new ElementStatus(...) valid constructors", () => {
         });
     });
 
-    context("triple argument constructor with unset directory property", () => {
+    context("valid triple argument constructors with unset directory property", () => {
 
         it("new ElementStatus(true, undefined, true) should not throw", () => {
             assert.doesNotThrow(() => new ElementStatus(true, undefined, true),
@@ -129,7 +129,7 @@ describe("new ElementStatus(...) valid constructors", () => {
         });
     });
 
-    context("triple argument constructor with unset file property", () => {
+    context("valid triple argument constructors with unset file property", () => {
 
         it("new ElementStatus(true, true, undefined) should not throw", () => {
             assert.doesNotThrow(() => new ElementStatus(true, true, undefined),
@@ -172,7 +172,7 @@ describe("new ElementStatus(...) valid constructors", () => {
         });
     });
 
-    context("triple argument constructor with unset directory and file property", () => {
+    context("valid triple argument constructors with unset directory and file property", () => {
 
         it("new ElementStatus(true, undefined, undefined) should not throw", () => {
             assert.doesNotThrow(() => new ElementStatus(true, undefined, undefined),
@@ -218,7 +218,7 @@ describe("new ElementStatus(...) valid constructors", () => {
 
 describe("new ElementStatus(...) invalid constructors", () => {
 
-    context("single unset argument constructor", () => {
+    context("invalid single unset argument constructors", () => {
 
         it("new ElementStatus(undefined) should throw", () => {
             assert.throws(() => new ElementStatus(undefined),
@@ -231,7 +231,7 @@ describe("new ElementStatus(...) invalid constructors", () => {
         });
     });
 
-    context("double argument constructor with unset exists property", () => {
+    context("invalid double argument constructors with unset exists property", () => {
 
         it("new ElementStatus(undefined, true) should throw", () => {
             assert.throws(() => new ElementStatus(undefined, true),
@@ -274,7 +274,113 @@ describe("new ElementStatus(...) invalid constructors", () => {
         });
     });
 
-    context("triple argument constructor with equal directory and file properties", () => {
+    context("invalid triple argument constructors with unset exists property", () => {
+
+        it("new ElementStatus(undefined, true, false) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, true, false),
+                "exists element property can't be undefined")
+        });
+
+        it("new ElementStatus(undefined, true, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, true, undefined),
+                "exists element property can't be undefined")
+        });
+
+        it("new ElementStatus(undefined, true, null) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, true, null),
+                "exists element property can't be undefined")
+        });
+
+        it("new ElementStatus(undefined, false, true) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, false, true),
+                "exists element property can't be undefined")
+        });
+
+        it("new ElementStatus(undefined, false, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, false, undefined),
+                "exists element property can't be undefined")
+        });
+
+        it("new ElementStatus(undefined, false, null) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, false, null),
+                "exists element property can't be undefined")
+        });
+
+        it("new ElementStatus(null, true, false) should throw", () => {
+            assert.throws(() => new ElementStatus(null, true, false),
+                "exists element property can't be null")
+        });
+
+        it("new ElementStatus(null, true, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(null, true, undefined),
+                "exists element property can't be null")
+        });
+
+        it("new ElementStatus(null, true, null) should throw", () => {
+            assert.throws(() => new ElementStatus(null, true, null),
+                "exists element property can't be null")
+        });
+
+        it("new ElementStatus(null, false, true) should throw", () => {
+            assert.throws(() => new ElementStatus(null, false, true),
+                "exists element property can't be null")
+        });
+
+        it("new ElementStatus(null, false, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(null, false, undefined),
+                "exists element property can't be null")
+        });
+
+        it("new ElementStatus(null, false, null) should throw", () => {
+            assert.throws(() => new ElementStatus(null, false, null),
+                "exists element property can't be null")
+        });
+    });
+
+    context("invalid triple argument constructors with all properties unset", () => {
+
+       it("new ElementStatus(undefined, undefined, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, undefined, undefined),
+                "exists element property can't be undefined")
+        });
+
+       it("new ElementStatus(undefined, undefined, null) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, undefined, null),
+                "exists element property can't be undefined")
+        });
+
+       it("new ElementStatus(undefined, null, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, null, undefined),
+                "exists element property can't be undefined")
+        });
+
+       it("new ElementStatus(undefined, null, null) should throw", () => {
+            assert.throws(() => new ElementStatus(undefined, null, null),
+                "exists element property can't be undefined")
+        });
+
+       it("new ElementStatus(null, null, null) should throw", () => {
+            assert.throws(() => new ElementStatus(null, null, null),
+                "exists element property can't be null")
+        });
+
+       it("new ElementStatus(null, null, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(null, null, undefined),
+                "exists element property can't be null")
+        });
+
+       it("new ElementStatus(null, undefined, null) should throw", () => {
+            assert.throws(() => new ElementStatus(null, undefined, null),
+                "exists element property can't be null")
+        });
+
+       it("new ElementStatus(null, undefined, undefined) should throw", () => {
+            assert.throws(() => new ElementStatus(null, undefined, undefined),
+                "exists element property can't be null")
+        });
+    });
+
+    context("invalid triple argument constructors with equal directory and file\nproperties", () => {
 
         it("new ElementStatus(true, true, true) should throw", () => {
             assert.throws(() => new ElementStatus(true, true, true),
