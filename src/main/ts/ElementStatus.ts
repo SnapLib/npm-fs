@@ -26,6 +26,11 @@ export class ElementStatus
                       : false;
     }
 
+    public static of(elementStatus: Partial<ElementStatus>): ElementStatus
+    {
+        return new ElementStatus(elementStatus.exists, elementStatus.isDirectory, elementStatus.isFile);
+    }
+
     private static isDefined(prop: any): boolean
     {
         return prop !== undefined && prop !== null;
