@@ -664,7 +664,7 @@ describe("isFile defaults correctly", () => {
     });
 });
 
-describe("valid static of(...) instantiation", () => {
+describe("valid static of(Partial<ElementStatus>) instantiation", () => {
 
     context("valid single exists property argument static instantiation", () => {
 
@@ -872,5 +872,193 @@ describe("valid static of(...) instantiation", () => {
         it("ElementStatus.of({exists: false, isDirectory: null, isFile: undefined}) should not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of({exists: false, isDirectory: null, isFile: undefined}))
         });
+    });
+});
+
+describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
+
+    context("invalid single exists property argument static instantiation", () => {
+
+        it("ElementStatus.of({exists: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null}),
+                "exists element property can't be null")
+        });
+    });
+
+    context("invalid double argument static instantiation with explicit unset exists\nproperty", () => {
+
+        it("ElementStatus.of({exists: undefined, isDirectory: true}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: true}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: false}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: true}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: true}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: false}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: undefined}) should\nthrow", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: undefined}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: null}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: undefined}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: null}),
+                "exists element property can't be null")
+        });
+    });
+
+    context("invalid triple argument static instantiation with explicit unset exists\nproperty", () => {
+
+        it("ElementStatus.of({exists: undefined, isDirectory: true, isFile: false})\nshould throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: true, isFile: false}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: true, isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: true, isFile: undefined}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: true, isFile: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: true, isFile: null}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: false, isFile: true})\nshould throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: false, isFile: true}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: false, isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: false, isFile: undefined}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: undefined, isDirectory: false, isFile: null})\nshould throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: false, isFile: null}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: true, isFile: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: true, isFile: false}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: true, isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: true, isFile: undefined}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: true, isFile: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: true, isFile: null}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: false, isFile: true})\nshould throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: false, isFile: true}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: false, isFile: undefined})\nshould throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: false, isFile: undefined}),
+                "exists element property can't be null")
+        });
+
+        it("ElementStatus.of({exists: null, isDirectory: false, isFile: null})\nshould throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: false, isFile: null}),
+                "exists element property can't be null")
+        });
+    });
+
+    context("invalid triple argument static instantiation with all properties explicit unset", () => {
+
+       it("ElementStatus.of({exists: undefined, isDirectory: undefined, isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: undefined, isFile: undefined}),
+                "exists element property can't be undefined")
+        });
+
+       it("ElementStatus.of({exists: undefined, isDirectory: undefined, isFile: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: undefined, isFile: null}),
+                "exists element property can't be undefined")
+        });
+
+       it("ElementStatus.of({exists: undefined, isDirectory: null, isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: null, isFile: undefined}),
+                "exists element property can't be undefined")
+        });
+
+       it("ElementStatus.of({exists: undefined, isDirectory: null, isFile: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: undefined, isDirectory: null, isFile: null}),
+                "exists element property can't be undefined")
+        });
+
+       it("ElementStatus.of({exists: null, isDirectory: null, isFile: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: null, isFile: null}),
+                "exists element property can't be null")
+        });
+
+       it("ElementStatus.of({exists: null, isDirectory: null, isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: null, isFile: undefined}),
+                "exists element property can't be null")
+        });
+
+       it("ElementStatus.of({exists: null, isDirectory: undefined, isFile: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: undefined, isFile: null}),
+                "exists element property can't be null")
+        });
+
+       it("ElementStatus.of({exists: null, isDirectory: undefined, isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: null, isDirectory: undefined, isFile: undefined}),
+                "exists element property can't be null")
+        });
+
+       context("invalid triple argument static instantiation with equally set directory and file\nproperties", () => {
+
+        it("ElementStatus.of({exists: true, isDirectory: true, isFile: true}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: true, isDirectory: true, isFile: true}),
+                "directory and file property status of true")
+        });
+
+        it("ElementStatus.of({exists: true, isDirectory: false, isFile: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: true, isDirectory: false, isFile: false}),
+                "directory and file property status of false")
+        });
+
+        it("ElementStatus.of({exists: false, isDirectory: true, isFile: true}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: false, isDirectory: true, isFile: true}),
+                "directory and file property status of true")
+        });
+
+        it("ElementStatus.of({exists: false, isDirectory: false, isFile: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({exists: false, isDirectory: false, isFile: false}),
+                "directory and file property status of false")
+        });
+    });
     });
 });
