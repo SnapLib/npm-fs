@@ -877,7 +877,7 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
 
 describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
 
-    context("invalid single exists property argument static instantiation", () => {
+    context("invalid single exists property explicit unset argument static instantiation", () => {
 
         it("ElementStatus.of({exists: undefined}) should throw", () => {
             assert.throws(() => ElementStatus.of({exists: undefined}),
@@ -887,6 +887,41 @@ describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
         it("ElementStatus.of({exists: null}) should throw", () => {
             assert.throws(() => ElementStatus.of({exists: null}),
                 "exists element property can't be null")
+        });
+    });
+
+    context("invalid single argument missing exists property argument static instantiation", () => {
+
+        it("ElementStatus.of({isDirectory: true}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isDirectory: true}))
+        });
+
+        it("ElementStatus.of({isDirectory: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isDirectory: false}))
+        });
+
+        it("ElementStatus.of({isDirectory: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isDirectory: undefined}))
+        });
+
+        it("ElementStatus.of({isDirectory: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isDirectory: null}))
+        });
+
+        it("ElementStatus.of({isFile: true}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isFile: true}))
+        });
+
+        it("ElementStatus.of({isFile: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isFile: false}))
+        });
+
+        it("ElementStatus.of({isFile: undefined}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isFile: undefined}))
+        });
+
+        it("ElementStatus.of({isFile: null}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isFile: null}))
         });
     });
 
@@ -930,6 +965,19 @@ describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
         it("ElementStatus.of({exists: null, isDirectory: null}) should throw", () => {
             assert.throws(() => ElementStatus.of({exists: null, isDirectory: null}),
                 "exists element property can't be null")
+        });
+    });
+
+    context("invalid double argument static instantiation missing exists property", () => {
+
+        it("ElementStatus.of({isDirectory: true, isFile: false}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isDirectory: true, isFile: false}),
+                "exists element property can't be undefined")
+        });
+
+        it("ElementStatus.of({isDirectory: false, isFile: true}) should throw", () => {
+            assert.throws(() => ElementStatus.of({isDirectory: false, isFile: true}),
+                "exists element property can't be undefined")
         });
     });
 
