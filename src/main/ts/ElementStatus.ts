@@ -28,11 +28,14 @@ export class ElementStatus
 
     public static of(existsStatus: boolean, directoryFileStatus?: Omit<ElementStatus, "exists">): ElementStatus
     {
-        return new ElementStatus(existsStatus,
-                       (directoryFileStatus !== undefined && directoryFileStatus !== null)
-                                 ? directoryFileStatus.isDirectory : undefined,
-                           (directoryFileStatus !== undefined && directoryFileStatus !== null)
-                                 ? directoryFileStatus.isFile : undefined);
+        if (directoryFileStatus !== undefined && directoryFileStatus !== null)
+        {
+            return new ElementStatus(existsStatus, directoryFileStatus.isDirectory, directoryFileStatus.isFile)
+        }
+        else
+        {
+            return new ElementStatus(existsStatus, undefined, undefined);
+        }
     }
 
     private static isDefined(prop: any): boolean
