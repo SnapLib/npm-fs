@@ -26,9 +26,13 @@ export class ElementStatus
                       : false;
     }
 
-    public static of(existsStatus: boolean, directoryFileStatus: Omit<ElementStatus, "exists">): ElementStatus
+    public static of(existsStatus: boolean, directoryFileStatus?: Omit<ElementStatus, "exists">): ElementStatus
     {
-        return new ElementStatus(existsStatus, directoryFileStatus.isDirectory, directoryFileStatus.isFile);
+        return new ElementStatus(existsStatus,
+                       ElementStatus.isDefined(directoryFileStatus)
+                                 ? directoryFileStatus.isDirectory : undefined,
+                           ElementStatus.isDefined(directoryFileStatus)
+                                 ? directoryFileStatus.isFile : undefined);
     }
 
     private static isDefined(prop: any): boolean
