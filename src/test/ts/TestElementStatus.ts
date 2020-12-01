@@ -679,11 +679,11 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
 
     context("valid static instantiation with set isDirectory property", () => {
 
-        it("ElementStatus.of( true, {isDirectory: true}) should not throw", () => {
+        it("ElementStatus.of(true, {isDirectory: true}) should not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of( true, {isDirectory: true}))
         });
 
-        it("ElementStatus.of( true, {isDirectory: false}) should not throw", () => {
+        it("ElementStatus.of(true, {isDirectory: false}) should not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of( true, {isDirectory: false}))
         });
 
@@ -698,11 +698,11 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
 
     context("valid static instantiation with explicit unset isDirectory property", () => {
 
-        it("ElementStatus.of( true, {isDirectory: undefined}) should not throw", () => {
+        it("ElementStatus.of(true, {isDirectory: undefined}) should not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of( true, {isDirectory: undefined}))
         });
 
-        it("ElementStatus.of( true, {isDirectory: null}) should not throw", () => {
+        it("ElementStatus.of(true, {isDirectory: null}) should not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of( true, {isDirectory: null}))
         });
 
@@ -712,6 +712,25 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
 
         it("ElementStatus.of( false, {isDirectory: null}) should not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of( false, {isDirectory: null}))
+        });
+    });
+    
+    context("valid static instantiation with explicit unset isFile property", () => {
+
+        it("ElementStatus.of(true, {isFile: undefined}) should not throw", () => {
+            assert.doesNotThrow(() => ElementStatus.of( true, {isFile: undefined}))
+        });
+
+        it("ElementStatus.of(true, {isFile: null}) should not throw", () => {
+            assert.doesNotThrow(() => ElementStatus.of( true, {isFile: null}))
+        });
+
+        it("ElementStatus.of( false, {isFile: undefined}) should not throw", () => {
+            assert.doesNotThrow(() => ElementStatus.of( false, {isFile: undefined}))
+        });
+
+        it("ElementStatus.of( false, {isFile: null}) should not throw", () => {
+            assert.doesNotThrow(() => ElementStatus.of( false, {isFile: null}))
         });
     });
 
