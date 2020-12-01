@@ -29,9 +29,9 @@ export class ElementStatus
     public static of(existsStatus: boolean, directoryFileStatus?: Omit<ElementStatus, "exists">): ElementStatus
     {
         return new ElementStatus(existsStatus,
-                       ElementStatus.isDefined(directoryFileStatus)
+                       (directoryFileStatus !== undefined && directoryFileStatus !== null)
                                  ? directoryFileStatus.isDirectory : undefined,
-                           ElementStatus.isDefined(directoryFileStatus)
+                           (directoryFileStatus !== undefined && directoryFileStatus !== null)
                                  ? directoryFileStatus.isFile : undefined);
     }
 
