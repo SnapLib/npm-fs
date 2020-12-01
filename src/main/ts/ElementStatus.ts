@@ -4,7 +4,7 @@ export class ElementStatus
     public readonly isDirectory?: boolean;
     public readonly isFile?: boolean;
 
-    public constructor(exists: boolean, isDirectory?: boolean, isFile?: boolean)
+    private constructor(exists: boolean, isDirectory?: boolean, isFile?: boolean)
     {
         if (exists === undefined || exists === null)
         {
