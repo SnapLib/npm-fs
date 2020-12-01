@@ -26,9 +26,9 @@ export class ElementStatus
                       : false;
     }
 
-    public static of(elementStatus: Partial<ElementStatus>): ElementStatus
+    public static of(existsStatus: boolean, directoryFileStatus: Omit<ElementStatus, "exists">): ElementStatus
     {
-        return new ElementStatus(elementStatus.exists, elementStatus.isDirectory, elementStatus.isFile);
+        return new ElementStatus(existsStatus, directoryFileStatus.isDirectory, directoryFileStatus.isFile);
     }
 
     private static isDefined(prop: any): boolean
