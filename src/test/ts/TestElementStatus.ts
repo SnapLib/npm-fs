@@ -715,7 +715,7 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
         });
     });
 
-    context("valid static instantiation with implicit unset isDirectory property", () => {
+    context("valid static instantiation with set isFile property", () => {
 
         it("ElementStatus.of(true, {isFile: true}) should not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of(true, {isFile: true}))
@@ -769,7 +769,7 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
         });
     });
 
-    context("valid static instantiation with explicit unset isDirectory property", () => {
+    context("valid static instantiation with explicit unset isDirectory and set isFile\nproperty", () => {
 
         it("ElementStatus.of(true, {isDirectory: undefined, isFile: true})\nshould not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of(true, {isDirectory: undefined, isFile: true}))
@@ -804,7 +804,7 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
         });
     });
 
-    context("valid static instantiation with explicit unset isFile property", () => {
+    context("valid static instantiation with set isDirectory and explicit unset isFile\nproperty", () => {
 
         it("ElementStatus.of(true, {isDirectory: true, isFile: undefined})\nshould not throw", () => {
             assert.doesNotThrow(() => ElementStatus.of(true, {isDirectory: true, isFile: undefined}))
