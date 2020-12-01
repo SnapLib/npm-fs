@@ -4,25 +4,25 @@ export class ElementStatus
     public readonly isDirectory?: boolean;
     public readonly isFile?: boolean;
 
-    private constructor(exists: boolean, isDirectory?: boolean, isFile?: boolean)
+    public constructor(exists: boolean, isDirectory?: boolean, isFile?: boolean)
     {
         if (exists === undefined || exists === null)
         {
             throw new IllegalElementStatusExistsPropertyError(`exists element property can't be ${exists}`);
         }
-        else if ((ElementStatus.isDefined(isDirectory) || ElementStatus.isDefined(isFile)) && isDirectory === isFile)
+        else if (((isDirectory !== undefined && isDirectory !== null) || (isFile !== undefined && isFile !== null)) && isDirectory === isFile)
         {
             throw new ElementStatusPropertyConflictError(`directory and file property status of ${isDirectory}`);
         }
 
         this.exists = exists;
 
-        this.isDirectory = ElementStatus.isDefined(isDirectory) ? isDirectory
-                           : ElementStatus.isDefined(isFile) ? ! isFile
+        this.isDirectory = (isDirectory !== undefined && isDirectory !== null) ? isDirectory
+                           : (isFile !== undefined && isFile !== null) ? ! isFile
                            : true;
 
-        this.isFile = ElementStatus.isDefined(isFile) ? isFile
-                      : ElementStatus.isDefined(isDirectory) ? ! isDirectory
+        this.isFile = (isFile !== undefined && isFile !== null) ? isFile
+                      : (isDirectory !== undefined && isDirectory !== null) ? ! isDirectory
                       : false;
     }
 
@@ -36,11 +36,6 @@ export class ElementStatus
         {
             return new ElementStatus(existsStatus, undefined, undefined);
         }
-    }
-
-    private static isDefined(prop: any): boolean
-    {
-        return prop !== undefined && prop !== null;
     }
 }
 
