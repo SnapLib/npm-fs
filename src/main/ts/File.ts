@@ -1,6 +1,6 @@
 import { Element  } from "./Element";
 
-export class File
+export class File extends Element
 {
 
 }
