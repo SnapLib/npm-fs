@@ -8,10 +8,11 @@
     "clean": "rimraf build",
     "mocha": "mocha -r ts-node/register",
     "test": "mocha -r ts-node/register src/test/ts/*.ts",
+    "ts": "ts-node src/main/ts/root/RootDirectory.ts",
+    "ts-node": "ts-node",
     "tsc": "tsc",
     "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap true --strict true --removeComments false -p src/main/ts/tsconfig.json --outDir build/js",
-    "ts": "ts-node src/main/ts/root/RootDirectory.ts",
-    "ts-node": "ts-node"
+    "typedoc": "typedoc --readme docs/PKG_README.md --out build/docs/ src/main/ts/**.ts"
   },
   "keywords": [
     "snaplib",
@@ -24,7 +25,6 @@
   "author": "Snap",
   "license": "MIT",
   "devDependencies": {
-    "@microsoft/tsdoc": "^0.12.21",
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.9",
@@ -33,6 +33,7 @@
     "mocha": "^8.2.1",
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
+    "typedoc": "^0.19.2",
     "typescript": "^4.1.2"
   },
   "dependencies": {
