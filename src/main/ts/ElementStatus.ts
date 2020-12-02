@@ -39,6 +39,7 @@ export class ElementStatus
     }
 }
 
+/** @ignore */
 class IllegalElementStatusExistsPropertyError extends Error
 {
     constructor(msg: string)
@@ -47,6 +48,7 @@ class IllegalElementStatusExistsPropertyError extends Error
     }
 }
 
+/** @ignore */
 class ElementStatusPropertyConflictError extends Error
 {
     constructor(msg: string)
