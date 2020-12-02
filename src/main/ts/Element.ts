@@ -4,36 +4,46 @@ import * as pathModule from 'path';
 
 /**
  * The most fundamental elements of an npm file system are the directories and
- * files that make up the system.
+ * files that  the system contains. These elements share many common properties
+ * such as having a path and name. However, each element type also has unique
+ * properties that are implementation specific such as the contents and size.
+ * For instance the contents of a directory are different than the contents of
+ * a text file.
  *
- * @packageDocumentation
+ * @overview
  */
 
 /**
- * Contains the base implementation all element objects inherit from.
+ * @classdesc Contains the base implementation all file and directory element
+ *            objects inherit from.
  *
  * @remarks
  * Methods such as {@link contents} and {@link size} throw `MissingMethodImplementationError` errors if they
- * are called directly from this class or any child class that doesn't provide their own implementation of these
- * methods.
+ * are called directly from this class or any child class that doesn't override and provide their own
+ * implementation of these methods.
+ *
+ *
  */
 export class Element
 {
     /**
      * The path of this element
      * @readonly
+     * @property
      */
     public readonly path: string;
 
     /**
      * The name of this element
      * @readonly
+     * @property
      */
     public readonly name: string;
 
     /**
      * The parent directory of this element
      * @readonly
+     * @property
      */
     public readonly parent: string;
 
@@ -89,7 +99,11 @@ export class Element
      *
      * @returns The contents of this directory or file element
      *
+     * @throws `MissingMethodImplementationError` if method isn't overridden
+     *          and provided an implementation
+     *
      * @abstract
+     * @function
      */
     public contents(): ReadonlyArray<string>
     {
@@ -102,6 +116,7 @@ export class Element
      * @returns `true` if this file or directory element exists when this method is called
      *
      * @sealed
+     * @function
      */
     public exists(): boolean
     {
@@ -114,6 +129,7 @@ export class Element
      * @returns `true` if this element's path points to a directory
      *
      * @sealed
+     * @function
      */
     public isDir(): boolean
     {
@@ -126,6 +142,7 @@ export class Element
      * @returns `true` if this element's path points to a file
      *
      * @sealed
+     * @function
      */
     public isFile(): boolean
     {
@@ -138,7 +155,11 @@ export class Element
      *
      * @returns the size of this element
      *
+     * @throws `MissingMethodImplementationError` if method isn't overridden
+     *         and provided an implementation
+     *
      * @abstract
+     * @function
      */
     public size(): number
     {
@@ -147,6 +168,8 @@ export class Element
 
 }
 
+
+/** @ignore */
 class BlankElementPath extends Error
 {
     constructor(msg: string)
@@ -155,6 +178,7 @@ class BlankElementPath extends Error
     }
 }
 
+/** @ignore */
 class ElementDoesNotExistError extends Error
 {
     constructor(path: string)
@@ -163,6 +187,7 @@ class ElementDoesNotExistError extends Error
     }
 }
 
+/** @ignore */
 class PreExistingElementError extends Error
 {
     constructor(path: string)
@@ -171,6 +196,7 @@ class PreExistingElementError extends Error
     }
 }
 
+/** @ignore */
 class DirectoryWithFilePathError extends Error
 {
     constructor(path: string)
@@ -179,6 +205,7 @@ class DirectoryWithFilePathError extends Error
     }
 }
 
+/** @ignore */
 class FileWithDirectoryPathError extends Error
 {
     constructor(path: string)
@@ -187,6 +214,7 @@ class FileWithDirectoryPathError extends Error
     }
 }
 
+/** @ignore */
 class MissingMethodImplementationError extends Error
 {
     constructor(msg: string)
