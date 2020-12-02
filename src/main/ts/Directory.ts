@@ -1,12 +1,17 @@
-import { AbstractElement } from "./AbstractElement";
+import { Element } from "./Element";
 import * as fs from 'fs';
 import * as path from 'path';
 
-export class Directory extends AbstractElement
+export class Directory extends Element
 {
     public constructor(directoryPath: string, existsStatus: boolean)
     {
         super(directoryPath, {exists: existsStatus, isDirectory: true, isFile: false});
+    }
+
+    public contents(): ReadonlyArray<string>
+    {
+        return fs.readdirSync(this.path);
     }
 
     public getContentNames(): ReadonlyArray<string>
