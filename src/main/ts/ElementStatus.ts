@@ -1,8 +1,26 @@
 export class ElementStatus
 {
+    /**
+     * @readonly
+     * @property
+     */
     public readonly exists: boolean;
+    /**
+     * @readonly
+     * @property
+     */
     public readonly isDirectory?: boolean;
+    /**
+     * @readonly
+     * @property
+     */
     public readonly isFile?: boolean;
+
+    /**
+     * @param exists
+     * @param isDirectory
+     * @param isFile
+     */
 
     public constructor(exists: boolean, isDirectory?: boolean, isFile?: boolean)
     {
@@ -26,6 +44,15 @@ export class ElementStatus
                       : false;
     }
 
+    /**
+     *
+     * @param existsStatus
+     * @param directoryFileStatus
+     *
+     * @sealed
+     * @static
+     * @function
+     */
     public static of(existsStatus: boolean, directoryFileStatus?: Omit<ElementStatus, "exists">): ElementStatus
     {
         if (directoryFileStatus !== undefined && directoryFileStatus !== null)
