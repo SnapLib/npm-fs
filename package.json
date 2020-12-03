@@ -12,7 +12,7 @@
     "tsc": "tsc",
     "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap true --strict true --removeComments false -p src/main/ts/tsconfig.json --outDir build/js",
     "tslint": "eslint --ext .ts src/main/ts/**.ts",
-    "typedoc": "typedoc --readme docs/PKG_README.md --out build/docs/ src/main/ts/**.ts"
+    "typedoc": "typedoc --readme docs/PKG_README.md --out build/docs src/main/ts/**.ts"
   },
   "keywords": [
     "snaplib",
