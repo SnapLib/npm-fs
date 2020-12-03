@@ -105,10 +105,7 @@ export abstract class Element
      * @abstract
      * @function
      */
-    public contents(): ReadonlyArray<string>
-    {
-        throw new MissingMethodImplementationError("missing getContents() method implementation");
-    }
+    public abstract contents(): ReadonlyArray<string>;
 
     /**
      * Returns `true` if this file or directory element exists.
@@ -161,11 +158,7 @@ export abstract class Element
      * @abstract
      * @function
      */
-    public size(): number
-    {
-        throw new MissingMethodImplementationError("missing size() method implementation");
-    }
-
+    public abstract size(): number;
 }
 
 
@@ -211,14 +204,5 @@ class FileWithDirectoryPathError extends Error
     constructor(path: string)
     {
         super(`file path of "${path}" points to a directory`);
-    }
-}
-
-/** @ignore */
-class MissingMethodImplementationError extends Error
-{
-    constructor(msg: string)
-    {
-        super(msg);
     }
 }
