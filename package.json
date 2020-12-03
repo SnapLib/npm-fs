@@ -6,13 +6,12 @@
   "main": "scripts/npm/init/init.js",
   "scripts": {
     "clean": "rimraf build",
-    "tslint": "eslint --ext .ts src/main/ts/**.ts",
     "mocha": "mocha -r ts-node/register",
     "test": "mocha -r ts-node/register src/test/ts/**.ts",
-    "ts": "ts-node src/main/ts/root/RootDirectory.ts",
     "ts-node": "ts-node",
     "tsc": "tsc",
     "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap true --strict true --removeComments false -p src/main/ts/tsconfig.json --outDir build/js",
+    "tslint": "eslint --ext .ts src/main/ts/**.ts",
     "typedoc": "typedoc --readme docs/PKG_README.md --out build/docs/ src/main/ts/**.ts"
   },
   "keywords": [
