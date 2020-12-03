@@ -6,7 +6,7 @@
   "main": "scripts/npm/init/init.js",
   "scripts": {
     "clean": "rimraf build",
-    "tslint": "eslint --ext .ts src/main/ts/**",
+    "tslint": "eslint --ext .ts src/main/ts/**.ts",
     "mocha": "mocha -r ts-node/register",
     "test": "mocha -r ts-node/register src/test/ts/*.ts",
     "ts": "ts-node src/main/ts/root/RootDirectory.ts",
