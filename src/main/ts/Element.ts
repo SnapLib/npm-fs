@@ -24,7 +24,7 @@ import * as pathModule from 'path';
  *
  *
  */
-export class Element
+export abstract class Element
 {
     /**
      * The path of this element
