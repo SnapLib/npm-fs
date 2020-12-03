@@ -1,6 +1,6 @@
 import { ElementStatus } from "./ElementStatus";
-import * as fs from 'fs';
-import * as pathModule from 'path';
+import * as fs from "fs";
+import * as pathModule from "path";
 
 /**
  * The most fundamental elements of an npm file system are the directories and
@@ -87,7 +87,7 @@ export abstract class Element
 
         this.path = elementPath;
         this.name = pathModule.basename(elementPath);
-        this.parent = pathModule.dirname(elementPath)
+        this.parent = pathModule.dirname(elementPath);
     }
 
     /**

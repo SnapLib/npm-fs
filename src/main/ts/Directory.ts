@@ -1,6 +1,6 @@
 import { Element } from "./Element";
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
 export class Directory extends Element
 {
@@ -47,37 +47,37 @@ export class Directory extends Element
     public contains(nameOrPath: string): boolean
     {
         return this.getContentNames().includes(nameOrPath)
-            || this.getContentPaths().includes(nameOrPath)
+            || this.getContentPaths().includes(nameOrPath);
     }
 
     public containsIgnoreCase(nameOrPath: string): boolean
     {
-        return this.getContentNames().some(contentName => nameOrPath.localeCompare(contentName, undefined, {sensitivity: 'base'}) === 0)
-            || this.getContentPaths().some(contentPath => nameOrPath.localeCompare(contentPath, undefined, {sensitivity: 'base'}) === 0)
+        return this.getContentNames().some(contentName => nameOrPath.localeCompare(contentName, undefined, {sensitivity: "base"}) === 0)
+            || this.getContentPaths().some(contentPath => nameOrPath.localeCompare(contentPath, undefined, {sensitivity: "base"}) === 0);
     }
 
     public containsFile(fileNameOrPath: string): boolean
     {
         return this.getFileNames().includes(fileNameOrPath)
-            || this.getFilePaths().includes(fileNameOrPath)
+            || this.getFilePaths().includes(fileNameOrPath);
     }
 
     public containsFileIgnoreCase(nameOrPath: string): boolean
     {
-        return this.getFileNames().some(fileName => nameOrPath.localeCompare(fileName, undefined, {sensitivity: 'base'}) === 0)
-            || this.getFilePaths().some(filePath => nameOrPath.localeCompare(filePath, undefined, {sensitivity: 'base'}) === 0)
+        return this.getFileNames().some(fileName => nameOrPath.localeCompare(fileName, undefined, {sensitivity: "base"}) === 0)
+            || this.getFilePaths().some(filePath => nameOrPath.localeCompare(filePath, undefined, {sensitivity: "base"}) === 0);
     }
 
     public containsDir(dirNameOrPath: string): boolean
     {
         return this.getDirNames().includes(dirNameOrPath)
-            || this.getDirPaths().includes(dirNameOrPath)
+            || this.getDirPaths().includes(dirNameOrPath);
     }
 
     public containsDirIgnoreCase(nameOrPath: string): boolean
     {
-        return this.getDirNames().some(dirName => nameOrPath.localeCompare(dirName, undefined, {sensitivity: 'base'}) === 0)
-            || this.getDirPaths().some(dirPath => nameOrPath.localeCompare(dirPath, undefined, {sensitivity: 'base'}) === 0)
+        return this.getDirNames().some(dirName => nameOrPath.localeCompare(dirName, undefined, {sensitivity: "base"}) === 0)
+            || this.getDirPaths().some(dirPath => nameOrPath.localeCompare(dirPath, undefined, {sensitivity: "base"}) === 0);
     }
 
     public size(): number

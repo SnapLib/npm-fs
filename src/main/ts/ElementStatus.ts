@@ -1,16 +1,27 @@
 export class ElementStatus
 {
     /**
+     * `boolean` property to indicate whether an element should exist/be a
+     * pre-existing element or not.
+     *
      * @readonly
      * @property
      */
     public readonly exists: boolean;
+
     /**
+     * `boolean` property to indicate whether this element should be a directory
+     * or not.
+     *
      * @readonly
      * @property
      */
     public readonly isDirectory?: boolean;
+
     /**
+     * `boolean` property to indicate whether this element should be a file or
+     * not.
+     *
      * @readonly
      * @property
      */
@@ -20,8 +31,9 @@ export class ElementStatus
      * @param exists
      * @param isDirectory
      * @param isFile
+     *
+     * @constructor
      */
-
     public constructor(exists: boolean, isDirectory?: boolean, isFile?: boolean)
     {
         if (exists === undefined || exists === null)
@@ -45,6 +57,10 @@ export class ElementStatus
     }
 
     /**
+     * Static function to instantiate an `ElementStatus` object.
+     *
+     * @remarks This function can be used in place of the constructor offering a
+     * less verbose way to create an `ElementStatus` object.
      *
      * @param existsStatus
      * @param directoryFileStatus
@@ -52,17 +68,46 @@ export class ElementStatus
      * @sealed
      * @static
      * @function
+     * @constructs {@link ElementStatus}
      */
     public static of(existsStatus: boolean, directoryFileStatus?: Omit<ElementStatus, "exists">): ElementStatus
     {
         if (directoryFileStatus !== undefined && directoryFileStatus !== null)
         {
-            return new ElementStatus(existsStatus, directoryFileStatus.isDirectory, directoryFileStatus.isFile)
+            return new ElementStatus(existsStatus, directoryFileStatus.isDirectory, directoryFileStatus.isFile);
         }
         else
         {
             return new ElementStatus(existsStatus, undefined, undefined);
         }
+    }
+
+    /**
+     * Static function to instantiate an `ElementStatus` for a directory element
+     * that should exist/be pre-existing.
+     *
+     * @sealed
+     * @static
+     * @function
+     * @constructs {@link ElementStatus}
+     */
+    public static ofExistingDirectory(): ElementStatus
+    {
+        return new ElementStatus(true, true, false);
+    }
+
+    /**
+     * Static function to instantiate an `ElementStatus` for a file element that
+     * should exist/be pre-existing.
+     *
+     * @sealed
+     * @static
+     * @function
+     * @constructs {@link ElementStatus}
+     */
+    public static ofExistingFile(): ElementStatus
+    {
+        return new ElementStatus(true, false, true);
     }
 }
 
