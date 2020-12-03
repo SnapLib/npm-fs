@@ -6,6 +6,7 @@
   "main": "scripts/npm/init/init.js",
   "scripts": {
     "clean": "rimraf build",
+    "eslint": "eslint --ext .ts src/main/ts/**",
     "mocha": "mocha -r ts-node/register",
     "test": "mocha -r ts-node/register src/test/ts/*.ts",
     "ts": "ts-node src/main/ts/root/RootDirectory.ts",
@@ -29,7 +30,10 @@
     "@types/mocha": "^8.0.4",
     "@types/node": "^14.14.9",
     "@types/npm": "^2.0.31",
+    "@typescript-eslint/eslint-plugin": "^4.9.0",
+    "@typescript-eslint/parser": "^4.9.0",
     "chai": "^4.2.0",
+    "eslint": "^7.14.0",
     "mocha": "^8.2.1",
     "rimraf": "^3.0.2",
     "ts-node": "^9.0.0",
