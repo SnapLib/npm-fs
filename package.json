@@ -8,7 +8,7 @@
     "clean": "rimraf build",
     "tslint": "eslint --ext .ts src/main/ts/**.ts",
     "mocha": "mocha -r ts-node/register",
-    "test": "mocha -r ts-node/register src/test/ts/*.ts",
+    "test": "mocha -r ts-node/register src/test/ts/**.ts",
     "ts": "ts-node src/main/ts/root/RootDirectory.ts",
     "ts-node": "ts-node",
     "tsc": "tsc",
