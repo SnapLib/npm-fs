@@ -17,31 +17,29 @@ import * as pathModule from 'path';
  * @classdesc Contains the base implementation all file and directory element
  *            objects inherit from.
  *
- * @remarks
- * Methods such as {@link contents} and {@link size} throw `MissingMethodImplementationError` errors if they
- * are called directly from this class or any child class that doesn't override and provide their own
- * implementation of these methods.
- *
- *
+ * @abstract
  */
 export abstract class Element
 {
     /**
-     * The path of this element
+     * The path of this element.
+     *
      * @readonly
      * @property
      */
     public readonly path: string;
 
     /**
-     * The name of this element
+     * The name of this element.
+     *
      * @readonly
      * @property
      */
     public readonly name: string;
 
     /**
-     * The parent directory of this element
+     * The path of the parent directory this element resides in.
+     *
      * @readonly
      * @property
      */
