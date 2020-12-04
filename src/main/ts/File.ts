@@ -10,7 +10,7 @@ export class File extends Element
 
     contents(): ReadonlyArray<string>
     {
-        return undefined;
+        return [];
     }
 
     size(): number
