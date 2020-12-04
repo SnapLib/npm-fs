@@ -130,7 +130,7 @@ export abstract class Element
     public abstract contents(): ReadonlyArray<string>;
 
     /**
-     * Returns `true` if this element exists exists when this method is called.
+     * Returns `true` if this element exists when this method is called.
      *
      * @returns `true` if this element exists
      *
