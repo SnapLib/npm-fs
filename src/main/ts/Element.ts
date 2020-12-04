@@ -14,8 +14,8 @@ import * as path from "path";
  */
 
 /**
- * @classdesc Contains the base implementation all file and directory element
- *            objects inherit from.
+ * @classdesc Contains the base implementation all file and directory elements
+ *            inherit from.
  *
  * @abstract
  */
