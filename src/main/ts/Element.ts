@@ -143,10 +143,10 @@ export abstract class Element
     }
 
     /**
-     * Returns `true` if this element's elementPath points to (or is intended to point
+     * Returns `true` if this element's path points to (or is intended to point
      * to) a directory.
      *
-     * @returns `true` if this element's elementPath points to a directory
+     * @returns `true` if this element's path points to a directory
      *
      * @sealed
      * @function
@@ -157,10 +157,10 @@ export abstract class Element
     }
 
     /**
-     * Returns `true` if this element's elementPath points to (or is intended to point
+     * Returns `true` if this element's path points to (or is intended to point
      * to) a file.
      *
-     * @returns `true` if this element's elementPath points to a file
+     * @returns `true` if this element's path points to a file
      *
      * @sealed
      * @function
