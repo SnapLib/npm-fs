@@ -161,7 +161,7 @@ export abstract class Element
      */
     public isDir(): boolean
     {
-        return this.status.isDirectory;
+        return this.status.isDirectory ?? false;
     }
 
     /**
@@ -175,7 +175,7 @@ export abstract class Element
      */
     public isFile(): boolean
     {
-        return this.status.isFile;
+        return this.status.isFile ?? false;
     }
 
     /**
