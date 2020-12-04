@@ -1,6 +1,6 @@
 import { ElementStatus } from "./ElementStatus";
 import * as fs from "fs";
-import * as pathModule from "path";
+import * as path from "path";
 
 /**
  * The most fundamental elements of an npm file system are the directories and
@@ -37,7 +37,7 @@ export abstract class Element
      * @readonly
      * @property
      */
-    public readonly path: string;
+    public readonly elementPath: string;
 
     /**
      * The name of this element.
@@ -45,7 +45,7 @@ export abstract class Element
      * @readonly
      * @property
      */
-    public readonly name: string;
+    public readonly elementName: string;
 
     /**
      * The absolute path of the parent directory this element resides in. If
@@ -62,52 +62,55 @@ export abstract class Element
     {
         if (elementPath.trim().length === 0)
         {
-            throw new BlankElementPath("blank element path");
+            throw new BlankElementPath("blank element elementPath");
         }
+
+        this.elementPath = elementPath === "." ? process.cwd()
+                           : elementPath === ".." ? path.dirname(process.cwd())
+                           : elementPath;
 
         if (elementStatus)
         {
             // If element is not specified to be pre-existing or specified to not exist but does
-            if ( ! elementStatus.exists && fs.existsSync(elementPath))
+            if ( ! elementStatus.exists && fs.existsSync(this.elementPath))
             {
-                throw new PreExistingElementError(elementPath);
+                throw new PreExistingElementError(this.elementPath);
             }
             // If element should be pre-existing
             if (elementStatus.exists)
             {
                 // If element should be pre-existing but is not
-                if (fs.existsSync(elementPath) !== true)
+                if (fs.existsSync(this.elementPath) !== true)
                 {
-                    throw new ElementDoesNotExistError(elementPath);
+                    throw new ElementDoesNotExistError(this.elementPath);
                 }
                 // If pre-existing element should be a directory or not a file,
                 // but is a file
-                else if ((elementStatus.isDirectory ||  elementStatus.isFile === false) && fs.lstatSync(elementPath).isFile())
+                else if ((elementStatus.isDirectory ||  elementStatus.isFile === false) && fs.lstatSync(this.elementPath).isFile())
                 {
-                    throw new DirectoryWithFilePathError(elementPath);
+                    throw new DirectoryWithFilePathError(this.elementPath);
                 }
                 // If pre-existing element should be a file or not a directory,
                 // but is a directory
-                else if ((elementStatus.isFile || elementStatus.isDirectory === false) && fs.lstatSync(elementPath).isDirectory())
+                else if ((elementStatus.isFile || elementStatus.isDirectory === false) && fs.lstatSync(this.elementPath).isDirectory())
                 {
-                    throw new FileWithDirectoryPathError(elementPath);
+                    throw new FileWithDirectoryPathError(this.elementPath);
                 }
             }
         }
         // If no element status has been set and element is pre-existing, assume
         // it shouldn't be pre-existing to avoid overwriting element
-        else if (fs.existsSync(elementPath))
+        else if (fs.existsSync(this.elementPath))
         {
-            throw new PreExistingElementError(elementPath);
+            throw new PreExistingElementError(this.elementPath);
         }
 
         // Assign element status default value of existing directory if not
         // explicitly set
         this.status = elementStatus ?? new ElementStatus(true, true, false);
 
-        this.path = elementPath;
-        this.name = pathModule.basename(elementPath);
-        this.parent = pathModule.dirname(elementPath);
+        this.elementName = path.basename(this.elementPath);
+        this.parent = path.dirname(this.elementPath);
     }
 
     /**
@@ -136,14 +139,14 @@ export abstract class Element
      */
     public exists(): boolean
     {
-        return fs.existsSync(this.path);
+        return fs.existsSync(this.elementPath);
     }
 
     /**
-     * Returns `true` if this element's path points to (or is intended to point
+     * Returns `true` if this element's elementPath points to (or is intended to point
      * to) a directory.
      *
-     * @returns `true` if this element's path points to a directory
+     * @returns `true` if this element's elementPath points to a directory
      *
      * @sealed
      * @function
@@ -154,10 +157,10 @@ export abstract class Element
     }
 
     /**
-     * Returns `true` if this element's path points to (or is intended to point
+     * Returns `true` if this element's elementPath points to (or is intended to point
      * to) a file.
      *
-     * @returns `true` if this element's path points to a file
+     * @returns `true` if this element's elementPath points to a file
      *
      * @sealed
      * @function
@@ -196,35 +199,35 @@ class BlankElementPath extends Error
 /** @ignore */
 class ElementDoesNotExistError extends Error
 {
-    constructor(path: string)
+    constructor(elementPath: string)
     {
-        super(`path "${path}" does not exist`);
+        super(`path "${elementPath}" does not exist`);
     }
 }
 
 /** @ignore */
 class PreExistingElementError extends Error
 {
-    constructor(path: string)
+    constructor(elementPath: string)
     {
-        super(`path "${path}" already exists`);
+        super(`path "${elementPath}" already exists`);
     }
 }
 
 /** @ignore */
 class DirectoryWithFilePathError extends Error
 {
-    constructor(path: string)
+    constructor(elementPath: string)
     {
-        super(`directory path of "${path}" points to a file`);
+        super(`directory elementPath of "${elementPath}" points to a file`);
     }
 }
 
 /** @ignore */
 class FileWithDirectoryPathError extends Error
 {
-    constructor(path: string)
+    constructor(elementPath: string)
     {
-        super(`file path of "${path}" points to a directory`);
+        super(`file elementPath of "${elementPath}" points to a directory`);
     }
 }
