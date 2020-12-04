@@ -714,7 +714,7 @@ describe("valid static of(Partial<ElementStatus>) instantiation", () => {
             assert.doesNotThrow(() => ElementStatus.of( false, {isDirectory: null}))
         });
     });
-    
+
     context("valid static instantiation with explicit unset isFile property", () => {
 
         it("ElementStatus.of(true, {isFile: undefined}) should not throw", () => {
@@ -1122,5 +1122,17 @@ describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
             assert.throws(() => ElementStatus.of(false, {isDirectory: false, isFile: false}),
                 "directory and file property status of false")
         });
+    });
+});
+
+describe("ofExistingDirectory()", () => {
+    it('should equal new ElementStatus(true, true, false)', function () {
+        assert.deepStrictEqual(ElementStatus.ofExistingDirectory(), new ElementStatus(true, true, false));
+    });
+});
+
+describe("ofExistingFile()", () => {
+    it('should equal new ElementStatus(true, false, true)', function () {
+        assert.deepStrictEqual(ElementStatus.ofExistingFile(), new ElementStatus(true, false, true));
     });
 });
