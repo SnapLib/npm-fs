@@ -4,4 +4,3 @@ build
 .idea
 .project
 **/.DS_Store
-scripts/npm/js
