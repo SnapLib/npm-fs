@@ -1125,14 +1125,16 @@ describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
     });
 });
 
-describe("ofExistingDirectory()", () => {
+describe("ElementStatus.ofExistingDirectory()", () => {
     it('should equal new ElementStatus(true, true, false)', function () {
-        assert.deepStrictEqual(ElementStatus.ofExistingDirectory(), new ElementStatus(true, true, false));
+        assert.deepStrictEqual(ElementStatus.ofExistingFile(), new ElementStatus(true, true, false),
+            "ElementStatus.ofExistingDirectory() did not equal new ElementStatus(true, true, false)");
     });
 });
 
-describe("ofExistingFile()", () => {
+describe("ElementStatus.ofExistingFile()", () => {
     it('should equal new ElementStatus(true, false, true)', function () {
-        assert.deepStrictEqual(ElementStatus.ofExistingFile(), new ElementStatus(true, false, true));
+        assert.deepStrictEqual(ElementStatus.ofExistingFile(), new ElementStatus(true, false, true),
+            "ElementStatus.ofExistingFile() did not equal new ElementStatus(true, false, true)");
     });
 });
