@@ -11,49 +11,44 @@ export class Directory extends Element
 
     public contents(): ReadonlyArray<string>
     {
-        return fs.readdirSync(this.path);
+        return fs.readdirSync(this.elementPath);
     }
 
-    public getContentNames(): ReadonlyArray<string>
+    public contentPaths(): ReadonlyArray<string>
     {
-        return fs.readdirSync(this.path);
-    }
-
-    public getContentPaths(): ReadonlyArray<string>
-    {
-        return this.getContentNames().map<string>(dirContentName => path.join(this.path, dirContentName));
-    }
-
-    public getDirPaths(): ReadonlyArray<string>
-    {
-        return this.getContentPaths().filter(dirContentPath => fs.lstatSync(dirContentPath).isDirectory());
+        return this.contents().map<string>(dirContentName => path.join(this.elementPath, dirContentName));
     }
 
     public getDirNames(): ReadonlyArray<string>
     {
-        return this.getDirPaths().map<string>(dirPath => path.basename(dirPath));
+        return fs.readdirSync(this.elementPath, {withFileTypes: true}).filter(dirEnt => dirEnt.isDirectory()).map<string>(dir => dir.name);
     }
 
-    public getFilePaths(): ReadonlyArray<string>
+    public getDirPaths(): ReadonlyArray<string>
     {
-        return this.getContentPaths().filter(dirContentPath => fs.lstatSync(dirContentPath).isFile());
+        return this.getDirNames().map<string>(dirName => path.join(this.elementPath, dirName));
     }
 
     public getFileNames(): ReadonlyArray<string>
     {
-        return this.getFilePaths().map(filePath => path.basename(filePath));
+        return fs.readdirSync(this.elementPath, {withFileTypes: true}).filter(dirEnt => dirEnt.isFile()).map<string>(file => file.name);
+    }
+
+    public getFilePaths(): ReadonlyArray<string>
+    {
+        return this.getFileNames().map<string>(fileName => path.join(this.elementPath, fileName));
     }
 
     public contains(nameOrPath: string): boolean
     {
-        return this.getContentNames().includes(nameOrPath)
-            || this.getContentPaths().includes(nameOrPath);
+        return this.contents().includes(nameOrPath)
+            || this.contentPaths().includes(nameOrPath);
     }
 
     public containsIgnoreCase(nameOrPath: string): boolean
     {
-        return this.getContentNames().some(contentName => nameOrPath.localeCompare(contentName, undefined, {sensitivity: "base"}) === 0)
-            || this.getContentPaths().some(contentPath => nameOrPath.localeCompare(contentPath, undefined, {sensitivity: "base"}) === 0);
+        return this.contents().some(contentName => nameOrPath.localeCompare(contentName, undefined, {sensitivity: "base"}) === 0)
+            || this.contentPaths().some(contentPath => nameOrPath.localeCompare(contentPath, undefined, {sensitivity: "base"}) === 0);
     }
 
     public containsFile(fileNameOrPath: string): boolean
@@ -82,6 +77,6 @@ export class Directory extends Element
 
     public size(): number
     {
-        return this.getContentNames().length;
+        return this.contents().length;
     }
 }
