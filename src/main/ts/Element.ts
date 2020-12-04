@@ -63,6 +63,7 @@ export abstract class Element
      *
      * @param elementPath The absolute path of this element
      * @param elementStatus The status of this element
+     *
      * @protected
      */
     protected constructor(elementPath: string, elementStatus?: ElementStatus)
@@ -127,7 +128,7 @@ export abstract class Element
      * names of this directory's entries.
      *
      * @remarks If this element is a file, returns a read only array containing
-     * each line of the file.
+     * each line of the file as text.
      *
      * @returns The contents of this element
      *
