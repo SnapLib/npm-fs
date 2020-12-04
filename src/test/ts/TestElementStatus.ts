@@ -1127,7 +1127,7 @@ describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
 
 describe("ElementStatus.ofExistingDirectory()", () => {
     it('should equal new ElementStatus(true, true, false)', function () {
-        assert.deepStrictEqual(ElementStatus.ofExistingFile(), new ElementStatus(true, true, false),
+        assert.deepStrictEqual(ElementStatus.ofExistingDirectory(), new ElementStatus(true, true, false),
             "ElementStatus.ofExistingDirectory() did not equal new ElementStatus(true, true, false)");
     });
 });
