@@ -58,6 +58,13 @@ export abstract class Element
      */
     public readonly parent: string;
 
+    /**
+     * Creates an instance of directory or file element.
+     *
+     * @param elementPath The absolute path of this element
+     * @param elementStatus The status of this element
+     * @protected
+     */
     protected constructor(elementPath: string, elementStatus?: ElementStatus)
     {
         if (elementPath.trim().length === 0)
@@ -171,7 +178,8 @@ export abstract class Element
     }
 
     /**
-     * Returns the size of this element.
+     * Returns the size of this element. If this element does not exist it
+     * returns -1.
      *
      * @remarks If this element is a directory, returns the number of entries
      * this directory contains.
