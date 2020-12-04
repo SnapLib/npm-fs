@@ -22,7 +22,17 @@ import * as pathModule from "path";
 export abstract class Element
 {
     /**
-     * The path of this element.
+     * This element's status info.
+     *
+     * @defaultValue existing directory
+     * @private
+     * @readonly
+     * @property
+     */
+    private readonly status: ElementStatus;
+
+    /**
+     * The absolute path of this element.
      *
      * @readonly
      * @property
@@ -38,14 +48,17 @@ export abstract class Element
     public readonly name: string;
 
     /**
-     * The path of the parent directory this element resides in.
+     * The absolute path of the parent directory this element resides in. If
+     * this element does not have a parent directory (i.e. it resides in the
+     * root directory of the operating system) then this property is set to
+     * `undefined`.
      *
      * @readonly
      * @property
      */
     public readonly parent: string;
 
-    public constructor(elementPath: string, elementStatus?: ElementStatus)
+    protected constructor(elementPath: string, elementStatus?: ElementStatus)
     {
         if (elementPath.trim().length === 0)
         {
@@ -59,31 +72,38 @@ export abstract class Element
             {
                 throw new PreExistingElementError(elementPath);
             }
-            // If element should be pre-existing file or directory
+            // If element should be pre-existing
             if (elementStatus.exists)
             {
-                // If element should be pre-existing file or directory but doesn't exist
+                // If element should be pre-existing but is not
                 if (fs.existsSync(elementPath) !== true)
                 {
                     throw new ElementDoesNotExistError(elementPath);
                 }
-                // If pre-existing element should be a directory or not a file but is a file
+                // If pre-existing element should be a directory or not a file,
+                // but is a file
                 else if ((elementStatus.isDirectory ||  elementStatus.isFile === false) && fs.lstatSync(elementPath).isFile())
                 {
                     throw new DirectoryWithFilePathError(elementPath);
                 }
-                // If pre-existing element should be a file or not a directory but is a directory
+                // If pre-existing element should be a file or not a directory,
+                // but is a directory
                 else if ((elementStatus.isFile || elementStatus.isDirectory === false) && fs.lstatSync(elementPath).isDirectory())
                 {
                     throw new FileWithDirectoryPathError(elementPath);
                 }
             }
         }
-        // If no element status has been set and element is pre-existing, assume it shouldn't be pre-existing
+        // If no element status has been set and element is pre-existing, assume
+        // it shouldn't be pre-existing to avoid overwriting element
         else if (fs.existsSync(elementPath))
         {
             throw new PreExistingElementError(elementPath);
         }
+
+        // Assign element status default value of existing directory if not
+        // explicitly set
+        this.status = elementStatus ?? new ElementStatus(true, true, false);
 
         this.path = elementPath;
         this.name = pathModule.basename(elementPath);
@@ -91,14 +111,15 @@ export abstract class Element
     }
 
     /**
-     * Returns the contents of this directory or file element. If this element is a directory, returns a read only array
-     * of the names of the directories and files this directory contains. If this element is a file, returns a read only
-     * array containing each line of the file.
+     * Returns the contents of this element.
      *
-     * @returns The contents of this directory or file element
+     * @remarks If this element is a directory, returns a read only array of the
+     * names of this directory's entries.
      *
-     * @throws `MissingMethodImplementationError` if method isn't overridden
-     *          and provided an implementation
+     * @remarks If this element is a file, returns a read only array containing
+     * each line of the file.
+     *
+     * @returns The contents of this element
      *
      * @abstract
      * @function
@@ -106,9 +127,9 @@ export abstract class Element
     public abstract contents(): ReadonlyArray<string>;
 
     /**
-     * Returns `true` if this file or directory element exists.
+     * Returns `true` if this element exists exists when this method is called.
      *
-     * @returns `true` if this file or directory element exists when this method is called
+     * @returns `true` if this element exists
      *
      * @sealed
      * @function
@@ -119,7 +140,8 @@ export abstract class Element
     }
 
     /**
-     * Returns `true` if this element's path points to a directory.
+     * Returns `true` if this element's path points to (or is intended to point
+     * to) a directory.
      *
      * @returns `true` if this element's path points to a directory
      *
@@ -128,11 +150,12 @@ export abstract class Element
      */
     public isDir(): boolean
     {
-        return this.exists() && fs.lstatSync(this.path).isDirectory();
+        return this.status.isDirectory;
     }
 
     /**
-     * Returns `true` if this element's path points to a file
+     * Returns `true` if this element's path points to (or is intended to point
+     * to) a file.
      *
      * @returns `true` if this element's path points to a file
      *
@@ -141,24 +164,25 @@ export abstract class Element
      */
     public isFile(): boolean
     {
-        return this.exists() && fs.lstatSync(this.path).isFile();
+        return this.status.isFile;
     }
 
     /**
-     * Returns the size of this element. If it's a directory, returns the number of files and directories this directory
-     * element contains. If it's a file, returns the size in bytes of the file.
+     * Returns the size of this element.
+     *
+     * @remarks If this element is a directory, returns the number of entries
+     * this directory contains.
+     *
+     * @remarks If this element is a file, returns the size (in bytes) of this
+     * file.
      *
      * @returns the size of this element
-     *
-     * @throws `MissingMethodImplementationError` if method isn't overridden
-     *         and provided an implementation
      *
      * @abstract
      * @function
      */
     public abstract size(): number;
 }
-
 
 /** @ignore */
 class BlankElementPath extends Error
