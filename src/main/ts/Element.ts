@@ -62,7 +62,7 @@ export abstract class Element
     {
         if (elementPath.trim().length === 0)
         {
-            throw new BlankElementPath("blank element elementPath");
+            throw new BlankElementPath("blank element path");
         }
 
         this.elementPath = elementPath === "." ? process.cwd()
