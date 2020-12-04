@@ -1,7 +1,7 @@
 {
-  "name": "snaplib-node-npm-fs",
+  "name": "snaplib-npm-fs",
   "version": "0.1.0",
-  "description": "Node based npm file system API",
+  "description": "NPM file system API",
   "type": "commonjs",
   "main": "scripts/npm/init/init.js",
   "scripts": {
