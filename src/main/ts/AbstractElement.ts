@@ -11,8 +11,8 @@ import * as path from "path";
  * properties that are implementation specific such as the contents and size.
  * For instance the contents of a directory are different than the contents of
  * a text file.
- * 
- * * @author Snap <XxSnapperGeexX@gmail.com>
+ *
+ * @author Snap <XxSnapperGeexX@gmail.com>
  *
  */
 

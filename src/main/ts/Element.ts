@@ -1,4 +1,5 @@
 /**
+ * @overview
  * The most fundamental elements of an npm file system are the directories and
  * files that  the system contains. These elements share many common properties
  * such as having a path and name. However, each element type also has unique
@@ -6,7 +7,7 @@
  * For instance the contents of a directory are different than the contents of
  * a text file.
  *
- * @overview
+ * @author Snap <XxSnapperGeexX@gmail.com>
  */
 
 /**
