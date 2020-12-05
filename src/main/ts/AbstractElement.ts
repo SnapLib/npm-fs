@@ -32,31 +32,13 @@ export abstract class AbstractElement implements Element
      */
     private readonly status: ElementStatus;
 
-    /**
-     * The absolute path of this element.
-     *
-     * @readonly
-     * @property
-     */
+    /** @inheritDoc */
     public readonly elementPath: string;
 
-    /**
-     * The name of this element.
-     *
-     * @readonly
-     * @property
-     */
+    /** @inheritDoc */
     public readonly elementName: string;
 
-    /**
-     * The absolute path of the parent directory this element resides in. If
-     * this element does not have a parent directory (i.e. it resides in the
-     * root directory of the operating system) then this property is set to
-     * `undefined`.
-     *
-     * @readonly
-     * @property
-     */
+    /** @inheritDoc */
     public readonly parent: string;
 
     /**
@@ -65,13 +47,33 @@ export abstract class AbstractElement implements Element
      * @param elementPath The absolute path of this element
      * @param elementStatus The status of this element
      *
+     * @throws `BlankElementPathError` if provided element path argument is
+     *          blank or empty
+     *
+     * @throws `ElementDoesNotExistError` if provided element status `exists`
+     *         property is `true` or no element status properties are provided
+     *         and provided path argument doesn't point to a pre-existing file
+     *         or directory
+     *
+     * @throws `PreExistingElementError` if provided element status `exists`
+     *         property is `false` and provided path argument points to a
+     *         pre-existing file or directory
+     *
+     * @throws `DirectoryWithFilePathError` if provided path argument points to
+     *         file and no element status properties are provided or element
+     *         status `directory` status is `true` or `file` status is `false`
+     *
+     * @throws `FileWithDirectoryPathError` if provided path argument points to
+     *         directory and element status `directory` property is `true` or
+     *         `file` property is `false`
+     *
      * @protected
      */
     protected constructor(elementPath: string, elementStatus?: ElementStatus)
     {
         if (elementPath.trim().length === 0)
         {
-            throw new BlankElementPath("blank element path");
+            throw new BlankElementPathError("blank element path");
         }
 
         this.elementPath = elementPath === "." ? process.cwd()
@@ -122,20 +124,7 @@ export abstract class AbstractElement implements Element
         this.parent = path.dirname(this.elementPath);
     }
 
-    /**
-     * Returns the contents of this element.
-     *
-     * @remarks If this element is a directory, returns a read only array of the
-     * names of this directory's entries.
-     *
-     * @remarks If this element is a file, returns a read only array containing
-     * each line of the file as text.
-     *
-     * @returns The contents of this element
-     *
-     * @abstract
-     * @function
-     */
+    /** @inheritDoc */
     public abstract contents(): ReadonlyArray<string>;
 
     /**
@@ -143,6 +132,7 @@ export abstract class AbstractElement implements Element
      *
      * @returns `true` if this element exists
      *
+     * @override
      * @sealed
      * @function
      */
@@ -157,6 +147,7 @@ export abstract class AbstractElement implements Element
      *
      * @returns `true` if this element's path points to a directory
      *
+     * @override
      * @sealed
      * @function
      */
@@ -171,6 +162,7 @@ export abstract class AbstractElement implements Element
      *
      * @returns `true` if this element's path points to a file
      *
+     * @override
      * @sealed
      * @function
      */
@@ -179,26 +171,12 @@ export abstract class AbstractElement implements Element
         return this.status.isFile ?? false;
     }
 
-    /**
-     * Returns the size of this element. If this element does not exist it
-     * returns -1.
-     *
-     * @remarks If this element is a directory, returns the number of entries
-     * this directory contains.
-     *
-     * @remarks If this element is a file, returns the size (in bytes) of this
-     * file.
-     *
-     * @returns the size of this element
-     *
-     * @abstract
-     * @function
-     */
+    /** @inheritDoc */
     public abstract size(): number;
 }
 
 /** @ignore */
-class BlankElementPath extends Error
+class BlankElementPathError extends Error
 {
     constructor(msg: string)
     {
