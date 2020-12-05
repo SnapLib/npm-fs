@@ -1,7 +1,7 @@
-import { Element } from "./Element";
+import { AbstractElement } from "./AbstractElement";
 import * as fs from "fs";
 
-export class File extends Element
+export class File extends AbstractElement
 {
     public constructor(filePath: string, existsStatus: boolean)
     {

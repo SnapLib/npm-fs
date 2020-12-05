@@ -1,8 +1,8 @@
-import { Element } from "./Element";
+import { AbstractElement } from "./AbstractElement";
 import * as fs from "fs";
 import * as path from "path";
 
-export class Directory extends Element
+export class Directory extends AbstractElement
 {
     public constructor(directoryPath: string, existsStatus: boolean)
     {

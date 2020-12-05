@@ -19,7 +19,7 @@ import * as path from "path";
  *
  * @abstract
  */
-export abstract class Element
+export abstract class AbstractElement
 {
     /**
      * This element's status info.
