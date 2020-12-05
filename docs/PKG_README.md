@@ -1,3 +1,3 @@
-# SnapLib NPM File System
+# SnapLib npm File System
 
-The SnapLib library for creating and managing npm based projects.
+SnapLib API that defines file systems native to an npm project.
