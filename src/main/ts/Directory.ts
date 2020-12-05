@@ -77,6 +77,6 @@ export class Directory extends AbstractElement
 
     public size(): number
     {
-        return this.contents().length;
+        return this.exists() ? this.contents().length : -1;
     }
 }
