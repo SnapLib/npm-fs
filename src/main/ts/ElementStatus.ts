@@ -1,4 +1,11 @@
 /**
+ * @overview Contains properties an npm {@link AbstractElement} should posses
+ * pertaining to it's status at run time.
+ *
+ * @author Snap
+ */
+
+/**
  * @classdesc Class used to set various properties of {@link AbstractElement}
  *            objects.
  */
