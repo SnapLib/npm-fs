@@ -2,7 +2,7 @@
  * @overview Contains properties an npm {@link AbstractElement} should posses
  * pertaining to it's status at run time.
  *
- * @author Snap
+ * @author Snap <XxSnapperGeexX@gmail.com>
  */
 
 /**
