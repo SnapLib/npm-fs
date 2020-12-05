@@ -7,7 +7,7 @@
 
 /**
  * @classdesc Class used to set various properties of {@link AbstractElement}
- *            objects.
+ *            objects pertaining to their run time status.
  */
 export class ElementStatus
 {
