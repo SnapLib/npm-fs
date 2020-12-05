@@ -1,3 +1,7 @@
+/**
+ * @classdesc Class used to set various properties of {@link AbstractElement}
+ *            objects.
+ */
 export class ElementStatus
 {
     /**
@@ -28,9 +32,19 @@ export class ElementStatus
     public readonly isFile?: boolean;
 
     /**
-     * @param exists
-     * @param isDirectory
-     * @param isFile
+     * @param exists `boolean` indicating whether an element's path should be
+     *               pointing to a pre-existing directory or file
+     *
+     * @param isDirectory `boolean` indicating whether an element's path should
+     *                    be pointing to a directory
+     * @param isFile `boolean` indicating whether an element's path should be
+     *               pointing to a file
+     *
+     * @throws `IllegalElementStatusExistsPropertyError` if provided exists
+     *         argument is `undefined` or `null`
+     *
+     * @throws `ElementStatusPropertyConflictError` if provided isDirectory and
+     *         isFile `boolean` properties are equal
      *
      * @constructor
      */
