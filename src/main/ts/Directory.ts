@@ -79,4 +79,9 @@ export class Directory extends AbstractElement
     {
         return this.exists() ? this.contents().length : -1;
     }
+
+    public static ofExisting(dirPath: string): Directory
+    {
+        return new Directory(dirPath, true);
+    }
 }
