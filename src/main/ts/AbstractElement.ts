@@ -4,14 +4,16 @@ import * as fs from "fs";
 import * as path from "path";
 
 /**
+ * @overview
  * The most fundamental elements of an npm file system are the directories and
  * files that  the system contains. These elements share many common properties
  * such as having a path and name. However, each element type also has unique
  * properties that are implementation specific such as the contents and size.
  * For instance the contents of a directory are different than the contents of
  * a text file.
+ * 
+ * * @author Snap <XxSnapperGeexX@gmail.com>
  *
- * @overview
  */
 
 /**
