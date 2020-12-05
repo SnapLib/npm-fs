@@ -1,3 +1,4 @@
+import { Element } from "./Element";
 import { ElementStatus } from "./ElementStatus";
 import * as fs from "fs";
 import * as path from "path";
@@ -19,7 +20,7 @@ import * as path from "path";
  *
  * @abstract
  */
-export abstract class AbstractElement
+export abstract class AbstractElement implements Element
 {
     /**
      * This element's status info.
