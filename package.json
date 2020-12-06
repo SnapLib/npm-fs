@@ -8,7 +8,7 @@
     "clean": "rimraf build",
     "mocha": "mocha -r ts-node/register",
     "test": "mocha -r ts-node/register src/test/ts/**.ts",
-    "test-report": "mocha -r ts-node/register src/test/ts/**.ts --reporter mochawesome --reporter-options reportDir=build/test,reportFilename=index",
+    "test-report": "mocha -r ts-node/register src/test/ts/**.ts --reporter mochawesome --reporter-options consoleReporter=none,reportDir=build/test,reportFilename=index",
     "ts-node": "ts-node",
     "tsc": "tsc",
     "tsc-src": "tsc -m CommonJS -t ES2019 --sourceMap false --strict true --removeComments true -p src/main/ts/tsconfig.json --outDir build/js",
