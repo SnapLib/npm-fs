@@ -3,7 +3,23 @@ import * as fs from "fs";
 import * as path from "path";
 
 /**
- * @classdesc Root implementation for all directory elements.
+ * Root implementation for all directory elements.
+ *
+ * @classdesc
+ * The `Directory` class is used to create a directory element object that
+ * represent a directory in a file system. It must be specified during
+ * instantiation whether a directory element is based on a pre-existing
+ * directory that is already present in the file system.
+ *
+ * @remarks
+ * Note that there is a discernible difference between a "directory element" and
+ * a "directory". A "directory element" is a typescript object and exists purely
+ * as a typescript struct. While a "directory" is a literal directory that
+ * exists within an operating system. While a directory and directory element
+ * are closely related, they are not the same thing. A directory element is how
+ * a directory can be represented programmatically via typescript. These two
+ * terms can be used interchangeably, but their technical differences should be
+ * noted.
  *
  * @extends AbstractElement
  */
@@ -20,18 +36,18 @@ export class Directory extends AbstractElement
      *                     element should already be present in the current file
      *                     system or not
      *
-     * @throws `BlankElementPathError` if provided element path argument is
-     *         blank or empty
+     * @throws {@link BlankElementPathError} if provided element path argument
+     *         is empty or only consists of whitespace
      *
-     * @throws `DirectoryWithFilePathError` if this directory element should be
-     *         pre-existing and the provided path points to a file
+     * @throws {@link DirectoryWithFilePathError} if this directory element
+     *         should be pre-existing and the provided path points to a file
      *
-     * @throws `ElementDoesNotExistError` if this directory element should be
-     *         pre-existing or not and the provided path doesn't point to a
+     * @throws {@link ElementDoesNotExistError} if this directory element should
+     *         be pre-existing and the provided path doesn't point to a
      *         pre-existing directory
      *
-     * @throws `PreExistingElementError` if this directory element should not be
-     *         a pre-existing directory and the provided path points to a
+     * @throws {@link PreExistingElementError} if this directory element should
+     *         not be a pre-existing directory and the provided path points to a
      *         pre-existing file or directory
      *
      * @constructor
@@ -42,9 +58,11 @@ export class Directory extends AbstractElement
     }
 
     /**
-     * Returns the name of the directory entries this directory element contains.
+     * Returns the name of the directory entries this directory element
+     * contains.
      *
-     * @returns the name of the directory entries this directory element contains
+     * @returns the name of the directory entries this directory element
+     *          contains
      *
      * @override
      * @sealed
@@ -57,10 +75,10 @@ export class Directory extends AbstractElement
 
     /**
      * Returns the absolute paths of the directory entries this directory
-     * contains.
+     * element contains.
      *
      * @returns the absolute paths of the directory entries this directory
-     *          contains
+     *          element contains
      *
      * @sealed
      * @function
@@ -86,9 +104,10 @@ export class Directory extends AbstractElement
 
     /**
      * Returns the absolute paths of the directory entries that are directories
-     * this directory contains.
+     * this directory element contains.
      *
-     * @returns the absolute paths of the directories this directory contains
+     * @returns the absolute paths of the directories this directory element
+     *          contains
      *
      * @sealed
      * @function
@@ -114,9 +133,9 @@ export class Directory extends AbstractElement
 
     /**
      * Returns the absolute paths of the directory entries that are files this
-     * directory contains.
+     * directory element contains.
      *
-     * @returns the absolute paths of the files this directory contains
+     * @returns the absolute paths of the files this directory element contains
      *
      * @sealed
      * @function
@@ -127,8 +146,8 @@ export class Directory extends AbstractElement
     }
 
     /**
-     * Checks whether the provided file or directory name or path is present in
-     * this directory element.
+     * Checks whether the provided file or directory name or path is present as
+     * a directory entry in this directory element.
      *
      * @param nameOrPath the name or path of the directory or file whose
      *                   presence in this directory element is being checked for
@@ -144,7 +163,7 @@ export class Directory extends AbstractElement
 
     /**
      * Case-insensitive check whether the provided file or directory name or
-     * path is present in this directory element.
+     * path is present as a directory entry in this directory element.
      *
      * @param nameOrPath the name or path of the directory or file whose
      *                   presence in this directory element is being checked for
@@ -223,8 +242,8 @@ export class Directory extends AbstractElement
     }
 
     /**
-     * Returns the number of directory entries this directory element contains if it
-     * exists. Otherwise returns -1 if it does not exists.
+     * Returns the number of directory entries this directory element contains
+     * if it exists. Otherwise returns -1 if it does not exists.
      *
      * @returns number of directory entries this directory element contains if
      *          it exists, otherwise returns -1
@@ -244,17 +263,17 @@ export class Directory extends AbstractElement
      *
      * @param dirPath path to existing directory
      *
-     * @throws `BlankElementPathError` if provided element path argument is
-     *          blank or empty
-     *
      * @returns a new instance of a directory element based on a pre-existing
      *          directory
      *
-     * @throws `DirectoryWithFilePathError` if provided path argument points to
-     *         file
+     * @throws {@link BlankElementPathError} if provided element path argument
+     *          is empty or only contains whitespace
      *
-     *  @throws `ElementDoesNotExistError` if path argument doesn't point to a
-     *          pre-existing directory
+     * @throws {@link DirectoryWithFilePathError} if provided path argument
+     *         points to file
+     *
+     * @throws {@link ElementDoesNotExistError} if path argument doesn't point
+     *         to a pre-existing directory
      */
     public static ofExisting(dirPath: string): Directory
     {
@@ -263,18 +282,18 @@ export class Directory extends AbstractElement
 
     /**
      * Creates a new instance of a directory element based on a new
-     * non-preexisting directory (or file).
+     * non-preexisting directory.
      *
      * @param dirPath path to non-existing directory or file
-     *
-     * @throws `BlankElementPathError` if provided element path argument is
-     *          blank or empty
      *
      * @returns a new instance of a directory element based on a non-preexisting
      *          directory
      *
-     * @throws `PreExistingElementError` if provided path argument points to a
-     *         pre-existing file or directory
+     * @throws {@link BlankElementPathError} if provided element path argument
+     *          is empty or only contains whitespace
+     *
+     * @throws {@link PreExistingElementError} if provided path argument points
+     *         to a pre-existing file or directory
      */
     public static createNew(dirPath: string): Directory
     {
