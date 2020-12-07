@@ -21,9 +21,14 @@
     ],
     "rules":
     {
+        "default-case": "error",
+        "default-case-last": "error",
         "eol-last": "error",
+        "no-empty-function": "error",
         "no-implicit-coercion": "error",
         "quotes": ["error", "double", {"avoidEscape": true, "allowTemplateLiterals": true}],
+        "no-tabs": "error",
+        "no-trailing-spaces": "error",
         "semi": ["error", "always"]
     }
 }
