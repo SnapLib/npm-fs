@@ -1129,13 +1129,15 @@ describe("ElementStatus.ofDirectory(boolean) instantiation", () => {
 
     context("ElementStatus.ofDirectory(true)" , () => {
         it("should equal new ElementStatus(true, true, false)", () => {
-            assert.deepStrictEqual(ElementStatus.ofDirectory(true), new ElementStatus(true, true, false));
+            assert.deepStrictEqual(ElementStatus.ofDirectory(true), new ElementStatus(true, true, false),
+                "ElementStatus.ofDirectory(true) did not equal new ElementStatus(true, true, false)");
         });
     });
 
     context("ElementStatus.ofDirectory(false)" , () => {
         it("should equal new ElementStatus(false, true, false)", () => {
-            assert.deepStrictEqual(ElementStatus.ofDirectory(false), new ElementStatus(false, true, false));
+            assert.deepStrictEqual(ElementStatus.ofDirectory(false), new ElementStatus(false, true, false),
+                "ElementStatus.ofDirectory(false) did not equal new ElementStatus(false, true, false)");
         });
     });
 });
@@ -1157,13 +1159,15 @@ describe("ElementStatus.ofFile(boolean) instantiation", () => {
 
     context("ElementStatus.ofFile(true)" , () => {
         it("should equal new ElementStatus(true, false, true)", () => {
-            assert.deepStrictEqual(ElementStatus.ofFile(true), new ElementStatus(true, false, true));
+            assert.deepStrictEqual(ElementStatus.ofFile(true), new ElementStatus(true, false, true),
+                "ElementStatus.ofFile(true) did not equal new ElementStatus(true, false, true)");
         });
     });
 
     context("ElementStatus.ofFile(false)" , () => {
         it("should equal new ElementStatus(false, false, true)", () => {
-            assert.deepStrictEqual(ElementStatus.ofFile(false), new ElementStatus(false, false, true));
+            assert.deepStrictEqual(ElementStatus.ofFile(false), new ElementStatus(false, false, true),
+                "ElementStatus.ofFile(false) did not equal new ElementStatus(false, false, true)");
         });
     });
 });
