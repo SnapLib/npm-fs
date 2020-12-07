@@ -18,7 +18,7 @@ export class BlankElementPathError extends Error
      * Constructs `BlankElementPathError` with the provided string as its error
      * message.
      *
-     * @param msg error message printed to console
+     * @param msg message printed to console
      *
      * @constructor
      */
@@ -41,7 +41,7 @@ export class DirectoryWithFilePathError extends Error
      * Constructs `DirectoryWithFilePathError` with the provided string as its
      * error message.
      *
-     * @param msg error message printed to console
+     * @param msg message printed to console
      *
      * @constructor
      */
@@ -65,7 +65,7 @@ export class ElementDoesNotExistError extends Error
      * Constructs `ElementDoesNotExistError` with the provided string as its
      * error message.
      *
-     * @param msg error message printed to console
+     * @param msg message printed to console
      *
      * @constructor
      */
@@ -88,7 +88,7 @@ export class FileWithDirectoryPathError extends Error
      * Constructs `FileWithDirectoryPathError` with the provided string as its
      * error message.
      *
-     * @param msg error message printed to console
+     * @param msg message printed to console
      *
      * @constructor
      */
@@ -112,7 +112,7 @@ export class PreExistingElementError extends Error
      * Constructs `PreExistingElementError` with the provided string as its
      * error message.
      *
-     * @param msg error message printed to console
+     * @param msg message printed to console
      *
      * @constructor
      */
