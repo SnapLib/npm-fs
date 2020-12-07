@@ -1125,16 +1125,58 @@ describe("invalid static of(Partial<ElementStatus>) instantiation", () => {
     });
 });
 
+describe("ElementStatus.ofDirectory(boolean) instantiation", () => {
+
+    context("ElementStatus.ofDirectory(true)" , () => {
+        it("should equal new ElementStatus(true, true, false)", () => {
+            assert.deepStrictEqual(ElementStatus.ofDirectory(true), new ElementStatus(true, true, false));
+        });
+    });
+
+    context("ElementStatus.ofDirectory(false)" , () => {
+        it("should equal new ElementStatus(false, true, false)", () => {
+            assert.deepStrictEqual(ElementStatus.ofDirectory(false), new ElementStatus(false, true, false));
+        });
+    });
+});
+
 describe("ElementStatus.ofExistingDirectory()", () => {
+
     it("should equal new ElementStatus(true, true, false)", () => {
         assert.deepStrictEqual(ElementStatus.ofExistingDirectory(), new ElementStatus(true, true, false),
             "ElementStatus.ofExistingDirectory() did not equal new ElementStatus(true, true, false)");
     });
+
+    it("should equal ElementStatus.ofDirectory(true)", () => {
+        assert.deepStrictEqual(ElementStatus.ofExistingDirectory(), ElementStatus.ofDirectory(true),
+            "ElementStatus.ofExistingDirectory() did not equal ElementStatus.ofDirectory(true)");
+    });
+});
+
+describe("ElementStatus.ofFile(boolean) instantiation", () => {
+
+    context("ElementStatus.ofFile(true)" , () => {
+        it("should equal new ElementStatus(true, false, true)", () => {
+            assert.deepStrictEqual(ElementStatus.ofFile(true), new ElementStatus(true, false, true));
+        });
+    });
+
+    context("ElementStatus.ofFile(false)" , () => {
+        it("should equal new ElementStatus(false, false, true)", () => {
+            assert.deepStrictEqual(ElementStatus.ofFile(false), new ElementStatus(false, false, true));
+        });
+    });
 });
 
 describe("ElementStatus.ofExistingFile()", () => {
+
     it("should equal new ElementStatus(true, false, true)", () => {
         assert.deepStrictEqual(ElementStatus.ofExistingFile(), new ElementStatus(true, false, true),
             "ElementStatus.ofExistingFile() did not equal new ElementStatus(true, false, true)");
+    });
+
+    it("should equal ElementStatus.ofFile(true)", () => {
+        assert.deepStrictEqual(ElementStatus.ofExistingFile(), ElementStatus.ofFile(true),
+            "ElementStatus.ofExistingFile() did not equal ElementStatus.ofFile(true)");
     });
 });
