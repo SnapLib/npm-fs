@@ -155,7 +155,7 @@ export class ElementStatus
      */
     public static ofFile(existsStatus: boolean): ElementStatus
     {
-        return new ElementStatus(existsStatus, true, false);
+        return new ElementStatus(existsStatus, false, true);
     }
 
     /**
