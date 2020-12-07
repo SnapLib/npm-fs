@@ -1,6 +1,6 @@
 import { ElementStatus } from "../../main/ts/ElementStatus";
 import { assert } from "chai";
-import "mocha";
+import { describe, it } from "mocha";
 
 describe("new ElementStatus(...) valid constructors", () => {
 

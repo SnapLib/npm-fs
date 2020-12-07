@@ -1,7 +1,7 @@
 import { Directory } from "../../main/ts/Directory";
 import { assert } from "chai";
 import * as path from "path";
-import "mocha";
+import { describe, it } from "mocha";
 
 const CWD: string = process.cwd();
 const NON_EXISTING_DIR: string = path.join(CWD, "nonExistingDirectory");
