@@ -49,11 +49,11 @@ export class ElementStatus
      * @param isFile `boolean` indicating whether an element's path should be
      *               pointing to a file
      *
-     * @throws `IllegalElementStatusExistsPropertyError` if provided exists
+     * @throws {@link UndefinedElementStatusExistsError} if provided exists
      *         argument is `undefined` or `null`
      *
-     * @throws `ElementStatusPropertyConflictError` if provided isDirectory and
-     *         isFile `boolean` properties are equal
+     * @throws {@link ElementStatusConflictError} if provided isDirectory and
+     *         isFile `boolean` properties are defined with equal boolean values
      *
      * @constructor
      */
@@ -88,7 +88,15 @@ export class ElementStatus
      * @param existsStatus
      * @param directoryFileStatus
      *
-     * @sealed
+     * @throws {@link UndefinedElementStatusExistsError} if provided exists
+     *         argument is `undefined` or `null`
+     *
+     * @throws {@link ElementStatusConflictError} if provided isDirectory and
+     *         isFile `boolean` properties are defined with equal boolean values
+     *
+     * @returns an `ElementStatus` object constructed with the provided
+     *          status properties
+     *
      * @static
      * @function
      * @constructs {@link ElementStatus}
@@ -106,10 +114,26 @@ export class ElementStatus
     }
 
     /**
+     * Creates an instance of an `ElementStatus` for a directory element.
+     * Requires an argument to indicate whether the directory element this
+     * status is for should be pre-existing or not.
+     *
+     * @param existsStatus `boolean` indicating whether this directory element
+     *                     status should be pre-existing or not
+     *
+     * @returns an instance of an `ElementStatus` appropriate for a file
+     */
+    public static ofDirectory(existsStatus: boolean): ElementStatus
+    {
+        return new ElementStatus(existsStatus, true, false);
+    }
+
+    /**
      * Static function to instantiate an `ElementStatus` for a directory element
      * that should exist/be pre-existing.
      *
-     * @sealed
+     * @returns an `ElementStatus` for an existing directory
+     *
      * @static
      * @function
      * @constructs {@link ElementStatus}
@@ -120,10 +144,26 @@ export class ElementStatus
     }
 
     /**
+     * Creates an instance of an `ElementStatus` for a file element. Requires an
+     * argument to indicate whether the file element this status is for should
+     * be pre-existing or not.
+     *
+     * @param existsStatus `boolean` indicating whether this file element status
+     *                     should be pre-existing or not
+     *
+     * @returns an instance of an `ElementStatus` appropriate for a file
+     */
+    public static ofFile(existsStatus: boolean): ElementStatus
+    {
+        return new ElementStatus(existsStatus, true, false);
+    }
+
+    /**
      * Static function to instantiate an `ElementStatus` for a file element that
      * should exist/be pre-existing.
      *
-     * @sealed
+     * @returns an `ElementStatus` for an existing file
+     *
      * @static
      * @function
      * @constructs {@link ElementStatus}
