@@ -1,3 +1,5 @@
+import { UndefinedElementStatusExistsError, ElementStatusConflictError } from "./Errors";
+
 /**
  * @overview Contains properties an npm {@link AbstractElement} should posses
  * pertaining to it's status at run time.
@@ -59,11 +61,11 @@ export class ElementStatus
     {
         if (exists === undefined || exists === null)
         {
-            throw new IllegalElementStatusExistsPropertyError(`exists element property can't be ${exists}`);
+            throw new UndefinedElementStatusExistsError(`exists element property can't be ${exists}`);
         }
         else if (((isDirectory !== undefined && isDirectory !== null) || (isFile !== undefined && isFile !== null)) && isDirectory === isFile)
         {
-            throw new ElementStatusPropertyConflictError(`directory and file property status of ${isDirectory}`);
+            throw new ElementStatusConflictError(`directory and file property status of ${isDirectory}`);
         }
 
         this.exists = exists;
@@ -129,23 +131,5 @@ export class ElementStatus
     public static ofExistingFile(): ElementStatus
     {
         return new ElementStatus(true, false, true);
-    }
-}
-
-/** @ignore */
-class IllegalElementStatusExistsPropertyError extends Error
-{
-    constructor(msg: string)
-    {
-        super(msg);
-    }
-}
-
-/** @ignore */
-class ElementStatusPropertyConflictError extends Error
-{
-    constructor(msg: string)
-    {
-        super(msg);
     }
 }
