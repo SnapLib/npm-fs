@@ -3,7 +3,7 @@ import {BlankElementPathError,
         ElementDoesNotExistError,
         FileWithDirectoryPathError,
         PreExistingElementError} from "./Errors";
-import { Element } from "./Element";
+import type { Element } from "./Element";
 import { ElementStatus } from "./ElementStatus";
 import * as fs from "fs";
 import * as path from "path";
