@@ -53,7 +53,7 @@ export class ElementStatus
      *         argument is `undefined` or `null`
      *
      * @throws {@link ElementStatusConflictError} if provided isDirectory and
-     *         isFile `boolean` properties are defined with equal boolean values
+     *         isFile properties are defined with equal boolean values
      *
      * @constructor
      */
@@ -97,6 +97,12 @@ export class ElementStatus
      * @returns an `ElementStatus` object constructed with the provided
      *          status properties
      *
+     * @throws {@link UndefinedElementStatusExistsError} if provided exists
+     *         argument is `undefined` or `null`
+     *
+     * @throws {@link ElementStatusConflictError} if provided isDirectory and
+     *         isFile properties are defined with equal boolean values
+     *
      * @static
      * @function
      * @constructs {@link ElementStatus}
@@ -122,6 +128,13 @@ export class ElementStatus
      *                     status should be pre-existing or not
      *
      * @returns an instance of an `ElementStatus` appropriate for a file
+     *
+     * @throws {@link UndefinedElementStatusExistsError} if provided exists
+     *         argument is `undefined` or `null`
+     *
+     * @static
+     * @function
+     * @constructs {@link ElementStatus}
      */
     public static ofDirectory(existsStatus: boolean): ElementStatus
     {
@@ -133,6 +146,7 @@ export class ElementStatus
      * that should exist/be pre-existing.
      *
      * @returns an `ElementStatus` for an existing directory
+     *
      *
      * @static
      * @function
@@ -152,6 +166,13 @@ export class ElementStatus
      *                     should be pre-existing or not
      *
      * @returns an instance of an `ElementStatus` appropriate for a file
+     *
+     * @throws {@link UndefinedElementStatusExistsError} if provided exists
+     *         argument is `undefined` or `null`
+     *
+     * @static
+     * @function
+     * @constructs {@link ElementStatus}
      */
     public static ofFile(existsStatus: boolean): ElementStatus
     {
