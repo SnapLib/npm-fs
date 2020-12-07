@@ -29,6 +29,29 @@ export class BlankElementPathError extends Error
 }
 
 /**
+ * @classdesc Error thrown if an element status is constructed that indicates
+ * an element should be a file and directory element at the same time.
+ *
+ * @sealed
+ * @extends Error
+ */
+export class ElementStatusConflictError extends Error
+{
+    /**
+     * Constructs `ElementStatusConflictError` with the provided string as its
+     * error message.
+     *
+     * @param msg message printed to console
+     *
+     * @constructor
+     */
+    constructor(msg: string)
+    {
+        super(msg);
+    }
+}
+
+/**
  * @classdesc Error thrown if a new directory element is attempted to be created
  * with a path that points to a file.
  *
@@ -64,6 +87,29 @@ export class ElementDoesNotExistError extends Error
     /**
      * Constructs `ElementDoesNotExistError` with the provided string as its
      * error message.
+     *
+     * @param msg message printed to console
+     *
+     * @constructor
+     */
+    constructor(msg: string)
+    {
+        super(msg);
+    }
+}
+
+/**
+ * @classdesc Error thrown if an element status is constructed with an exists
+ * property of `undefined` or `null`.
+ *
+ * @sealed
+ * @extends Error
+ */
+export class UndefinedElementStatusExistsError extends Error
+{
+    /**
+     * Constructs `UndefinedElementStatusExistsError` with the provided string
+     * as its error message.
      *
      * @param msg message printed to console
      *
