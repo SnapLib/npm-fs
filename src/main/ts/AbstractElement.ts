@@ -1,3 +1,8 @@
+import {BlankElementPathError,
+        DirectoryWithFilePathError,
+        ElementDoesNotExistError,
+        FileWithDirectoryPathError,
+        PreExistingElementError} from "./Errors";
 import { Element } from "./Element";
 import { ElementStatus } from "./ElementStatus";
 import * as fs from "fs";
@@ -87,7 +92,7 @@ export abstract class AbstractElement implements Element
             // If element is not specified to be pre-existing or specified to not exist but does
             if ( ! elementStatus.exists && fs.existsSync(this.elementPath))
             {
-                throw new PreExistingElementError(this.elementPath);
+                throw new PreExistingElementError("path already exists:\n".concat(this.elementPath));
             }
             // If element should be pre-existing
             if (elementStatus.exists)
@@ -95,19 +100,19 @@ export abstract class AbstractElement implements Element
                 // If element should be pre-existing but is not
                 if (fs.existsSync(this.elementPath) !== true)
                 {
-                    throw new ElementDoesNotExistError(this.elementPath);
+                    throw new ElementDoesNotExistError("path does not exist:\n".concat(this.elementPath));
                 }
                 // If pre-existing element should be a directory or not a file,
                 // but is a file
                 else if ((elementStatus.isDirectory ||  elementStatus.isFile === false) && fs.lstatSync(this.elementPath).isFile())
                 {
-                    throw new DirectoryWithFilePathError(this.elementPath);
+                    throw new DirectoryWithFilePathError("directory element path points to a file:\n".concat(this.elementPath));
                 }
                 // If pre-existing element should be a file or not a directory,
                 // but is a directory
                 else if ((elementStatus.isFile || elementStatus.isDirectory === false) && fs.lstatSync(this.elementPath).isDirectory())
                 {
-                    throw new FileWithDirectoryPathError(this.elementPath);
+                    throw new FileWithDirectoryPathError("file element path points to a directory:\n".concat(this.elementPath));
                 }
             }
         }
@@ -115,7 +120,7 @@ export abstract class AbstractElement implements Element
         // it shouldn't be pre-existing to avoid overwriting element
         else if (fs.existsSync(this.elementPath))
         {
-            throw new PreExistingElementError(this.elementPath);
+            throw new PreExistingElementError("path already exists:\n".concat(this.elementPath));
         }
 
         // Assign element status default value of existing directory if not
@@ -175,49 +180,4 @@ export abstract class AbstractElement implements Element
 
     /** @inheritDoc */
     public abstract size(): number;
-}
-
-/** @ignore */
-class BlankElementPathError extends Error
-{
-    constructor(msg: string)
-    {
-        super(msg);
-    }
-}
-
-/** @ignore */
-class ElementDoesNotExistError extends Error
-{
-    constructor(elementPath: string)
-    {
-        super(`path "${elementPath}" does not exist`);
-    }
-}
-
-/** @ignore */
-class PreExistingElementError extends Error
-{
-    constructor(elementPath: string)
-    {
-        super(`path "${elementPath}" already exists`);
-    }
-}
-
-/** @ignore */
-class DirectoryWithFilePathError extends Error
-{
-    constructor(elementPath: string)
-    {
-        super(`directory elementPath of "${elementPath}" points to a file`);
-    }
-}
-
-/** @ignore */
-class FileWithDirectoryPathError extends Error
-{
-    constructor(elementPath: string)
-    {
-        super(`file elementPath of "${elementPath}" points to a directory`);
-    }
 }
