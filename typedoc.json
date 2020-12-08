@@ -1,0 +1,7 @@
+{
+  "inputFiles": ["src/main/ts"],
+  "mode": "modules",
+  "out": "build/docs",
+  "readme": "docs/PKG_README.md",
+  "stripInternal": true
+}
