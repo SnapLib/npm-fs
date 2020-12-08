@@ -2,7 +2,7 @@ import {Structure} from "./Structure";
 
 /**
  * Defines the required and optional files and directories that should be
- * present in a SnapLib based npm project root directory.
+ * present in a SnapLib based npm project `Root` directory.
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
@@ -26,6 +26,21 @@ export class Root
          "package-lock.json",
          "README.md"];
 
+    /**
+     * Property containing all required files and directories that must be
+     * present in the root directory of a SnapLib npm project.
+     *
+     * @static
+     * @property
+     */
     public static readonly REQUIRED: Structure = new Structure(Root.REQUIRED_DIR_NAMES, Root.REQUIRED_FILE_NAMES);
+
+    /**
+     * Property containing all optional files and directories that must be
+     * present in the root directory of a SnapLib npm project.
+     *
+     * @static
+     * @property
+     */
     public static readonly OPTIONAL: Structure = new Structure(Root.OPTIONAL_DIR_NAMES, Root.OPTIONAL_FILE_NAMES);
 }
