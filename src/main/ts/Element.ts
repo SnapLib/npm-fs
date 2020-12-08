@@ -1,7 +1,7 @@
 /**
  * @overview
  * The most fundamental elements of an npm file system are the directories and
- * files that the system contains. These elements share many common properties
+ * files that make up the system. These elements share many common properties
  * such as having a path and name. However, each element type also has unique
  * properties that are implementation specific such as the contents and size.
  * For instance the contents of a directory are different than the contents of
@@ -11,7 +11,11 @@
  */
 
 /**
- * @classdesc The root interface all file and directory elements implement.
+ * The root interface all file and directory elements implement.
+ *
+ * @classdesc
+ * This interface defines all the behaviors and properties shared by all file
+ * system directory and file elements.
  *
  * @interface
  */
@@ -51,7 +55,7 @@ export interface Element
      * names of this directory's entries.
      *
      * @remarks If this element is a file, returns a read only array containing
-     * each line of the file as text.
+     * each line of this file as text.
      *
      * @returns The contents of this element
      *
