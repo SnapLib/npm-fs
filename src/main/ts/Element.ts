@@ -7,6 +7,8 @@
  * For instance the contents of a directory are different than the contents of
  * a text file.
  *
+ * @packageDocumentation
+ *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
 
