@@ -21,6 +21,7 @@ import * as path from "path";
  * @classdesc Contains the base implementation all file and directory elements
  *            inherit from.
  *
+ * @internal
  * @abstract
  */
 export abstract class AbstractElement implements Element

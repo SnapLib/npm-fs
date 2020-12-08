@@ -3,6 +3,8 @@
  * Errors thrown by the classes of this package.
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
+ *
+ * @internal
  */
 
 /**
