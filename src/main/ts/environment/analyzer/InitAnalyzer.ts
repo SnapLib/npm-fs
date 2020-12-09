@@ -12,14 +12,16 @@ export class InitAnalyzer
     private static readonly NPM_ROOT: Analyzer = new Analyzer(InitAnalyzer.PROJECT_RESOURCES.parent.path);
 
     public static readonly SCRIPTS =
-        {required: new Map(ResourceScripts.REQUIRED.all.map(direntName => [direntName, InitAnalyzer.PROJECT_RESOURCES.parent.containsNameIgnoreCase(direntName)])),
-         optional: new Map(ResourceScripts.OPTIONAL.all.map(direntName => [direntName, InitAnalyzer.PROJECT_RESOURCES.parent.containsNameIgnoreCase(direntName)]))};
+        {required: {files: new Map(ResourceScripts.REQUIRED.files.map(fileName => [fileName, InitAnalyzer.RESOURCE_SCRIPTS.parent.containsFileNameIgnoreCase(fileName)])), directories: new Map(ResourceScripts.REQUIRED.directories.map(dirName => [dirName, InitAnalyzer.RESOURCE_SCRIPTS.parent.containsDirNameIgnoreCase(dirName)]))},
+         optional: {files: new Map(ResourceScripts.OPTIONAL.files.map(fileName => [fileName, InitAnalyzer.RESOURCE_SCRIPTS.parent.containsFileNameIgnoreCase(fileName)])), directories: new Map(ResourceScripts.OPTIONAL.directories.map(dirName => [dirName, InitAnalyzer.RESOURCE_SCRIPTS.parent.containsDirNameIgnoreCase(dirName)]))}};
 
     public static readonly RESOURCES =
-        {required: new Map(ProjectResource.REQUIRED.all.map(direntName => [direntName, InitAnalyzer.PROJECT_RESOURCES.parent.containsNameIgnoreCase(direntName)])),
-         optional: new Map(ProjectResource.OPTIONAL.all.map(direntName => [direntName, InitAnalyzer.PROJECT_RESOURCES.parent.containsNameIgnoreCase(direntName)]))};
+        {required: {files: new Map(ProjectResource.REQUIRED.files.map(fileName => [fileName, InitAnalyzer.PROJECT_RESOURCES.parent.containsFileNameIgnoreCase(fileName)])), directories: new Map(ProjectResource.REQUIRED.directories.map(dirName => [dirName, InitAnalyzer.PROJECT_RESOURCES.parent.containsDirNameIgnoreCase(dirName)]))},
+         optional: {files: new Map(ProjectResource.OPTIONAL.files.map(fileName => [fileName, InitAnalyzer.PROJECT_RESOURCES.parent.containsFileNameIgnoreCase(fileName)])), directories: new Map(ProjectResource.OPTIONAL.directories.map(dirName => [dirName, InitAnalyzer.PROJECT_RESOURCES.parent.containsDirNameIgnoreCase(dirName)]))}};
 
     public static readonly ROOT =
-        {required: new Map(Root.REQUIRED.all.map(direntName => [direntName, InitAnalyzer.NPM_ROOT.parent.containsNameIgnoreCase(direntName)])),
-         optional: new Map(Root.OPTIONAL.all.map(direntName => [direntName, InitAnalyzer.NPM_ROOT.parent.containsNameIgnoreCase(direntName)]))};
+        {required: {files: new Map(Root.REQUIRED.files.map(fileName => [fileName, InitAnalyzer.NPM_ROOT.parent.containsFileNameIgnoreCase(fileName)])), directories: new Map(Root.REQUIRED.directories.map(dirName => [dirName, InitAnalyzer.NPM_ROOT.parent.containsDirNameIgnoreCase(dirName)]))},
+         optional: {files: new Map(Root.OPTIONAL.files.map(fileName => [fileName, InitAnalyzer.NPM_ROOT.parent.containsFileNameIgnoreCase(fileName)])), directories: new Map(Root.OPTIONAL.directories.map(dirName => [dirName, InitAnalyzer.NPM_ROOT.parent.containsDirNameIgnoreCase(dirName)]))}};
 }
+
+console.log(InitAnalyzer.ROOT);
