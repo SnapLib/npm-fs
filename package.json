@@ -5,9 +5,10 @@
   "type": "commonjs",
   "main": "scripts/npm/init/init.js",
   "scripts": {
+    "a":"node build/js/environment/analyzer/InitAnalyzer.js",
     "clean": "rimraf build",
     "mocha": "mocha -r ts-node/register --extension ts --recursive true",
-    "test": "mocha -r ts-node/register --extension ts --recursive true src/test/ts/**/*.ts",
+    "test": "mocha -r ts-node/register --extension ts --recursive true src/test/ts",
     "test-report": "mocha -r ts-node/register src/test/ts/**.ts --reporter mochawesome --reporter-options consoleReporter=none,reportDir=build/test,reportFilename=index",
     "ts-node": "ts-node",
     "tsc": "tsc",
