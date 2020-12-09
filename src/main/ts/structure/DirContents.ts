@@ -7,7 +7,7 @@
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
-export class Structure
+export class DirContents
 {
     /**
      * The directories that should be present in this directory structure
