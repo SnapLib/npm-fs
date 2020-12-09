@@ -31,6 +31,7 @@ export class Root
      * present in the root directory of a SnapLib npm project.
      *
      * @static
+     * @readonly
      * @property
      */
     public static readonly REQUIRED: DirContents = new DirContents(Root.REQUIRED_DIR_NAMES, Root.REQUIRED_FILE_NAMES);
@@ -40,6 +41,7 @@ export class Root
      * present in the root directory of a SnapLib npm project.
      *
      * @static
+     * @readonly
      * @property
      */
     public static readonly OPTIONAL: DirContents = new DirContents(Root.OPTIONAL_DIR_NAMES, Root.OPTIONAL_FILE_NAMES);
