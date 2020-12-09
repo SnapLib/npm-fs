@@ -1,14 +1,14 @@
-import { Root } from "../../../main/ts/structure/Root";
+import { Root } from "../../../main/ts/environment/structure/Root";
 import { assert } from "chai";
 import { describe, it } from "mocha";
 
 const REQUIRED_DIR_NAMES: ReadonlyArray<string> =
-        ["docs", ".project.resources", "src"];
+        ["docs", "node_modules", ".project.resources", "src"];
 
 const REQUIRED_FILE_NAMES: ReadonlyArray<string> =
     ["package.json", "typedoc.json"];
 
-const OPTIONAL_DIR_NAMES: ReadonlyArray<string> = [".git", "node_modules"];
+const OPTIONAL_DIR_NAMES: ReadonlyArray<string> = [".git"];
 
 const OPTIONAL_FILE_NAMES: ReadonlyArray<string> = [".eslintrc.json",
                                                     ".gitignore",
