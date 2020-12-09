@@ -1,4 +1,4 @@
-import { Root } from "../../../main/ts/environment/structure/Root";
+import { Root } from "../../../../main/ts/environment/structure/Root";
 import { assert } from "chai";
 import { describe, it } from "mocha";
 
