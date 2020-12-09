@@ -26,6 +26,15 @@ export class DirContents
     public readonly files: ReadonlyArray<string>;
 
     /**
+     * All files and directories that should be present in this directory
+     * structure
+     *
+     * @readonly
+     * @property
+     */
+    public readonly all: ReadonlyArray<string>;
+
+    /**
      * Constructor that takes in a string array of directory names and file
      * names that should be present in this directory structure.
      *
@@ -42,5 +51,6 @@ export class DirContents
     {
         this.directories = directories;
         this.files = files;
+        this.all = files.concat(directories);
     }
 }
