@@ -26,7 +26,7 @@ export class File extends AbstractElement
 
     public isEmpty(): boolean
     {
-        return this._fileString.trim().length === 0;
+        return this._fileString.length === 0;
     }
 
     public length(): number
