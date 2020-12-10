@@ -98,6 +98,8 @@ export interface Element
      */
     isFile(): boolean;
 
+    isEmpty(): boolean;
+
     /**
      * Returns the size of this element. If this element does not exist it
      * returns -1.
