@@ -241,6 +241,11 @@ export class Directory extends AbstractElement
             || this.dirPaths.some(dirPath => dirNameOrPath.localeCompare(dirPath, undefined, {sensitivity: "base"}) === 0);
     }
 
+    public isEmpty(): boolean
+    {
+        return this.exists() && this.contents().length === 0;
+    }
+
     /**
      * Returns the number of directory entries this directory element contains
      * if it exists. Otherwise returns -1 if it does not exists.
