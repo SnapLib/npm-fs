@@ -29,6 +29,11 @@ export class File extends AbstractElement
         return this._fileString.trim().length === 0;
     }
 
+    public length(): number
+    {
+        return this.exists() ? this._lines.length : -1;
+    }
+
     public size(): number
     {
         return this.exists() ? fs.statSync(this.elementPath).size : -1;
