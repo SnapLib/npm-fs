@@ -83,7 +83,7 @@ export class Directory extends AbstractElement
      * @sealed
      * @function
      */
-    public contentPaths(): ReadonlyArray<string>
+    public get contentPaths(): ReadonlyArray<string>
     {
         return this.contents().map<string>(dirContentName => path.join(this.elementPath, dirContentName));
     }
@@ -158,7 +158,7 @@ export class Directory extends AbstractElement
     public contains(nameOrPath: string): boolean
     {
         return this.contents().includes(nameOrPath)
-            || this.contentPaths().includes(nameOrPath);
+            || this.contentPaths.includes(nameOrPath);
     }
 
     /**
@@ -174,7 +174,7 @@ export class Directory extends AbstractElement
     public containsIgnoreCase(nameOrPath: string): boolean
     {
         return this.contents().some(contentName => nameOrPath.localeCompare(contentName, undefined, {sensitivity: "base"}) === 0)
-            || this.contentPaths().some(contentPath => nameOrPath.localeCompare(contentPath, undefined, {sensitivity: "base"}) === 0);
+            || this.contentPaths.some(contentPath => nameOrPath.localeCompare(contentPath, undefined, {sensitivity: "base"}) === 0);
     }
 
     /**
