@@ -29,7 +29,7 @@ export class File extends AbstractElement
         return this._fileString.length === 0;
     }
 
-    get length(): number
+    public get length(): number
     {
         return this.exists() ? this._lines.length : -1;
     }
