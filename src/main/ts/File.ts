@@ -10,7 +10,7 @@ export class File extends AbstractElement
 
     contents(): ReadonlyArray<string>
     {
-        return [];
+        return fs.readFileSync(this.elementPath, {encoding: "utf8"}).split("\n");
     }
 
     size(): number
