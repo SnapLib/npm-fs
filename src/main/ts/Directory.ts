@@ -97,7 +97,7 @@ export class Directory extends AbstractElement
      * @sealed
      * @function
      */
-    public getDirNames(): ReadonlyArray<string>
+    public get dirNames(): ReadonlyArray<string>
     {
         return fs.readdirSync(this.elementPath, {withFileTypes: true}).filter(dirEnt => dirEnt.isDirectory()).map<string>(dir => dir.name);
     }
@@ -112,9 +112,9 @@ export class Directory extends AbstractElement
      * @sealed
      * @function
      */
-    public getDirPaths(): ReadonlyArray<string>
+    public get dirPaths(): ReadonlyArray<string>
     {
-        return this.getDirNames().map<string>(dirName => path.join(this.elementPath, dirName));
+        return this.dirNames.map<string>(dirName => path.join(this.elementPath, dirName));
     }
 
     /**
@@ -126,7 +126,7 @@ export class Directory extends AbstractElement
      * @sealed
      * @function
      */
-    public getFileNames(): ReadonlyArray<string>
+    public get fileNames(): ReadonlyArray<string>
     {
         return fs.readdirSync(this.elementPath, {withFileTypes: true}).filter(dirEnt => dirEnt.isFile()).map<string>(file => file.name);
     }
@@ -140,9 +140,9 @@ export class Directory extends AbstractElement
      * @sealed
      * @function
      */
-    public getFilePaths(): ReadonlyArray<string>
+    public get filePaths(): ReadonlyArray<string>
     {
-        return this.getFileNames().map<string>(fileName => path.join(this.elementPath, fileName));
+        return this.fileNames.map<string>(fileName => path.join(this.elementPath, fileName));
     }
 
     /**
@@ -189,8 +189,8 @@ export class Directory extends AbstractElement
      */
     public containsFile(fileNameOrPath: string): boolean
     {
-        return this.getFileNames().includes(fileNameOrPath)
-            || this.getFilePaths().includes(fileNameOrPath);
+        return this.fileNames.includes(fileNameOrPath)
+            || this.filePaths.includes(fileNameOrPath);
     }
 
     /**
@@ -205,8 +205,8 @@ export class Directory extends AbstractElement
      */
     public containsFileIgnoreCase(fileNameOrPath: string): boolean
     {
-        return this.getFileNames().some(fileName => fileNameOrPath.localeCompare(fileName, undefined, {sensitivity: "base"}) === 0)
-            || this.getFilePaths().some(filePath => fileNameOrPath.localeCompare(filePath, undefined, {sensitivity: "base"}) === 0);
+        return this.fileNames.some(fileName => fileNameOrPath.localeCompare(fileName, undefined, {sensitivity: "base"}) === 0)
+            || this.filePaths.some(filePath => fileNameOrPath.localeCompare(filePath, undefined, {sensitivity: "base"}) === 0);
     }
 
     /**
@@ -221,8 +221,8 @@ export class Directory extends AbstractElement
      */
     public containsDir(dirNameOrPath: string): boolean
     {
-        return this.getDirNames().includes(dirNameOrPath)
-            || this.getDirPaths().includes(dirNameOrPath);
+        return this.dirNames.includes(dirNameOrPath)
+            || this.dirPaths.includes(dirNameOrPath);
     }
 
     /**
@@ -237,8 +237,8 @@ export class Directory extends AbstractElement
      */
     public containsDirIgnoreCase(dirNameOrPath: string): boolean
     {
-        return this.getDirNames().some(dirName => dirNameOrPath.localeCompare(dirName, undefined, {sensitivity: "base"}) === 0)
-            || this.getDirPaths().some(dirPath => dirNameOrPath.localeCompare(dirPath, undefined, {sensitivity: "base"}) === 0);
+        return this.dirNames.some(dirName => dirNameOrPath.localeCompare(dirName, undefined, {sensitivity: "base"}) === 0)
+            || this.dirPaths.some(dirPath => dirNameOrPath.localeCompare(dirPath, undefined, {sensitivity: "base"}) === 0);
     }
 
     /**
