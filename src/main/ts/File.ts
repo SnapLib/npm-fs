@@ -3,17 +3,28 @@ import * as fs from "fs";
 
 export class File extends AbstractElement
 {
+    private readonly _fileString: string;
+    private readonly _lines: ReadonlyArray<string>
+
     public constructor(filePath: string, existsStatus: boolean)
     {
         super(filePath, {exists: existsStatus, isDirectory: false, isFile: true});
+
+        this._fileString = fs.readFileSync(this.elementPath, {encoding: "utf8"});
+        this._lines = this._fileString.split("\n");
     }
 
-    contents(): ReadonlyArray<string>
+    public contents(): ReadonlyArray<string>
     {
-        return fs.readFileSync(this.elementPath, {encoding: "utf8"}).split("\n");
+        return this._lines;
     }
 
-    size(): number
+    public contains(aString: string): boolean
+    {
+        return this._fileString.includes(aString);
+    }
+
+    public size(): number
     {
         return this.exists() ? fs.statSync(this.elementPath).size : -1;
     }
