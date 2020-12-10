@@ -175,6 +175,8 @@ export abstract class AbstractElement implements Element
         return this.status.isFile ?? false;
     }
 
+    public abstract isEmpty(): boolean;
+
     /** @inheritDoc */
     public abstract size(): number;
 }
