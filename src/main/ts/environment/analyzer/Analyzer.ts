@@ -35,21 +35,21 @@ class PathAnalyzer
 
     public get path(): string {return this._originPath;}
 
-    get name(): string {return this._originName;}
+    public get name(): string {return this._originName;}
 
-    get parentPath(): string {return this._parentPath;}
+    public get parentPath(): string {return this._parentPath;}
 
-    get parentDirents(): ReadonlyArray<Dirent> {return this._parentDirents;}
+    public get parentDirents(): ReadonlyArray<Dirent> {return this._parentDirents;}
 
-    get parentDirentNames(): ReadonlyArray<string> {return this._parentDirentNames;}
+    public get parentDirentNames(): ReadonlyArray<string> {return this._parentDirentNames;}
 
-    get parentFiles(): ReadonlyArray<Dirent> {return this._parentFiles;}
+    public get parentFiles(): ReadonlyArray<Dirent> {return this._parentFiles;}
 
-    get parentFileNames(): ReadonlyArray<string> {return this._parentFileNames;}
+    public get parentFileNames(): ReadonlyArray<string> {return this._parentFileNames;}
 
-    get parentDirectories(): ReadonlyArray<Dirent> {return this._parentDirs;}
+    public get parentDirectories(): ReadonlyArray<Dirent> {return this._parentDirs;}
 
-    get parentDirectoryNames(): ReadonlyArray<string> {return this._parentDirNames;}
+    public get parentDirectoryNames(): ReadonlyArray<string> {return this._parentDirNames;}
 
     public isFile(): boolean
     {
