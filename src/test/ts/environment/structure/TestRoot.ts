@@ -3,12 +3,12 @@ import { assert } from "chai";
 import { describe, it } from "mocha";
 
 const REQUIRED_DIR_NAMES: ReadonlyArray<string> =
-        ["docs", "node_modules", ".project.resources", "src"];
+        ["node_modules", ".project.resources", "src"];
 
 const REQUIRED_FILE_NAMES: ReadonlyArray<string> =
     ["package.json", "typedoc.json"];
 
-const OPTIONAL_DIR_NAMES: ReadonlyArray<string> = [".git"];
+const OPTIONAL_DIR_NAMES: ReadonlyArray<string> = ["docs", ".git"];
 
 const OPTIONAL_FILE_NAMES: ReadonlyArray<string> = [".eslintrc.json",
                                                     ".gitignore",
