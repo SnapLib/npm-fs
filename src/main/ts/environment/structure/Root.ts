@@ -9,14 +9,14 @@ import {DirContents} from "./DirContents";
 export class Root
 {
     private static readonly REQUIRED_DIR_NAMES: ReadonlyArray<string> =
-        ["docs", "node_modules", ".project.resources", "src"];
+        ["node_modules", ".project.resources", "src"];
 
     private static readonly REQUIRED_FILE_NAMES: ReadonlyArray<string> =
         ["package.json",
          "typedoc.json"];
 
     private static readonly OPTIONAL_DIR_NAMES: ReadonlyArray<string> =
-        [".git"];
+        ["docs", ".git"];
 
     private static readonly OPTIONAL_FILE_NAMES: ReadonlyArray<string> =
         [".eslintrc.json",
