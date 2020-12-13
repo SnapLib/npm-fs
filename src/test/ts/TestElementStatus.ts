@@ -1,4 +1,4 @@
-import { ElementStatus } from "../../main/ts/ElementStatus";
+import { ElementStatus } from "../../main/ts/element/ElementStatus";
 import { assert } from "chai";
 import { describe, it } from "mocha";
 

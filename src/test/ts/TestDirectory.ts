@@ -1,4 +1,4 @@
-import { Directory } from "../../main/ts/Directory";
+import { Directory } from "../../main/ts/element/Directory";
 import { assert } from "chai";
 import * as path from "path";
 import { describe, it } from "mocha";
