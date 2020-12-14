@@ -8,9 +8,9 @@ export class InitAnalyzer
 {
     private static readonly RESOURCE_SCRIPTS: Analyzer = new Analyzer(__dirname);
 
-    private static readonly PROJECT_RESOURCES: Analyzer = new Analyzer(InitAnalyzer.RESOURCE_SCRIPTS.parent.path);
+    private static readonly PROJECT_RESOURCES: Analyzer = new Analyzer(InitAnalyzer.RESOURCE_SCRIPTS.parent.originPath);
 
-    private static readonly NPM_ROOT: Analyzer = new Analyzer(InitAnalyzer.PROJECT_RESOURCES.parent.path);
+    private static readonly NPM_ROOT: Analyzer = new Analyzer(InitAnalyzer.PROJECT_RESOURCES.parent.originPath);
 
     public static readonly SCRIPTS: ReadOnlyDict<ReadOnlyDict<ReadonlyMap<string, boolean>>> =
         {required: {files: new Map(ResourceScripts.REQUIRED.files.map(fileName => [fileName, InitAnalyzer.RESOURCE_SCRIPTS.parent.containsFileNameIgnoreCase(fileName)])), directories: new Map(ResourceScripts.REQUIRED.directories.map(dirName => [dirName, InitAnalyzer.RESOURCE_SCRIPTS.parent.containsDirNameIgnoreCase(dirName)]))},
