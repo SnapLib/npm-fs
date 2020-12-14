@@ -32,7 +32,9 @@ export interface Element
     readonly elementPath: string;
 
     /**
-     * The name of this element.
+     * The name of this element. This is the the name that is at the tail
+     * or endmost part of its absolute path. The name of this file or directory
+     * element.
      *
      * @readonly
      * @property
