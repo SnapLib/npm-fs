@@ -10,7 +10,7 @@
 export class DirContents
 {
     /**
-     * The directories that should be present in this directory structure
+     * The directories that should be present in this directory structure.
      *
      * @readonly
      * @property
@@ -26,8 +26,8 @@ export class DirContents
     public readonly files: ReadonlyArray<string>;
 
     /**
-     * All files and directories that should be present in this directory
-     * structure
+     * The directories and files that should be present in this directory
+     * structure.
      *
      * @readonly
      * @property
@@ -51,6 +51,6 @@ export class DirContents
     {
         this.directories = directories;
         this.files = files;
-        this.all = files.concat(directories);
+        this.all = directories.concat(files);
     }
 }
