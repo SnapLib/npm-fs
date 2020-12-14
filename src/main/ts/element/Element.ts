@@ -40,9 +40,9 @@ export interface Element
     readonly elementName: string;
 
     /**
-     * The absolute path of the parent directory this element resides in. If
-     * this element does not have a parent directory (i.e. it resides in the
-     * root directory of the operating system) then this property is set to
+     * The absolute path of the directory this element resides in. If this
+     * element does not have a parent directory (i.e. it resides in the root
+     * directory of the operating system) then this property is set to
      * `undefined`.
      *
      * @readonly
@@ -116,17 +116,4 @@ export interface Element
      * @function
      */
     size(): number;
-}
-
-/**
- * @classdesc
- * Enum containing markers to indicate what type of element an npm file system
- * element is (a "directory" or "file").
- *
- * @enum {string}
- */
-export enum Type
-{
-    DIRECTORY = "directory",
-    FILE = "file"
 }
