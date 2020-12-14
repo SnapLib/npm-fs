@@ -15,66 +15,23 @@ export class Analyzer
 
 class PathAnalyzer
 {
-    private readonly _originPath: string;
+    public readonly originPath: string;
 
-    private readonly _originName: string;
+    public readonly originName: string;
 
-    private readonly _parentPath: string;
+    public readonly parentPath: string;
 
-    private readonly _parentDirents: ReadonlyArray<Dirent>;
+    public readonly parentDirents: ReadonlyArray<Dirent>;
 
-    private readonly _parentDirentNames: ReadonlyArray<string>;
+    public readonly parentDirentNames: ReadonlyArray<string>;
 
-    private readonly _parentFiles: ReadonlyArray<Dirent>;
+    public readonly parentFiles: ReadonlyArray<Dirent>;
 
-    private readonly _parentFileNames: ReadonlyArray<string>;
+    public readonly parentFileNames: ReadonlyArray<string>;
 
-    private readonly _parentDirs: ReadonlyArray<Dirent>;
+    public readonly parentDirs: ReadonlyArray<Dirent>;
 
-    private readonly _parentDirNames: ReadonlyArray<string>;
-
-    public get path(): string {return this._originPath;}
-
-    public get name(): string {return this._originName;}
-
-    public get parentPath(): string {return this._parentPath;}
-
-    public get parentDirents(): ReadonlyArray<Dirent> {return this._parentDirents;}
-
-    public get parentDirentNames(): ReadonlyArray<string> {return this._parentDirentNames;}
-
-    public get parentFiles(): ReadonlyArray<Dirent> {return this._parentFiles;}
-
-    public get parentFileNames(): ReadonlyArray<string> {return this._parentFileNames;}
-
-    public get parentDirectories(): ReadonlyArray<Dirent> {return this._parentDirs;}
-
-    public get parentDirectoryNames(): ReadonlyArray<string> {return this._parentDirNames;}
-
-    public isFile(): boolean
-    {
-        return lstatSync(this._originPath).isFile();
-    }
-
-    public isDirectory(): boolean
-    {
-        return lstatSync(this._originPath).isDirectory();
-    }
-
-    public containsNameIgnoreCase(direntName: string): boolean
-    {
-        return this._parentDirentNames.some(presentDirentName => direntName.localeCompare(presentDirentName, undefined, {sensitivity: "base"}) === 0);
-    }
-
-    public containsFileNameIgnoreCase(fileName: string): boolean
-    {
-        return this._parentFileNames.some(presentFileName => fileName.localeCompare(presentFileName, undefined, {sensitivity: "base"}) === 0);
-    }
-
-    public containsDirNameIgnoreCase(directoryName: string): boolean
-    {
-        return this._parentDirNames.some(presentDirName => directoryName.localeCompare(presentDirName, undefined, {sensitivity: "base"}) === 0);
-    }
+    public readonly parentDirNames: ReadonlyArray<string>;
 
     public constructor(originPath: string)
     {
@@ -92,25 +49,50 @@ class PathAnalyzer
         }
         else
         {
-            this._originPath = originPath;
+            this.originPath = originPath;
 
-            this._originName = basename(originPath);
+            this.originName = basename(originPath);
 
-            this._parentPath = dirname(originPath);
+            this.parentPath = dirname(originPath);
 
-            this._parentDirents = readdirSync(this._parentPath, {withFileTypes: true});
+            this.parentDirents = readdirSync(this.parentPath, {withFileTypes: true});
 
-            this._parentDirentNames = this._parentDirents.map<string>(dirEnt => dirEnt.name);
+            this.parentDirentNames = this.parentDirents.map<string>(dirEnt => dirEnt.name);
 
-            this._parentFiles = readdirSync(this._parentPath, {withFileTypes: true})
+            this.parentFiles = readdirSync(this.parentPath, {withFileTypes: true})
                                     .filter(dirEnt => dirEnt.isFile());
 
-            this._parentFileNames = this._parentFiles.map<string>(fileDirent => fileDirent.name);
+            this.parentFileNames = this.parentFiles.map<string>(fileDirent => fileDirent.name);
 
-            this._parentDirs = readdirSync(this._parentPath, {withFileTypes: true})
+            this.parentDirs = readdirSync(this.parentPath, {withFileTypes: true})
                                    .filter(dirEnt => dirEnt.isDirectory());
 
-            this._parentDirNames = this._parentDirs.map<string>(dirDirent => dirDirent.name);
+            this.parentDirNames = this.parentDirs.map<string>(dirDirent => dirDirent.name);
         }
+    }
+
+    public isFile(): boolean
+    {
+        return lstatSync(this.originPath).isFile();
+    }
+
+    public isDirectory(): boolean
+    {
+        return lstatSync(this.originPath).isDirectory();
+    }
+
+    public containsNameIgnoreCase(direntName: string): boolean
+    {
+        return this.parentDirentNames.some(presentDirentName => direntName.localeCompare(presentDirentName, undefined, {sensitivity: "base"}) === 0);
+    }
+
+    public containsFileNameIgnoreCase(fileName: string): boolean
+    {
+        return this.parentFileNames.some(presentFileName => fileName.localeCompare(presentFileName, undefined, {sensitivity: "base"}) === 0);
+    }
+
+    public containsDirNameIgnoreCase(directoryName: string): boolean
+    {
+        return this.parentDirNames.some(presentDirName => directoryName.localeCompare(presentDirName, undefined, {sensitivity: "base"}) === 0);
     }
 }
