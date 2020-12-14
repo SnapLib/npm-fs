@@ -117,16 +117,3 @@ export interface Element
      */
     size(): number;
 }
-
-/**
- * @classdesc
- * Enum containing markers to indicate what type of element an npm file system
- * element is (a "directory" or "file").
- *
- * @enum {string}
- */
-export enum Type
-{
-    DIRECTORY = "directory",
-    FILE = "file"
-}
