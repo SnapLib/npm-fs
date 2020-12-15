@@ -24,22 +24,31 @@
 export interface Element
 {
     /**
+     * The type of element this element is. Indicates whether this element
+     * represents a directory or file.
+     *
+     * @readonly
+     * @property
+     */
+    readonly type: Type;
+
+    /**
      * The absolute path of this element.
      *
      * @readonly
      * @property
      */
-    readonly elementPath: string;
+    readonly path: string;
 
     /**
      * The name of this element. This is the the name that is at the tail
-     * or endmost part of its absolute path. The name of this file or directory
-     * element.
+     * or endmost part of its path. The name of this file or directory
+     * element including its extension.
      *
      * @readonly
      * @property
      */
-    readonly elementName: string;
+    readonly name: string;
 
     /**
      * The absolute path of the directory this element resides in. If this
@@ -118,4 +127,10 @@ export interface Element
      * @function
      */
     size(): number;
+}
+
+export enum Type
+{
+    DIRECTORY = "directory",
+    FILE = "file"
 }

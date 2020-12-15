@@ -1,6 +1,7 @@
 import { AbstractElement } from "./AbstractElement";
 import * as fs from "fs";
 import * as path from "path";
+import {Type} from "./Element";
 
 /**
  * Root implementation for all directory elements.
@@ -30,11 +31,10 @@ export class Directory extends AbstractElement
      * requires a path and a `boolean` flag indicating whether it should already
      * be present as a directory in the file system.
      *
-     * @param directoryPath absolute path of this directory element
+     * @param directoryPath path of this directory element
      *
-     * @param existsStatus `boolean` flag indicating whether this directory
-     *                     element should already be present in the current file
-     *                     system or not
+     * @param nestedDirectoryPaths Nested paths to resolve that point to this
+     *                             directory element
      *
      * @throws {@link BlankElementPathError} if provided element path argument
      *         is empty or only consists of whitespace
@@ -52,9 +52,9 @@ export class Directory extends AbstractElement
      *
      * @constructor
      */
-    public constructor(directoryPath: string, existsStatus: boolean)
+    public constructor(directoryPath: string, ...nestedDirectoryPaths: ReadonlyArray<string>)
     {
-        super(directoryPath, {exists: existsStatus, isDirectory: true, isFile: false});
+        super(Type.DIRECTORY, path.normalize([directoryPath].concat(nestedDirectoryPaths).join(path.sep)));
     }
 
     /**
@@ -70,7 +70,7 @@ export class Directory extends AbstractElement
      */
     public contents(): ReadonlyArray<string>
     {
-        return fs.readdirSync(this.elementPath);
+        return fs.readdirSync(this.path);
     }
 
     /**
@@ -85,7 +85,7 @@ export class Directory extends AbstractElement
      */
     public contentPaths(): ReadonlyArray<string>
     {
-        return this.contents().map<string>(dirContentName => path.join(this.elementPath, dirContentName));
+        return this.contents().map<string>(dirContentName => path.join(this.path, dirContentName));
     }
 
     /**
@@ -99,7 +99,7 @@ export class Directory extends AbstractElement
      */
     public dirNames(): ReadonlyArray<string>
     {
-        return fs.readdirSync(this.elementPath, {withFileTypes: true}).filter(dirEnt => dirEnt.isDirectory()).map<string>(dir => dir.name);
+        return fs.readdirSync(this.path, {withFileTypes: true}).filter(dirEnt => dirEnt.isDirectory()).map<string>(dir => dir.name);
     }
 
     /**
@@ -114,7 +114,7 @@ export class Directory extends AbstractElement
      */
     public dirPaths(): ReadonlyArray<string>
     {
-        return this.dirNames().map<string>(dirName => path.join(this.elementPath, dirName));
+        return this.dirNames().map<string>(dirName => path.join(this.path, dirName));
     }
 
     /**
@@ -128,7 +128,7 @@ export class Directory extends AbstractElement
      */
     public fileNames(): ReadonlyArray<string>
     {
-        return fs.readdirSync(this.elementPath, {withFileTypes: true}).filter(dirEnt => dirEnt.isFile()).map<string>(file => file.name);
+        return fs.readdirSync(this.path, {withFileTypes: true}).filter(dirEnt => dirEnt.isFile()).map<string>(file => file.name);
     }
 
     /**
@@ -142,7 +142,7 @@ export class Directory extends AbstractElement
      */
     public filePaths(): ReadonlyArray<string>
     {
-        return this.fileNames().map<string>(fileName => path.join(this.elementPath, fileName));
+        return this.fileNames().map<string>(fileName => path.join(this.path, fileName));
     }
 
     /**
@@ -260,48 +260,5 @@ export class Directory extends AbstractElement
     public size(): number
     {
         return this.exists() ? this.contents().length : -1;
-    }
-
-    /**
-     * Creates a new instance of a directory element based on a pre-existing
-     * directory.
-     *
-     * @param dirPath path to existing directory
-     *
-     * @returns a new instance of a directory element based on a pre-existing
-     *          directory
-     *
-     * @throws {@link BlankElementPathError} if provided element path argument
-     *          is empty or only contains whitespace
-     *
-     * @throws {@link DirectoryWithFilePathError} if provided path argument
-     *         points to file
-     *
-     * @throws {@link ElementDoesNotExistError} if path argument doesn't point
-     *         to a pre-existing directory
-     */
-    public static ofExisting(dirPath: string): Directory
-    {
-        return new Directory(dirPath, true);
-    }
-
-    /**
-     * Creates a new instance of a directory element based on a new
-     * non-preexisting directory.
-     *
-     * @param dirPath path to non-existing directory or file
-     *
-     * @returns a new instance of a directory element based on a non-preexisting
-     *          directory
-     *
-     * @throws {@link BlankElementPathError} if provided element path argument
-     *          is empty or only contains whitespace
-     *
-     * @throws {@link PreExistingElementError} if provided path argument points
-     *         to a pre-existing file or directory
-     */
-    public static createNew(dirPath: string): Directory
-    {
-        return new Directory(dirPath, false);
     }
 }
