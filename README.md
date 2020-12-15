@@ -5,8 +5,6 @@ to a SnapLib npm project.
 
 ## SnapLib npm Project Structure
 
----
-
 A SnapLib npm project's structure can be thought of as a subset of an npm
 project. Therefore, every SnapLib npm project follows the basic minimum npm
 project structure. Such as having a `node_modules` directory and `package.json`
@@ -91,8 +89,6 @@ indicates it's a directory):
 </details>
 
 ## SnapLib npm Project Directories
-
----
 
 - ### build
 
