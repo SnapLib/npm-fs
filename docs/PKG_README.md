@@ -8,8 +8,8 @@ to a SnapLib npm project.
 A SnapLib npm project's structure can be thought of as a subset of an npm
 project. Therefore, every SnapLib npm project follows the basic minimum npm
 project structure. Such as having a `node_modules` directory and `package.json`
-and `package-lock.json` file located in the project's root directory that is
-common to every npm based project.
+and `package-lock.json` file located in the project's root directory. These are
+common to all npm based projects
 
 However, ***SnapLib*** npm projects have additional project structure properties
 that are enforced and shared by all SnapLib npm projects. Some examples of such
