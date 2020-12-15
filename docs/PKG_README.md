@@ -41,7 +41,8 @@ indicates it's a directory):
 ├──build -> generated from various build tasks. May not always be present.
 │  ├──css
 │  │  └──index.css
-│  ├──docs\
+│  ├──docs
+│  │  └──class_diagrams/
 │  ├──html
 │  │  └──index.html
 │  ├──js
