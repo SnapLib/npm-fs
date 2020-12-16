@@ -92,21 +92,24 @@ indicates it's a directory):
 
 - ### build
 
-The `build` directory contains all output of various build and generator tasks.
-For instance, the output of compiling/transpiling source code and generating
-source code doc comment documentation and test reports is outputted to this
-directory.
+The [`build`][3] directory contains all output of various build and generator
+tasks. For instance, the output of compiling/transpiling source code and
+generating source code doc comment documentation and test reports is outputted
+to this directory.
 
 - ### docs
 
-The `docs` directory contains all documentation that isn't included in the
+The [`docs`][4] directory contains all documentation that isn't included in the
 source code doc comments.
 
 - ### src
 
-The `src` directory contains all source code files, source code test files, as
-well as all resources (non-source code files) that may be referenced by the
+The [`src`][5] directory contains all source code files, source code test files,
+as well as all resources (non-source code files) that may be referenced by the
 source code and source code test files.
 
 [1]: https://www.npmjs.com/package/typescript "TypeScript"
 [2]: https://www.npmjs.com/package/typedoc "TypeDoc"
+[3]: docs/build.md
+[4]: docs/docs.md
+[5]: docs/src.md
