@@ -88,7 +88,7 @@ indicates it's a directory):
 
 </details>
 
-## SnapLib npm Project Directories
+## SnapLib npm Project Root Directories
 
 - ### build
 
@@ -110,6 +110,6 @@ source code and source code test files.
 
 [1]: https://www.npmjs.com/package/typescript "TypeScript"
 [2]: https://www.npmjs.com/package/typedoc "TypeDoc"
-[3]: docs/project/build.md
-[4]: docs/project/docs.md
-[5]: docs/project/src.md
+[3]: docs/project/build.md "root build directory"
+[4]: docs/project/docs.md "root docs directory"
+[5]: docs/project/src.md "root src directory"
