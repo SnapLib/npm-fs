@@ -5,9 +5,9 @@
   "type": "commonjs",
   "main": "scripts/npm/init/init.js",
   "scripts": {
-    "a": "node build/js/npm-fs.js",
     "clean": "rimraf build",
     "mocha": "mocha -r ts-node/register --extension ts --recursive true",
+    "npm-fs": "node build/js/npm-fs.js",
     "test": "mocha -r ts-node/register --extension ts --recursive true src/test/ts",
     "test-report": "mocha -r ts-node/register --extension ts --recursive true src/test/ts --reporter mochawesome --reporter-options consoleReporter=none,reportDir=build/test,reportFilename=index",
     "ts-node": "ts-node",
