@@ -110,6 +110,6 @@ source code and source code test files.
 
 [1]: https://www.npmjs.com/package/typescript "TypeScript"
 [2]: https://www.npmjs.com/package/typedoc "TypeDoc"
-[3]: docs/build.md
-[4]: docs/docs.md
-[5]: docs/src.md
+[3]: docs/project/build.md
+[4]: docs/project/docs.md
+[5]: docs/project/src.md
