@@ -109,19 +109,41 @@ export interface Element
      */
     isFile(): boolean;
 
+    /**
+     * Returns `true` if this element exists and contains data.
+     *
+     * @returns `true` if this element exists and contains data
+     */
     isEmpty(): boolean;
 
     /**
-     * Returns the size of this element. If this element does not exist it
+     * Returns the length of this element. If this element does not exist it
      * returns -1.
      *
      * @remarks If this element is a directory, returns the number of entries
      * this directory contains.
      *
-     * @remarks If this element is a file, returns the size (in bytes) of this
-     * file.
+     * @remarks If this element is a file, returns the number of lines this file
+     * contains.
      *
-     * @returns the size of this element
+     * @returns the length of this element
+     *
+     * @abstract
+     * @function
+     */
+    length(): number;
+
+    /**
+     * Returns the size of this element in bytes. If this element does not exist
+     * it returns -1.
+     *
+     * @remarks If this element is a directory, returns the size in bytes of all
+     * the elements this directory contains summed together.
+     *
+     * @remarks If this element is a file, returns the size of this file in
+     * bytes.
+     *
+     * @returns the length of this element
      *
      * @abstract
      * @function
