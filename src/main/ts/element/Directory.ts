@@ -1,7 +1,7 @@
-import { AbstractElement } from "./AbstractElement";
+import {Type} from "./Element";
+import {AbstractElement} from "./AbstractElement";
 import * as fs from "fs";
 import * as path from "path";
-import {Type} from "./Element";
 
 /**
  * Root implementation for all directory elements.
@@ -154,6 +154,9 @@ export class Directory extends AbstractElement
      *
      * @returns `true` if the provided file or directory name or path is present
      *          in this directory element
+     *
+     * @sealed
+     * @function
      */
     public contains(nameOrPath: string): boolean
     {
@@ -170,6 +173,9 @@ export class Directory extends AbstractElement
      *
      * @returns `true` if the provided file or directory name or path is present
      *          in this directory element
+     *
+     * @sealed
+     * @function
      */
     public containsIgnoreCase(nameOrPath: string): boolean
     {
@@ -186,6 +192,9 @@ export class Directory extends AbstractElement
      *
      * @returns `true` if the provided file name or path is present in this
      *          directory element
+     *
+     * @sealed
+     * @function
      */
     public containsFile(fileNameOrPath: string): boolean
     {
@@ -202,6 +211,9 @@ export class Directory extends AbstractElement
      *
      * @returns `true` if the provided file name or path is present in this
      *          directory element
+     *
+     * @sealed
+     * @function
      */
     public containsFileIgnoreCase(fileNameOrPath: string): boolean
     {
@@ -218,6 +230,9 @@ export class Directory extends AbstractElement
      *
      * @returns `true` if the provided directory name or path is present in this
      *          directory element
+     *
+     * @sealed
+     * @function
      */
     public containsDir(dirNameOrPath: string): boolean
     {
@@ -234,6 +249,9 @@ export class Directory extends AbstractElement
      *
      * @returns `true` if the provided directory name or path is present in this
      *          directory element
+     *
+     * @sealed
+     * @function
      */
     public containsDirIgnoreCase(dirNameOrPath: string): boolean
     {
@@ -244,6 +262,21 @@ export class Directory extends AbstractElement
     public isEmpty(): boolean
     {
         return this.exists() && this.contents().length === 0;
+    }
+
+    /**
+     * Returns the number of directory entries this directory element contains.
+     * If this directory element doesn't exist then `-1` is returned.
+     *
+     * @returns the number of directory entries this directory element contains
+     *
+     * @override
+     * @sealed
+     * @function
+     */
+    public length(): number
+    {
+        return this.exists() ? this.contents().length : -1;
     }
 
     /**
@@ -259,6 +292,46 @@ export class Directory extends AbstractElement
      */
     public size(): number
     {
-        return this.exists() ? this.contents().length : -1;
+        return Directory.sizeOf(this.path);
+    }
+
+    /**
+     * Returns the total size, in bytes, of the directory at the given path. If
+     * the provided path doesn't point to an existing element, then -1 is
+     * returned. If the provided path points to a file, then the file's size is
+     * returned.
+     *
+     * @param directoryPath The path to the directory to get the size of
+     *
+     * @returns the size, in bytes, of the directory or file that the provided
+     *          path points to
+     *
+     * @static
+     * @function
+     */
+    public static sizeOf(directoryPath: string): number
+    {
+        if (fs.existsSync(directoryPath) !== true)
+        {
+            return -1;
+        }
+        else if (fs.lstatSync(directoryPath).isFile())
+        {
+            return fs.lstatSync(directoryPath).size;
+        }
+        else
+        {
+            const getAllFilePaths = (dirPath: string): ReadonlyArray<string> => {
+                return fs.readdirSync(dirPath, {withFileTypes: true})
+                         .flatMap(dirent => dirent.isDirectory()
+                                                     ? getAllFilePaths(path.join(dirPath, dirent.name))
+                                                     : path.join(dirPath, dirent.name));};
+
+            const sumFileSizes = (dirPath: string): number  =>
+                getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
+                                        .reduce((fileSize,nextFileSize) => fileSize + nextFileSize);
+
+            return sumFileSizes(directoryPath);
+        }
     }
 }
