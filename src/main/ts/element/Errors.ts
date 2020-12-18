@@ -52,17 +52,16 @@ export class ElementStatusConflictError extends Error
 }
 
 /**
- * @classdesc Error thrown if a new directory element is attempted to be created
- * with a path that points to a file.
+ * @classdesc Error thrown when a non file element contains a path to a file.
  *
  * @sealed
  * @extends Error
  */
-export class DirectoryWithFilePathError extends Error
+export class NonFilePathError extends Error
 {
     /**
-     * Constructs `DirectoryWithFilePathError` with the provided string as its
-     * error message.
+     * Constructs `NonFilePathError` with the provided string as its error
+     * message.
      *
      * @param msg message printed to console
      *
@@ -122,16 +121,16 @@ export class UndefinedElementStatusExistsError extends Error
 }
 
 /**
- * @classdesc Error thrown if a new File element is attempted to be created with
- * a path that points to a directory.
+ * @classdesc Error thrown when a non directory element contains a path to a
+ *            directory.
  *
  * @sealed
  * @extends Error
  */
-export class FileWithDirectoryPathError extends Error
+export class NonDirectoryPathError extends Error
 {
     /**
-     * Constructs `FileWithDirectoryPathError` with the provided string as its
+     * Constructs `NonDirectoryPathError` with the provided string as its
      * error message.
      *
      * @param msg message printed to console
