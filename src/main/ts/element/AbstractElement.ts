@@ -23,6 +23,7 @@ import * as path from "path";
  *
  * @internal
  * @abstract
+ * @implements Element
  */
 export abstract class AbstractElement implements Element
 {
@@ -67,12 +68,23 @@ export abstract class AbstractElement implements Element
      *         `file` property is `false`
      *
      * @protected
+     * @constructor
      */
     protected constructor(elementType: Type, elementPath: string)
     {
         if (elementPath.trim().length === 0)
         {
             throw new err.BlankElementPathError("blank element path");
+        }
+        else if (fs.lstatSync(elementPath).isFile() && elementType !== Type.FILE)
+        {
+            throw new err.NonFilePathError(
+                `Non-File element with path to file: ${elementPath}`);
+        }
+        else if (fs.lstatSync(elementPath).isDirectory() && elementType !== Type.DIRECTORY)
+        {
+            throw new err.NonDirectoryPathError(
+                `Non-Directory element with path to directory: ${elementPath}`);
         }
 
         this.type = elementType;
@@ -128,7 +140,11 @@ export abstract class AbstractElement implements Element
         return this.type === Type.FILE;
     }
 
+    /** @inheritDoc */
     public abstract isEmpty(): boolean;
+
+    /** @inheritDoc */
+    public abstract length(): number;
 
     /** @inheritDoc */
     public abstract size(): number;
