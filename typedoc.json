@@ -1,5 +1,4 @@
 {
-  "includeVersion": true,
   "ignoreCompilerErrors": true,
   "inputFiles": ["src/main/ts"],
   "mode": "modules",
