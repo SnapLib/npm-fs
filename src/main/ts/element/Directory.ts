@@ -8,9 +8,7 @@ import * as path from "path";
  *
  * @classdesc
  * The `Directory` class is used to create a directory element object that
- * represent a directory in a file system. It must be specified during
- * instantiation whether a directory element is based on a pre-existing
- * directory that is already present in the file system.
+ * represent a directory in a file system.
  *
  * @remarks
  * Note that there is a discernible difference between a "directory element" and
@@ -19,8 +17,8 @@ import * as path from "path";
  * exists within an operating system. While a directory and directory element
  * are closely related, they are not the same thing. A directory element is how
  * a directory can be represented programmatically via typescript. These two
- * terms can be used interchangeably, but their technical differences should be
- * noted.
+ * terms can often be used interchangeably, but their technical differences
+ * should be noted.
  *
  * @extends AbstractElement
  */
@@ -28,27 +26,15 @@ export class Directory extends AbstractElement
 {
     /**
      * Creates a new instance of a `Directory` element. A directory element
-     * requires a path and a `boolean` flag indicating whether it should already
-     * be present as a directory in the file system.
+     * only requires a path to write a directory to.
      *
-     * @param directoryPath path of this directory element
+     * @param directoryPath Path of this directory element
      *
      * @param nestedDirectoryPaths Nested paths to resolve that point to this
      *                             directory element
      *
      * @throws {@link BlankElementPathError} if provided element path argument
      *         is empty or only consists of whitespace
-     *
-     * @throws {@link DirectoryWithFilePathError} if this directory element
-     *         should be pre-existing and the provided path points to a file
-     *
-     * @throws {@link ElementDoesNotExistError} if this directory element should
-     *         be pre-existing and the provided path doesn't point to a
-     *         pre-existing directory
-     *
-     * @throws {@link PreExistingElementError} if this directory element should
-     *         not be a pre-existing directory and the provided path points to a
-     *         pre-existing file or directory
      *
      * @constructor
      */
@@ -89,8 +75,7 @@ export class Directory extends AbstractElement
     }
 
     /**
-     * Returns the name of the directory entries that are directories this
-     * directory element contains.
+     * Returns the name of the directories this directory element contains.
      *
      * @returns the name of the directories this directory element contains
      *
@@ -103,8 +88,8 @@ export class Directory extends AbstractElement
     }
 
     /**
-     * Returns the absolute paths of the directory entries that are directories
-     * this directory element contains.
+     * Returns the absolute paths of the directories this directory element
+     * contains.
      *
      * @returns the absolute paths of the directories this directory element
      *          contains
@@ -118,8 +103,7 @@ export class Directory extends AbstractElement
     }
 
     /**
-     * Returns the name of the directory entries that are files this directory
-     * element contains.
+     * Returns the name of the files this directory element contains.
      *
      * @returns the name of the files this directory element contains
      *
@@ -132,8 +116,7 @@ export class Directory extends AbstractElement
     }
 
     /**
-     * Returns the absolute paths of the directory entries that are files this
-     * directory element contains.
+     * Returns the absolute paths of the files this directory element contains.
      *
      * @returns the absolute paths of the files this directory element contains
      *
@@ -259,6 +242,15 @@ export class Directory extends AbstractElement
             || this.dirPaths().some(dirPath => dirNameOrPath.localeCompare(dirPath, undefined, {sensitivity: "base"}) === 0);
     }
 
+    /**
+     * Returns `true` if this directory element contains any other elements.
+     *
+     * @returns `true` if this directory element contains any other elements
+     *
+     * @override
+     * @sealed
+     * @function
+     */
     public isEmpty(): boolean
     {
         return this.exists() && this.contents().length === 0;
@@ -311,7 +303,7 @@ export class Directory extends AbstractElement
      */
     public static sizeOf(directoryPath: string): number
     {
-        if (fs.existsSync(directoryPath) !== true)
+        if ( ! fs.existsSync(directoryPath))
         {
             return -1;
         }
@@ -329,7 +321,7 @@ export class Directory extends AbstractElement
 
             const sumFileSizes = (dirPath: string): number  =>
                 getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
-                                        .reduce((fileSize,nextFileSize) => fileSize + nextFileSize);
+                                        .reduce((fileSize, nextFileSize) => fileSize + nextFileSize);
 
             return sumFileSizes(directoryPath);
         }
