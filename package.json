@@ -13,7 +13,7 @@
     "ts-node": "ts-node",
     "tsc": "tsc",
     "tsc-src": "tsc -p src/main/ts/tsconfig.json --outDir build/js",
-    "tslint": "eslint --ext ts src/main/ts",
+    "lint": "eslint --ext ts src/main/ts",
     "typedoc": "typedoc"
   },
   "keywords": [
