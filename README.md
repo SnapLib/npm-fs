@@ -20,7 +20,7 @@ generated documentation style.
 
 In addition to the above project structure/config properties, there are also
 specific dependencies SnapLib npm projects are required to have such as
-[TypeScript][1] and [TypeDoc][2].
+[TypeScript][1] and [tslib][2].
 
 And finally, there are SnapLib npm project properties that are optional and not
 *required* (but often encouraged) for each SnapLib project to have. For
@@ -30,11 +30,11 @@ file. Although as previously stated, most optional SnapLib npm project
 properties are *highly* encouraged.
 
 Below is an example of how a SnapLib npm project is structured with optional
-project properties included (any elements with a trailing '\\' character
-indicates it's a directory):
+project properties included:
 
 <details>
-  <summary>View SnapLib npm project structure tree</summary>
+  <summary>SnapLib npm project structure tree</summary>
+  (any elements with a trailing '/' character indicates it's a directory)
 
 ```none
 .
@@ -76,6 +76,7 @@ indicates it's a directory):
 │     ├──resources\
 │     └──ts
 │        └──TestIndex.ts
+├──.editorconfig
 ├──.eslintrc.json
 ├──.git
 ├──.gitignore
@@ -92,10 +93,10 @@ indicates it's a directory):
 
 - ### build
 
-The [`build`][3] directory contains all output of various build and generator
-tasks. For instance, the output of compiling/transpiling source code and
-generating source code doc comment documentation and test reports is outputted
-to this directory.
+The [`build`][3] directory contains the output of all build and generator tasks.
+For instance, the output of compiling/transpiling source code and generating
+source code doc comment documentation and test reports is outputted to this
+directory.
 
 - ### docs
 
@@ -109,7 +110,7 @@ as well as all resources (non-source code files) that may be referenced by the
 source code and source code test files.
 
 [1]: https://www.npmjs.com/package/typescript "TypeScript"
-[2]: https://www.npmjs.com/package/typedoc "TypeDoc"
-[3]: docs/project/build.md "root build directory"
-[4]: docs/project/docs.md "root docs directory"
-[5]: docs/project/src.md "root src directory"
+[2]: https://www.npmjs.com/package/tslib "tslib"
+[3]: docs/project/directories/build.md "root build directory"
+[4]: docs/project/directories/docs.md "root docs directory"
+[5]: docs/project/directories/src.md "root src directory"
