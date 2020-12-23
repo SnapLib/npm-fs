@@ -6,12 +6,22 @@ native to a SnapLib npm project.
 A file system's most fundamental elements are the files and directories it's
 comprised of. These files and directories ***are*** the file system. This
 package contains classes to represent these elements (and specific "sub-types"
-of these elements).
+of these elements) and enforces that they're structured in such a way that
+conforms to .
 
 ## Element
 
 ---
-The `Element` class is an abstract class that every file and directory element
+
+### Element interface
+
+The `Element` interface is an abstract class that every file and directory element
+inherits from. This class implements properties and behaviors that are shared
+by both files and directories.
+
+### Element abstract class
+
+The `Element` interface is an abstract class that every file and directory element
 inherits from. This class implements properties and behaviors that are shared
 by both files and directories.
 
