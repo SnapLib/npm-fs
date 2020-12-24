@@ -1,6 +1,6 @@
-import {DirContents} from "./DirContents";
+import {DirContents} from "../DirContents";
 import * as fs from "fs";
-import {Directory} from "../element/Directory";
+import {Directory} from "../../element/Directory";
 
 export class Root extends Directory
 {
