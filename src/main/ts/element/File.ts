@@ -118,7 +118,7 @@ export class File extends AbstractElement
      */
     public lines(): ReadonlyArray<string>
     {
-        return this.contents.split("\n");
+        return this._string.split("\n");
     }
 
     /**
