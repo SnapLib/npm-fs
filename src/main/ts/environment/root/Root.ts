@@ -25,13 +25,14 @@ export class Root extends Directory
      * @remarks
      * These differ from the {@link REQUIRED_NODE} directories and files in that
      * these are specific to SnapLib based npm projects. If these aren't
-     * present, indicates that this npm project
+     * present, indicates that this npm project is not following SnapLib project
+     * specifications.
      *
      * @static
      * @readonly
      */
     public static readonly DEFAULT_REQUIRED: Readonly<DirContents> =
-        new DirContents(["src"], [".eslintrc.json", "typedoc.json"]);
+        new DirContents(["src"], [".editorconfig", ".eslintrc.json", "typedoc.json"]);
 
     /**
      * Default optional root directory file names and directory names.
@@ -45,17 +46,17 @@ export class Root extends Directory
 
     public constructor(rootPath: string)
     {
-        if (fs.existsSync(rootPath) !== true)
+        if ( ! fs.existsSync(rootPath))
         {
-            throw new Error(`path does not exist: "${rootPath}"`);
+            throw new Error(`root path does not exist: "${rootPath}"`);
         }
-        else if (fs.lstatSync(rootPath).isDirectory() !== true)
+        else if ( ! fs.lstatSync(rootPath).isDirectory())
         {
-            throw new Error(`path points to file: "${rootPath}"`);
+            throw new Error(`root path points to file: "${rootPath}"`);
         }
         else if (fs.lstatSync(rootPath).isSymbolicLink())
         {
-            throw new Error(`path is symbolic link: "${rootPath}"`);
+            throw new Error(`root path is symbolic link: "${rootPath}"`);
         }
         else
         {
