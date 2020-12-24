@@ -4,7 +4,7 @@ import * as path from "path";
 import * as fs from "fs";
 
 /**
- * RootDirectory implementation for all file elements.
+ * Root implementation for all file elements.
  *
  * @classdesc
  * The `File` class is used to create a file element object that represents a

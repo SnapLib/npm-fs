@@ -5,7 +5,7 @@ import * as path from "path";
 import {File} from "./File";
 
 /**
- * RootDirectory implementation for all directory elements.
+ * Root implementation for all directory elements.
  *
  * @classdesc
  * The `Directory` class is used to create a directory element object that
