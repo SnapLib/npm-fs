@@ -75,7 +75,35 @@ export interface Element
      * @abstract
      * @function
      */
-    contents(): ReadonlyArray<string>;
+    getContents(): ReadonlyArray<Element> | string;
+
+    /**
+     * Writes this element to the underlying operating system's disk if its path
+     * doesn't point to a pre-existing element. Returns `true` if it's
+     * successfully written otherwise returns `false`.
+     *
+     * @remarks The {@link overwrite} method can be used to write this element
+     * to disk regardless of whether or not its path points to a pre-existing
+     * element.
+     *
+     * @returns `true` if this element is successfully written to disk.
+     *
+     * @abstract
+     * @function
+     */
+    create(): boolean;
+
+    /**
+     * Writes this element to the underlying operating system's disk regardless
+     * of whether its path points to a pre-existing element or not. Returns
+     * `true` if it's successfully written otherwise returns `false`.
+     *
+     * @returns `true` if this element is successfully written to disk.
+     *
+     * @abstract
+     * @function
+     */
+    overwrite(): boolean;
 
     /**
      * Returns `true` if this element exists when this method is called.
@@ -151,6 +179,11 @@ export interface Element
     size(): number;
 }
 
+/**
+ * Enum used to indicate what type of file system element an element is.
+ *
+ * @enum string
+ */
 export enum Type
 {
     DIRECTORY = "directory",
