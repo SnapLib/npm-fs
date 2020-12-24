@@ -12,7 +12,7 @@ export class ResourceScripts
         [];
 
     private static readonly REQUIRED_FILE_NAMES: ReadonlyArray<string> =
-        ["InitAnalyzer.ts"];
+        [];
 
     private static readonly OPTIONAL_DIR_NAMES: ReadonlyArray<string> =
         ResourceScripts.REQUIRED_DIR_NAMES;
