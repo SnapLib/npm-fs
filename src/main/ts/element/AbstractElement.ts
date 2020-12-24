@@ -5,28 +5,25 @@ import * as fs from "fs";
 import * as path from "path";
 
 /**
- * @overview
- * The most fundamental elements of an npm file system are the directories and
- * files that  the system contains. These elements share many common properties
- * such as having a path and name. However, each element type also has unique
- * properties that are implementation specific such as the contents and size.
- * For instance the contents of a directory are different than the contents of
- * a text file.
- *
- * @author Snap <XxSnapperGeexX@gmail.com>
- *
- */
-
-/**
  * @classdesc Contains the base implementation all file and directory elements
  *            inherit from.
  *
- * @internal
  * @abstract
  * @implements Element
  */
 export abstract class AbstractElement implements Element
 {
+    /**
+     * The contents of this file system element. If this element is a directory
+     * element, returns the entries it contains. If this element is a file
+     * element, returns the lines of the file.
+     *
+     * @abstract
+     * @protected
+     * @property
+     */
+    protected abstract contents: AbstractElement[] | string;
+
     /** @inheritDoc */
     public readonly type: Type;
 
@@ -40,32 +37,15 @@ export abstract class AbstractElement implements Element
     public readonly parent: string;
 
     /**
-     * Creates an instance of directory or file element.
+     * Creates an instance of a directory or file element.
      *
      * @param elementType The type of element (file or directory) this element
      *                    is
      *
      * @param elementPath The absolute path of this element
      *
-     * @throws `BlankElementPathError` if provided element path argument is
-     *          blank or empty
-     *
-     * @throws `ElementDoesNotExistError` if provided element status `exists`
-     *         property is `true` or no element status properties are provided
-     *         and provided path argument doesn't point to a pre-existing file
-     *         or directory
-     *
-     * @throws `PreExistingElementError` if provided element status `exists`
-     *         property is `false` and provided path argument points to a
-     *         pre-existing file or directory
-     *
-     * @throws `DirectoryWithFilePathError` if provided path argument points to
-     *         file and no element status properties are provided or element
-     *         status `directory` status is `true` or `file` status is `false`
-     *
-     * @throws `FileWithDirectoryPathError` if provided path argument points to
-     *         directory and element status `directory` property is `true` or
-     *         `file` property is `false`
+     * @throws {@link BlankElementPathError} if provided element path argument
+     *          is blank or empty
      *
      * @protected
      * @constructor
@@ -93,8 +73,28 @@ export abstract class AbstractElement implements Element
         this.parent = path.dirname(this.path);
     }
 
+    /**
+     * Returns the contents of this element.
+     *
+     * @remarks If this element is a directory, returns a read only array of the
+     * names of this directory's entries.
+     *
+     * @remarks If this element is a file, returns a read only array containing
+     * each line of this file as text.
+     *
+     * @returns The contents of this element
+     *
+     * @sealed
+     * @abstract
+     * @function
+     */
+    public abstract getContents(): ReadonlyArray<AbstractElement> | string;
+
     /** @inheritDoc */
-    public abstract contents(): ReadonlyArray<string>;
+    public abstract create(): boolean;
+
+    /** @inheritDoc */
+    public abstract overwrite(): boolean;
 
     /**
      * Returns `true` if this element exists when this method is called.
