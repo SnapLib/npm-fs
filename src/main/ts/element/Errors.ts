@@ -52,6 +52,29 @@ export class ElementStatusConflictError extends Error
 }
 
 /**
+ * @classdesc Error thrown when a non directory element contains a path to a
+ *            directory.
+ *
+ * @sealed
+ * @extends Error
+ */
+export class NonDirectoryPathError extends Error
+{
+    /**
+     * Constructs `NonDirectoryPathError` with the provided string as its
+     * error message.
+     *
+     * @param msg message printed to console
+     *
+     * @constructor
+     */
+    constructor(msg: string)
+    {
+        super(msg);
+    }
+}
+
+/**
  * @classdesc Error thrown when a non file element contains a path to a file.
  *
  * @sealed
@@ -109,29 +132,6 @@ export class UndefinedElementStatusExistsError extends Error
     /**
      * Constructs `UndefinedElementStatusExistsError` with the provided string
      * as its error message.
-     *
-     * @param msg message printed to console
-     *
-     * @constructor
-     */
-    constructor(msg: string)
-    {
-        super(msg);
-    }
-}
-
-/**
- * @classdesc Error thrown when a non directory element contains a path to a
- *            directory.
- *
- * @sealed
- * @extends Error
- */
-export class NonDirectoryPathError extends Error
-{
-    /**
-     * Constructs `NonDirectoryPathError` with the provided string as its
-     * error message.
      *
      * @param msg message printed to console
      *
