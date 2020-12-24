@@ -177,6 +177,19 @@ export interface Element
      * @function
      */
     size(): number;
+
+    /**
+     * Returns a string representation of this file system element. If it's a
+     * file, returns the contents of the file as utf-8 encoded text. If it's a
+     * directory, returns a string displaying the path of the directory as well
+     * as the names of the files and directories it contains.
+     *
+     * @returns a string representation of this file system element
+     *
+     * @abstract
+     * @function
+     */
+    toString(): string;
 }
 
 /**

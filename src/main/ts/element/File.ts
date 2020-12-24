@@ -25,6 +25,8 @@ import * as fs from "fs";
  */
 export class File extends AbstractElement
 {
+    private readonly _string: string;
+
     /**
      * The contents of this file element. This file parsed into a string with
      * utf-8 encoding.
@@ -52,7 +54,9 @@ export class File extends AbstractElement
     public constructor(filePath: string, ...nestedFilePaths: ReadonlyArray<string>)
     {
         super(Type.FILE, path.normalize([filePath].concat(nestedFilePaths).join(path.sep)));
-        this.contents = fs.existsSync(this.path) ? fs.readFileSync(this.path, {encoding: "utf8"}): "";
+
+        this._string = fs.existsSync(this.path) ? fs.readFileSync(this.path, {encoding: "utf8"}): "";
+        this.contents = this._string;
     }
 
     /**
@@ -156,5 +160,10 @@ export class File extends AbstractElement
     public size(): number
     {
         return this.exists() ? fs.lstatSync(this.path).size : -1;
+    }
+
+    public toString(): string
+    {
+        return this._string;
     }
 }

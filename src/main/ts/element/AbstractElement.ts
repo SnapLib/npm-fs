@@ -148,4 +148,17 @@ export abstract class AbstractElement implements Element
 
     /** @inheritDoc */
     public abstract size(): number;
+
+    /**
+     * Returns a string representation of this file system element. If it's a
+     * file, returns the contents of the file as utf-8 encoded text. If it's a
+     * directory, returns a string displaying the file and directory names it
+     * contains.
+     *
+     * @returns a string representation of this file system element
+     *
+     * @abstract
+     * @function
+     */
+    public abstract toString(): string;
 }

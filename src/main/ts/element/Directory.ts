@@ -383,6 +383,23 @@ export class Directory extends AbstractElement
     }
 
     /**
+     * Returns a string representation of this directory element. Returns a
+     * string displaying the path of this element as well as the names of the
+     * files and directories it contains.
+     *
+     * @returns the path of this directory element as well as the names of the
+     *          files and directories it contains
+     *
+     * @override
+     * @virtual
+     * @function
+     */
+    public toString(): string
+    {
+        return `{\n\tpath: ${this.path}\n\tfiles: ${this.fileNames()}\n\tdirectories: ${this.dirNames()}\n}\n`;
+    }
+
+    /**
      * Returns the total size, in bytes, of the directory at the given path. If
      * the provided path doesn't point to an existing element, then -1 is
      * returned. If the provided path points to a file, then the file's size is
