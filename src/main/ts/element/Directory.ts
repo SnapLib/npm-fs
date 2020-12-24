@@ -2,38 +2,52 @@ import {Type} from "./Element";
 import {AbstractElement} from "./AbstractElement";
 import * as fs from "fs";
 import * as path from "path";
+import {File} from "./File";
 
 /**
- * Root implementation for all directory elements.
+ * RootDirectory implementation for all directory elements.
  *
  * @classdesc
  * The `Directory` class is used to create a directory element object that
- * represent a directory in a file system.
+ * represents a directory in a file system.
  *
  * @remarks
  * Note that there is a discernible difference between a "directory element" and
  * a "directory". A "directory element" is a typescript object and exists purely
  * as a typescript struct. While a "directory" is a literal directory that
  * exists within an operating system. While a directory and directory element
- * are closely related, they are not the same thing. A directory element is how
- * a directory can be represented programmatically via typescript. These two
- * terms can often be used interchangeably, but their technical differences
- * should be noted.
+ * are closely related and the terms can often be used interchangeably and make
+ * sense within the context they're used, they are not the same thing. A
+ * directory element is how a directory can be represented programmatically via
+ * typescript.
+ *
+ * @author Snap <XxSnapperGeexX@gmail.com>
  *
  * @extends AbstractElement
  */
 export class Directory extends AbstractElement
 {
     /**
-     * Creates a new instance of a `Directory` element. A directory element
-     * only requires a path to write a directory to.
+     * The contents of this directory element. An array of this directory
+     * element's entries.
      *
-     * @param directoryPath Path of this directory element
+     * @override
+     * @protected
+     * @property
+     */
+    protected contents: AbstractElement[];
+
+    /**
+     * Creates a new instance of a `Directory` element. A directory element only
+     * requires a path to write a directory to.
+     *
+     * @param directoryPath Full path or root of the path of this directory
+     *                      element
      *
      * @param nestedDirectoryPaths Nested paths to resolve that point to this
      *                             directory element
      *
-     * @throws {@link BlankElementPathError} if provided element path argument
+     * @throws {@link BlankElementPathError} if provided directory path argument
      *         is empty or only consists of whitespace
      *
      * @constructor
@@ -41,22 +55,103 @@ export class Directory extends AbstractElement
     public constructor(directoryPath: string, ...nestedDirectoryPaths: ReadonlyArray<string>)
     {
         super(Type.DIRECTORY, path.normalize([directoryPath].concat(nestedDirectoryPaths).join(path.sep)));
+        this.contents = this.exists() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new Directory(path.join(this.path, dirent.name)) : new File(path.join(this.path, dirent.name))): Array<AbstractElement>();
     }
 
     /**
-     * Returns the name of the directory entries this directory element
-     * contains.
+     * Returns the entries this directory element contains.
      *
-     * @returns the name of the directory entries this directory element
-     *          contains
+     * @returns the entries this directory contains
      *
      * @override
      * @sealed
      * @function
      */
-    public contents(): ReadonlyArray<string>
+    public getContents(): ReadonlyArray<AbstractElement>
     {
-        return fs.readdirSync(this.path);
+        return this.contents;
+    }
+
+    /**
+     * Writes this directory element to the underlying operating system's disk
+     * if its path doesn't point to a pre-existing element. Returns `true` if
+     * it's successfully written otherwise returns `false`.
+     *
+     * @remarks The {@link overwrite} method can be used to write this directory
+     * element to disk regardless of whether or not its path points to a
+     * pre-existing element.
+     *
+     * @returns `true` if this directory element is successfully written to disk
+     *
+     * @override
+     * @sealed
+     * @function
+     */
+    public create(): boolean
+    {
+        if (fs.existsSync(this.path))
+        {
+            return false;
+        }
+        else
+        {
+            fs.mkdirSync(this.path);
+
+            if (this.isEmpty())
+            {
+                return fs.existsSync(this.path);
+            }
+            else
+            {
+                this.filePaths().forEach(filePath => fs.writeFileSync(filePath, ""));
+                this.dirPaths().forEach(dirPath => fs.mkdirSync(dirPath));
+
+                return fs.readdirSync(this.path).every(existingDirentName => this.fileNames().concat(this.dirNames()).includes(existingDirentName));
+            }
+        }
+    }
+
+    /**
+     * Writes this directory element to the underlying operating system's disk
+     * regardless of whether its path points to a pre-existing element or not.
+     * Returns `true` if it's successfully written otherwise returns `false`.
+     *
+     * @returns `true` if this directory element is successfully written to disk
+     *
+     * @override
+     * @sealed
+     * @function
+     */
+    public overwrite(): boolean
+    {
+        fs.rmSync(this.path, {force: true, recursive: true});
+
+        fs.mkdirSync(this.path);
+
+        if (this.isEmpty())
+        {
+            return fs.existsSync(this.path);
+        }
+        else
+        {
+            this.filePaths().forEach(filePath => fs.writeFileSync(filePath, ""));
+            this.dirPaths().forEach(dirPath => fs.mkdirSync(dirPath));
+
+            return fs.readdirSync(this.path).every(existingDirentName => this.fileNames().concat(this.dirNames()).includes(existingDirentName));
+        }
+    }
+
+    /**
+     * Returns the names of the entries this directory element contains.
+     *
+     * @returns the names of the entries this directory contains
+     *
+     * @sealed
+     * @function
+     */
+    public getContentNames(): ReadonlyArray<string>
+    {
+        return this.contents.map<string>(dirent => dirent.name);
     }
 
     /**
@@ -71,7 +166,7 @@ export class Directory extends AbstractElement
      */
     public contentPaths(): ReadonlyArray<string>
     {
-        return this.contents().map<string>(dirContentName => path.join(this.path, dirContentName));
+        return this.getContents().map<string>(dirContentName => path.join(this.path, dirContentName.name));
     }
 
     /**
@@ -143,7 +238,7 @@ export class Directory extends AbstractElement
      */
     public contains(nameOrPath: string): boolean
     {
-        return this.contents().includes(nameOrPath)
+        return this.getContentNames().includes(nameOrPath)
             || this.contentPaths().includes(nameOrPath);
     }
 
@@ -162,7 +257,7 @@ export class Directory extends AbstractElement
      */
     public containsIgnoreCase(nameOrPath: string): boolean
     {
-        return this.contents().some(contentName => nameOrPath.localeCompare(contentName, undefined, {sensitivity: "base"}) === 0)
+        return this.getContentNames().some(contentName => nameOrPath.localeCompare(contentName, undefined, {sensitivity: "base"}) === 0)
             || this.contentPaths().some(contentPath => nameOrPath.localeCompare(contentPath, undefined, {sensitivity: "base"}) === 0);
     }
 
@@ -253,7 +348,7 @@ export class Directory extends AbstractElement
      */
     public isEmpty(): boolean
     {
-        return this.exists() && this.contents().length === 0;
+        return this.exists() && this.getContents().length === 0;
     }
 
     /**
@@ -268,7 +363,7 @@ export class Directory extends AbstractElement
      */
     public length(): number
     {
-        return this.exists() ? this.contents().length : -1;
+        return this.exists() ? this.getContents().length : -1;
     }
 
     /**
