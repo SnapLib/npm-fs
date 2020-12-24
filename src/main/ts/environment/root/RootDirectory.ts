@@ -2,7 +2,7 @@ import {DirContents} from "../DirContents";
 import * as fs from "fs";
 import {Directory} from "../../element/Directory";
 
-export class Root extends Directory
+export class RootDirectory extends Directory
 {
     /**
      * Files and directories that should be present in all npm project root
