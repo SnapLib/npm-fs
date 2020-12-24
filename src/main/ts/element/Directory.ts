@@ -396,7 +396,10 @@ export class Directory extends AbstractElement
      */
     public toString(): string
     {
-        return `{\n\tpath: ${this.path}\n\tfiles: ${this.fileNames()}\n\tdirectories: ${this.dirNames()}\n}\n`;
+        const fileNames: string = this.fileNames().length === 0 ? "[]" : `["${this.fileNames().join('", "')}"]`;
+        const dirNames: string = this.fileNames().length === 0 ? "[]" : `["${this.fileNames().join('", "')}"]`;
+
+        return `{\n\tpath: ${this.path},\n\tfiles: ${fileNames},\n\tdirectories: ${dirNames},\n}\n`;
     }
 
     /**
