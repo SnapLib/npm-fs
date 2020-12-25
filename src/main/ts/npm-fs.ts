@@ -59,24 +59,22 @@ export class NpmFS
         this._rootDir = new RootDirectory((dirname(dirname(__dirname))));
 
         const missingNPMDirectories: ReadonlyArray<string> =
-            RootDirStructure.required.node.directories.filter(requiredNodeDir => ! this._rootDir.containsDirIgnoreCase(requiredNodeDir));
-            // RootDirectory.REQUIRED_NODE.directories.filter(requiredNodeDir => ! this._rootDir.containsDirIgnoreCase(requiredNodeDir));
+            RootDirStructure.required.npm.directories.filter(requiredNodeDir => ! this._rootDir.containsDirIgnoreCase(requiredNodeDir));
 
         const missingNPMFiles: ReadonlyArray<string> =
-            RootDirectory.REQUIRED_NODE.files.filter(requiredNodeFile => ! this._rootDir.containsFileIgnoreCase(requiredNodeFile));
+            RootDirStructure.required.npm.files.filter(requiredNodeFile => ! this._rootDir.containsFileIgnoreCase(requiredNodeFile)) ?? [];
 
         const missingSnapDirectories: ReadonlyArray<string> =
-            RootDirectory.DEFAULT_REQUIRED.directories.filter(requiredSnapDir => ! this._rootDir.containsDirIgnoreCase(requiredSnapDir));
+            RootDirStructure.required.project.directories.filter(requiredSnapDir => ! this._rootDir.containsDirIgnoreCase(requiredSnapDir)) ?? [];
 
         const missingSnapFiles: ReadonlyArray<string> =
-            RootDirectory.DEFAULT_REQUIRED.files.filter(requiredSnapFile => ! this._rootDir.containsFileIgnoreCase(requiredSnapFile));
+            RootDirStructure.required.project.files.filter(requiredSnapFile => ! this._rootDir.containsFileIgnoreCase(requiredSnapFile)) ?? [];
 
         const jsonFile: JSONFile = new JSONFile(this._rootDir.path.concat("/package.json"));
 
         console.log(`Package.json entries: ${jsonFile.entries()}\n`);
         console.log(`Package.json keys: ${jsonFile.keys()}\n`);
         console.log(`Package.json values: ${jsonFile.values()}\n`);
-        console.log(`Package.json obj:\n${jsonFile.toString()}\n`);
 
         console.log(`Missing node dirs: ["${missingNPMDirectories.join('", "')}"]`);
         console.log(`Missing node files: ["${missingNPMFiles.join('", "')}"]`);
