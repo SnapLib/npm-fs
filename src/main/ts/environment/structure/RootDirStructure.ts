@@ -4,6 +4,16 @@ import {DirContents} from "./DirContents";
  * Defines the required and optional files and directories that should be
  * present in a SnapLib based npm project root directory.
  *
+ * @classdesc
+ * This class is essentially an enum/singleton that contains string arrays of
+ * the file and directory names that should be (or can be) present in the root
+ * directory of SnapLib based npm projects. If any of these directories or files
+ * can't be found then it's assumed that either the project is a malformed npm
+ * project (for example if there's no `node_nodules` directory or `package.json`
+ * file) or the project is a malformed SnapLib npm project (for example if
+ * there's no `.editorconfig` or `.eslintrc.json` file which all SnapLib npm
+ * projects require).
+ *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
 export class RootDirStructure
