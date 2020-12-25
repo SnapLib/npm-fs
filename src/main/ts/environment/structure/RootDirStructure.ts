@@ -2,7 +2,7 @@ import {DirContents} from "./DirContents";
 
 /**
  * Defines the required and optional files and directories that should be
- * present in a SnapLib based npm project `RootDirectory` directory.
+ * present in a SnapLib based npm project root directory.
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
