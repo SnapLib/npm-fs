@@ -28,12 +28,12 @@ export class RootDirStructure
 
     public static readonly required = class
     {
-        public static npm: Readonly<DirContents> = new DirContents(RootDirStructure.REQUIRED_NPM_DIRECTORIES, RootDirStructure.REQUIRED_NPM_FILES);
-        public static project: Readonly<DirContents> = new DirContents(RootDirStructure.REQUIRED_SNAP_PROJ_DIRS, RootDirStructure.REQUIRED_SNAP_PROJ_FILES);
+        public static readonly npm: Readonly<DirContents> = new DirContents(RootDirStructure.REQUIRED_NPM_DIRECTORIES, RootDirStructure.REQUIRED_NPM_FILES);
+        public static readonly project: Readonly<DirContents> = new DirContents(RootDirStructure.REQUIRED_SNAP_PROJ_DIRS, RootDirStructure.REQUIRED_SNAP_PROJ_FILES);
     }
 
     public static readonly optional = class
     {
-        public static project: Readonly<DirContents> = new DirContents(RootDirStructure.OPTIONAL_SNAP_PROJ_DIRS, RootDirStructure.OPTIONAL_SNAP_PROJ_FILES);
+        public static readonly project: Readonly<DirContents> = new DirContents(RootDirStructure.OPTIONAL_SNAP_PROJ_DIRS, RootDirStructure.OPTIONAL_SNAP_PROJ_FILES);
     }
 }
