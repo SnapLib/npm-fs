@@ -5,6 +5,8 @@
  * This class simply accepts two string arrays to define the names of files and
  * directories that should be present in a directory.
  *
+ * @internal
+ *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
 export class DirContents
