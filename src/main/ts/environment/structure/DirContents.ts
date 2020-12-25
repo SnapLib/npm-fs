@@ -47,7 +47,7 @@ export class DirContents
      *  @package
      *  @constructor
      */
-    constructor(directories: ReadonlyArray<string>, files: ReadonlyArray<string>)
+    public constructor(directories: ReadonlyArray<string>, files: ReadonlyArray<string>)
     {
         this.directories = directories;
         this.files = files;
