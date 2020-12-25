@@ -12,7 +12,7 @@ export class RootDirStructure
         ["node_modules"];
 
     private static readonly REQUIRED_NPM_FILES: ReadonlyArray<string> =
-        ["package.json", "package-lock.json"];
+        ["package.json"];
 
     private static readonly REQUIRED_SNAP_PROJ_DIRS: ReadonlyArray<string> =
         ["src"];
