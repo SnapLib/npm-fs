@@ -1,9 +1,8 @@
-import {join, dirname} from "path";
 import {DirectoryRoot} from "./environment/DirectoryRoot";
 import {RootDirectory} from "./environment/structure/RootDirectory";
 import {NodeModulesDir} from "./environment/structure/NodeModulesDir";
 import {NodeModuleTypesDir} from "./environment/structure/NodeModuleTypesDir";
-// import * as fs from "fs";
+import {join, dirname} from "path";
 
 /**
  * This is the entry point of the SnapLib `npm-fs` package.
