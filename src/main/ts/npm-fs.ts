@@ -1,6 +1,5 @@
 import {dirname} from "path";
 import {RootDirectory} from "./environment/root/RootDirectory";
-import {JSONFile} from "./element/JSONFile";
 import {RootDirStructure} from "./environment/structure/RootDirStructure";
 // import * as fs from "fs";
 
@@ -54,42 +53,50 @@ export class NpmFS
             console.log("entry point not in node modules");
         }
 
-        // Set root directory to parent directory that contains "node_modules"
+        // Set root directory to directory that contains "node_modules"
         // directory
-        this._rootDir = new RootDirectory((dirname(dirname(__dirname))));
+        this._rootDir =
+            new RootDirectory((dirname(dirname(__dirname))))
+                .addRequiredDirs(RootDirStructure.required.npm.directories.concat(RootDirStructure.required.project.directories))
+                .addRequiredFiles(RootDirStructure.required.npm.files.concat(RootDirStructure.required.project.files))
+                .addOptionalDirs(RootDirStructure.optional.project.directories)
+                .addOptionalFiles(RootDirStructure.optional.project.files);
 
-        const missingNPMDirectories: ReadonlyArray<string> =
-            RootDirStructure.required.npm.directories.filter(requiredNodeDir => ! this._rootDir.containsDirIgnoreCase(requiredNodeDir));
+        if (this._rootDir.isMissingRequired())
+        {
+            console.log("Missing required...");
+            if (this._rootDir.isMissingRequiredFile())
+            {
+                console.log(`file(s): ["${this._rootDir.missingRequiredFiles().join('",\n""')}"]`);
+            }
 
-        const missingNPMFiles: ReadonlyArray<string> =
-            RootDirStructure.required.npm.files.filter(requiredNodeFile => ! this._rootDir.containsFileIgnoreCase(requiredNodeFile)) ?? [];
+            if (this._rootDir.isMissingRequiredDir())
+            {
+                console.log(`directory(ies): ["${this._rootDir.missingRequiredDirs().join('",\n""')}"]`);
+            }
+        }
+        else
+        {
+            console.log("No missing required files or directories.");
+        }
 
-        const missingSnapDirectories: ReadonlyArray<string> =
-            RootDirStructure.required.project.directories.filter(requiredSnapDir => ! this._rootDir.containsDirIgnoreCase(requiredSnapDir)) ?? [];
+        if (this._rootDir.isMissingOptional())
+        {
+            console.log("Missing optional...");
+            if (this._rootDir.isMissingRequiredFile())
+            {
+                console.log(`file(s): ["${this._rootDir.missingOptionalFiles().join('",\n""')}"]`);
+            }
 
-        const missingSnapFiles: ReadonlyArray<string> =
-            RootDirStructure.required.project.files.filter(requiredSnapFile => ! this._rootDir.containsFileIgnoreCase(requiredSnapFile)) ?? [];
-
-        const jsonFile: JSONFile = new JSONFile(this._rootDir.path.concat("/package.json"));
-
-        console.log(`Package.json entries: ${jsonFile.entries()}\n`);
-        console.log(`Package.json keys: ${jsonFile.keys()}\n`);
-        console.log(`Package.json values: ${jsonFile.values()}\n`);
-
-        console.log(`Missing node dirs: ["${missingNPMDirectories.join('", "')}"]`);
-        console.log(`Missing node files: ["${missingNPMFiles.join('", "')}"]`);
-        console.log(`Missing SnapLib dirs: ["${missingSnapDirectories.join('", "')}"]`);
-        console.log(`Missing SnapLib files: ["${missingSnapFiles.join('", "')}"]`);
-
-        // if (missingNPMDirectories.length !== 0)
-        // {
-        //     throw new Error(`missing required npm directories: ${missingNPMDirectories}`);
-        // }
-
-        // if (missingNPMFiles.length !== 0)
-        // {
-        //     throw new Error(`missing required npm files: ${missingNPMFiles}`);
-        // }
+            if (this._rootDir.isMissingRequiredDir())
+            {
+                console.log(`directory(ies): ["${this._rootDir.missingOptionalDirs().join('",\n""')}"]`);
+            }
+        }
+        else
+        {
+            console.log("No missing optional files or directories.");
+        }
     }
 
     public static exec(cliArgs?: ReadonlyArray<string>): void
