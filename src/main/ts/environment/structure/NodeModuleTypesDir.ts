@@ -13,7 +13,7 @@ import {DirContents} from "../DirContents";
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
-export class NodeModulesDir
+export class NodeModuleTypesDir
 {
     private static readonly EMPTY_ARRAY: ReadonlyArray<string> = [];
 
@@ -23,6 +23,6 @@ export class NodeModulesDir
     public static readonly required = class
     {
         public static readonly module: Readonly<DirContents> =
-            new DirContents(NodeModulesDir.REQUIRED_NODE_MODULE_DIRECTORIES, NodeModulesDir.EMPTY_ARRAY);
+            new DirContents(NodeModuleTypesDir.REQUIRED_NODE_MODULE_DIRECTORIES, NodeModuleTypesDir.EMPTY_ARRAY);
     }
 }
