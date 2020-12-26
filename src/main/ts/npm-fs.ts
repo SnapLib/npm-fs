@@ -68,12 +68,12 @@ export class NpmFS
             console.log("\nMissing required root directory...");
             if (rootDirectory.isMissingRequiredFile())
             {
-                console.log(`file(s): ["${rootDirectory.missingRequiredFiles().join('",\n""')}"]`);
+                console.log(`file(s): ["${rootDirectory.missingRequiredFiles().join('",\n""')}"]\n`);
             }
 
             if (rootDirectory.isMissingRequiredDir())
             {
-                console.log(`directory(ies): ["${rootDirectory.missingRequiredDirs().join('",\n""')}"]`);
+                console.log(`directory(ies): ["${rootDirectory.missingRequiredDirs().join('",\n""')}"]\n`);
             }
         }
         else
@@ -86,12 +86,12 @@ export class NpmFS
             console.log("\nMissing optional root directory...");
             if (rootDirectory.isMissingRequiredFile())
             {
-                console.log(`file(s): ["${rootDirectory.missingOptionalFiles().join('",\n""')}"]`);
+                console.log(`file(s): ["${rootDirectory.missingOptionalFiles().join('",\n""')}"]\n`);
             }
 
             if (rootDirectory.isMissingRequiredDir())
             {
-                console.log(`directory(ies): ["${rootDirectory.missingOptionalDirs().join('",\n""')}"]`);
+                console.log(`directory(ies): ["${rootDirectory.missingOptionalDirs().join('",\n""')}"]\n`);
             }
         }
         else
@@ -104,12 +104,12 @@ export class NpmFS
             console.log("\nMissing required node module directory...");
             if (rootNodeModulesDirectory.isMissingRequiredFile())
             {
-                console.log(`file(s): ["${rootNodeModulesDirectory.missingRequiredFiles().join('",\n""')}"]`);
+                console.log(`file(s): ["${rootNodeModulesDirectory.missingRequiredFiles().join('",\n""')}"]\n`);
             }
 
             if (rootNodeModulesDirectory.isMissingRequiredDir())
             {
-                console.log(`directory(ies): ["${rootNodeModulesDirectory.missingRequiredDirs().join('",\n""')}"]`);
+                console.log(`directory(ies): ["${rootNodeModulesDirectory.missingRequiredDirs().join('",\n""')}"]\n`);
             }
         }
         else
@@ -122,12 +122,12 @@ export class NpmFS
             console.log("\nMissing optional node module directory...");
             if (rootNodeModulesDirectory.isMissingRequiredFile())
             {
-                console.log(`file(s): ["${rootNodeModulesDirectory.missingOptionalFiles().join('",\n""')}"]`);
+                console.log(`file(s): ["${rootNodeModulesDirectory.missingOptionalFiles().join('",\n""')}"]\n`);
             }
 
             if (rootNodeModulesDirectory.isMissingRequiredDir())
             {
-                console.log(`directory(ies): ["${rootNodeModulesDirectory.missingOptionalDirs().join('",\n""')}"]`);
+                console.log(`directory(ies): ["${rootNodeModulesDirectory.missingOptionalDirs().join('",\n""')}"]\n`);
             }
         }
         else
@@ -140,12 +140,12 @@ export class NpmFS
             console.log("Missing required node module @types directory...");
             if (rootNodeModulesTypesDir.isMissingRequiredFile())
             {
-                console.log(`file(s): ["${rootNodeModulesTypesDir.missingRequiredFiles().join('",\n""')}"]`);
+                console.log(`file(s): ["${rootNodeModulesTypesDir.missingRequiredFiles().join('",\n""')}"]\n`);
             }
 
             if (rootNodeModulesTypesDir.isMissingRequiredDir())
             {
-                console.log(`directory(ies): ["${rootNodeModulesTypesDir.missingRequiredDirs().join('",\n""')}"]`);
+                console.log(`directory(ies): ["${rootNodeModulesTypesDir.missingRequiredDirs().join('",\n""')}"]\n`);
             }
         }
         else
@@ -158,12 +158,12 @@ export class NpmFS
             console.log("Missing optional node module @types directory...");
             if (rootNodeModulesTypesDir.isMissingRequiredFile())
             {
-                console.log(`file(s): ["${rootNodeModulesTypesDir.missingOptionalFiles().join('",\n""')}"]`);
+                console.log(`file(s): ["${rootNodeModulesTypesDir.missingOptionalFiles().join('",\n""')}"]\n`);
             }
 
             if (rootNodeModulesTypesDir.isMissingRequiredDir())
             {
-                console.log(`directory(ies): ["${rootNodeModulesTypesDir.missingOptionalDirs().join('",\n""')}"]`);
+                console.log(`directory(ies): ["${rootNodeModulesTypesDir.missingOptionalDirs().join('",\n""')}"]\n`);
             }
         }
         else
