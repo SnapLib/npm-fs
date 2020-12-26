@@ -2,7 +2,7 @@ import {Directory} from "../../element/Directory";
 import {DirContents} from "../DirContents";
 import * as fs from "fs";
 
-export class RootDirectory extends Directory
+export class DirectoryRoot extends Directory
 {
     private _required: Readonly<DirContents>;
 
@@ -36,25 +36,25 @@ export class RootDirectory extends Directory
 
     public getOptional(): Readonly<DirContents> {return this._optional;}
 
-    public addRequiredDirs(dirNamesArray: ReadonlyArray<string> = [], ...dirNames: ReadonlyArray<string>): RootDirectory
+    public addRequiredDirs(dirNamesArray: ReadonlyArray<string> = [], ...dirNames: ReadonlyArray<string>): DirectoryRoot
     {
         this._required = new DirContents(dirNamesArray.concat(this._required.directories.concat(dirNames)), this._required.files);
         return this;
     }
 
-    public addRequiredFiles(fileNamesArray: ReadonlyArray<string> = [], ...fileNames: ReadonlyArray<string>): RootDirectory
+    public addRequiredFiles(fileNamesArray: ReadonlyArray<string> = [], ...fileNames: ReadonlyArray<string>): DirectoryRoot
     {
         this._required = new DirContents(this._required.directories, fileNamesArray.concat(this._required.files.concat(fileNames)));
         return this;
     }
 
-    public addOptionalDirs(dirNamesArray: ReadonlyArray<string> = [], ...dirNames: ReadonlyArray<string>): RootDirectory
+    public addOptionalDirs(dirNamesArray: ReadonlyArray<string> = [], ...dirNames: ReadonlyArray<string>): DirectoryRoot
     {
         this._optional = new DirContents(dirNamesArray.concat(this._optional.directories.concat(dirNames)), this._optional.files);
         return this;
     }
 
-    public addOptionalFiles(fileNamesArray: ReadonlyArray<string> = [], ...fileNames: ReadonlyArray<string>): RootDirectory
+    public addOptionalFiles(fileNamesArray: ReadonlyArray<string> = [], ...fileNames: ReadonlyArray<string>): DirectoryRoot
     {
         this._optional = new DirContents(this._optional.directories, fileNamesArray.concat(this._optional.files.concat(fileNames)));
         return this;

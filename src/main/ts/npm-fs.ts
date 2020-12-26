@@ -1,5 +1,5 @@
 import {dirname} from "path";
-import {RootDirectory} from "./environment/root/RootDirectory";
+import {DirectoryRoot} from "./environment/root/DirectoryRoot";
 import {RootDirStructure} from "./environment/structure/RootDirStructure";
 // import * as fs from "fs";
 
@@ -32,7 +32,7 @@ export class NpmFS
      * @readonly
      * @property
      */
-    private readonly _rootDir: RootDirectory;
+    private readonly _rootDir: DirectoryRoot;
 
     /** @constructor */
     private constructor(cliArgs: ReadonlyArray<string>)
@@ -56,7 +56,7 @@ export class NpmFS
         // Set root directory to directory that contains "node_modules"
         // directory
         this._rootDir =
-            new RootDirectory((dirname(dirname(__dirname))))
+            new DirectoryRoot((dirname(dirname(__dirname))))
                 .addRequiredDirs(RootDirStructure.required.npm.directories.concat(RootDirStructure.required.project.directories))
                 .addRequiredFiles(RootDirStructure.required.npm.files.concat(RootDirStructure.required.project.files))
                 .addOptionalDirs(RootDirStructure.optional.project.directories)
