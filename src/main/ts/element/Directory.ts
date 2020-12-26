@@ -1,8 +1,8 @@
 import {Type} from "./Element";
 import {AbstractElement} from "./AbstractElement";
+import {File} from "./File";
 import * as fs from "fs";
 import * as path from "path";
-import {File} from "./File";
 
 /**
  * Root implementation for all directory elements.
@@ -55,6 +55,7 @@ export class Directory extends AbstractElement
     public constructor(directoryPath: string, ...nestedDirectoryPaths: ReadonlyArray<string>)
     {
         super(Type.DIRECTORY, path.normalize([directoryPath].concat(nestedDirectoryPaths).join(path.sep)));
+
         this.contents = this.exists() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new Directory(path.join(this.path, dirent.name)) : new File(path.join(this.path, dirent.name))): Array<AbstractElement>();
     }
 
