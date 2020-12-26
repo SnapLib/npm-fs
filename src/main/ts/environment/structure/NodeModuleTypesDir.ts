@@ -24,7 +24,7 @@ export class NodeModuleTypesDir
 
     public static readonly required = class
     {
-        public static readonly module: Readonly<DirContents> =
+        public static readonly type: Readonly<DirContents> =
             new DirContents(NodeModuleTypesDir.REQUIRED_NODE_MODULE_DIRECTORIES, NodeModuleTypesDir.EMPTY_ARRAY);
     }
 }
