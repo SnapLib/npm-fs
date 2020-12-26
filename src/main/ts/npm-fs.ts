@@ -1,5 +1,5 @@
 import {dirname} from "path";
-import {DirectoryRoot} from "./environment/root/DirectoryRoot";
+import {DirectoryRoot} from "./environment/DirectoryRoot";
 import {RootDirStructure} from "./environment/structure/RootDirStructure";
 // import * as fs from "fs";
 
