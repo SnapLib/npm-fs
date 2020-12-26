@@ -1,4 +1,4 @@
-import {DirContents} from "./DirContents";
+import {DirContents} from "../DirContents";
 
 /**
  * Defines the required and optional files and directories that should be
