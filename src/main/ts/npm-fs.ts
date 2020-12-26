@@ -1,4 +1,4 @@
-import {dirname} from "path";
+import {join, dirname} from "path";
 import {DirectoryRoot} from "./environment/DirectoryRoot";
 import {RootDirectory} from "./environment/structure/RootDirectory";
 import {NodeModulesDir} from "./environment/structure/NodeModulesDir";
@@ -57,15 +57,15 @@ export class NpmFS
                 .addOptionalDirs(RootDirectory.optional.project.directories)
                 .addOptionalFiles(RootDirectory.optional.project.files);
 
-        const rootNodeModulesDirectory = new DirectoryRoot(rootDirectory.path.concat("/" + NodeModulesDir.dirName))
+        const rootNodeModulesDirectory = new DirectoryRoot(join(rootDirectory.path, NodeModulesDir.dirName))
             .addRequiredDirs(NodeModulesDir.required.module.directories);
 
-        const rootNodeModulesTypesDir = new DirectoryRoot(rootDirectory.path.concat("/" + NodeModuleTypesDir.dirName))
+        const rootNodeModulesTypesDir = new DirectoryRoot(join(rootDirectory.path, NodeModulesDir.dirName, NodeModuleTypesDir.dirName))
             .addRequiredDirs(NodeModuleTypesDir.required.type.directories);
 
         if (rootDirectory.isMissingRequired())
         {
-            console.log("Missing required root directory...");
+            console.log("\nMissing required root directory...");
             if (rootDirectory.isMissingRequiredFile())
             {
                 console.log(`file(s): ["${rootDirectory.missingRequiredFiles().join('",\n""')}"]`);
@@ -83,7 +83,7 @@ export class NpmFS
 
         if (rootDirectory.isMissingOptional())
         {
-            console.log("Missing optional root directory...");
+            console.log("\nMissing optional root directory...");
             if (rootDirectory.isMissingRequiredFile())
             {
                 console.log(`file(s): ["${rootDirectory.missingOptionalFiles().join('",\n""')}"]`);
@@ -101,7 +101,7 @@ export class NpmFS
 
         if (rootNodeModulesDirectory.isMissingRequired())
         {
-            console.log("Missing required node module directory...");
+            console.log("\nMissing required node module directory...");
             if (rootNodeModulesDirectory.isMissingRequiredFile())
             {
                 console.log(`file(s): ["${rootNodeModulesDirectory.missingRequiredFiles().join('",\n""')}"]`);
@@ -119,7 +119,7 @@ export class NpmFS
 
         if (rootNodeModulesDirectory.isMissingOptional())
         {
-            console.log("Missing optional node module directory...");
+            console.log("\nMissing optional node module directory...");
             if (rootNodeModulesDirectory.isMissingRequiredFile())
             {
                 console.log(`file(s): ["${rootNodeModulesDirectory.missingOptionalFiles().join('",\n""')}"]`);
