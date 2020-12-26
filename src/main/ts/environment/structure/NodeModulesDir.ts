@@ -9,7 +9,7 @@ import {DirContents} from "../DirContents";
  * the file and directory names that should be (or can be) present in the root
  * `node_modules` directory of SnapLib based npm projects. If any of these
  * directories or files can't be found then it's assumed that this npm project
- * is missing node imported node module dependencies.
+ * is missing imported node module dependencies.
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
