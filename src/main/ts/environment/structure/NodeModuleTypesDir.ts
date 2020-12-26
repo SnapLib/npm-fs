@@ -15,6 +15,8 @@ import {DirContents} from "../DirContents";
  */
 export class NodeModuleTypesDir
 {
+    public static readonly dirName: string = "@types";
+
     private static readonly EMPTY_ARRAY: ReadonlyArray<string> = [];
 
     private static readonly REQUIRED_NODE_MODULE_DIRECTORIES: ReadonlyArray<string> =
