@@ -16,7 +16,7 @@ import {DirContents} from "../DirContents";
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
-export class RootDirStructure
+export class RootDirectory
 {
     private static readonly REQUIRED_NPM_DIRECTORIES: ReadonlyArray<string> =
         ["node_modules"];
@@ -39,14 +39,14 @@ export class RootDirStructure
     public static readonly required = class
     {
         public static readonly npm: Readonly<DirContents> =
-            new DirContents(RootDirStructure.REQUIRED_NPM_DIRECTORIES, RootDirStructure.REQUIRED_NPM_FILES);
+            new DirContents(RootDirectory.REQUIRED_NPM_DIRECTORIES, RootDirectory.REQUIRED_NPM_FILES);
         public static readonly project: Readonly<DirContents> =
-            new DirContents(RootDirStructure.REQUIRED_SNAP_PROJ_DIRS, RootDirStructure.REQUIRED_SNAP_PROJ_FILES);
+            new DirContents(RootDirectory.REQUIRED_SNAP_PROJ_DIRS, RootDirectory.REQUIRED_SNAP_PROJ_FILES);
     }
 
     public static readonly optional = class
     {
         public static readonly project: Readonly<DirContents> =
-            new DirContents(RootDirStructure.OPTIONAL_SNAP_PROJ_DIRS, RootDirStructure.OPTIONAL_SNAP_PROJ_FILES);
+            new DirContents(RootDirectory.OPTIONAL_SNAP_PROJ_DIRS, RootDirectory.OPTIONAL_SNAP_PROJ_FILES);
     }
 }

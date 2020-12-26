@@ -1,6 +1,6 @@
 import {dirname} from "path";
 import {DirectoryRoot} from "./environment/DirectoryRoot";
-import {RootDirStructure} from "./environment/structure/RootDirStructure";
+import {RootDirectory} from "./environment/structure/RootDirectory";
 // import * as fs from "fs";
 
 /**
@@ -57,10 +57,10 @@ export class NpmFS
         // directory
         this._rootDir =
             new DirectoryRoot((dirname(dirname(__dirname))))
-                .addRequiredDirs(RootDirStructure.required.npm.directories.concat(RootDirStructure.required.project.directories))
-                .addRequiredFiles(RootDirStructure.required.npm.files.concat(RootDirStructure.required.project.files))
-                .addOptionalDirs(RootDirStructure.optional.project.directories)
-                .addOptionalFiles(RootDirStructure.optional.project.files);
+                .addRequiredDirs(RootDirectory.required.npm.directories.concat(RootDirectory.required.project.directories))
+                .addRequiredFiles(RootDirectory.required.npm.files.concat(RootDirectory.required.project.files))
+                .addOptionalDirs(RootDirectory.optional.project.directories)
+                .addOptionalFiles(RootDirectory.optional.project.files);
 
         if (this._rootDir.isMissingRequired())
         {
