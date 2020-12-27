@@ -1,11 +1,22 @@
 {
-  "name": "snaplib-npm-fs",
+  "name": "@snaplib/npm-fs",
   "version": "0.1.0",
   "description": "NPM file system API",
   "type": "commonjs",
-  "main": "scripts/npm/init/init.js",
+  "files": ["./build/dist/npm-fs"],
+  "main": "./build/dist/npm-fs/npm-fs.js",
+  "author": {"name": "Snap",
+             "email": "snap@snaplib.org"},
+  "license": "MIT",
+  "homepage": "http://www.snaplib.org/npm-fs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SnapLib/npm-fs.git"
+  },
   "scripts": {
+    "build": "tsc -p src/main/ts/tsconfig.json --outDir build/dist/npm-fs",
     "clean": "rimraf build",
+    "lint": "eslint --ext ts src/main/ts",
     "mocha": "mocha -r ts-node/register --extension ts --recursive true",
     "npm-fs": "node build/js/npm-fs.js",
     "test": "mocha -r ts-node/register --extension ts --recursive true src/test/ts",
@@ -13,19 +24,14 @@
     "ts-node": "ts-node",
     "tsc": "tsc",
     "tsc-src": "tsc -p src/main/ts/tsconfig.json --outDir build/js",
-    "lint": "eslint --ext ts src/main/ts",
     "typedoc": "typedoc"
   },
   "keywords": [
     "snaplib",
-    "node",
     "npm",
-    "project",
-    "build",
+    "file",
     "system"
   ],
-  "author": "Snap",
-  "license": "MIT",
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/mocha": "^8.0.4",
