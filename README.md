@@ -8,19 +8,17 @@ to a SnapLib npm project.
 A SnapLib npm project's structure can be thought of as a subset of an npm
 project. Therefore, every SnapLib npm project follows the basic minimum npm
 project structure. Such as having a `node_modules` directory and `package.json`
-and `package-lock.json` file located in the project's root directory. These are
-common to all npm based projects
+file located in the project's root directory. These are common to all npm based
+projects
 
 However, ***SnapLib*** npm projects have additional project structure properties
 that are enforced and shared by all SnapLib npm projects. Some examples of such
-properties are having a `src` directory in the project's root directory to
-contain all source code files and a `.eslintrc.json` and `typedoc.json` file in
-the project root directory to define a consistent source code convention and
-generated documentation style.
+properties are having a `src` directory and `.eslintrc.json` and `typedoc.json`
+file in the project root directory.
 
 In addition to the above project structure/config properties, there are also
 specific dependencies SnapLib npm projects are required to have such as
-[TypeScript][1] and [tslib][2].
+[TypeScript][1] and [tslib][2] that this package also enforces.
 
 And finally, there are SnapLib npm project properties that are optional and not
 *required* (but often encouraged) for each SnapLib project to have. For
