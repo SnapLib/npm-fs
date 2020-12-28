@@ -1,3 +1,5 @@
+"use-strict";
+
 import {fileURLToPath} from "url";
 import {dirname, join} from "path";
 import * as fs from "fs";
