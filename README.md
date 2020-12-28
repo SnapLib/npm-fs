@@ -1,5 +1,12 @@
 # SnapLib npm File System (currently in ALPHA)
 
+## WARNING! THIS PACKAGE IS CURRENTLY IN ALPHA SHOULD NOT BE USED
+
+This package is under active development and ***shouldn't be used*** for
+anything at the moment.
+
+---
+
 API that defines and enforces the file system and file system structure native
 to a SnapLib npm project.
 
