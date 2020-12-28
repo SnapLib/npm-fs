@@ -1,4 +1,4 @@
-# SnapLib npm File System
+# SnapLib npm File System (currently in ALPHA)
 
 API that defines and enforces the file system and file system structure native
 to a SnapLib npm project.
