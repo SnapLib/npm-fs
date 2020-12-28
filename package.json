@@ -1,6 +1,6 @@
 {
   "name": "@snaplib/npm-fs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NPM file system API",
   "type": "commonjs",
   "files": ["./build/dist/npm-fs"],
@@ -9,6 +9,7 @@
              "email": "snap@snaplib.org"},
   "license": "MIT",
   "homepage": "http://www.snaplib.org/npm-fs",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/SnapLib/npm-fs.git"
