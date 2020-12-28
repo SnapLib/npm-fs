@@ -1,10 +1,9 @@
 {
   "name": "@snaplib/npm-fs",
-  "version": "0.1.1",
-  "description": "NPM file system API",
+  "version": "0.1.2",
+  "description": "SnapLib NPM file system API",
   "type": "commonjs",
-  "files": ["./build/dist/npm-fs"],
-  "main": "./build/dist/npm-fs/npm-fs.js",
+  "main": "npm-fs.js",
   "author": {"name": "Snap",
              "email": "snap@snaplib.org"},
   "license": "MIT",
@@ -15,7 +14,7 @@
     "url": "https://github.com/SnapLib/npm-fs.git"
   },
   "scripts": {
-    "build": "tsc -p src/main/ts/tsconfig.json --outDir build/dist/npm-fs",
+    "build-dist": "tsc -p src/main/ts/tsconfig.json --outDir build/dist/npm-fs && cp LICENSE.txt README.md build/dist/npm-fs && node scripts/cp-pkgjson-to-dist.mjs",
     "clean": "rimraf build",
     "lint": "eslint --ext ts src/main/ts",
     "mocha": "mocha -r ts-node/register --extension ts --recursive true",
