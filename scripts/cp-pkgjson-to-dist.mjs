@@ -1,18 +1,17 @@
-import {join} from "path";
+import {dirname, join} from "path";
 import * as fs from "fs";
+import {fileURLToPath} from "url";
 
-if (process.argv.length === 2)
+const NPM_ROOT_DIR_PATH = dirname(dirname(fileURLToPath(import.meta.url)));
+
+if (process.argv.length !== 3)
 {
-    throw new Error("No package.json path provided");
-}
-else if (process.argv.length !== 4)
-{
-    throw new Error(`3 command line arguments expected. ${process.argv.length - 2} arguments passed`);
+    throw new Error(`1 command line argument expected. ${process.argv.length - 2} arguments passed`);
 }
 
-const PKG_JSON_PATH = process.argv[2];
+const PKG_JSON_PATH = join(NPM_ROOT_DIR_PATH, "package.json");
 
-const NPM_PKG_DIR_NAME = process.argv[3];
+const NPM_DIST_PKG_DIR_NAME = process.argv[2];
 
 if ( ! fs.existsSync(PKG_JSON_PATH))
 {
@@ -51,7 +50,7 @@ for (let i = 0; i < PKG_JSON_ENTRIES.length; ++i)
     }
 }
 
-fs.writeFile(join("build", "dist", NPM_PKG_DIR_NAME, "package.json"),
+fs.writeFile(join(NPM_ROOT_DIR_PATH, "build", "dist", NPM_DIST_PKG_DIR_NAME, "package.json"),
              JSON.stringify(pkg_json_obj, null, 2),
              {encoding: "utf-8"},
              err => {if(err) throw err;});
