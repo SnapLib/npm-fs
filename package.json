@@ -4,8 +4,10 @@
   "description": "SnapLib NPM file system API",
   "type": "commonjs",
   "main": "npm-fs.js",
-  "author": {"name": "Snap",
-             "email": "snap@snaplib.org"},
+  "author": {
+    "name": "Snap",
+    "email": "snap@snaplib.org"
+  },
   "license": "MIT",
   "homepage": "http://www.snaplib.org/npm-fs",
   "private": true,
