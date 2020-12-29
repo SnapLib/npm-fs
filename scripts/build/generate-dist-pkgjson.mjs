@@ -1,6 +1,6 @@
 "use-strict";
 
-import {BUILD_DIST_DIR_PATH, ROOT_PKG_JSON_FILE_PATH} from "./globals.mjs";
+import {BUILD_DIST_DIR_PATH, ROOT_PKG_JSON_FILE_PATH} from "../globals.mjs";
 import {join} from "path";
 import * as fs from "fs";
 
