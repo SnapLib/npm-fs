@@ -56,7 +56,8 @@ const formatRootPkgJsonForDist = pathToRootPkgJson =>
     }(rootPkgJsonString);
 
     // package.json properties to exclude from distributable package.json
-    const rootPkgJsonPropsToExclude = ["devDependencies", "private", "scripts"];
+    const rootPkgJsonPropsToExclude =
+        ["config", "devDependencies", "private", "scripts"];
 
     // Distributable package.json JavaScript object
     const distPkgJsonObject =
