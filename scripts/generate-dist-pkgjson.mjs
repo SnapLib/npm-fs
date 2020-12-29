@@ -1,19 +1,19 @@
 "use-strict";
 
-import {DIST_DIR_PATH, ROOT_PKG_JSON_PATH} from "./globals.mjs";
+import {DIST_DIR_PATH, ROOT_PKG_JSON_FILE_PATH} from "./globals.mjs";
 import {join} from "path";
 import * as fs from "fs";
 
 // Ensure that a package.json exists in the root directory of the npm project
-if ( ! fs.existsSync(ROOT_PKG_JSON_PATH))
+if ( ! fs.existsSync(ROOT_PKG_JSON_FILE_PATH))
 {
-    throw new Error(`"${ROOT_PKG_JSON_PATH}" doesn't exist`);
+    throw new Error(`"${ROOT_PKG_JSON_FILE_PATH}" doesn't exist`);
 }
 
 // Ensure that the package.json element is a file
-if ( ! fs.lstatSync(ROOT_PKG_JSON_PATH).isFile())
+if ( ! fs.lstatSync(ROOT_PKG_JSON_FILE_PATH).isFile())
 {
-    throw new Error(`"${ROOT_PKG_JSON_PATH}" is not a file`);
+    throw new Error(`"${ROOT_PKG_JSON_FILE_PATH}" is not a file`);
 }
 
 // If no distribution npm directory package name is passed via cli argument
@@ -27,7 +27,7 @@ if (process.argv.length !== 3)
 const NPM_DIST_PKG_DIR_NAME = process.argv[2];
 
 // Store the root package.json file as a string
-const PKG_JSON_STRING = fs.readFileSync(ROOT_PKG_JSON_PATH, {encoding: "utf-8"});
+const PKG_JSON_STRING = fs.readFileSync(ROOT_PKG_JSON_FILE_PATH, {encoding: "utf-8"});
 
 // Return results from parsing package.json file
 const pkg_json_parse_result = () =>
@@ -38,7 +38,7 @@ const pkg_json_parse_result = () =>
     }
     catch (err)
     {
-        throw new Error(`error parsing package.json at "${ROOT_PKG_JSON_PATH}"`);
+        throw new Error(`error parsing package.json at "${ROOT_PKG_JSON_FILE_PATH}"`);
     }
 };
 
