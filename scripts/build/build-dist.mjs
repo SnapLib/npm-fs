@@ -68,18 +68,22 @@ const formatRootPkgJsonForDist = pathToRootPkgJson =>
     return JSON.stringify(distPkgJsonObject, null, 2);
 };
 
+// Use provided cli argument to set name of root distributable package directory
 const distPkgDirPath = join(global.BUILD_DIST_DIR_PATH, process.argv[2]);
 
+// Set path to root README file to copy into distributable package root directory
 const rootReadMePath =
     join(global.NPM_ROOT_DIR_PATH,
          fs.readdirSync(global.NPM_ROOT_DIR_PATH, {withFileTypes: true})
            .find(dirent => dirent.isFile() && dirent.name.startsWith("README")).name);
 
+// Set path to root LICENSE file to copy into distributable package root directory
 const rootLicensePath =
     join(global.NPM_ROOT_DIR_PATH,
          fs.readdirSync(global.NPM_ROOT_DIR_PATH, {withFileTypes: true})
            .find(dirent => dirent.isFile() && dirent.name.startsWith("LICENSE")).name);
 
+// If a root README file exists, copy it into root distributable package directory
 if (fs.existsSync(rootReadMePath))
 {
     const distReadMePath = join(distPkgDirPath, basename(rootReadMePath));
@@ -92,6 +96,7 @@ if (fs.existsSync(rootReadMePath))
                 });
 }
 
+// If a root LICENSE file exists, copy it into root distributable package directory
 if (fs.existsSync(rootLicensePath))
 {
     const distLicensePath = join(distPkgDirPath, basename(rootLicensePath));
