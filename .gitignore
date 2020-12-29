@@ -1,6 +1,7 @@
 !**
 node_modules
 build
+!scripts/**
 .idea
 .project
 **/.DS_Store
