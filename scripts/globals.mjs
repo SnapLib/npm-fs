@@ -18,11 +18,11 @@ export const BUILD_DIST_DIR_PATH = join(ROOT_BUILD_DIR_PATH, "dist");
 export const SRC_MAIN_DIR_PATH = join(ROOT_SRC_DIR_PATH, "main");
 
 export default {NPM_ROOT_DIR_PATH,
-                ROOT_PKG_JSON_PATH: ROOT_PKG_JSON_FILE_PATH,
-                BUILD_DIR_PATH: ROOT_BUILD_DIR_PATH,
+                ROOT_PKG_JSON_FILE_PATH,
+                ROOT_BUILD_DIR_PATH,
                 BUILD_DOCS_DIR_PATH,
                 BUILD_TEST_DIR_PATH,
-                DIST_DIR_PATH: BUILD_DIST_DIR_PATH,
+                BUILD_DIST_DIR_PATH,
                 ROOT_DOCS_DIR_PATH,
-                SRC_DIR_PATH: ROOT_SRC_DIR_PATH,
+                ROOT_SRC_DIR_PATH,
                 SRC_MAIN_DIR_PATH};
