@@ -25,7 +25,7 @@ export class RootDirectory
         ["package.json"];
 
     private static readonly REQUIRED_SNAP_PROJ_DIRS: ReadonlyArray<string> =
-        ["src"];
+        ["scripts", "src"];
 
     private static readonly REQUIRED_SNAP_PROJ_FILES: ReadonlyArray<string> =
         [".editorconfig", ".eslintrc.json", "typedoc.json"];
