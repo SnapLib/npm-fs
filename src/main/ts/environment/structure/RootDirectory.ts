@@ -49,4 +49,13 @@ export class RootDirectory
         public static readonly project: Readonly<DirContents> =
             new DirContents(RootDirectory.OPTIONAL_SNAP_PROJ_DIRS, RootDirectory.OPTIONAL_SNAP_PROJ_FILES);
     }
+
+    public static readonly all = class
+    {
+        public static readonly required: Readonly<DirContents> =
+            new DirContents(RootDirectory.REQUIRED_NPM_DIRECTORIES.concat(RootDirectory.REQUIRED_SNAP_PROJ_DIRS), RootDirectory.REQUIRED_NPM_FILES.concat(RootDirectory.REQUIRED_SNAP_PROJ_FILES));
+
+        public static readonly optional: Readonly<DirContents> =
+            new DirContents(RootDirectory.OPTIONAL_SNAP_PROJ_DIRS, RootDirectory.OPTIONAL_SNAP_PROJ_FILES);
+    }
 }
