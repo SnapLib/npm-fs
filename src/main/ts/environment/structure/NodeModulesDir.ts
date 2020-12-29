@@ -21,7 +21,7 @@ export class NodeModulesDir
 
     private static readonly REQUIRED_NODE_MODULE_DIRS: ReadonlyArray<string> =
         ["@types", "@typescript-eslint", "chai", "commander", "eslint", "mocha",
-         "mochawesome", "rimraf", "ts-node", "tslib", "typedoc", "typescript"];
+         "mochawesome", "ts-node", "tslib", "typedoc", "typescript"];
 
     public static readonly required = class
     {
