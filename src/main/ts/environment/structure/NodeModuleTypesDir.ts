@@ -19,12 +19,21 @@ export class NodeModuleTypesDir
 
     private static readonly EMPTY_ARRAY: ReadonlyArray<string> = [];
 
-    private static readonly REQUIRED_NODE_MODULE_DIRECTORIES: ReadonlyArray<string> =
+    private static readonly REQUIRED_NODE_MODULE_TYPE_DIRS: ReadonlyArray<string> =
         ["chai", "mocha", "node"];
 
     public static readonly required = class
     {
         public static readonly type: Readonly<DirContents> =
-            new DirContents(NodeModuleTypesDir.REQUIRED_NODE_MODULE_DIRECTORIES, NodeModuleTypesDir.EMPTY_ARRAY);
+            new DirContents(NodeModuleTypesDir.REQUIRED_NODE_MODULE_TYPE_DIRS, NodeModuleTypesDir.EMPTY_ARRAY);
+    }
+
+    public static readonly all = class
+    {
+        public static readonly required: Readonly<DirContents> =
+            new DirContents(NodeModuleTypesDir.REQUIRED_NODE_MODULE_TYPE_DIRS, NodeModuleTypesDir.EMPTY_ARRAY);
+
+        public static readonly optional: Readonly<DirContents> =
+            new DirContents(NodeModuleTypesDir.EMPTY_ARRAY, NodeModuleTypesDir.EMPTY_ARRAY);
     }
 }

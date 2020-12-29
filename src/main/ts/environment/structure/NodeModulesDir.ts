@@ -19,13 +19,22 @@ export class NodeModulesDir
 
     private static readonly EMPTY_ARRAY: ReadonlyArray<string> = [];
 
-    private static readonly REQUIRED_NODE_MODULE_DIRECTORIES: ReadonlyArray<string> =
+    private static readonly REQUIRED_NODE_MODULE_DIRS: ReadonlyArray<string> =
         ["@types", "@typescript-eslint", "chai", "commander", "eslint", "mocha",
          "mochawesome", "rimraf", "ts-node", "tslib", "typedoc", "typescript"];
 
     public static readonly required = class
     {
         public static readonly module: Readonly<DirContents> =
-            new DirContents(NodeModulesDir.REQUIRED_NODE_MODULE_DIRECTORIES, NodeModulesDir.EMPTY_ARRAY);
+            new DirContents(NodeModulesDir.REQUIRED_NODE_MODULE_DIRS, NodeModulesDir.EMPTY_ARRAY);
+    }
+
+    public static readonly all = class
+    {
+        public static readonly required: Readonly<DirContents> =
+            new DirContents(NodeModulesDir.REQUIRED_NODE_MODULE_DIRS, NodeModulesDir.EMPTY_ARRAY);
+
+        public static readonly optional: Readonly<DirContents> =
+            new DirContents(NodeModulesDir.EMPTY_ARRAY, NodeModulesDir.EMPTY_ARRAY);
     }
 }
