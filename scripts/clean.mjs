@@ -110,7 +110,7 @@ const translateCliArgsToPaths = cliArgsArray =>
 
             if (srcMainDirContents.includes("html"))
             {
-                const htmlBuildDirPath = join(global.BUILD_DIR_PATH, "html");
+                const htmlBuildDirPath = join(global.ROOT_BUILD_DIR_PATH, "html");
 
                 if (fs.existsSync(htmlBuildDirPath)
                     && fs.lstatSync(htmlBuildDirPath).isDirectory())
@@ -121,7 +121,7 @@ const translateCliArgsToPaths = cliArgsArray =>
 
             if (srcMainDirContents.includes("resources"))
             {
-                const resourcesBuildDirPath = join(global.BUILD_DIR_PATH, "resources");
+                const resourcesBuildDirPath = join(global.ROOT_BUILD_DIR_PATH, "resources");
 
                 if (fs.existsSync(resourcesBuildDirPath)
                     && fs.lstatSync(resourcesBuildDirPath).isDirectory())
@@ -132,7 +132,7 @@ const translateCliArgsToPaths = cliArgsArray =>
 
             if (srcMainDirContents.some(srcDir => COMPILE_TO_JS_SRC_DIRS.includes(srcDir)))
             {
-                const jsBuildDirPath = join(global.BUILD_DIR_PATH, "js");
+                const jsBuildDirPath = join(global.ROOT_BUILD_DIR_PATH, "js");
 
                 if (fs.existsSync(jsBuildDirPath)
                     && fs.lstatSync(jsBuildDirPath).isDirectory())
@@ -143,7 +143,7 @@ const translateCliArgsToPaths = cliArgsArray =>
 
             if (srcMainDirContents.some(srcDir => COMPILE_TO_CSS_SRC_DIRS.includes(srcDir)))
             {
-                const cssBuildDirPath = join(global.BUILD_DIR_PATH, "css");
+                const cssBuildDirPath = join(global.ROOT_BUILD_DIR_PATH, "css");
 
                 if (fs.existsSync(cssBuildDirPath)
                     && fs.lstatSync(cssBuildDirPath).isDirectory())
@@ -161,7 +161,7 @@ const translateCliArgsToPaths = cliArgsArray =>
 if (process.argv.length === 2)
 {
     // Remove entire build directory
-    await rmDir(global.BUILD_DIR_PATH);
+    await rmDir(global.ROOT_BUILD_DIR_PATH);
 }
 // If one or more cli args passed to script
 else if (process.argv.length > 2)
