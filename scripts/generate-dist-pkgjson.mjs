@@ -1,6 +1,6 @@
 "use-strict";
 
-import {DIST_DIR_PATH, ROOT_PKG_JSON_FILE_PATH} from "./globals.mjs";
+import {BUILD_DIST_DIR_PATH, ROOT_PKG_JSON_FILE_PATH} from "./globals.mjs";
 import {join} from "path";
 import * as fs from "fs";
 
@@ -51,7 +51,7 @@ const dist_pkg_json_obj =
 
 // Path to write distributable package.json to
 const DIST_PKG_JSON_PATH =
-    join(DIST_DIR_PATH, NPM_DIST_PKG_DIR_NAME, "package.json");
+    join(BUILD_DIST_DIR_PATH, NPM_DIST_PKG_DIR_NAME, "package.json");
 
 // Write distributable package.json object as string to resolved path
 fs.writeFile(DIST_PKG_JSON_PATH,
