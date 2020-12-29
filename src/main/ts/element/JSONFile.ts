@@ -10,7 +10,12 @@ export class JSONFile extends File
     {
         super(path.normalize([jsonFilePath].concat(nestedJsonFilePaths).join(path.sep)));
 
-        this._jsonObject = JSON.parse(this.toString());
+        this._jsonObject = Object.freeze(JSON.parse(this.toString()));
+    }
+
+    public toJSO(): ReadOnlyDict<unknown>
+    {
+        return this._jsonObject;
     }
 
     public entries(): readonly [string, unknown][]
@@ -31,5 +36,17 @@ export class JSONFile extends File
     public containsKey(key: string): boolean
     {
         return key in this._jsonObject;
+    }
+
+    public withOutKeys(...keys: ReadonlyArray<string>): ReadOnlyDict<unknown>
+    {
+        if (keys.length === 0)
+        {
+            return this._jsonObject;
+        }
+        else
+        {
+            return Object.fromEntries(this.entries().filter(jsonEntry => ! keys.includes(jsonEntry[0])));
+        }
     }
 }
