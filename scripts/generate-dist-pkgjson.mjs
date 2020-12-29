@@ -1,12 +1,8 @@
 "use-strict";
 
-import {fileURLToPath} from "url";
-import {dirname, join} from "path";
+import {NPM_ROOT_DIR_PATH} from "./globals.mjs";
+import {join} from "path";
 import * as fs from "fs";
-
-// Get path to root npm directory that should be at ../../__filename assuming
-// this script is located in root `scripts` directory of npm project
-const NPM_ROOT_DIR_PATH = dirname(dirname(fileURLToPath(import.meta.url)));
 
 // Get path to package.json that is in npm project root directory
 const PKG_JSON_PATH = join(NPM_ROOT_DIR_PATH, "package.json");
