@@ -76,10 +76,10 @@ const translateCliArgsToPaths = cliArgsArray =>
         // If build/dist directory needs to be removed
         if (cliArgsArray.includes("dist"))
         {
-            if (fs.existsSync(global.DIST_DIR_PATH)
-                && fs.lstatSync(global.DIST_DIR_PATH).isDirectory())
+            if (fs.existsSync(global.BUILD_DIST_DIR_PATH)
+                && fs.lstatSync(global.BUILD_DIST_DIR_PATH).isDirectory())
             {
-                paths.push(global.DIST_DIR_PATH);
+                paths.push(global.BUILD_DIST_DIR_PATH);
             }
         }
 
