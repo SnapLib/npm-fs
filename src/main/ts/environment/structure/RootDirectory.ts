@@ -28,7 +28,7 @@ export class RootDirectory
         ["scripts", "src"];
 
     private static readonly REQUIRED_SNAP_PROJ_FILES: ReadonlyArray<string> =
-        [".editorconfig", ".eslintrc.json", "typedoc.json"];
+        [".editorconfig", ".eslintrc.json", ".npmrc", "typedoc.json"];
 
     private static readonly OPTIONAL_SNAP_PROJ_DIRS: ReadonlyArray<string> =
         ["docs", ".git"];
