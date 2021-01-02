@@ -126,11 +126,8 @@ export interface DirectoryI
      * @example
      * ```
      * console.log(myDirectoryElement.fileRelativePaths())
-     * // would print: "myRootFile.txt"
+     * // would print: "myRootFile.txt, MyNestedDirectory/myNestedFile.txt"
      * ```
-     *
-     * Note that the directory and its contents in the root of `MyDirectory`
-     * are ignored.
      *
      * @returns the paths of the files relative to the root path of this
      *          directory element.
