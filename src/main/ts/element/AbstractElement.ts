@@ -13,17 +13,6 @@ import * as path from "path";
  */
 export abstract class AbstractElement implements Element
 {
-    /**
-     * The contents of this file system element. If this element is a directory
-     * element, returns the entries it contains. If this element is a file
-     * element, returns the lines of the file.
-     *
-     * @abstract
-     * @protected
-     * @property
-     */
-    protected abstract contents: AbstractElement[] | string;
-
     /** @inheritDoc */
     public readonly type: Type;
 
@@ -88,7 +77,7 @@ export abstract class AbstractElement implements Element
      * @abstract
      * @function
      */
-    public abstract getContents(): ReadonlyArray<AbstractElement> | string;
+    public abstract contents(): ReadonlyArray<AbstractElement> | string;
 
     /** @inheritDoc */
     public abstract create(): boolean;

@@ -25,18 +25,6 @@ import * as fs from "fs";
  */
 export class AbstractFile extends AbstractElement
 {
-    private readonly _string: string;
-
-    /**
-     * The contents of this file element. This file parsed into a string with
-     * utf-8 encoding.
-     *
-     * @override
-     * @protected
-     * @property
-     */
-    protected contents: string;
-
     /**
      * Creates a new instance of a `File` element. A file element only requires
      * a path to write a file to.
@@ -54,9 +42,6 @@ export class AbstractFile extends AbstractElement
     public constructor(filePath: string, ...nestedFilePaths: ReadonlyArray<string>)
     {
         super(Type.FILE, path.normalize([filePath].concat(nestedFilePaths).join(path.sep)));
-
-        this._string = fs.existsSync(this.path) ? fs.readFileSync(this.path, {encoding: "utf8"}): "";
-        this.contents = this._string;
     }
 
     /**
@@ -118,7 +103,7 @@ export class AbstractFile extends AbstractElement
      */
     public lines(): ReadonlyArray<string>
     {
-        return this._string.split("\n");
+        return this.toString().split("\n");
     }
 
     /**
@@ -127,9 +112,9 @@ export class AbstractFile extends AbstractElement
      * @virtual
      * @function
      */
-    public getContents(): string
+    public contents(): string
     {
-        return this.contents;
+        return this.toString();
     }
 
     /**
@@ -139,7 +124,7 @@ export class AbstractFile extends AbstractElement
      */
     public isEmpty(): boolean
     {
-        return this.contents.length === 0;
+        return this.toString().length === 0;
     }
 
     /**
@@ -164,6 +149,6 @@ export class AbstractFile extends AbstractElement
 
     public toString(): string
     {
-        return this._string;
+        return fs.existsSync(this.path) ? fs.readFileSync(this.path, {encoding: "utf8"}): "";
     }
 }

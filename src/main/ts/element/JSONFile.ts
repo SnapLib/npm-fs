@@ -1,8 +1,8 @@
-import {File} from "./File";
+import {AbstractFile} from "./AbstractFile";
 import * as path from "path";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
 
-export class JSONFile extends File
+export class JSONFile extends AbstractFile
 {
     private readonly _jsonObject: ReadOnlyDict<unknown>;
 

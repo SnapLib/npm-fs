@@ -1,6 +1,6 @@
 import {Type} from "./Element";
 import {AbstractElement} from "./AbstractElement";
-import {File} from "./File";
+import {AbstractFile} from "./AbstractFile";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -28,16 +28,6 @@ import * as path from "path";
 export class AbstractDirectory extends AbstractElement
 {
     /**
-     * The contents of this directory element. An array of this directory
-     * element's entries.
-     *
-     * @override
-     * @protected
-     * @property
-     */
-    protected contents: AbstractElement[];
-
-    /**
      * Creates a new instance of a `Directory` element. A directory element only
      * requires a path to write a directory to.
      *
@@ -55,8 +45,6 @@ export class AbstractDirectory extends AbstractElement
     public constructor(directoryPath: string, ...nestedDirectoryPaths: ReadonlyArray<string>)
     {
         super(Type.DIRECTORY, path.normalize([directoryPath].concat(nestedDirectoryPaths).join(path.sep)));
-
-        this.contents = this.exists() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new AbstractDirectory(path.join(this.path, dirent.name)) : new File(path.join(this.path, dirent.name))) : Array<AbstractElement>();
     }
 
     /**
@@ -68,9 +56,9 @@ export class AbstractDirectory extends AbstractElement
      * @sealed
      * @function
      */
-    public getContents(): ReadonlyArray<AbstractElement>
+    public contents(): ReadonlyArray<AbstractElement>
     {
-        return this.contents;
+        return this.exists() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new AbstractDirectory(path.join(this.path, dirent.name)) : new AbstractFile(path.join(this.path, dirent.name))) : Array<AbstractElement>();
     }
 
     /**
@@ -152,7 +140,7 @@ export class AbstractDirectory extends AbstractElement
      */
     public getContentNames(): ReadonlyArray<string>
     {
-        return this.contents.map<string>(dirent => dirent.name);
+        return this.contents().map<string>(dirent => dirent.name);
     }
 
     /**
@@ -167,7 +155,7 @@ export class AbstractDirectory extends AbstractElement
      */
     public contentPaths(): ReadonlyArray<string>
     {
-        return this.getContents().map<string>(dirContentName => path.join(this.path, dirContentName.name));
+        return this.contents().map<string>(dirContentName => path.join(this.path, dirContentName.name));
     }
 
     /**
@@ -349,7 +337,7 @@ export class AbstractDirectory extends AbstractElement
      */
     public isEmpty(): boolean
     {
-        return this.exists() && this.getContents().length === 0;
+        return this.exists() && this.contents().length === 0;
     }
 
     /**
@@ -364,7 +352,7 @@ export class AbstractDirectory extends AbstractElement
      */
     public length(): number
     {
-        return this.exists() ? this.getContents().length : -1;
+        return this.exists() ? this.contents().length : -1;
     }
 
     /**
