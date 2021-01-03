@@ -7,6 +7,34 @@ export interface Directory extends Element
     readonly inode: number;
 
     /**
+     * The absolute path of this directory element.
+     *
+     * @readonly
+     * @property
+     */
+    readonly path: string;
+
+    /**
+     * The name of this directory element. This is the the name that is at the
+     * tail or endmost part of its path.
+     *
+     * @readonly
+     * @property
+     */
+    readonly name: string;
+
+    /**
+     * The absolute path of the directory this directory element resides in. If
+     * this directory element does not have a parent directory (i.e. it resides
+     * in the root directory of the operating system) then this property is set
+     * to `undefined`.
+     *
+     * @readonly
+     * @property
+     */
+    readonly parent: string;
+
+    /**
      * Returns the directory entries of this directory element.
      *
      * @returns the directory entries of this directory element.
