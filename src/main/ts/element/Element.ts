@@ -82,7 +82,7 @@ export interface Element
      * doesn't point to a pre-existing element. Returns `true` if it's
      * successfully written otherwise returns `false`.
      *
-     * @remarks The {@link overwrite} method can be used to write this element
+     * @remarks The {@link overwriteSync} method can be used to write this element
      * to disk regardless of whether or not its path points to a pre-existing
      * element.
      *
@@ -103,7 +103,7 @@ export interface Element
      * @abstract
      * @function
      */
-    overwrite(): boolean;
+    overwriteSync(): boolean;
 
     /**
      * Returns `true` if this element exists when this method is called.

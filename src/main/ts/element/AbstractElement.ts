@@ -83,7 +83,7 @@ export abstract class AbstractElement implements Element
     public abstract createSync(): boolean;
 
     /** @inheritDoc */
-    public abstract overwrite(): boolean;
+    public abstract overwriteSync(): boolean;
 
     /**
      * Returns `true` if this element exists when this method is called.

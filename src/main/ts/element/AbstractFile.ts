@@ -49,7 +49,7 @@ export class AbstractFile extends AbstractElement
      * its path doesn't point to a pre-existing element. Returns `true` if it's
      * successfully written otherwise returns `false`.
      *
-     * @remarks The {@link overwrite} method can be used to write this file
+     * @remarks The {@link overwriteSync} method can be used to write this file
      * element to disk regardless of whether or not its path points to a
      * pre-existing element.
      *
@@ -84,7 +84,7 @@ export class AbstractFile extends AbstractElement
      * @sealed
      * @function
      */
-    public overwrite(): boolean
+    public overwriteSync(): boolean
     {
         fs.rmSync(this.path, {force: true, recursive: true});
 
