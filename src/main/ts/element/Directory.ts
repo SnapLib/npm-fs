@@ -4,5 +4,5 @@ interface Directory extends Element
 {
     readonly inode: number;
 
-    contents(): ReadonlyArray<Element>;
+    contentsSync(): ReadonlyArray<Element>;
 }

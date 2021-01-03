@@ -75,7 +75,7 @@ export interface Element
      * @abstract
      * @function
      */
-    contents(): ReadonlyArray<Element> | string;
+    contentsSync(): ReadonlyArray<Element> | string;
 
     /**
      * Writes this element to the underlying operating system's disk if its path

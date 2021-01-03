@@ -77,7 +77,7 @@ export abstract class AbstractElement implements Element
      * @abstract
      * @function
      */
-    public abstract contents(): ReadonlyArray<AbstractElement> | string;
+    public abstract contentsSync(): ReadonlyArray<AbstractElement> | string;
 
     /** @inheritDoc */
     public abstract create(): boolean;

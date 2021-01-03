@@ -112,7 +112,7 @@ export class AbstractFile extends AbstractElement
      * @virtual
      * @function
      */
-    public contents(): string
+    public contentsSync(): string
     {
         return this.toString();
     }
