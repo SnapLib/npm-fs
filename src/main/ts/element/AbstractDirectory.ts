@@ -25,7 +25,7 @@ import * as path from "path";
  *
  * @extends AbstractElement
  */
-export class Directory extends AbstractElement
+export class AbstractDirectory extends AbstractElement
 {
     /**
      * The contents of this directory element. An array of this directory
@@ -56,7 +56,7 @@ export class Directory extends AbstractElement
     {
         super(Type.DIRECTORY, path.normalize([directoryPath].concat(nestedDirectoryPaths).join(path.sep)));
 
-        this.contents = this.exists() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new Directory(path.join(this.path, dirent.name)) : new File(path.join(this.path, dirent.name))): Array<AbstractElement>();
+        this.contents = this.exists() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new AbstractDirectory(path.join(this.path, dirent.name)) : new File(path.join(this.path, dirent.name))) : Array<AbstractElement>();
     }
 
     /**
@@ -380,7 +380,7 @@ export class Directory extends AbstractElement
      */
     public size(): number
     {
-        return Directory.sizeOf(this.path);
+        return AbstractDirectory.sizeOf(this.path);
     }
 
     /**
