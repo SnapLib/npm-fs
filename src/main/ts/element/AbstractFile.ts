@@ -23,7 +23,7 @@ import * as fs from "fs";
  *
  * @extends AbstractElement
  */
-export class File extends AbstractElement
+export class AbstractFile extends AbstractElement
 {
     private readonly _string: string;
 
