@@ -80,7 +80,7 @@ export abstract class AbstractElement implements Element
     public abstract contentsSync(): ReadonlyArray<AbstractElement> | string;
 
     /** @inheritDoc */
-    public abstract create(): boolean;
+    public abstract createSync(): boolean;
 
     /** @inheritDoc */
     public abstract overwrite(): boolean;

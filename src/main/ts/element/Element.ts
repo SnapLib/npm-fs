@@ -91,7 +91,7 @@ export interface Element
      * @abstract
      * @function
      */
-    create(): boolean;
+    createSync(): boolean;
 
     /**
      * Writes this element to the underlying operating system's disk regardless

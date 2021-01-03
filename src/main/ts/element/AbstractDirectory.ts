@@ -76,7 +76,7 @@ export class AbstractDirectory extends AbstractElement
      * @sealed
      * @function
      */
-    public create(): boolean
+    public createSync(): boolean
     {
         if (fs.existsSync(this.path))
         {
