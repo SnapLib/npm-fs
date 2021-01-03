@@ -144,7 +144,7 @@ export class AbstractFile extends AbstractElement
      */
     public size(): number
     {
-        return this.exists() ? fs.lstatSync(this.path).size : -1;
+        return this.existsSync() ? fs.lstatSync(this.path).size : -1;
     }
 
     public toString(): string

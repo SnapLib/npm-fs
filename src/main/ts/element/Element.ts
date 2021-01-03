@@ -113,7 +113,7 @@ export interface Element
      * @abstract
      * @function
      */
-    exists(): boolean;
+    existsSync(): boolean;
 
     /**
      * Returns `true` if this element's path points to (or is intended to point

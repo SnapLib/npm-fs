@@ -58,7 +58,7 @@ export class AbstractDirectory extends AbstractElement
      */
     public contentsSync(): ReadonlyArray<AbstractElement>
     {
-        return this.exists() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new AbstractDirectory(path.join(this.path, dirent.name)) : new AbstractFile(path.join(this.path, dirent.name))) : Array<AbstractElement>();
+        return this.existsSync() ? fs.readdirSync(this.path, {withFileTypes: true}).map(dirent => dirent.isDirectory() ? new AbstractDirectory(path.join(this.path, dirent.name)) : new AbstractFile(path.join(this.path, dirent.name))) : Array<AbstractElement>();
     }
 
     /**
@@ -337,7 +337,7 @@ export class AbstractDirectory extends AbstractElement
      */
     public isEmpty(): boolean
     {
-        return this.exists() && this.contentsSync().length === 0;
+        return this.existsSync() && this.contentsSync().length === 0;
     }
 
     /**
@@ -352,7 +352,7 @@ export class AbstractDirectory extends AbstractElement
      */
     public length(): number
     {
-        return this.exists() ? this.contentsSync().length : -1;
+        return this.existsSync() ? this.contentsSync().length : -1;
     }
 
     /**

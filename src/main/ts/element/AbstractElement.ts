@@ -94,7 +94,7 @@ export abstract class AbstractElement implements Element
      * @sealed
      * @function
      */
-    public exists(): boolean
+    public existsSync(): boolean
     {
         return fs.existsSync(this.path);
     }
