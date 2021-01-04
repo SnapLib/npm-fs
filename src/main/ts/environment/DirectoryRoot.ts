@@ -92,19 +92,20 @@ export class DirectoryRoot extends ExistingDirElement
 
     public toString(): string
     {
-        const formatStringArray = (strArray: ReadonlyArray<string>): string =>
+        const formatStringArray = (prefixKey: string, strArray: ReadonlyArray<string>): string =>
         {
             const headTailQuotes = strArray.length !== 0 ? '"' : "";
-            return `[${headTailQuotes}${strArray.join('", "')}${headTailQuotes}]`;
+            return `${prefixKey}: [${headTailQuotes}${strArray.join(`",\n${" ".repeat(prefixKey.length + 5)}"`)}${headTailQuotes}]`;
         };
 
-        const fileNames = "  files: ".concat(formatStringArray(this.fileNamesSync()));
-        const dirNames = "  directories: ".concat(formatStringArray(this.dirNamesSync()));
-        const requiredFiles = "  required files: ".concat(formatStringArray(this.getRequired().files));
-        const requiredDirs = "  required directories: ".concat(formatStringArray(this.getRequired().directories));
-        const optionalFiles = "  optional files: ".concat(formatStringArray(this.getOptional().files));
-        const optionalDirs = "  optional directories: ".concat(formatStringArray(this.getOptional().directories));
+        const formattedObjStrArray: readonly string[] =
+            [formatStringArray("files", this.fileNamesSync()),
+            formatStringArray("directories", this.dirNamesSync()),
+            formatStringArray("required files", this.getRequired().files),
+            formatStringArray("required directories", this.getRequired().directories),
+            formatStringArray("optional files", this.getOptional().files),
+            formatStringArray("optional directories", this.getOptional().directories)];
 
-        return `{\n${fileNames}\n${dirNames}\n${requiredFiles}\n${requiredDirs}\n${optionalFiles}\n${optionalDirs}\n}`;
+        return `{\n  ${formattedObjStrArray.join("\n\n  ")}\n}`;
     }
 }
