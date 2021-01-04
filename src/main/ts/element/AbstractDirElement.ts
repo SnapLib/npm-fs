@@ -81,9 +81,12 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
 
     public toString(): string
     {
-        return JSON.stringify({files: this.fileNamesSync(),
-                               directories: this.dirNamesSync()},
-                               undefined,
-                               2);
+        const formatStringArray = (strArray: ReadonlyArray<string>): string =>
+        {
+            const headTailQuotes = strArray.length !== 0 ? '"' : "";
+            return `[${headTailQuotes}${strArray.join('", "')}${headTailQuotes}]`;
+        };
+
+        return `{\n  files: ${formatStringArray(this.fileNamesSync())}\n directories: ${formatStringArray(this.dirNamesSync())}\n}`;
     }
 }
