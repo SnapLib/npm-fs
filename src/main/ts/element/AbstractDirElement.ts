@@ -8,6 +8,7 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
     {
         super(path, {exists: options.exists, type: "directory"});
     }
+
     public abstract fileNamesSync(): readonly string[];
 
     public abstract dirNamesSync(): readonly string[];
