@@ -43,6 +43,7 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
             return this.fileNamesSync().some(npmRootFileName => fileName.localeCompare(npmRootFileName, undefined, {sensitivity: "base"}) === 0);
         }
     }
+
     public containsDirSync(dirName: string, options?: { caseSensitive: boolean; }): boolean
     {
         if (options?.caseSensitive)
@@ -54,6 +55,7 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
             return this.dirNamesSync().some(npmRootDirName => dirName.localeCompare(npmRootDirName, undefined, {sensitivity: "base"}) === 0);
         }
     }
+
     public containsSync(direntName: string, options?: { caseSensitive: boolean; }): boolean
     {
         if (options?.caseSensitive)
@@ -70,6 +72,7 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
     {
         return this.direntNamesSync().length;
     }
+
     public isEmpty(): boolean
     {
         return this.length() === 0;
