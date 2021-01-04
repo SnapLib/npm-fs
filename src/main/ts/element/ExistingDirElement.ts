@@ -1,53 +1,103 @@
-import { AbstractDirElement } from "./AbstractDirElement";
+import { AbstractExistingElement } from "./AbstractExistingElement";
 import { join, normalize, sep } from "path";
 import fs from "fs";
-import { ExistingElement } from "./ExistingElement";
+import type { DirElement } from "./DirElement";
+import type { ExistingElement } from "./ExistingElement";
 
-export class ExistingDirElement extends AbstractDirElement implements ExistingElement
+export class ExistingDirElement extends AbstractExistingElement implements DirElement, ExistingElement
 {
     protected constructor(path: string, ...morePaths: readonly string[])
     {
-        super(normalize([path].concat(morePaths).join(sep)), {exists: true});
+        super(normalize([path].concat(morePaths).join(sep)), {type: "directory"});
     }
 
-    public inodeSync(): number
-    {
-        return fs.lstatSync(this.path).ino;
-    }
-    deleteSync(): boolean
-    {
-        fs.rmdirSync(this.path, {recursive: true});
-        return ! fs.existsSync(this.path);
-    }
-    copyToSync(dest: string, options?: { overwrite: boolean; }): boolean
-    {
-        throw new Error("Method not implemented. No-op args" + dest + options);
-    }
-    renameSync(newName: string, options?: { overwrite: boolean; }): boolean
-    {
-        if ( ! options?.overwrite && fs.existsSync(newName))
-        {
-            return false;
-        }
-        else
-        {
-            fs.renameSync(this.path, newName);
-            return fs.existsSync(newName);
-        }
-    }
-
-    direntsSync(): ReadonlyArray<fs.Dirent>
+    public direntsSync(): readonly fs.Dirent[]
     {
         return fs.readdirSync(this.path, {withFileTypes: true});
     }
 
-    fileNamesSync(): readonly string[]
+    public direntNamesSync(): readonly string[]
+    {
+        return fs.readdirSync(this.path);
+    }
+
+    public direntPathsSync(): readonly string[]
+    {
+        return this.direntNamesSync().map(direntName => join(this.path, direntName));
+    }
+
+    public fileNamesSync(): readonly string[]
     {
         return this.direntsSync().filter(dirent => dirent.isFile()).map(fileDirent => fileDirent.name);
     }
-    dirNamesSync(): readonly string[]
+
+    public filePathsSync(): readonly string[]
+    {
+        return this.fileNamesSync().map(fileName => join(this.path, fileName));
+    }
+
+    public dirNamesSync(): readonly string[]
     {
         return this.direntsSync().filter(dirent => dirent.isDirectory()).map(dirDirent => dirDirent.name);
+    }
+
+    public dirPathsSync(): readonly string[]
+    {
+        return this.dirNamesSync().map(dirName => join(this.path, dirName));
+    }
+
+    public containsFileSync(fileName: string, options?: { caseSensitive: boolean; }): boolean
+    {
+        if (options?.caseSensitive)
+        {
+            return this.direntNamesSync().includes(fileName);
+        }
+        else
+        {
+            return this.direntNamesSync().some(fileDirentName => fileName.localeCompare(fileDirentName, undefined, {sensitivity: "base"}) === 0);
+        }
+    }
+
+    public containsDirSync(dirName: string, options?: { caseSensitive: boolean; }): boolean
+    {
+        if (options?.caseSensitive)
+        {
+            return this.direntNamesSync().includes(dirName);
+        }
+        else
+        {
+            return this.direntNamesSync().some(dirDirentName => dirName.localeCompare(dirDirentName, undefined, {sensitivity: "base"}) === 0);
+        }
+    }
+
+    public containsSync(fileOrDirName: string, options?: { caseSensitive: boolean; }): boolean
+    {
+        if (options?.caseSensitive)
+        {
+            return this.direntNamesSync().includes(fileOrDirName);
+        }
+        else
+        {
+            return this.direntNamesSync().some(direntName => fileOrDirName.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0);
+        }
+    }
+
+    public length(): number
+    {
+        return this.direntsSync().length;
+    }
+
+    public isEmpty(): boolean
+    {
+        return this.length() === 0;
+    }
+
+    public toString(): string
+    {
+        return JSON.stringify({files: this.fileNamesSync(),
+                               directories: this.dirNamesSync()},
+                               undefined,
+                               2);
     }
 
     public size(): number
@@ -55,20 +105,6 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return ExistingDirElement.sizeOf(this.path);
     }
 
-    /**
-     * Returns the total size, in bytes, of the directory at the given path. If
-     * the provided path doesn't point to an existing element, then -1 is
-     * returned. If the provided path points to a file, then the file's size is
-     * returned.
-     *
-     * @param directoryPath The path to the directory to get the size of
-     *
-     * @returns the size, in bytes, of the directory or file that the provided
-     *          path points to
-     *
-     * @static
-     * @function
-     */
     public static sizeOf(directoryPath: string): number
     {
         if ( ! fs.existsSync(directoryPath))
@@ -93,4 +129,8 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         }
     }
 
+    public copyToSync(dest: string, options?: { overwrite: boolean }): boolean
+    {
+        throw new Error("Method not implemented. No-op args" + dest + options);
+    }
 }
