@@ -46,8 +46,12 @@ export abstract class AbstractElement implements Element
             this.parent = dirname(this.path);
         }
     }
+
     public abstract containsSync(aString: string, options?: { caseSensitive: boolean; }): boolean;
+
     public abstract length(): number;
+
     public abstract isEmpty(): boolean;
+
     public abstract toString(): string;
 }
