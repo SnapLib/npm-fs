@@ -89,4 +89,22 @@ export class DirectoryRoot extends ExistingDirElement
     {
         return this.missingOptionalFiles().length !== 0;
     }
+
+    public toString(): string
+    {
+        const formatStringArray = (strArray: ReadonlyArray<string>): string =>
+        {
+            const headTailQuotes = strArray.length !== 0 ? '"' : "";
+            return `[${headTailQuotes}${strArray.join('", "')}${headTailQuotes}]`;
+        };
+
+        const fileNames = "  files: ".concat(formatStringArray(this.fileNamesSync()));
+        const dirNames = "  directories: ".concat(formatStringArray(this.dirNamesSync()));
+        const requiredFiles = "  required files: ".concat(formatStringArray(this.getRequired().files));
+        const requiredDirs = "  required directories: ".concat(formatStringArray(this.getRequired().directories));
+        const optionalFiles = "  optional files: ".concat(formatStringArray(this.getOptional().files));
+        const optionalDirs = "  optional directories: ".concat(formatStringArray(this.getOptional().directories));
+
+        return `{\n${fileNames}\n${dirNames}\n${requiredFiles}\n${requiredDirs}\n${optionalFiles}\n${optionalDirs}\n}`;
+    }
 }
