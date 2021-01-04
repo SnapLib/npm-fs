@@ -20,7 +20,7 @@ export abstract class AbstractFileElement extends AbstractElement implements Fil
         }
         else
         {
-            return new RegExp(`^.*${aString}.*$`, "gi").test(this.toString());
+            return new RegExp(`^.*${aString}+?.*$`, "gi").test(this.toString());
         }
     }
     public length(): number
