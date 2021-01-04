@@ -1,14 +1,37 @@
-import { AbstractExistingElement } from "./AbstractExistingElement";
+import type { ExistingElement } from "./ExistingElement";
+import {AbstractDirElement} from "./AbstractDirElement";
 import { join, normalize, sep } from "path";
 import fs from "fs";
-import type { DirElement } from "./DirElement";
-import type { ExistingElement } from "./ExistingElement";
 
-export class ExistingDirElement extends AbstractExistingElement implements DirElement, ExistingElement
+export class ExistingDirElement extends AbstractDirElement implements ExistingElement
 {
-    protected constructor(path: string, ...morePaths: readonly string[])
+    public constructor(path: string, ...morePaths: readonly string[])
     {
-        super(normalize([path].concat(morePaths).join(sep)), {type: "directory"});
+        super(normalize([path].concat(morePaths).join(sep)), {exists: true});
+    }
+
+    public inodeSync(): number
+    {
+        return fs.lstatSync(this.path).ino;
+    }
+
+    public deleteSync(): boolean
+    {
+        fs.rmdirSync(this.path, {recursive: true});
+        return ! fs.existsSync(this.path);
+    }
+
+    public renameSync(newName: string, options?: { overwrite: boolean; }): boolean
+    {
+        if ( ! options?.overwrite && fs.existsSync(newName))
+        {
+            return false;
+        }
+        else
+        {
+            fs.renameSync(this.path, newName);
+            return fs.existsSync(newName);
+        }
     }
 
     public direntsSync(): readonly fs.Dirent[]
