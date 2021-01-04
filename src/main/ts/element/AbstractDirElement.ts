@@ -81,12 +81,16 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
 
     public toString(): string
     {
-        const formatStringArray = (strArray: ReadonlyArray<string>): string =>
+        const formatStringArray = (prefixKey: string, strArray: ReadonlyArray<string>): string =>
         {
             const headTailQuotes = strArray.length !== 0 ? '"' : "";
-            return `[${headTailQuotes}${strArray.join('", "')}${headTailQuotes}]`;
+            return `${prefixKey}: [${headTailQuotes}${strArray.join(`",\n${" ".repeat(prefixKey.length + 5)}"`)}${headTailQuotes}]`;
         };
 
-        return `{\n  files: ${formatStringArray(this.fileNamesSync())}\n directories: ${formatStringArray(this.dirNamesSync())}\n}`;
+        const formattedObjStrArray: readonly string[] =
+            [formatStringArray("files", this.fileNamesSync()),
+             formatStringArray("directories", this.dirNamesSync())];
+
+        return `{\n  ${formattedObjStrArray.join(",\n\n  ")}\n}`;
     }
 }

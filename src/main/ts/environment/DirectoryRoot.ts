@@ -106,6 +106,6 @@ export class DirectoryRoot extends ExistingDirElement
             formatStringArray("optional files", this.getOptional().files),
             formatStringArray("optional directories", this.getOptional().directories)];
 
-        return `{\n  ${formattedObjStrArray.join("\n\n  ")}\n}`;
+        return `{\n  ${formattedObjStrArray.join(",\n\n  ")}\n}`;
     }
 }
