@@ -29,7 +29,7 @@ export abstract class AbstractFileElement extends AbstractElement implements Fil
     }
     public isEmpty(): boolean
     {
-        return this.length() === 0;
+        return this.toString().length === 0;
     }
     public abstract toString(): string;
 }
