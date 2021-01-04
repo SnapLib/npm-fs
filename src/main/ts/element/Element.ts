@@ -23,14 +23,7 @@
  */
 export interface Element
 {
-    /**
-     * The type of element this element is. Indicates whether this element
-     * represents a directory or file.
-     *
-     * @readonly
-     * @property
-     */
-    readonly type: Type;
+    readonly elementType: ElementType;
 
     /**
      * The absolute path of this element.
@@ -61,88 +54,7 @@ export interface Element
      */
     readonly parent: string;
 
-    /**
-     * Returns the contents of this element.
-     *
-     * @remarks If this element is a directory, returns a read only array of the
-     * names of this directory's entries.
-     *
-     * @remarks If this element is a file, returns a read only array containing
-     * each line of this file as text.
-     *
-     * @returns The contents of this element
-     *
-     * @abstract
-     * @function
-     */
-    contentsSync(): ReadonlyArray<Element> | string;
-
-    /**
-     * Writes this element to the underlying operating system's disk if its path
-     * doesn't point to a pre-existing element. Returns `true` if it's
-     * successfully written otherwise returns `false`.
-     *
-     * @remarks The {@link overwriteSync} method can be used to write this element
-     * to disk regardless of whether or not its path points to a pre-existing
-     * element.
-     *
-     * @returns `true` if this element is successfully written to disk.
-     *
-     * @abstract
-     * @function
-     */
-    createSync(): boolean;
-
-    /**
-     * Writes this element to the underlying operating system's disk regardless
-     * of whether its path points to a pre-existing element or not. Returns
-     * `true` if it's successfully written otherwise returns `false`.
-     *
-     * @returns `true` if this element is successfully written to disk.
-     *
-     * @abstract
-     * @function
-     */
-    overwriteSync(): boolean;
-
-    /**
-     * Returns `true` if this element exists when this method is called.
-     *
-     * @returns `true` if this element exists
-     *
-     * @abstract
-     * @function
-     */
-    existsSync(): boolean;
-
-    /**
-     * Returns `true` if this element's path points to (or is intended to point
-     * to) a directory.
-     *
-     * @returns `true` if this element's path points to a directory
-     *
-     * @abstract
-     * @function
-     */
-    isDir(): boolean;
-
-    /**
-     * Returns `true` if this element's path points to (or is intended to point
-     * to) a file.
-     *
-     * @returns `true` if this element's path points to a file
-     *
-     * @abstract
-     * @function
-     */
-    isFile(): boolean;
-
-    /**
-     * Returns `true` if this element exists and contains data.
-     *
-     * @returns `true` if this element exists and contains data
-     */
-    isEmpty(): boolean;
+    containsSync(aString: string, options?: {caseSensitive: boolean}): boolean;
 
     /**
      * Returns the length of this element. If this element does not exist it
@@ -162,43 +74,17 @@ export interface Element
     length(): number;
 
     /**
-     * Returns the size of this element in bytes. If this element does not exist
-     * it returns -1.
+     * Returns `true` if this element exists and contains data.
      *
-     * @remarks If this element is a directory, returns the size in bytes of all
-     * the elements this directory contains summed together.
-     *
-     * @remarks If this element is a file, returns the size of this file in
-     * bytes.
-     *
-     * @returns the length of this element
-     *
-     * @abstract
-     * @function
+     * @returns `true` if this element exists and contains data
      */
-    size(): number;
+    isEmpty(): boolean;
 
-    /**
-     * Returns a string representation of this file system element. If it's a
-     * file, returns the contents of the file as utf-8 encoded text. If it's a
-     * directory, returns a string displaying the path of the directory as well
-     * as the names of the files and directories it contains.
-     *
-     * @returns a string representation of this file system element
-     *
-     * @abstract
-     * @function
-     */
     toString(): string;
 }
 
-/**
- * Enum used to indicate what type of file system element an element is.
- *
- * @enum string
- */
-export enum Type
+export enum ElementType
 {
-    DIRECTORY = "directory",
-    FILE = "file"
+    FILE = "file",
+    DIRECTORY = "directory"
 }

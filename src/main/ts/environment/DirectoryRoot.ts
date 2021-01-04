@@ -1,35 +1,15 @@
-import {Directory} from "../element/Directory";
-import {DirContents} from "./DirContents";
-import * as fs from "fs";
+import { ExistingDirElement } from "../element/ExistingDirElement";
+import { DirContents } from "./DirContents.js";
 
-export class DirectoryRoot extends Directory
+export class DirectoryRoot extends ExistingDirElement
 {
-    private _required: Readonly<DirContents>;
+    private _required: Readonly<DirContents> = new DirContents([], []);
 
-    private _optional: Readonly<DirContents>;
+    private _optional: Readonly<DirContents> = new DirContents([], []);
 
     public constructor(rootPath: string)
     {
-        if ( ! fs.existsSync(rootPath))
-        {
-            throw new Error(`root path does not exist: "${rootPath}"`);
-        }
-        else if (fs.lstatSync(rootPath).isFile())
-        {
-            throw new Error(`root path points to file: "${rootPath}"`);
-        }
-        else if (fs.lstatSync(rootPath).isSymbolicLink())
-        {
-            throw new Error(`root path is symbolic link: "${rootPath}"`);
-        }
-        else
-        {
-            const emptyArray: ReadonlyArray<string> = [];
-
-            super(rootPath);
-            this._required = new DirContents(emptyArray,emptyArray);
-            this._optional = new DirContents(emptyArray,emptyArray);
-        }
+        super(rootPath);
     }
 
     public getRequired(): Readonly<DirContents> {return this._required;}
@@ -62,22 +42,22 @@ export class DirectoryRoot extends Directory
 
     public missingRequiredDirs(): ReadonlyArray<string>
     {
-        return this._required.directories.filter(requiredDir => ! this.containsDirIgnoreCase(requiredDir));
+        return this._required.directories.filter(requiredDir => ! this.containsDirSync(requiredDir));
     }
 
     public missingRequiredFiles(): ReadonlyArray<string>
     {
-        return this._required.files.filter(requiredFile => ! this.containsFileIgnoreCase(requiredFile));
+        return this._required.files.filter(requiredFile => ! this.containsFileSync(requiredFile));
     }
 
     public missingOptionalDirs(): ReadonlyArray<string>
     {
-        return this._optional.directories.filter(_optionalDir => ! this.containsDirIgnoreCase(_optionalDir));
+        return this._optional.directories.filter(optionalDir => ! this.containsDirSync(optionalDir));
     }
 
     public missingOptionalFiles(): ReadonlyArray<string>
     {
-        return this._optional.files.filter(_optionalFile => ! this.containsFileIgnoreCase(_optionalFile));
+        return this._optional.files.filter(optionalFile => ! this.containsFileSync(optionalFile));
     }
 
     public isMissingRequired(): boolean

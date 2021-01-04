@@ -1,8 +1,6 @@
 import {DirectoryRoot} from "./environment/DirectoryRoot";
-import {RootDirectory} from "./environment/structure/RootDirectory";
-import {NodeModulesDir} from "./environment/structure/NodeModulesDir";
-import {NodeModuleTypesDir} from "./environment/structure/NodeModuleTypesDir";
-import {join, dirname} from "path";
+import {dirname} from "path";
+// import {JSONFile} from "./element/JSONFile";
 
 /**
  * This is the entry point of the SnapLib `npm-fs` package.
@@ -51,16 +49,12 @@ export class NpmFS
         // directory
         const rootDirectory =
             new DirectoryRoot((dirname(dirname(__dirname))))
-                .addRequiredDirs(RootDirectory.required.npm.directories.concat(RootDirectory.required.project.directories))
-                .addRequiredFiles(RootDirectory.required.npm.files.concat(RootDirectory.required.project.files))
-                .addOptionalDirs(RootDirectory.optional.project.directories)
-                .addOptionalFiles(RootDirectory.optional.project.files);
+                .addRequiredDirs(["node_modules", "scripts", "src"])
+                .addRequiredFiles([".eslintrc.json", "package.json"])
+                .addOptionalDirs([".git", "docs"])
+                .addOptionalFiles(["LICENSE.txt", "README.md", ".gitignore"]);
 
-        const rootNodeModulesDirectory = new DirectoryRoot(join(rootDirectory.path, NodeModulesDir.dirName))
-            .addRequiredDirs(NodeModulesDir.required.module.directories);
-
-        const rootNodeModulesTypesDir = new DirectoryRoot(join(rootDirectory.path, NodeModulesDir.dirName, NodeModuleTypesDir.dirName))
-            .addRequiredDirs(NodeModuleTypesDir.required.type.directories);
+        // const rootPkgJson = new JSONFile(join(rootDirectory.path, "package.json"));
 
         if (rootDirectory.isMissingRequired())
         {
@@ -96,78 +90,6 @@ export class NpmFS
         else
         {
             console.log("No missing optional root directory files or directories.");
-        }
-
-        if (rootNodeModulesDirectory.isMissingRequired())
-        {
-            console.log("\nMissing required node module directory...");
-            if (rootNodeModulesDirectory.isMissingRequiredFile())
-            {
-                console.log(`file(s): ["${rootNodeModulesDirectory.missingRequiredFiles().join('",\n""')}"]\n`);
-            }
-
-            if (rootNodeModulesDirectory.isMissingRequiredDir())
-            {
-                console.log(`directory(ies): ["${rootNodeModulesDirectory.missingRequiredDirs().join('",\n""')}"]\n`);
-            }
-        }
-        else
-        {
-            console.log("No missing required node module files or directories.");
-        }
-
-        if (rootNodeModulesDirectory.isMissingOptional())
-        {
-            console.log("\nMissing optional node module directory...");
-            if (rootNodeModulesDirectory.isMissingRequiredFile())
-            {
-                console.log(`file(s): ["${rootNodeModulesDirectory.missingOptionalFiles().join('",\n""')}"]\n`);
-            }
-
-            if (rootNodeModulesDirectory.isMissingRequiredDir())
-            {
-                console.log(`directory(ies): ["${rootNodeModulesDirectory.missingOptionalDirs().join('",\n""')}"]\n`);
-            }
-        }
-        else
-        {
-            console.log("No missing optional node module files or directories.");
-        }
-
-        if (rootNodeModulesTypesDir.isMissingRequired())
-        {
-            console.log("Missing required node module @types directory...");
-            if (rootNodeModulesTypesDir.isMissingRequiredFile())
-            {
-                console.log(`file(s): ["${rootNodeModulesTypesDir.missingRequiredFiles().join('",\n""')}"]\n`);
-            }
-
-            if (rootNodeModulesTypesDir.isMissingRequiredDir())
-            {
-                console.log(`directory(ies): ["${rootNodeModulesTypesDir.missingRequiredDirs().join('",\n""')}"]\n`);
-            }
-        }
-        else
-        {
-            console.log("No missing required node module @types files or directories.");
-        }
-
-        if (rootNodeModulesTypesDir.isMissingOptional())
-        {
-            console.log("Missing optional node module @types directory...");
-            if (rootNodeModulesTypesDir.isMissingRequiredFile())
-            {
-                console.log(`file(s): ["${rootNodeModulesTypesDir.missingOptionalFiles().join('",\n""')}"]\n`);
-            }
-
-            if (rootNodeModulesTypesDir.isMissingRequiredDir())
-            {
-                console.log(`directory(ies): ["${rootNodeModulesTypesDir.missingOptionalDirs().join('",\n""')}"]\n`);
-            }
-        }
-        else
-        {
-            console.log("No missing optional node module @types files or directories.");
         }
     }
 
