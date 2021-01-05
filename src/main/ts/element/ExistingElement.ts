@@ -25,5 +25,5 @@ export interface ExistingElement extends Element
      * @abstract
      * @function
      */
-    size(): number;
+    sizeSync(): number;
 }

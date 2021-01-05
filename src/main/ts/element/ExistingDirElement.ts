@@ -115,7 +115,7 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return this.length() === 0;
     }
 
-    public size(): number
+    public sizeSync(): number
     {
         return ExistingDirElement.sizeOf(this.path);
     }

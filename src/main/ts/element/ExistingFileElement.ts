@@ -47,7 +47,7 @@ export class ExistingFileElement extends AbstractFileElement implements Existing
         }
     }
 
-    public size(): number
+    public sizeSync(): number
     {
         return fs.lstatSync(this.path).size;
     }
