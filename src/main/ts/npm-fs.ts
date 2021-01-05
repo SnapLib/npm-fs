@@ -1,6 +1,6 @@
-import {DirectoryRoot} from "./environment/DirectoryRoot";
+import {DirectoryRoot} from "./element/directory/DirectoryRoot";
 import {dirname} from "path";
-// import {JSONFile} from "./element/JSONFile";
+import {JSONFile} from "./element/file/JSON-File";
 
 /**
  * This is the entry point of the SnapLib `npm-fs` package.
@@ -48,13 +48,13 @@ export class NpmFS
         // Set root directory to directory that contains "node_modules"
         // directory
         const rootDirectory =
-            new DirectoryRoot((dirname(dirname(__dirname))))
+            new DirectoryRoot(dirname(dirname(__dirname)))
                 .addRequiredDirs(["node_modules", "scripts", "src"])
                 .addRequiredFiles([".eslintrc.json", "package.json"])
                 .addOptionalDirs([".git", "docs"])
                 .addOptionalFiles(["LICENSE.txt", "README.md", ".gitignore"]);
 
-        // const rootPkgJson = new JSONFile(join(rootDirectory.path, "package.json"));
+        const rootPkgJson = new JSONFile(rootDirectory.path, "package.json");
 
         if (rootDirectory.isMissingRequired())
         {
@@ -91,6 +91,8 @@ export class NpmFS
         {
             console.log("No missing optional root directory files or directories.");
         }
+
+        console.log(`root json package contents:\n${rootPkgJson}`);
     }
 
     public static exec(cliArgs?: ReadonlyArray<string>): void
