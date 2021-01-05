@@ -1,4 +1,4 @@
-import type { Element } from "../Element";
+import type Element from "../Element";
 
 export interface FileElement extends Element
 {
@@ -18,3 +18,5 @@ export interface FileElement extends Element
      */
     containsSync(aString: string, options?: {caseSensitive: boolean}): boolean;
 }
+
+export {FileElement as default};

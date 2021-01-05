@@ -1,5 +1,5 @@
-import { ExistingDirElement } from "./ExistingDirElement";
-import { DirContents } from "./DirContents.js";
+import ExistingDirElement from "./ExistingDirElement";
+import DirContents from "./DirContents.js";
 
 export class DirectoryRoot extends ExistingDirElement
 {
@@ -109,3 +109,5 @@ export class DirectoryRoot extends ExistingDirElement
         return `{\n  ${formattedObjStrArray.join(",\n\n  ")}\n}`;
     }
 }
+
+export {DirectoryRoot as default};

@@ -1,4 +1,4 @@
-import { AbstractDirElement } from "./AbstractDirElement";
+import AbstractDirElement from "./AbstractDirElement";
 import { normalize, sep } from "path";
 
 export class VirtualDirElement extends AbstractDirElement
@@ -20,5 +20,6 @@ export class VirtualDirElement extends AbstractDirElement
     {
         return Array.from(this._dirNames);
     }
-
 }
+
+export {VirtualDirElement as default};

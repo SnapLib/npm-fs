@@ -1,5 +1,5 @@
-import type { ExistingElement } from "../ExistingElement";
-import {AbstractDirElement} from "./AbstractDirElement";
+import type ExistingElement from "../ExistingElement";
+import AbstractDirElement from "./AbstractDirElement";
 import { join, normalize, sep } from "path";
 import fs from "fs";
 
@@ -149,3 +149,5 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         throw new Error("Method not implemented. No-op args" + dest + options);
     }
 }
+
+export {ExistingDirElement as default};

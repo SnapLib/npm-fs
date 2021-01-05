@@ -56,3 +56,5 @@ export class DirContents
         this.all = directories.concat(files);
     }
 }
+
+export {DirContents as default};

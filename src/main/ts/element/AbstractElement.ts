@@ -1,4 +1,5 @@
-import { Element, ElementType } from "./Element";
+import type Element from "./Element";
+import { ElementType } from "./Element";
 import { existsSync, lstatSync } from "fs";
 import { dirname, basename } from "path";
 
@@ -55,3 +56,5 @@ export abstract class AbstractElement implements Element
 
     public abstract toString(): string;
 }
+
+export {AbstractElement as default};

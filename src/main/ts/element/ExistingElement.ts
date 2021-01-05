@@ -1,4 +1,4 @@
-import type { Element } from "./Element";
+import type Element from "./Element";
 
 export interface ExistingElement extends Element
 {
@@ -27,3 +27,5 @@ export interface ExistingElement extends Element
      */
     sizeSync(): number;
 }
+
+export {ExistingElement as default};

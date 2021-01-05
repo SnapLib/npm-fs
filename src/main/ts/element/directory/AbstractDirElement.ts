@@ -1,5 +1,5 @@
-import { AbstractElement } from "../AbstractElement";
-import { DirElement } from "./DirElement";
+import AbstractElement from "../AbstractElement";
+import DirElement from "./DirElement";
 import { join } from "path";
 
 export abstract class AbstractDirElement extends AbstractElement implements DirElement
@@ -94,3 +94,5 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         return `{\n  ${formattedObjStrArray.join(",\n\n  ")}\n}`;
     }
 }
+
+export {AbstractDirElement as default};

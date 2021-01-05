@@ -1,5 +1,5 @@
-import type { FileElement } from "./FileElement";
-import { AbstractElement } from "../AbstractElement";
+import type FileElement from "./FileElement";
+import AbstractElement from "../AbstractElement";
 
 export abstract class AbstractFileElement extends AbstractElement implements FileElement
 {
@@ -37,3 +37,5 @@ export abstract class AbstractFileElement extends AbstractElement implements Fil
 
     public abstract toString(): string;
 }
+
+export {AbstractFileElement as default};

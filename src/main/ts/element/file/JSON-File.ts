@@ -1,4 +1,4 @@
-import { ExistingFileElement } from "./ExistingFileElement";
+import ExistingFileElement from "./ExistingFileElement";
 import { normalize, sep } from "path";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
 
@@ -50,3 +50,5 @@ export class JSONFile extends ExistingFileElement
         }
     }
 }
+
+export {JSONFile as default};

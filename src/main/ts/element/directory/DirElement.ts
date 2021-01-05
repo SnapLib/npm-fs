@@ -1,4 +1,4 @@
-import type { Element } from "../Element";
+import type Element from "../Element";
 
 export interface DirElement extends Element
 {
@@ -33,3 +33,5 @@ export interface DirElement extends Element
      */
     containsSync(fileOrDirName: string, options?: {caseSensitive: boolean}): boolean;
 }
+
+export {DirElement as default};

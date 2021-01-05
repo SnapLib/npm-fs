@@ -88,3 +88,5 @@ export enum ElementType
     FILE = "file",
     DIRECTORY = "directory"
 }
+
+export {Element as default};
