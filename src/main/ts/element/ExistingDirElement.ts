@@ -115,14 +115,6 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return this.length() === 0;
     }
 
-    public toString(): string
-    {
-        return JSON.stringify({files: this.fileNamesSync(),
-                               directories: this.dirNamesSync()},
-                               undefined,
-                               2);
-    }
-
     public size(): number
     {
         return ExistingDirElement.sizeOf(this.path);
