@@ -117,31 +117,7 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
 
     public sizeSync(): number
     {
-        return ExistingDirElement.sizeOf(this.path);
-    }
-
-    public static sizeOf(directoryPath: string): number
-    {
-        if ( ! fs.existsSync(directoryPath))
-        {
-            return -1;
-        }
-        else if (fs.lstatSync(directoryPath).isFile())
-        {
-            return fs.lstatSync(directoryPath).size;
-        }
-        else
-        {
-            const getAllFilePaths = (dirPath: string): ReadonlyArray<string> => {
-                return fs.readdirSync(dirPath, {withFileTypes: true})
-                         .flatMap(dirent => dirent.isDirectory()
-                                                     ? getAllFilePaths(join(dirPath, dirent.name))
-                                                     : join(dirPath, dirent.name));};
-
-            return ((dirPath: string): number  =>
-                getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
-                                        .reduce((fileSize, nextFileSize) => fileSize + nextFileSize))(directoryPath);
-        }
+        return dirSize(this.path);
     }
 
     public copyToSync(dest: string, options?: { overwrite: boolean }): boolean
@@ -149,5 +125,29 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         throw new Error("Method not implemented. No-op args" + dest + options);
     }
 }
+
+export const dirSize = (directoryPath: string): number =>
+{
+    if ( ! fs.existsSync(directoryPath))
+    {
+        return -1;
+    }
+    else if (fs.lstatSync(directoryPath).isFile())
+    {
+        throw new Error(`path points to a file: ${directoryPath}`);
+    }
+    else
+    {
+        const getAllFilePaths = (dirPath: string): ReadonlyArray<string> => {
+            return fs.readdirSync(dirPath, {withFileTypes: true})
+                     .flatMap(dirent => dirent.isDirectory()
+                                                 ? getAllFilePaths(join(dirPath, dirent.name))
+                                                 : join(dirPath, dirent.name));};
+
+        return ((dirPath: string): number  =>
+            getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
+                                    .reduce((fileSize, nextFileSize) => fileSize + nextFileSize))(directoryPath);
+    }
+};
 
 export {ExistingDirElement as default};
