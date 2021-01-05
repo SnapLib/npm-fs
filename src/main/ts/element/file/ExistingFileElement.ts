@@ -1,7 +1,7 @@
 import { AbstractFileElement } from "./AbstractFileElement";
 import { normalize, sep } from "path";
 import fs from "fs";
-import { ExistingElement } from "./ExistingElement";
+import { ExistingElement } from "../ExistingElement";
 
 export class ExistingFileElement extends AbstractFileElement implements ExistingElement
 {

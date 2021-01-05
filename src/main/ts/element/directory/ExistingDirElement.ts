@@ -1,4 +1,4 @@
-import type { ExistingElement } from "./ExistingElement";
+import type { ExistingElement } from "../ExistingElement";
 import {AbstractDirElement} from "./AbstractDirElement";
 import { join, normalize, sep } from "path";
 import fs from "fs";

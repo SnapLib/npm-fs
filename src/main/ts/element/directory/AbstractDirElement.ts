@@ -1,4 +1,4 @@
-import { AbstractElement } from "./AbstractElement";
+import { AbstractElement } from "../AbstractElement";
 import { DirElement } from "./DirElement";
 import { join } from "path";
 

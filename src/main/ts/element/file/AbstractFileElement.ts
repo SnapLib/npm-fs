@@ -1,5 +1,5 @@
 import type { FileElement } from "./FileElement";
-import { AbstractElement } from "./AbstractElement";
+import { AbstractElement } from "../AbstractElement";
 
 export abstract class AbstractFileElement extends AbstractElement implements FileElement
 {
