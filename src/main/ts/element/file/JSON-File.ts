@@ -1,5 +1,5 @@
-import {ExistingFileElement} from "./ExistingFileElement";
-import path from "path";
+import { ExistingFileElement } from "./ExistingFileElement";
+import { normalize, sep } from "path";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
 
 export class JSONFile extends ExistingFileElement
@@ -8,7 +8,7 @@ export class JSONFile extends ExistingFileElement
 
     public constructor(jsonFilePath: string, ...nestedJsonFilePaths: ReadonlyArray<string>)
     {
-        super(path.normalize([jsonFilePath].concat(nestedJsonFilePaths).join(path.sep)));
+        super(normalize([jsonFilePath].concat(nestedJsonFilePaths).join(sep)));
 
         this._jsonObject = Object.freeze(JSON.parse(this.toString()));
     }
