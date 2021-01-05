@@ -1,6 +1,6 @@
-import {DirectoryRoot} from "./element/directory/DirectoryRoot";
+import DirectoryRoot from "./element/directory/DirectoryRoot";
 import {dirname} from "path";
-import {JSONFile} from "./element/file/JSON-File";
+import JSONFile from "./element/file/JSON-File";
 
 /**
  * This is the entry point of the SnapLib `npm-fs` package.
