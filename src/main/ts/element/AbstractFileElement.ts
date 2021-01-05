@@ -12,6 +12,7 @@ export abstract class AbstractFileElement extends AbstractElement implements Fil
     {
         return this.toString().split("\n");
     }
+
     public containsSync(aString: string, options?: { caseSensitive: boolean; }): boolean
     {
         if (options?.caseSensitive)
@@ -23,13 +24,16 @@ export abstract class AbstractFileElement extends AbstractElement implements Fil
             return new RegExp(`^.*${aString}{1}?.*$`, "gi").test(this.toString());
         }
     }
+
     public length(): number
     {
         return this.lines().length - 1;
     }
+
     public isEmpty(): boolean
     {
         return this.toString().length === 0;
     }
+
     public abstract toString(): string;
 }
