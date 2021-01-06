@@ -165,7 +165,6 @@ const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: k
         console.log(`omitting keys from distributable package.json:\n["${oldNewJsObjDiff.join('", "')}"]\n`);
 
         console.log(`keys retained from npm root package.json:\n["${oldNewJsObjIntersection.join('", "')}"]\n`);
-
     }
 
     // New JS object with specified keys omitted or included
