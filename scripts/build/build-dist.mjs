@@ -183,13 +183,13 @@ const distPkgDirPath = join(global.BUILD_DIST_DIR_PATH, distPkgDirName);
 const rootReadMePath =
     join(global.NPM_ROOT_DIR_PATH,
          fs.readdirSync(global.NPM_ROOT_DIR_PATH, {withFileTypes: true})
-           .find(dirent => dirent.isFile() && dirent.name.match(/^README(\.(md|txt|rtf))?$/gi)).name);
+           .find(dirent => dirent.isFile() && /^README(\.(md|txt|rtf))?$/gi.test(dirent.name)).name);
 
 // Set path to root LICENSE file to copy into distributable package root directory
 const rootLicensePath =
     join(global.NPM_ROOT_DIR_PATH,
          fs.readdirSync(global.NPM_ROOT_DIR_PATH, {withFileTypes: true})
-           .find(dirent => dirent.isFile() && dirent.name.match(/^LICENSE(\.(md|txt|rtf))?$/gi)).name);
+           .find(dirent => dirent.isFile() && /^LICENSE(\.(md|txt|rtf))?$/gi.test(dirent.name)).name);
 
 // Create distributable package.json path
 const distPkgJsonPath = join(distPkgDirPath, "package.json");
