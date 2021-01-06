@@ -82,20 +82,6 @@ if ( ! fs.lstatSync(global.ROOT_PKG_JSON_FILE_PATH).isFile())
     throw new Error(`"${global.ROOT_PKG_JSON_FILE_PATH}" is not a file`);
 }
 
-// If no distributable root package directory name is provided via cli argument
-// and no default dist_root_pkg_dirname npm config property is set
-if (process.argv.length === 2
-    && process.env.npm_config_dist_root_pkg_dirname === undefined)
-{
-    throw new Error("no default distributable root package directory name set"
-                  + " or provided via cli argument");
-}
-// If more than 2 cli args are passed
-else if (process.argv.length > 4)
-{
-    throw new Error(`0 to 2 command line argument(s) expected. ${process.argv.length - 2} arguments passed: ["${process.argv.slice(2).join('", "')}"]`);
-}
-
 const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: keysToInclude}) =>
 {
     if (keysToOmit && keysToInclude)
@@ -171,13 +157,53 @@ const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: k
     return newJsObj;
 };
 
-const distPkgDirName = // If 2 command line arguments passed, use last one
-                       process.argv.length === 4 ? process.argv[3]
-                       // If a single cli arg is passed, use the cli arg
-                     : process.argv.length === 3 ? process.argv[2]
-                       // If no cli args are passed, use the default set npm
-                       // config value
-                     : process.env.npm_config_dist_root_pkg_dirname;
+const distPkgDirName = ((cliArgs) =>
+{
+    const passedCliArgs = cliArgs.slice(2);
+
+    // If more than 2 cli args are passed
+    if (cliArgs.length > 4)
+    {
+        throw new Error(
+            `0 to 2 command line argument(s) expected. ${process.argv.length - 2} arguments passed: ["${passedCliArgs.join('", "')}"]\n`);
+    }
+    // If two distributable root package directory cli arg names are provided
+    else if (passedCliArgs.length === 2)
+    {
+        console.log(
+            `["${passedCliArgs.join('", "')}"] arguments provided. Setting`
+          + ` distributable package root directory name to "${passedCliArgs[1]}"\n`);
+
+        return passedCliArgs[1];
+    }
+    // If single distributable root package directory cli arg name is provided
+    else if (passedCliArgs.length === 1)
+    {
+        console.log(
+            `"${passedCliArgs[0]}" argument provided. Setting distributable`
+            + ` package root directory name\nto "${passedCliArgs[0]}"\n`);
+
+        return passedCliArgs[0];
+    }
+    // If no distributable root package directory name is provided via cli
+    // argument and no default dist_root_pkg_dirname npm config property is set
+    else if (process.env.npm_config_dist_root_pkg_dirname === undefined)
+    {
+        throw new Error(
+            "no distributable npm root package name command line argument\n"
+         +  "provided and no default npm config property set");
+    }
+    // If no no cli arg name is passed, use config property if it exists
+    else
+    { console.log(
+        "no distributable npm root package directory name command line argument"
+     +  "\nprovided. Setting distributable package root directory name to npm"
+     +  '\n"dist_root_pkg_dirname" config property value: '
+     +  `"${process.env.npm_config_dist_root_pkg_dirname}"\n`);
+
+        return process.env.npm_config_dist_root_pkg_dirname;
+    }
+})(process.argv);
 
 // Use provided cli argument to set name of root distributable package directory
 const distPkgDirPath = join(global.BUILD_DIST_DIR_PATH, distPkgDirName);
