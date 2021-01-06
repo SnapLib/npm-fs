@@ -10,10 +10,20 @@ export class JSONFile extends ExistingFileElement
     {
         super(normalize([jsonFilePath].concat(nestedJsonFilePaths).join(sep)));
 
-        this._jsonObject = Object.freeze(JSON.parse(this.toString()));
+        this._jsonObject = ((): ReadOnlyDict<unknown> =>
+        {
+            try
+            {
+                return Object.freeze(JSON.parse(this.toString()));
+            }
+            catch (err)
+            {
+                throw new Error(`error parsing json file at "${this.path}"`);
+            }
+        })();
     }
 
-    public toJSO(): ReadOnlyDict<unknown>
+    public getOriginalJsObj(): ReadOnlyDict<unknown>
     {
         return this._jsonObject;
     }
@@ -38,15 +48,20 @@ export class JSONFile extends ExistingFileElement
         return key in this._jsonObject;
     }
 
-    public withOutKeys(...keys: ReadonlyArray<string>): ReadOnlyDict<unknown>
+    public withKeys(keyToInclude: string, ...keysToInclude: ReadonlyArray<string>): ReadOnlyDict<unknown>
     {
-        if (keys.length === 0)
+        return Object.fromEntries(this.entries().filter(jsonEntry => [keyToInclude].concat(keysToInclude).includes(jsonEntry[0])));
+    }
+
+    public withOutKeys(...keysToOmit: ReadonlyArray<string>): ReadOnlyDict<unknown>
+    {
+        if (keysToOmit.length === 0)
         {
             return this._jsonObject;
         }
         else
         {
-            return Object.fromEntries(this.entries().filter(jsonEntry => ! keys.includes(jsonEntry[0])));
+            return Object.fromEntries(this.entries().filter(jsonEntry => ! keysToOmit.includes(jsonEntry[0])));
         }
     }
 }
