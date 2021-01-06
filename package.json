@@ -16,7 +16,7 @@
     "url": "https://github.com/SnapLib/npm-fs.git"
   },
   "scripts": {
-    "build-dist": "tsc -p src/main/ts/tsconfig.json --outDir build/dist/npm-fs && node scripts/build/build-dist.mjs",
+    "build-dist": "tsc -p src/main/ts/tsconfig.json --outDir build/dist/$npm_config_dist_root_pkg_dirname && node scripts/build/build-dist.mjs $npm_config_dist_root_pkg_dirname",
     "clean": "node scripts/clean.mjs",
     "lint": "eslint --ext ts src/main/ts",
     "mocha": "mocha -r ts-node/register --extension ts --recursive true",
