@@ -1,8 +1,8 @@
 "use-strict";
 
-import * as global from "../globals.mjs";
+import global from "../globals.mjs";
 import {join, basename} from "path";
-import * as fs from "fs";
+import fs from "fs";
 
 /**
  * This script builds the distributable npm-fs package to be published to npm.
@@ -93,7 +93,7 @@ if (process.argv.length === 2
 // If more than 2 cli args are passed
 else if (process.argv.length > 4)
 {
-    throw new Error(`1 command line argument expected. ${process.argv.length - 2} arguments passed`);
+    throw new Error(`1 command line argument expected. ${process.argv.length - 2} arguments passed: ["${process.argv.slice(2).join('", "')}"]`);
 }
 
 const formatRootPkgJsonForDist = pathToRootPkgJson =>
