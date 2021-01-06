@@ -26,6 +26,7 @@
     "ts-node": "ts-node",
     "tsc": "tsc",
     "tsc-src": "tsc -p src/main/ts/tsconfig.json --outDir build/js",
+    "tscd-src": "tsc -p src/main/ts/tsconfig.json -d --emitDeclarationOnly --declarationDir build/dist/dts",
     "typedoc": "typedoc"
   },
   "keywords": [
