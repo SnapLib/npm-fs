@@ -123,12 +123,12 @@ const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: k
         throw new Error(`"${pathToJsonFile}" is not a file`);
     }
 
-    // Store the root package.json file as a string
-    const rootPkgJsonString =
+    // Store the json file as a string
+    const jsonFileString =
         fs.readFileSync(pathToJsonFile, {encoding: "utf-8"});
 
-    // Return results from parsing package.json file
-    const pkgJsonParseResult = (jsonString =>
+    // Parse json file to JavaScript object
+    const originalJsObj = (jsonString =>
     {
         try
         {
@@ -138,20 +138,34 @@ const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: k
         {
             throw new Error(`error parsing package.json at "${pathToJsonFile}"`);
         }
-    })(rootPkgJsonString);
+    })(jsonFileString);
 
-    if (keysToOmit)
+    const newJsObj =
+        Object.fromEntries(Object.entries(originalJsObj)
+                                 .filter(pkgJsonEntry =>
+                                             // If specified keys to include, only include those keys
+                                             keysToInclude?.includes(pkgJsonEntry[0])
+                                             // If specified keys to exclude, include only keys that don't match those keys
+                                             ?? ! keysToOmit?.includes(pkgJsonEntry[0])
+                                             // If no keys specified to include or exclude, include all keys
+                                             ?? true));
+
+    const oldNewJsObjDiff =
+        Object.keys(originalJsObj).filter(key => ! Object.keys(newJsObj).includes(key));
+
+    if (oldNewJsObjDiff.length !== 0)
     {
-        console.log(`omitting keys from dist package.json:\n["${keysToOmit.join('", "')}"]\n`);
-    }
-    else if (keysToInclude)
-    {
-        console.log(`only including keys in dist package.json:\n["${keysToInclude.join('", "')}"]\n`);
+        const oldNewJsObjIntersection =
+            Object.keys(originalJsObj).filter(key => ! oldNewJsObjDiff.includes(key));
+
+        console.log(`omitting keys from distributable package.json:\n["${oldNewJsObjDiff.join('", "')}"]\n`);
+
+        console.log(`keys retained from npm root package.json:\n["${oldNewJsObjIntersection.join('", "')}"]\n`);
+
     }
 
-    // Distributable package.json JavaScript object
-    return Object.fromEntries(Object.entries(pkgJsonParseResult)
-                                    .filter(pkgJsonEntry => keysToInclude?.includes(pkgJsonEntry[0]) ?? ! keysToOmit?.includes(pkgJsonEntry[0]) ?? true));
+    // New JS object with specified keys omitted or included
+    return newJsObj;
 };
 
 const distPkgDirName = // If 2 command line arguments passed, use last one
