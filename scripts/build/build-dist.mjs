@@ -140,6 +140,7 @@ const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: k
         }
     })(jsonFileString);
 
+    // Create new JS object with specified keys omitted or included
     const newJsObj =
         Object.fromEntries(Object.entries(originalJsObj)
                                  .filter(pkgJsonEntry =>
@@ -150,9 +151,12 @@ const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: k
                                              // If no keys specified to include or exclude, include all keys
                                              ?? true));
 
+    // Create array from keys that are not present in new JS object
     const oldNewJsObjDiff =
         Object.keys(originalJsObj).filter(key => ! Object.keys(newJsObj).includes(key));
 
+    // If there is a difference in keys between original and new JS object,
+    // print which keys are omitted and which keys are retained to console
     if (oldNewJsObjDiff.length !== 0)
     {
         const oldNewJsObjIntersection =
