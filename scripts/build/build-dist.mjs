@@ -93,26 +93,39 @@ if (process.argv.length === 2
 // If more than 2 cli args are passed
 else if (process.argv.length > 4)
 {
-    throw new Error(`1 command line argument expected. ${process.argv.length - 2} arguments passed: ["${process.argv.slice(2).join('", "')}"]`);
+    throw new Error(`0 to 2 command line argument(s) expected. ${process.argv.length - 2} arguments passed: ["${process.argv.slice(2).join('", "')}"]`);
 }
 
-const formatRootPkgJsonForDist = pathToRootPkgJson =>
+const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: keysToInclude}) =>
 {
-    // Ensure that a package.json exists in the root directory of the npm project
-    if ( ! fs.existsSync(pathToRootPkgJson))
+    if (keysToOmit && keysToInclude)
     {
-        throw new Error(`"${pathToRootPkgJson}" doesn't exist`);
+        throw new Error("Keys to omit and include simultaneously defined");
+    }
+    else if (keysToOmit?.length === 0)
+    {
+        throw new Error("Empty omit keys array");
+    }
+    else if (keysToInclude?.length === 0)
+    {
+        throw new Error("Empty include keys array");
+    }
+
+    // Ensure that a package.json exists in the root directory of the npm project
+    if ( ! fs.existsSync(pathToJsonFile))
+    {
+        throw new Error(`"${pathToJsonFile}" doesn't exist`);
     }
 
     // Ensure that the package.json element is a file
-    if ( ! fs.lstatSync(pathToRootPkgJson).isFile())
+    if ( ! fs.lstatSync(pathToJsonFile).isFile())
     {
-        throw new Error(`"${pathToRootPkgJson}" is not a file`);
+        throw new Error(`"${pathToJsonFile}" is not a file`);
     }
 
     // Store the root package.json file as a string
     const rootPkgJsonString =
-        fs.readFileSync(pathToRootPkgJson, {encoding: "utf-8"});
+        fs.readFileSync(pathToJsonFile, {encoding: "utf-8"});
 
     // Return results from parsing package.json file
     const pkgJsonParseResult = (jsonString =>
@@ -123,20 +136,22 @@ const formatRootPkgJsonForDist = pathToRootPkgJson =>
         }
         catch (err)
         {
-            throw new Error(`error parsing package.json at "${jsonString}"`);
+            throw new Error(`error parsing package.json at "${pathToJsonFile}"`);
         }
     })(rootPkgJsonString);
 
-    // package.json properties to exclude from distributable package.json
-    const rootPkgJsonPropsToExclude =
-        ["config", "devDependencies", "private", "scripts"];
+    if (keysToOmit)
+    {
+        console.log(`omitting keys from dist package.json:\n["${keysToOmit.join('", "')}"]\n`);
+    }
+    else if (keysToInclude)
+    {
+        console.log(`only including keys in dist package.json:\n["${keysToInclude.join('", "')}"]\n`);
+    }
 
     // Distributable package.json JavaScript object
-    const distPkgJsonObject =
-        Object.fromEntries(Object.entries(pkgJsonParseResult)
-                                 .filter(pkgJsonEntry => ! rootPkgJsonPropsToExclude.includes(pkgJsonEntry[0])));
-
-    return JSON.stringify(distPkgJsonObject, null, 2);
+    return Object.fromEntries(Object.entries(pkgJsonParseResult)
+                                    .filter(pkgJsonEntry => keysToInclude?.includes(pkgJsonEntry[0]) ?? ! keysToOmit?.includes(pkgJsonEntry[0]) ?? true));
 };
 
 const distPkgDirName = // If 2 command line arguments passed, use last one
@@ -162,6 +177,12 @@ const rootLicensePath =
          fs.readdirSync(global.NPM_ROOT_DIR_PATH, {withFileTypes: true})
            .find(dirent => dirent.isFile() && dirent.name.match(/^LICENSE(\.(md|txt))?$/gi)).name);
 
+// Create distributable package.json path
+const distPkgJsonPath = join(distPkgDirPath, "package.json");
+
+// Create distributable package.json object
+const distPkgJsonObj = objectifyJsonFile(global.ROOT_PKG_JSON_FILE_PATH, {omitKeys: ["config", "devDependencies", "private", "scripts"]});
+
 // If a root README file exists, copy it into root distributable package directory
 if (fs.existsSync(rootReadMePath))
 {
@@ -171,7 +192,7 @@ if (fs.existsSync(rootReadMePath))
                 distReadMePath,
                 err => {
                     if (err) throw err;
-                    else console.log(`README copied to:\n"${distReadMePath}"`);
+                    else console.log(`README copied to:\n"${distReadMePath}"\n`);
                 });
 }
 
@@ -184,17 +205,15 @@ if (fs.existsSync(rootLicensePath))
                 distLicensePath,
                 err => {
                     if (err) throw err;
-                    else console.log(`LICENSE copied to:\n"${distLicensePath}"`);
+                    else console.log(`LICENSE copied to:\n"${distLicensePath}"\n`);
                 });
 }
 
-const distPkgJsonPath = join(distPkgDirPath, "package.json");
-
 // Write distributable package.json object as string to resolved path
 fs.writeFile(distPkgJsonPath,
-             formatRootPkgJsonForDist(global.ROOT_PKG_JSON_FILE_PATH),
+             JSON.stringify(distPkgJsonObj, null, 2),
              {encoding: "utf-8"},
              err => {
                  if(err) throw err;
-                 else console.log(`formatted dist package.json written to:\n"${distPkgJsonPath}"`);
+                 else console.log(`formatted dist package.json written to:\n"${distPkgJsonPath}"\n`);
              });
