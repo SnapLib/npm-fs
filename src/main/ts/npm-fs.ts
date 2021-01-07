@@ -2,9 +2,9 @@
  * This is the entry point of the SnapLib `npm-fs` package.
  *
  * @overview
- * This class is responsible for consuming command line arguments as well as
- * acts as the origin point for validating and parsing the npm package structure
- * this package is installed to as a dependency.
+ * This class is responsible for exposing and exporting all the public classes
+ * declared in this npm package to be used by other npm packages that install it
+ * as a dependency.
  *
  * @remarks
  * It is assumed that this package directory will be located in the root
