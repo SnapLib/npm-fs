@@ -81,9 +81,8 @@ if ( ! fs.existsSync(global.ROOT_PKG_JSON_FILE_PATH))
 {
     throw new Error(`"${global.ROOT_PKG_JSON_FILE_PATH}" doesn't exist`);
 }
-
 // Ensure that the package.json element is a file
-if ( ! fs.lstatSync(global.ROOT_PKG_JSON_FILE_PATH).isFile())
+else if ( ! fs.lstatSync(global.ROOT_PKG_JSON_FILE_PATH).isFile())
 {
     throw new Error(`"${global.ROOT_PKG_JSON_FILE_PATH}" is not a file`);
 }
