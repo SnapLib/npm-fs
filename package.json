@@ -3,8 +3,8 @@
   "version": "0.2.42",
   "description": "SnapLib NPM file system API",
   "type": "commonjs",
-  "main": "lib/npm-fs.js",
-  "types": "types/npm-fs.d.ts",
+  "main": "./lib/npm-fs.js",
+  "types": "./types/npm-fs.d.ts",
   "directories": {
     "lib": "lib"
   },
