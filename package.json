@@ -1,6 +1,6 @@
 {
   "name": "@snaplib/npm-fs",
-  "version": "0.2.45",
+  "version": "0.2.46",
   "description": "SnapLib NPM file system API",
   "type": "module",
   "main": "./lib/npm-fs.js",
