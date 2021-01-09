@@ -6,7 +6,7 @@
         "esModuleInterop": true,
         "importHelpers": true,
         "lib": ["ES2020", "ES2020.String"],
-        "module": "commonjs",
+        "module": "ES2020",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitThis": true,
