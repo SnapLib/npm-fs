@@ -1,4 +1,4 @@
-import AbstractFileElement from "./AbstractFileElement";
+import AbstractFileElement from "./AbstractFileElement.js";
 import { normalize, sep } from "path";
 import fs from "fs";
 import ExistingElement from "../ExistingElement";

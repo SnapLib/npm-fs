@@ -1,5 +1,5 @@
-import type ExistingElement from "../ExistingElement";
-import AbstractDirElement from "./AbstractDirElement";
+import type ExistingElement from "../ExistingElement.js";
+import AbstractDirElement from "./AbstractDirElement.js";
 import { join, normalize, sep } from "path";
 import fs from "fs";
 

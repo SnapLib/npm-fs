@@ -1,5 +1,5 @@
-import type Element from "./Element";
-import { ElementType } from "./Element";
+import type Element from "./Element.js";
+import { ElementType } from "./Element.js";
 import { existsSync, lstatSync } from "fs";
 import { dirname, basename } from "path";
 

@@ -1,5 +1,5 @@
-import AbstractElement from "../AbstractElement";
-import DirElement from "./DirElement";
+import AbstractElement from "../AbstractElement.js";
+import DirElement from "./DirElement.js";
 import { join } from "path";
 
 export abstract class AbstractDirElement extends AbstractElement implements DirElement

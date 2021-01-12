@@ -1,4 +1,4 @@
-import AbstractDirElement from "./AbstractDirElement";
+import AbstractDirElement from "./AbstractDirElement.js";
 import { normalize, sep } from "path";
 
 export class VirtualDirElement extends AbstractDirElement

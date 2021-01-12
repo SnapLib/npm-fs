@@ -1,4 +1,4 @@
-import type Element from "../Element";
+import type Element from "../Element.js";
 
 export interface DirElement extends Element
 {
