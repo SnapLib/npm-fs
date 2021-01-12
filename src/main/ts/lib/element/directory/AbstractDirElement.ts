@@ -13,11 +13,6 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
 
     public abstract dirNamesSync(): readonly string[];
 
-    public fileSync(): readonly string[]
-    {
-        throw new Error("fileSync not implemented");
-    }
-
     public direntNamesSync(): readonly string[]
     {
         throw this.fileNamesSync().concat(this.dirNamesSync());
