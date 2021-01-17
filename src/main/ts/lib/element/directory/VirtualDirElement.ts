@@ -18,18 +18,18 @@ export class VirtualDirElement extends AbstractDirElement
             Array.from(this.#relativeFilePaths);
 
         return {
-            names: fileRelativePathsArray.map(relFilePath => path.dirname(relFilePath)),
+            names: fileRelativePathsArray,
             paths: fileRelativePathsArray.map(fileName => path.join(this.path, fileName))
         };
     }
 
     public dirSync(): VirtualDirents
     {
-        const dirNamesArray: ReadonlyArray<string> = Array.from(this.#relativeDirPaths);
+        const relativeDirPathsArray: ReadonlyArray<string> = Array.from(this.#relativeDirPaths);
 
         return {
-            names: dirNamesArray,
-            paths: dirNamesArray.map(dirName => path.join(this.path, dirName))
+            names: relativeDirPathsArray,
+            paths: relativeDirPathsArray.map(dirName => path.join(this.path, dirName))
         };
     }
 
