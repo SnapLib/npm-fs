@@ -1,5 +1,6 @@
 import AbstractElement from "../AbstractElement.js";
 import DirElement from "./DirElement.js";
+import type {ExistingDirents, VirtualDirents} from "./DirElement.js";
 import { join } from "path";
 
 export abstract class AbstractDirElement extends AbstractElement implements DirElement
@@ -9,28 +10,34 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         super(path, {exists: options.exists, type: "directory"});
     }
 
-    public abstract fileNamesSync(): readonly string[];
+    public abstract fileSync(): ExistingDirents | VirtualDirents;
 
-    public abstract dirNamesSync(): readonly string[];
+    public abstract dirSync(): ExistingDirents | VirtualDirents;
 
-    public direntNamesSync(): readonly string[]
+    public abstract direntSync(): ExistingDirents | VirtualDirents;
+
+    public abstract fileNamesSync(): ReadonlyArray<string>;
+
+    public abstract dirNamesSync(): ReadonlyArray<string>;
+
+    public direntNamesSync(): ReadonlyArray<string>
     {
-        throw this.fileNamesSync().concat(this.dirNamesSync());
+        throw this.fileSync().names.concat(this.dirSync().names);
     }
 
-    public filePathsSync(): readonly string[]
+    public filePathsSync(): ReadonlyArray<string>
     {
-        return this.fileNamesSync().map(fileName => join(this.path, fileName));
+        return this.fileSync().names.map(fileName => join(this.path, fileName));
     }
 
-    public dirPathsSync(): readonly string[]
+    public dirPathsSync(): ReadonlyArray<string>
     {
-        return this.dirNamesSync().map(fileName => join(this.path, fileName));
+        return this.dirSync().names.map(dirName => join(this.path, dirName));
     }
 
-    public direntPathsSync(): readonly string[]
+    public direntPathsSync(): ReadonlyArray<string>
     {
-        return this.direntNamesSync().map(fileName => join(this.path, fileName));
+        return this.direntSync().names.map(direntName => join(this.path, direntName));
     }
 
     public containsFileSync(fileName: string, options?: { caseSensitive: boolean; }): boolean
@@ -87,11 +94,11 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
             return `${prefixKey}: [${headTailQuotes}${strArray.join(`",\n${" ".repeat(prefixKey.length + 5)}"`)}${headTailQuotes}]`;
         };
 
-        const formattedObjStrArray: readonly string[] =
+        const formattedObjStrArray: ReadonlyArray<string> =
             [formatStringArray("files", this.fileNamesSync()),
              formatStringArray("directories", this.dirNamesSync())];
 
-        return `{\n  ${formattedObjStrArray.join(",\n\n  ")}\n}`;
+        return `{\n  path: "${this.path}",\n\n  ${formattedObjStrArray.join(",\n\n  ")}\n}`;
     }
 }
 
