@@ -1,13 +1,53 @@
 import type ExistingElement from "../ExistingElement.js";
 import AbstractDirElement from "./AbstractDirElement.js";
-import { join, normalize, sep } from "path";
+import type { ExistingDirents } from "./DirElement.js";
+import path from "path";
 import fs from "fs";
 
 export class ExistingDirElement extends AbstractDirElement implements ExistingElement
 {
-    public constructor(path: string, ...morePaths: readonly string[])
+    readonly #direntsArray: ReadonlyArray<fs.Dirent>;
+
+    public constructor(existingDirPath: string, ...morePaths: ReadonlyArray<string>)
     {
-        super(normalize([path].concat(morePaths).join(sep)), {exists: true});
+        super(path.normalize([existingDirPath].concat(morePaths).join(path.sep)), {exists: true});
+        this.#direntsArray = fs.readdirSync(this.path, {withFileTypes: true});
+    }
+
+    public fileSync(): ExistingDirents
+    {
+        const fileDirents: ReadonlyArray<fs.Dirent> =
+            this.#direntsArray.filter(dirent => dirent.isFile());
+
+        return {
+            dirents: fileDirents,
+            names: fileDirents.map(fileDirent => fileDirent.name),
+            paths: fileDirents.map(fileDirent => path.join(this.path, fileDirent.name))
+        };
+    }
+
+    public dirSync(): ExistingDirents
+    {
+        const dirDirents: ReadonlyArray<fs.Dirent> =
+            this.#direntsArray.filter(dirent => dirent.isDirectory());
+
+        return {
+            dirents: dirDirents,
+            names: dirDirents.map(dirDirent => dirDirent.name),
+            paths: dirDirents.map(dirDirent => path.join(this.path, dirDirent.name))
+        };
+    }
+
+    public direntSync(): ExistingDirents
+    {
+        const direntsArray: ReadonlyArray<fs.Dirent> =
+            this.#direntsArray.filter(dirent => dirent.isFile());
+
+        return {
+            dirents: direntsArray,
+            names: direntsArray.map(dirent => dirent.name),
+            paths: direntsArray.map(dirent => path.join(this.path, dirent.name))
+        };
     }
 
     public inodeSync(): number
@@ -39,34 +79,34 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return fs.readdirSync(this.path, {withFileTypes: true});
     }
 
-    public direntNamesSync(): readonly string[]
+    public direntNamesSync(): ReadonlyArray<string>
     {
-        return fs.readdirSync(this.path);
+        return this.direntSync().names;
     }
 
-    public direntPathsSync(): readonly string[]
+    public direntPathsSync(): ReadonlyArray<string>
     {
-        return this.direntNamesSync().map(direntName => join(this.path, direntName));
+        return this.direntSync().paths;
     }
 
-    public fileNamesSync(): readonly string[]
+    public fileNamesSync(): ReadonlyArray<string>
     {
-        return this.direntsSync().filter(dirent => dirent.isFile()).map(fileDirent => fileDirent.name);
+        return this.fileSync().names;
     }
 
-    public filePathsSync(): readonly string[]
+    public filePathsSync(): ReadonlyArray<string>
     {
-        return this.fileNamesSync().map(fileName => join(this.path, fileName));
+        return this.fileSync().paths;
     }
 
-    public dirNamesSync(): readonly string[]
+    public dirNamesSync(): ReadonlyArray<string>
     {
-        return this.direntsSync().filter(dirent => dirent.isDirectory()).map(dirDirent => dirDirent.name);
+        return this.dirSync().names;
     }
 
-    public dirPathsSync(): readonly string[]
+    public dirPathsSync(): ReadonlyArray<string>
     {
-        return this.dirNamesSync().map(dirName => join(this.path, dirName));
+        return this.dirSync().paths;
     }
 
     public containsFileSync(fileName: string, options?: { caseSensitive: boolean; }): boolean
@@ -107,7 +147,7 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
 
     public length(): number
     {
-        return this.direntsSync().length;
+        return this.direntSync().names.length;
     }
 
     public isEmpty(): boolean
@@ -123,6 +163,11 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
     public copyToSync(dest: string, options?: { overwrite: boolean }): boolean
     {
         throw new Error("Method not implemented. No-op args" + dest + options);
+    }
+
+    public toString(): string
+    {
+        return "ExistingDirElement:\n".concat(super.toString());
     }
 }
 
@@ -141,8 +186,8 @@ export const dirSize = (directoryPath: string): number =>
         const getAllFilePaths = (dirPath: string): ReadonlyArray<string> => {
             return fs.readdirSync(dirPath, {withFileTypes: true})
                      .flatMap(dirent => dirent.isDirectory()
-                                                 ? getAllFilePaths(join(dirPath, dirent.name))
-                                                 : join(dirPath, dirent.name));};
+                                                 ? getAllFilePaths(path.join(dirPath, dirent.name))
+                                                 : path.join(dirPath, dirent.name));};
 
         return ((dirPath: string): number  =>
             getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
