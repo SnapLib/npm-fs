@@ -48,8 +48,6 @@ export abstract class AbstractElement implements Element
         }
     }
 
-    public abstract containsSync(aString: string, options?: { caseSensitive: boolean; }): boolean;
-
     public abstract length(): number;
 
     public abstract isEmpty(): boolean;

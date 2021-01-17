@@ -54,8 +54,6 @@ export interface Element
      */
     readonly parent: string;
 
-    containsSync(aString: string, options?: {caseSensitive: boolean}): boolean;
-
     /**
      * Returns the length of this element. If this element does not exist it
      * returns -1.

@@ -51,42 +51,6 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         };
     }
 
-    public containsFileSync(fileName: string, options?: { caseSensitive: boolean; }): boolean
-    {
-        if (options?.caseSensitive)
-        {
-            return this.fileSync().names.includes(fileName);
-        }
-        else
-        {
-            return this.fileSync().names.some(direntFileName => fileName.localeCompare(direntFileName, undefined, {sensitivity: "base"}) === 0);
-        }
-    }
-
-    public containsDirSync(dirName: string, options?: { caseSensitive: boolean; }): boolean
-    {
-        if (options?.caseSensitive)
-        {
-            return this.dirSync().names.includes(dirName);
-        }
-        else
-        {
-            return this.dirSync().names.some(dirDirentName => dirName.localeCompare(dirDirentName, undefined, {sensitivity: "base"}) === 0);
-        }
-    }
-
-    public containsSync(direntName: string, options?: { caseSensitive: boolean; }): boolean
-    {
-        if (options?.caseSensitive)
-        {
-            return this.direntSync().names.includes(direntName);
-        }
-        else
-        {
-            return this.direntSync().names.some(direntName => direntName.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0);
-        }
-    }
-
     public isEmpty(): boolean
     {
         return this.length() === 0;
