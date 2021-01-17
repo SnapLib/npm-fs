@@ -20,6 +20,12 @@ export interface DirElement extends Element
 
     direntSync(): ExistingDirents | VirtualDirents;
 
+    contains(): {
+            file: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean,
+            directory: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean,
+            dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean
+        }
+
     containsFileSync(fileName: string, options?: {caseSensitive: boolean}): boolean;
 
     containsDirSync(dirName: string, options?: {caseSensitive: boolean}): boolean;
