@@ -17,6 +17,40 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
 
     public abstract length(): number;
 
+    public contains(): Readonly<{ file: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
+                                  directory: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
+                                  dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean }>
+    {
+        const comparator = (dirents: ExistingDirents | VirtualDirents, compareString: string, options?: {ignoreCase: boolean}) =>
+        {
+            if ( ! options?.ignoreCase)
+            {
+                return dirents.names.includes(compareString)
+                       || dirents.paths.includes(compareString);
+            }
+            else if (options?.ignoreCase === true)
+            {
+                return dirents.names.some(direntName => compareString.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0)
+                       || dirents.paths.some(direntPath => compareString.localeCompare(direntPath, undefined, {sensitivity: "base"}) === 0);
+            }
+            else
+            {
+                throw new Error("ignoreCase option not falsy or true");
+            }
+        };
+
+        return {
+            file: (fileNameOrPath: string, options?: {ignoreCase: boolean}) =>
+                {return comparator(this.fileSync(), fileNameOrPath, options);},
+
+            directory: (fileNameOrPath: string, options?: {ignoreCase: boolean}) =>
+                {return comparator(this.dirSync(), fileNameOrPath, options);},
+
+            dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) =>
+                {return comparator(this.direntSync(), fileNameOrPath, options);}
+        };
+    }
+
     public containsFileSync(fileName: string, options?: { caseSensitive: boolean; }): boolean
     {
         if (options?.caseSensitive)
