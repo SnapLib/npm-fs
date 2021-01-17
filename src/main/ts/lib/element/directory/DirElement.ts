@@ -8,7 +8,7 @@ export interface Dirents
         paths: ReturnType<() => ReadonlyArray<string>>
 }
 
-export type ExistingDirents = Required<Required<Dirents>>;
+export type ExistingDirents = Required<Dirents>;
 
 export type VirtualDirents = Required<Omit<Dirents, "dirents">>;
 
