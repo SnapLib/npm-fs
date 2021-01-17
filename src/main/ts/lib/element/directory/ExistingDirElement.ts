@@ -74,80 +74,9 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         }
     }
 
-    public direntsSync(): readonly fs.Dirent[]
-    {
-        return fs.readdirSync(this.path, {withFileTypes: true});
-    }
-
-    public direntNamesSync(): ReadonlyArray<string>
-    {
-        return this.direntSync().names;
-    }
-
-    public direntPathsSync(): ReadonlyArray<string>
-    {
-        return this.direntSync().paths;
-    }
-
-    public fileNamesSync(): ReadonlyArray<string>
-    {
-        return this.fileSync().names;
-    }
-
-    public filePathsSync(): ReadonlyArray<string>
-    {
-        return this.fileSync().paths;
-    }
-
-    public dirNamesSync(): ReadonlyArray<string>
-    {
-        return this.dirSync().names;
-    }
-
-    public dirPathsSync(): ReadonlyArray<string>
-    {
-        return this.dirSync().paths;
-    }
-
-    public containsFileSync(fileName: string, options?: { caseSensitive: boolean; }): boolean
-    {
-        if (options?.caseSensitive)
-        {
-            return this.direntNamesSync().includes(fileName);
-        }
-        else
-        {
-            return this.direntNamesSync().some(fileDirentName => fileName.localeCompare(fileDirentName, undefined, {sensitivity: "base"}) === 0);
-        }
-    }
-
-    public containsDirSync(dirName: string, options?: { caseSensitive: boolean; }): boolean
-    {
-        if (options?.caseSensitive)
-        {
-            return this.direntNamesSync().includes(dirName);
-        }
-        else
-        {
-            return this.direntNamesSync().some(dirDirentName => dirName.localeCompare(dirDirentName, undefined, {sensitivity: "base"}) === 0);
-        }
-    }
-
-    public containsSync(fileOrDirName: string, options?: { caseSensitive: boolean; }): boolean
-    {
-        if (options?.caseSensitive)
-        {
-            return this.direntNamesSync().includes(fileOrDirName);
-        }
-        else
-        {
-            return this.direntNamesSync().some(direntName => fileOrDirName.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0);
-        }
-    }
-
     public length(): number
     {
-        return this.direntSync().names.length;
+        return this.direntSync().dirents.length;
     }
 
     public isEmpty(): boolean

@@ -41,14 +41,9 @@ export class VirtualDirElement extends AbstractDirElement
         };
     }
 
-    public fileNamesSync(): readonly string[]
+    public length(): number
     {
-        return this.fileSync().names;
-    }
-
-    public dirNamesSync(): readonly string[]
-    {
-        return this.dirSync().names;
+        return this.direntSync().names.length;
     }
 
     public toString(): string

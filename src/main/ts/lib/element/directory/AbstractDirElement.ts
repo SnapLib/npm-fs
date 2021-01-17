@@ -1,7 +1,6 @@
 import AbstractElement from "../AbstractElement.js";
 import DirElement from "./DirElement.js";
 import type {ExistingDirents, VirtualDirents} from "./DirElement.js";
-import { join } from "path";
 
 export abstract class AbstractDirElement extends AbstractElement implements DirElement
 {
@@ -16,39 +15,17 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
 
     public abstract direntSync(): ExistingDirents | VirtualDirents;
 
-    public abstract fileNamesSync(): ReadonlyArray<string>;
-
-    public abstract dirNamesSync(): ReadonlyArray<string>;
-
-    public direntNamesSync(): ReadonlyArray<string>
-    {
-        throw this.fileSync().names.concat(this.dirSync().names);
-    }
-
-    public filePathsSync(): ReadonlyArray<string>
-    {
-        return this.fileSync().names.map(fileName => join(this.path, fileName));
-    }
-
-    public dirPathsSync(): ReadonlyArray<string>
-    {
-        return this.dirSync().names.map(dirName => join(this.path, dirName));
-    }
-
-    public direntPathsSync(): ReadonlyArray<string>
-    {
-        return this.direntSync().names.map(direntName => join(this.path, direntName));
-    }
+    public abstract length(): number;
 
     public containsFileSync(fileName: string, options?: { caseSensitive: boolean; }): boolean
     {
         if (options?.caseSensitive)
         {
-            return this.fileNamesSync().includes(fileName);
+            return this.fileSync().names.includes(fileName);
         }
         else
         {
-            return this.fileNamesSync().some(npmRootFileName => fileName.localeCompare(npmRootFileName, undefined, {sensitivity: "base"}) === 0);
+            return this.fileSync().names.some(direntFileName => fileName.localeCompare(direntFileName, undefined, {sensitivity: "base"}) === 0);
         }
     }
 
@@ -56,11 +33,11 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
     {
         if (options?.caseSensitive)
         {
-            return this.dirNamesSync().includes(dirName);
+            return this.dirSync().names.includes(dirName);
         }
         else
         {
-            return this.dirNamesSync().some(npmRootDirName => dirName.localeCompare(npmRootDirName, undefined, {sensitivity: "base"}) === 0);
+            return this.dirSync().names.some(dirDirentName => dirName.localeCompare(dirDirentName, undefined, {sensitivity: "base"}) === 0);
         }
     }
 
@@ -68,17 +45,12 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
     {
         if (options?.caseSensitive)
         {
-            return this.direntNamesSync().includes(direntName);
+            return this.direntSync().names.includes(direntName);
         }
         else
         {
-            return this.direntNamesSync().some(npmRootDirentName => direntName.localeCompare(npmRootDirentName, undefined, {sensitivity: "base"}) === 0);
+            return this.direntSync().names.some(direntName => direntName.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0);
         }
-    }
-
-    public length(): number
-    {
-        return this.direntNamesSync().length;
     }
 
     public isEmpty(): boolean
@@ -95,8 +67,8 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         };
 
         const formattedObjStrArray: ReadonlyArray<string> =
-            [formatStringArray("files", this.fileNamesSync()),
-             formatStringArray("directories", this.dirNamesSync())];
+            [formatStringArray("files", this.fileSync().names),
+             formatStringArray("directories", this.dirSync().names)];
 
         return `{\n  path: "${this.path}",\n\n  ${formattedObjStrArray.join(",\n\n  ")}\n}`;
     }

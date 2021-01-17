@@ -20,18 +20,6 @@ export interface DirElement extends Element
 
     direntSync(): ExistingDirents | VirtualDirents;
 
-    fileNamesSync(): ReadonlyArray<string>;
-
-    dirNamesSync(): ReadonlyArray<string>;
-
-    direntNamesSync(): ReadonlyArray<string>;
-
-    filePathsSync(): ReadonlyArray<string>;
-
-    dirPathsSync(): ReadonlyArray<string>;
-
-    direntPathsSync(): ReadonlyArray<string>;
-
     containsFileSync(fileName: string, options?: {caseSensitive: boolean}): boolean;
 
     containsDirSync(dirName: string, options?: {caseSensitive: boolean}): boolean;

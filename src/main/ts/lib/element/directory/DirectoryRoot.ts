@@ -99,8 +99,8 @@ export class DirectoryRoot extends ExistingDirElement
         };
 
         const formattedObjStrArray: readonly string[] =
-            [formatStringArray("files", this.fileNamesSync()),
-            formatStringArray("directories", this.dirNamesSync()),
+            [formatStringArray("files", this.fileSync().names),
+            formatStringArray("directories", this.dirSync().names),
             formatStringArray("required files", this.getRequired().files),
             formatStringArray("required directories", this.getRequired().directories),
             formatStringArray("optional files", this.getOptional().files),
