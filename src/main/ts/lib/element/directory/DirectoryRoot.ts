@@ -3,61 +3,61 @@ import DirContents from "./DirContents.js";
 
 export class DirectoryRoot extends ExistingDirElement
 {
-    private _required: Readonly<DirContents> = new DirContents([], []);
+    #required: Readonly<DirContents> = new DirContents([], []);
 
-    private _optional: Readonly<DirContents> = new DirContents([], []);
+    #optional: Readonly<DirContents> = new DirContents([], []);
 
     public constructor(rootPath: string)
     {
         super(rootPath);
     }
 
-    public getRequired(): Readonly<DirContents> {return this._required;}
+    public getRequired(): Readonly<DirContents> {return this.#required;}
 
-    public getOptional(): Readonly<DirContents> {return this._optional;}
+    public getOptional(): Readonly<DirContents> {return this.#optional;}
 
     public addRequiredDirs(dirNamesArray: ReadonlyArray<string> = [], ...dirNames: ReadonlyArray<string>): DirectoryRoot
     {
-        this._required = new DirContents(dirNamesArray.concat(this._required.directories.concat(dirNames)), this._required.files);
+        this.#required = new DirContents(dirNamesArray.concat(this.#required.directories.concat(dirNames)), this.#required.files);
         return this;
     }
 
     public addRequiredFiles(fileNamesArray: ReadonlyArray<string> = [], ...fileNames: ReadonlyArray<string>): DirectoryRoot
     {
-        this._required = new DirContents(this._required.directories, fileNamesArray.concat(this._required.files.concat(fileNames)));
+        this.#required = new DirContents(this.#required.directories, fileNamesArray.concat(this.#required.files.concat(fileNames)));
         return this;
     }
 
     public addOptionalDirs(dirNamesArray: ReadonlyArray<string> = [], ...dirNames: ReadonlyArray<string>): DirectoryRoot
     {
-        this._optional = new DirContents(dirNamesArray.concat(this._optional.directories.concat(dirNames)), this._optional.files);
+        this.#optional = new DirContents(dirNamesArray.concat(this.#optional.directories.concat(dirNames)), this.#optional.files);
         return this;
     }
 
     public addOptionalFiles(fileNamesArray: ReadonlyArray<string> = [], ...fileNames: ReadonlyArray<string>): DirectoryRoot
     {
-        this._optional = new DirContents(this._optional.directories, fileNamesArray.concat(this._optional.files.concat(fileNames)));
+        this.#optional = new DirContents(this.#optional.directories, fileNamesArray.concat(this.#optional.files.concat(fileNames)));
         return this;
     }
 
     public missingRequiredDirs(): ReadonlyArray<string>
     {
-        return this._required.directories.filter(requiredDir => ! this.contains().directory(requiredDir));
+        return this.#required.directories.filter(requiredDir => ! this.contains().directory(requiredDir));
     }
 
     public missingRequiredFiles(): ReadonlyArray<string>
     {
-        return this._required.files.filter(requiredFile => ! this.contains().file(requiredFile));
+        return this.#required.files.filter(requiredFile => ! this.contains().file(requiredFile));
     }
 
     public missingOptionalDirs(): ReadonlyArray<string>
     {
-        return this._optional.directories.filter(optionalDir => ! this.contains().directory(optionalDir));
+        return this.#optional.directories.filter(optionalDir => ! this.contains().directory(optionalDir));
     }
 
     public missingOptionalFiles(): ReadonlyArray<string>
     {
-        return this._optional.files.filter(optionalFile => ! this.contains().file(optionalFile));
+        return this.#optional.files.filter(optionalFile => ! this.contains().file(optionalFile));
     }
 
     public isMissingRequired(): boolean
