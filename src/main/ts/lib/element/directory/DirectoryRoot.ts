@@ -42,22 +42,22 @@ export class DirectoryRoot extends ExistingDirElement
 
     public missingRequiredDirs(): ReadonlyArray<string>
     {
-        return this._required.directories.filter(requiredDir => ! this.containsDirSync(requiredDir));
+        return this._required.directories.filter(requiredDir => ! this.contains().directory(requiredDir));
     }
 
     public missingRequiredFiles(): ReadonlyArray<string>
     {
-        return this._required.files.filter(requiredFile => ! this.containsFileSync(requiredFile));
+        return this._required.files.filter(requiredFile => ! this.contains().file(requiredFile));
     }
 
     public missingOptionalDirs(): ReadonlyArray<string>
     {
-        return this._optional.directories.filter(optionalDir => ! this.containsDirSync(optionalDir));
+        return this._optional.directories.filter(optionalDir => ! this.contains().directory(optionalDir));
     }
 
     public missingOptionalFiles(): ReadonlyArray<string>
     {
-        return this._optional.files.filter(optionalFile => ! this.containsFileSync(optionalFile));
+        return this._optional.files.filter(optionalFile => ! this.contains().file(optionalFile));
     }
 
     public isMissingRequired(): boolean
