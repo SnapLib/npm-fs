@@ -25,7 +25,8 @@ export class VirtualDirElement extends AbstractDirElement
 
     public dirSync(): VirtualDirents
     {
-        const relativeDirPathsArray: ReadonlyArray<string> = Array.from(this.#relativeDirPaths);
+        const relativeDirPathsArray: ReadonlyArray<string> =
+            Array.from(this.#relativeDirPaths);
 
         return {
             names: relativeDirPathsArray,
