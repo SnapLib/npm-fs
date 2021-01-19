@@ -4,8 +4,8 @@
 
 This package is under active development and ***shouldn't be used*** for
 anything at the moment. It is very likely to undergo numerous compatibility
-breaking changes as well as lack up to date documentation and testing. Feel free
-to use and/or contribute to it if you'd like, just be aware of the above
+breaking changes as well as lack up to date documentation and testing. Feel
+free to use and/or contribute to it if you'd like, just be aware of the above
 warning.
 
 ---
@@ -86,3 +86,87 @@ There are 2 main differences between existing and virtual elements:
 1. Existing file system elements are immutable. The primary purpose of an
     existing element is to read pre-existing files and directories and to
     convert existing elements into virtual elements.
+
+## Synopsis
+
+This API essentially utilizes the Node [File System][1] module to create a more
+object oriented approach to interacting with a file system. It does this by
+providing classes that can be used to create objects to represent the different
+elements of a file system.
+
+## Examples
+
+To use this API to create an existing file or directory element, all that is
+needed is a path to a pre-existing directory or file:
+
+```typescript
+const existingFile = new ExistingFileElement("path/to/existing/file.txt");
+
+console.log(existingFile.elementType);
+// Prints "FILE"
+
+console.log(existingFile.path);
+// Prints "path/to/existing/file.txt"
+
+console.log(existingFile.parent);
+// Prints "path/to/existing"
+
+console.log(existingFile.parent);
+// Prints "path/to/existing"
+
+const existingDirectory = new ExistingDirElement("path/to/existing/directory");
+
+console.log(existingDirectory.elementType);
+// Prints "DIRECTORY"
+
+console.log(existingDirectory.path);
+// Prints "path/to/existing/directory"
+
+console.log(existingDirectory.name);
+// Prints "directory"
+
+console.log(existingDirectory.parent);
+// Prints "path/to/existing"
+
+// The following line would result in an Error to be thrown
+const nonExistingDir = new ExistingDirElement("path/to/nonexisting/directory");
+```
+
+To create a a virtual file or directory element, any path can be provided. This
+will be the path of the virtual element if it were to get written to disk:
+
+```typescript
+const virtualFile = new VirtualFileElement("path/of/this/file/element.md");
+
+console.log(virtualFile.elementType);
+// Prints "FILE"
+
+console.log(virtualFile.path);
+// Prints "path/of/this/file/element.md"
+
+console.log(virtualFile.name);
+// Prints "element.md"
+
+console.log(virtualFile.parent);
+// Prints "path/of/this/file"
+
+const virtualDirectory = new VirtualDirElement("path/of/this/directory/element");
+
+console.log(virtualDirectory.elementType);
+// Prints "DIRECTORY"
+
+console.log(virtualDirectory.path);
+// Prints "path/of/this/directory/element"
+
+console.log(virtualDirectory.name);
+// Prints "element"
+
+console.log(virtualDirectory.parent);
+// Prints "path/of/this/file"
+
+// Existing file and directory paths can be used to create virtual elements as
+// well
+const nonExistingDir = new VirtualFileElement("path/to/existing/file.json");
+```
+
+[1]: https://nodejs.org/api/fs.html "Node File System"
