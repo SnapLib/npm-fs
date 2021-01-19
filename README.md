@@ -3,119 +3,67 @@
 ## WARNING! THIS PACKAGE IS CURRENTLY IN ALPHA & SHOULD NOT BE USED
 
 This package is under active development and ***shouldn't be used*** for
-anything at the moment.
+anything at the moment. It is very likely to undergo numerous compatibility
+breaking changes as well as lack up to date documentation and testing. Feel free
+to use and/or contribute to it if you'd like, just be aware of the above
+warning.
 
 ---
 
-API used to define the file system and file system structure native to a SnapLib
-npm project.
+API to interact with a file system.
 
-## SnapLib npm Project Structure
+## File System Elements
 
-A SnapLib npm project's structure can be thought of as a subset of an npm
-project. Therefore, every SnapLib npm project follows the basic minimum npm
-project structure. Such as having a `node_modules` directory and `package.json`
-file located in the project's root directory. These are common to all npm based
-projects
+A file system's elements can be categorized into 2 different fundamental
+types:
 
-However, ***SnapLib*** npm projects have additional project structure properties
-that are enforced and shared by all SnapLib npm projects. Some examples of such
-properties are having a `src` directory and `.eslintrc.json` and `typedoc.json`
-file in the project root directory.
+1. ***file***
+1. ***directory***
 
-In addition to the above project structure/config properties, there are also
-specific dependencies SnapLib npm projects are required to have such as
-[TypeScript][1] and [tslib][2] that this package also enforces.
+And a file system element can be represented in 2 different "states",
 
-And finally, there are SnapLib npm project properties that are optional and not
-*required* (but often encouraged) for each SnapLib project to have. For
-instance, it's not required that a SnapLib npm project to have version control,
-so the root directory of a SnapLib npm project can optionally contain a `.git`
-file. Although as previously stated, most optional SnapLib npm project
-properties are *highly* encouraged.
+1. ***existing***
+1. ***virtual***
 
-Below is an example of how a SnapLib npm project is structured with optional
-project properties included:
+An **existing** file system element is a file system element (a directory or
+file) that "exists" on disk. It can be accessed and read via a file browser.
 
-<details>
-  <summary>SnapLib npm project structure tree</summary>
-  (any elements with a trailing '/' character indicates it's a directory)
+A **virtual** file system element is a file system element representing a file
+or directory that exists purely as a JavaScript object.
 
-```none
-.
-├──build -> generated from various build tasks. May not always be present.
-│  ├──css
-│  │  └──index.css
-│  ├──docs
-│  │  └──class_diagrams/
-│  ├──html
-│  │  └──index.html
-│  ├──js
-│  │  └──index.js
-│  └──test
-│     ├──assets\
-│     ├──index.html
-│     └──index.json
-├──docs\
-├──node_modules -> not showing full node_modules structure to reduce verbosity
-│  ├──.bin\
-│  ├──npm-fs
-│  │  └──npm-fs.js
-│  ├──typedoc\
-│  ├──typescript\
-│  ├──...
-│  ├──...
-├──src
-│  ├──main
-│  │  ├──html
-│  │  │  └──index.html
-│  │  ├──resources
-│  │  │  └──img
-│  │  │     └──mona_lisa.png
-│  │  ├──scss
-│  │  │  └──index.scss
-│  │  └──ts
-│  │     ├──index.ts
-│  │     └──tsconfig.json
-│  └──test
-│     ├──resources\
-│     └──ts
-│        └──TestIndex.ts
-├──.editorconfig
-├──.eslintrc.json
-├──.git
-├──.gitignore
-├──LICENSE.txt
-├──package.json
-├──package-lock.json
-├──README.md
-└──typedoc.json
-```
+This API provides classes so *existing* and *virtual* *files* and *directories*
+can be represented programatically via JavaScript objects.
 
-</details>
+### Element
 
-## SnapLib npm Project Root Directories
+An `Element` (short for file system element) contains all the information that
+is consistent between the two file element types, files and directories. This
+includes properties such as the element type, path, name, size, and parent
+directory it's contained in.
 
-- ### build
+### File Element
 
-The [`build`][3] directory contains the output of all build and generator tasks.
-For instance, the output of compiling/transpiling source code and generating
-source code doc comment documentation and test reports is outputted to this
-directory.
+A `FileElement` (short for file system directory element) is used to represent
+a file (both existing and virtual) of a file system.
 
-- ### docs
+### Directory Element
 
-The [`docs`][4] directory contains all documentation that isn't included in the
-source code doc comments.
+A `DirElement` (short for file system directory element) is used to represent
+a directory (both existing and virtual) of a file system.
 
-- ### src
+### Existing Element
 
-The [`src`][5] directory contains all source code files, source code test files,
-as well as all resources (non-source code files) that may be referenced by the
-source code and source code test files.
+An `ExistingElement` (short for existing file system element) is a file system
+element representing a directory or file that has been written to a disk. For
+instance, when using the `readdir` function from the Node file system module,
+the directory passed as an argument to this function can be represented as an
+existing directory element with this API.
 
-[1]: https://www.npmjs.com/package/typescript "TypeScript"
-[2]: https://www.npmjs.com/package/tslib "tslib"
-[3]: docs/project/directories/build.md "root build directory"
-[4]: docs/project/directories/docs.md "root docs directory"
-[5]: docs/project/directories/src.md "root src directory"
+### Virtual Element
+
+A `VirtualElement` (short for virtual file system element) is a representation
+of a file or directory that exists purely as a JavaScript object. For instance,
+a programmer may want to programmatically create a new directory. With this
+API, you'd create an object to represent that directory before it's written to
+disk. That object can be thought of as a "virtual" file system element since,
+until it's written to disk, it exists purely as a JavaScript struct.
