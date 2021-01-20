@@ -40,8 +40,7 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
 
     public direntSync(): ExistingDirents
     {
-        const direntsArray: ReadonlyArray<fs.Dirent> =
-            this.#direntsArray.filter(dirent => dirent.isFile());
+        const direntsArray: ReadonlyArray<fs.Dirent> = this.#direntsArray;
 
         return {
             dirents: direntsArray,
