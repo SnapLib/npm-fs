@@ -125,8 +125,8 @@ console.log(existingFile.name);
 // Prints "README.md"
 ```
 
-To create an existing file element, pass a string composed of a path to a
-pre-existing file as an argument to the `ExistingDirElement`
+To create an existing directory element, pass a string composed of a path to a
+pre-existing directory as an argument to the `ExistingDirElement`
 constructor or one of it's functions to create an existing directory element
 object:
 
