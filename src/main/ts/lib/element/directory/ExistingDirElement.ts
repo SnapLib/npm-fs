@@ -16,37 +16,17 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
 
     public fileSync(): ExistingDirents
     {
-        const fileDirents: ReadonlyArray<fs.Dirent> =
-            this.#direntsArray.filter(dirent => dirent.isFile());
-
-        return {
-            dirents: fileDirents,
-            names: fileDirents.map(fileDirent => fileDirent.name),
-            paths: fileDirents.map(fileDirent => path.join(this.path, fileDirent.name))
-        };
+        return parseDirents(this.path, this.#direntsArray, {directory: true});
     }
 
     public dirSync(): ExistingDirents
     {
-        const dirDirents: ReadonlyArray<fs.Dirent> =
-            this.#direntsArray.filter(dirent => dirent.isDirectory());
-
-        return {
-            dirents: dirDirents,
-            names: dirDirents.map(dirDirent => dirDirent.name),
-            paths: dirDirents.map(dirDirent => path.join(this.path, dirDirent.name))
-        };
+        return parseDirents(this.path, this.#direntsArray, {file: true});
     }
 
     public direntSync(): ExistingDirents
     {
-        const direntsArray: ReadonlyArray<fs.Dirent> = this.#direntsArray;
-
-        return {
-            dirents: direntsArray,
-            names: direntsArray.map(dirent => dirent.name),
-            paths: direntsArray.map(dirent => path.join(this.path, dirent.name))
-        };
+        return parseDirents(this.path, this.#direntsArray);
     }
 
     public inodeSync(): number
@@ -121,6 +101,17 @@ export const dirSize = (directoryPath: string): number =>
             getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
                                     .reduce((fileSize, nextFileSize) => fileSize + nextFileSize))(directoryPath);
     }
+};
+
+export const parseDirents = (rootParentDirPath: string, dirents: ReadonlyArray<fs.Dirent>, filterOut?: {file?: boolean, directory?: boolean}): ExistingDirents =>
+{
+    const direntsArray: ReadonlyArray<fs.Dirent> = dirents.filter(p => (filterOut?.file ? ! p.isFile() : true) && (filterOut?.directory ? ! p.isDirectory() : true));
+
+        return {
+            dirents: direntsArray,
+            names: direntsArray.map(dirent => dirent.name),
+            paths: direntsArray.map(dirent => path.join(rootParentDirPath, dirent.name))
+        };
 };
 
 export {ExistingDirElement as default};
