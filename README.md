@@ -11,6 +11,7 @@ warning.
 ---
 
 API to interact with a file system.
+Click [here](#Examples) to jump to examples.
 
 ## File System Elements
 
@@ -318,7 +319,7 @@ console.log(virtualDirectory.parent);
 
 // Existing file and directory paths can be used to create virtual elements as
 // well
-const nonExistingDir = new VirtualFileElement("path/to/existing/file.json");
+const nonExistingDir = new VirtualDirElement("/Users/Main/Projects/snaplib-npm-fs");
 ```
 
 [1]: https://nodejs.org/api/fs.html "Node File System"
