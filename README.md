@@ -97,6 +97,10 @@ object oriented approach to interacting with a file system. It does this by
 providing classes that can be used to create objects to represent the different
 elements of a file system.
 
+While no knowledge of the Node [File System][1] module is necessary to use this
+API, it's strongly encouraged or to at least checkout the [Dirent][2] class
+from the module.
+
 ## Examples
 
 To create an existing file element, pass a string composed of a path to a
@@ -129,7 +133,7 @@ object:
 const existingDirectory =
     new ExistingDirElement("/Users/Main/Projects/snaplib-npm-fs");
 
-// The following line would result in an Error to be thrown
+// The following statement would result in an Error to be thrown
 const nonExistingDir =
     new ExistingDirElement("/path/to/nonexistent/directory");
 
@@ -318,3 +322,4 @@ const nonExistingDir = new VirtualFileElement("path/to/existing/file.json");
 ```
 
 [1]: https://nodejs.org/api/fs.html "Node File System"
+[2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
