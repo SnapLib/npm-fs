@@ -1,0 +1,28 @@
+{
+  "name": "@snaplib/npm-fs",
+  "version": "0.3.1",
+  "description": "SnapLib NPM file system API",
+  "type": "module",
+  "main": "./npm-fs.js",
+  "types": "./types/npm-fs.d.ts",
+  "directories": {
+    "bin": "bin",
+    "lib": "lib"
+  },
+  "author": {
+    "name": "Snap",
+    "email": "snap@snaplib.org"
+  },
+  "license": "MIT",
+  "homepage": "http://www.snaplib.org/npm-fs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SnapLib/npm-fs.git"
+  },
+  "keywords": [
+    "snaplib",
+    "npm",
+    "file",
+    "system"
+  ]
+}
