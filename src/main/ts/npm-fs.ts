@@ -13,7 +13,7 @@
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
-export {ExistingFileElement} from "./element/file/ExistingFileElement";
-export {ExistingDirElement} from "./element/directory/ExistingDirElement";
-export {JSONFile} from "./element/file/JSON-File";
-export {DirectoryRoot} from "./element/directory/DirectoryRoot";
+export {ExistingFileElement} from "./lib/element/file/ExistingFileElement.js";
+export {ExistingDirElement} from "./lib/element/directory/ExistingDirElement.js";
+export {JSONFile} from "./lib/element/file/JSON-File.js";
+export {DirectoryRoot} from "./lib/element/directory/DirectoryRoot.js";
