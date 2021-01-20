@@ -154,8 +154,8 @@ console.log(existingDirectory.fileSync().names);
 /*
  * Prints string array of names of files retrieved in a synchronous manner:
  * [ '.DS_Store', '.editorconfig', '.eslintrc.json', '.gitignore', '.npmrc',
- *    'LICENSE.txt', 'README.md', 'package-lock.json', 'package.json',
- *    'typedoc.json' ]
+ *   'LICENSE.txt', 'README.md', 'package-lock.json', 'package.json',
+ *   'typedoc.json' ]
  */
 
 console.log(existingDirectory.fileSync().paths);
