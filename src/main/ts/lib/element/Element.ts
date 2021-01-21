@@ -85,10 +85,18 @@ export interface Element
     toString(): string;
 }
 
+/**
+ * Enum to identify file element types
+ *
+ * @readonly
+ * @enum string
+ */
 export enum ElementType
 {
-    FILE = "file",
-    DIRECTORY = "directory"
+    /** Type of file elements*/
+    FILE = "FILE",
+    /** Type of directory elements*/
+    DIRECTORY = "DIRECTORY"
 }
 
 export {Element as default};
