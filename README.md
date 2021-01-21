@@ -11,7 +11,6 @@ warning.
 ---
 
 API to interact with a file system.
-Click [here](#Examples) to jump to examples.
 
 ![npm (scoped)](https://img.shields.io/npm/v/@snaplib/npm-fs?color=light%20green&logo=npm&style=flat-square)
 
