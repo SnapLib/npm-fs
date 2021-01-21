@@ -1,3 +1,11 @@
+git:
+  depth: 3
+
+os:
+  - linux
+  - osx
+  - windows
+
 addons:
 
   apt:
