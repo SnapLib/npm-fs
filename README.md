@@ -12,7 +12,7 @@ of the above warning.
 
 API to interact with a file system.
 
-![npm (scoped)](https://img.shields.io/npm/v/@snaplib/npm-fs?color=light%20green&logo=npm&style=flat-square)
+![npm (scoped)](https://img.shields.io/npm/v/@snaplib/npm-fs?color=%2366ff33&style=flat-square)
 
 ## Synopsis
 
