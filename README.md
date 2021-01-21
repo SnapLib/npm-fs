@@ -12,7 +12,7 @@ of the above warning.
 
 API to interact with a file system.
 
-![npm (scoped)](0)
+![npm (scoped)](https://img.shields.io/npm/v/@snaplib/npm-fs?color=light%20green&logo=npm&style=flat-square)
 
 ## Synopsis
 
@@ -323,6 +323,5 @@ There are 2 key differences between existing and virtual elements:
     existing element is to read pre-existing files and directories and to
     create virtual elements based on existing elements.
 
-[0]: https://img.shields.io/npm/v/@snaplib/npm-fs?color=%2366ff33&style=flat-square "npm"
 [1]: https://nodejs.org/api/fs.html "Node File System"
 [2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
