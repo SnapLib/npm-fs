@@ -78,6 +78,10 @@ export interface Element
      */
     isEmpty(): boolean;
 
+    /**
+     * Returns a string representation of this Element object. Contains this
+     * Element's properties formatted in a nice way for debugging purposes.
+     */
     toString(): string;
 }
 
