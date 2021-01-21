@@ -3,9 +3,10 @@ import type {Dirent} from "fs";
 
 export interface Dirents
 {
-        dirents?: ReturnType<() => ReadonlyArray<Dirent>>,
-        names: ReturnType<() => ReadonlyArray<string>>,
-        paths: ReturnType<() => ReadonlyArray<string>>
+    dirents?: ReturnType<() => ReadonlyArray<Dirent>>,
+    names: ReturnType<() => ReadonlyArray<string>>,
+    paths: ReturnType<() => ReadonlyArray<string>>,
+    count: number;
 }
 
 export type ExistingDirents = Required<Dirents>;

@@ -19,7 +19,8 @@ export class VirtualDirElement extends AbstractDirElement
 
         return {
             names: fileRelativePathsArray,
-            paths: fileRelativePathsArray.map(fileName => path.join(this.path, fileName))
+            paths: fileRelativePathsArray.map(fileName => path.join(this.path, fileName)),
+            count: fileRelativePathsArray.length
         };
     }
 
@@ -30,7 +31,8 @@ export class VirtualDirElement extends AbstractDirElement
 
         return {
             names: relativeDirPathsArray,
-            paths: relativeDirPathsArray.map(dirName => path.join(this.path, dirName))
+            paths: relativeDirPathsArray.map(dirName => path.join(this.path, dirName)),
+            count: relativeDirPathsArray.length
         };
     }
 
@@ -38,7 +40,8 @@ export class VirtualDirElement extends AbstractDirElement
     {
         return {
             names: this.fileSync().names.concat(this.dirSync().names),
-            paths: this.fileSync().paths.concat(this.dirSync().paths)
+            paths: this.fileSync().paths.concat(this.dirSync().paths),
+            count: this.fileSync().count + this.direntSync().count
         };
     }
 

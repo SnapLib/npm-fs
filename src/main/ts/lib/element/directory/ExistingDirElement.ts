@@ -110,7 +110,8 @@ export const parseDirents = (rootParentDirPath: string, dirents: ReadonlyArray<f
         return {
             dirents: direntsArray,
             names: direntsArray.map(dirent => dirent.name),
-            paths: direntsArray.map(dirent => path.join(rootParentDirPath, dirent.name))
+            paths: direntsArray.map(dirent => path.join(rootParentDirPath, dirent.name)),
+            count: direntsArray.length
         };
 };
 
