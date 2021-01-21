@@ -35,6 +35,10 @@ constructor or one of it's functions to create an existing file element object:
 const existingFile =
     new ExistingFileElement("/Users/Main/Projects/snaplib-npm-fs/README.md");
 
+// The following statement would result in an Error to be thrown
+const nonExistingFile =
+    new ExistingFileElement("/Users/Main/Projects/snaplib-npm-fs/RRREADMEE.mdz");
+
 console.log(existingFile.elementType);
 // Prints "FILE"
 
