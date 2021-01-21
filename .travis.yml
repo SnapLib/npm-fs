@@ -1,0 +1,18 @@
+addons:
+
+  apt:
+    packages:
+      - node
+      - npm
+    update: true
+
+  homebrew:
+    packages:
+    - node
+    - npm
+    update: true
+
+language: node_js
+
+before_install:
+  - npm install
