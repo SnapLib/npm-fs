@@ -3,10 +3,10 @@
 ## WARNING! THIS PACKAGE IS CURRENTLY IN ALPHA & SHOULD NOT BE USED
 
 This package is under active development and ***shouldn't be used*** for
-anything at the moment. It is very likely to undergo numerous compatibility
-breaking changes as well as lack up to date documentation and testing. Feel
-free to use and/or contribute to it if you'd like, just be aware of the above
-warning.
+anything at the moment. It is very likely to contain bugs, undergo numerous
+compatibility breaking changes as well as lack up to date documentation and
+testing. Feel free to use and/or contribute to it if you'd like, just be aware
+of the above warning.
 
 ---
 
