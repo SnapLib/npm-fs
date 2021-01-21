@@ -309,7 +309,7 @@ between existing and virtual elements.
 
 ## Differences between existing and virtual elements
 
-There are 2 main differences between existing and virtual elements:
+There are 2 key differences between existing and virtual elements:
 
 1. Existing file system elements require a path to a pre-existing file or
     directory that's already been saved/written to disk. Attempting to create
@@ -321,7 +321,7 @@ There are 2 main differences between existing and virtual elements:
 
 1. Existing file system elements are immutable. The primary purpose of an
     existing element is to read pre-existing files and directories and to
-    convert existing elements into virtual elements.
+    create virtual elements based on existing elements.
 
 [1]: https://nodejs.org/api/fs.html "Node File System"
 [2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
