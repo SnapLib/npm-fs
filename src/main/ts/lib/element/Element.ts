@@ -1,13 +1,15 @@
 /**
  * @overview
  * The most fundamental elements of an npm file system are the directories and
- * files that make up the system. These elements share many common properties
- * such as having a path and name. However, each element type also has unique
- * properties that are implementation specific such as the contents and size.
- * For instance the contents of a directory are different than the contents of
- * a text file.
+ * files that make up the system. This interface defines the properties,
+ * behavior, and functionality that is common to both file and directory
+ * elements.
  *
  * @packageDocumentation
+ *
+ * @see AbstractElement
+ * @see DirElement
+ * @see FileElement
  *
  * @author Snap <XxSnapperGeexX@gmail.com>
  */
@@ -34,9 +36,8 @@ export interface Element
     readonly path: string;
 
     /**
-     * The name of this element. This is the the name that is at the tail
-     * or endmost part of its path. The name of this file or directory
-     * element including its extension.
+     * The name of this file or directory element including its extension. This
+     * is the the name that is at the tail or endmost part of its path.
      *
      * @readonly
      * @property
@@ -59,7 +60,7 @@ export interface Element
      * returns -1.
      *
      * @remarks If this element is a directory, returns the number of entries
-     * this directory contains.
+     * this directory contains in its root (non-recursive).
      *
      * @remarks If this element is a file, returns the number of lines this file
      * contains.
