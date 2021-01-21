@@ -2,7 +2,7 @@ addons:
 
   apt:
     packages:
-      - node
+      - nodejs
       - npm
     update: true
 
