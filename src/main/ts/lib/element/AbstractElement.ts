@@ -27,11 +27,15 @@ export abstract class AbstractElement implements Element
         {
             throw new Error(`path does not exists: "${path}"`);
         }
-        else if (options?.exists && options?.type === ElementType.FILE && lstatSync(path).isDirectory())
+        else if (options?.exists
+            && options?.type?.localeCompare(ElementType.FILE, undefined, {sensitivity: "base"}) === 0
+            && lstatSync(path).isDirectory())
         {
             throw new Error(`existing file element path points to a directory: "${path}"`);
         }
-        else if (options?.exists && options?.type === ElementType.DIRECTORY && lstatSync(path).isFile())
+        else if (options?.exists
+            && options?.type?.localeCompare(ElementType.DIRECTORY, undefined, {sensitivity: "base"}) === 0
+            && lstatSync(path).isFile())
         {
             throw new Error(`existing directory element path points to a file: "${path}"`);
         }
