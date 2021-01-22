@@ -17,11 +17,13 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
 
     public abstract length(): number;
 
-    public contains(): Readonly<{ file: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
-                                  directory: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
-                                  dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean }>
+    public contains(options?: {ignoreCase?: boolean, recursive?: boolean}):
+        Readonly<{ file: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
+                   directory: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
+                   dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean }>
     {
-        const comparator = (dirents: ExistingDirents | VirtualDirents, compareString: string, options?: {ignoreCase: boolean}) =>
+        const checkForFileOrDirName = (dirents: ExistingDirents | VirtualDirents,
+                                       compareString: string) =>
         {
             // Perform case insensitive search if ignore case is true
             if (options?.ignoreCase === true)
@@ -37,14 +39,14 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         };
 
         return {
-            file: (fileNameOrPath: string, options?: {ignoreCase: boolean}) =>
-                {return comparator(this.fileSync(), fileNameOrPath, options);},
+            file: (fileNameOrPath: string) =>
+                {return checkForFileOrDirName(this.fileSync(), fileNameOrPath);},
 
-            directory: (fileNameOrPath: string, options?: {ignoreCase: boolean}) =>
-                {return comparator(this.dirSync(), fileNameOrPath, options);},
+            directory: (fileNameOrPath: string) =>
+                {return checkForFileOrDirName(this.dirSync(), fileNameOrPath);},
 
-            dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) =>
-                {return comparator(this.direntSync(), fileNameOrPath, options);}
+            dirent: (fileNameOrPath: string) =>
+                {return checkForFileOrDirName(this.direntSync(), fileNameOrPath);}
         };
     }
 
