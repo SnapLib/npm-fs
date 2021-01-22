@@ -212,7 +212,7 @@ console.log(existingDirectory.direntSync().dirents);
  */
 ```
 
-To create a a virtual file or directory element, any path can be provided. This
+To create a virtual file or directory element, any path can be provided. This
 will be the path of the virtual element if it were to get written to disk:
 
 ```typescript
