@@ -23,19 +23,16 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
     {
         const comparator = (dirents: ExistingDirents | VirtualDirents, compareString: string, options?: {ignoreCase: boolean}) =>
         {
-            if ( ! options?.ignoreCase)
-            {
-                return dirents.names.includes(compareString)
-                       || dirents.paths.includes(compareString);
-            }
-            else if (options?.ignoreCase === true)
+            // Perform case insensitive search if ignore case is true
+            if (options?.ignoreCase === true)
             {
                 return dirents.names.some(direntName => compareString.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0)
                        || dirents.paths.some(direntPath => compareString.localeCompare(direntPath, undefined, {sensitivity: "base"}) === 0);
             }
             else
             {
-                throw new Error("ignoreCase option not falsy or true");
+                return dirents.names.includes(compareString)
+                       || dirents.paths.includes(compareString);
             }
         };
 
