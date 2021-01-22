@@ -25,6 +25,12 @@
  */
 export interface Element
 {
+    /**
+     * The type of file element this element is.
+     *
+     * @readonly
+     * @property
+     */
     readonly elementType: ElementType;
 
     /**
@@ -56,8 +62,7 @@ export interface Element
     readonly parent: string;
 
     /**
-     * Returns the length of this element. If this element does not exist it
-     * returns -1.
+     * Returns the length of this element.
      *
      * @remarks If this element is a directory, returns the number of entries
      * this directory contains in its root (non-recursive).
