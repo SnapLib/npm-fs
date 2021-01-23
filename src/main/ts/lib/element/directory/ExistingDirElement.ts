@@ -14,9 +14,9 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         this.#direntsArray = fs.readdirSync(this.path, {withFileTypes: true});
     }
 
-    public fileSync(): ExistingDirents
+    public fileSync(options?: {recursive: boolean}): ExistingDirents
     {
-        return parseDirents(this.path, this.#direntsArray, {directory: true});
+        return readerSync(this.path, options);
     }
 
     public dirSync(): ExistingDirents
@@ -103,18 +103,44 @@ export const dirSize = (directoryPath: string): number =>
     }
 };
 
-export const readerSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents =>
+export const readerSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {files: ExistingDirents, directories: ExistingDirents} =>
 {
-    const _dirents: ReadonlyArray<fs.Dirent> = fs.readdirSync(directoryPath, {withFileTypes: true});
 
     // If recursive option isn't TRUE, just return info about the directories
     // and files from the root of this `DirElement`
     if (options?.recursive !== true)
     {
+        const _dirents: ReadonlyArray<fs.Dirent> =
+            fs.readdirSync(directoryPath, {withFileTypes: true});
+
+        const _fileDirents: ReadonlyArray<fs.Dirent> =
+            _dirents.filter(dirent => dirent.isFile());
+
+        const _dirDirents: ReadonlyArray<fs.Dirent> =
+            _dirents.filter(dirent => dirent.isFile());
+
+        const _fileExistingDirents: Readonly<ExistingDirents> =
+        {
+            dirents: _fileDirents,
+            names: _fileDirents.map(fileDirent => fileDirent.name),
+            paths: _fileDirents.map(fileDirent => Path.join(directoryPath, fileDirent.name)),
+            count: _fileDirents.length
+        };
+
+        const _dirExistingDirents: Readonly<ExistingDirents> =
+        {
+            dirents: _dirDirents,
+            names: _dirDirents.map(dirDirent => dirDirent.name),
+            paths: _dirDirents.map(dirDirent => Path.join(directoryPath, dirDirent.name)),
+            count: _dirDirents.length
+        };
+
         return {
             dirents: _dirents,
             names: _dirents.map(dirent => dirent.name),
             paths: _dirents.map(dirent => Path.join(directoryPath, dirent.name)),
+            files: _fileExistingDirents,
+            directories: _dirExistingDirents,
             count: _dirents.length
         };
     }
@@ -136,15 +162,39 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
                                                  ? getAllPaths(Path.join(dirPath, dirent.name))
                                                  : Path.join(dirPath, dirent.name));};
 
-        const allPaths: ReadonlyArray<string> = getAllPaths(directoryPath);
+        const _allPaths: ReadonlyArray<string> = getAllPaths(directoryPath);
 
-        const allDirents: ReadonlyArray<fs.Dirent> = getAllDirents(directoryPath);
+        const _allDirents: ReadonlyArray<fs.Dirent> = getAllDirents(directoryPath);
+
+        const _fileDirents: ReadonlyArray<fs.Dirent> =
+            _allDirents.filter(dirent => dirent.isFile());
+
+        const _dirDirents: ReadonlyArray<fs.Dirent> =
+            _allDirents.filter(dirent => dirent.isDirectory());
+
+        const _fileExistingDirents: Readonly<ExistingDirents> =
+        {
+            dirents: _fileDirents,
+            names: _fileDirents.map(fileDirent => fileDirent.name),
+            paths: _fileDirents.map(fileDirent => Path.join(directoryPath, fileDirent.name)),
+            count: _fileDirents.length
+        };
+
+        const _dirExistingDirents: Readonly<ExistingDirents> =
+        {
+            dirents: _dirDirents,
+            names: _dirDirents.map(dirDirent => dirDirent.name),
+            paths: _dirDirents.map(dirDirent => Path.join(directoryPath, dirDirent.name)),
+            count: _dirDirents.length
+        };
 
         return {
-            dirents: allDirents,
-            names: allDirents.map(dirent => dirent.name),
-            paths: allPaths,
-            count: allDirents.length,
+            dirents: _allDirents,
+            names: _allDirents.map(dirent => dirent.name),
+            paths: _allPaths,
+            files: _fileExistingDirents,
+            directories: _dirExistingDirents,
+            count: _allDirents.length,
         };
     }
 };
