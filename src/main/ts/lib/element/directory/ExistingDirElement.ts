@@ -6,12 +6,9 @@ import fs from "fs";
 
 export class ExistingDirElement extends AbstractDirElement implements ExistingElement
 {
-    readonly #direntsArray: ReadonlyArray<fs.Dirent>;
-
     public constructor(existingDirPath: string, ...morePaths: ReadonlyArray<string>)
     {
         super(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)), {exists: true});
-        this.#direntsArray = fs.readdirSync(this.path, {withFileTypes: true});
     }
 
     public readerSync(options?: {recursive: boolean}): ExistingDirents
@@ -29,9 +26,14 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return readerSync(this.path, options).directory;
     }
 
-    public direntSync(): ExistingDirents
+    public direntSync(options?: {recursive: boolean}): ExistingDirents
     {
-        return parseDirents(this.path, this.#direntsArray);
+        return {
+            dirents: readerSync(this.path, options).dirents,
+            names: readerSync(this.path, options).names,
+            paths: readerSync(this.path, options).paths,
+            count: readerSync(this.path, options).count
+        };
     }
 
     public inodeSync(): number
@@ -149,6 +151,7 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
             count: _dirents.length
         };
     }
+    // FIXME paths property of directory recursive search returning empty array
     // If recursive option is TRUE
     else
     {
@@ -208,20 +211,6 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
             count: _allDirents.length,
         };
     }
-};
-
-const parseDirents = (rootParentDirPath: string, dirents: ReadonlyArray<fs.Dirent>, filterOut?: {file?: boolean, directory?: boolean}): ExistingDirents =>
-{
-    const direntsArray: ReadonlyArray<fs.Dirent> =
-        dirents.filter(p => (filterOut?.file ? ! p.isFile() : true)
-                       && (filterOut?.directory ? ! p.isDirectory() : true));
-
-        return {
-            dirents: direntsArray,
-            names: direntsArray.map(dirent => dirent.name),
-            paths: direntsArray.map(dirent => Path.join(rootParentDirPath, dirent.name)),
-            count: direntsArray.length
-        };
 };
 
 export {ExistingDirElement as default, readerSync as existingDirReader};
