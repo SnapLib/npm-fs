@@ -159,7 +159,6 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
                                                  ? getAllDirents(Path.join(dirPath, dirent.name)).concat(dirent)
                                                  : dirent);};
 
-        // FIXME dirent name always gets appended to root directory, 'dirPath' path
         // Get the paths of all files and directories a directory contains
         // recursively
         const getAllPaths = (dirPath: string): ReadonlyArray<string> => {
@@ -172,6 +171,12 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
 
         const _allDirents: ReadonlyArray<fs.Dirent> = getAllDirents(directoryPath);
 
+        const _allFilePaths: ReadonlyArray<string> =
+            _allPaths.filter(path => fs.lstatSync(path).isFile());
+
+        const _allDirPaths: ReadonlyArray<string> =
+            _allPaths.filter(path => fs.lstatSync(path).isDirectory());
+
         const _fileDirents: ReadonlyArray<fs.Dirent> =
             _allDirents.filter(dirent => dirent.isFile());
 
@@ -182,7 +187,7 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
         {
             dirents: _fileDirents,
             names: _fileDirents.map(fileDirent => fileDirent.name),
-            paths: _fileDirents.map(fileDirent => Path.join(directoryPath, fileDirent.name)),
+            paths: _allFilePaths,
             count: _fileDirents.length
         };
 
@@ -190,7 +195,7 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
         {
             dirents: _dirDirents,
             names: _dirDirents.map(dirDirent => dirDirent.name),
-            paths: _dirDirents.map(dirDirent => Path.join(directoryPath, dirDirent.name)),
+            paths: _allDirPaths,
             count: _dirDirents.length
         };
 
