@@ -117,7 +117,7 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
             _dirents.filter(dirent => dirent.isFile());
 
         const _dirDirents: ReadonlyArray<fs.Dirent> =
-            _dirents.filter(dirent => dirent.isFile());
+            _dirents.filter(dirent => dirent.isDirectory());
 
         const _fileExistingDirents: Readonly<ExistingDirents> =
         {
