@@ -1,7 +1,7 @@
 import type ExistingElement from "../ExistingElement.js";
 import AbstractDirElement from "./AbstractDirElement.js";
 import type { ExistingDirents } from "./DirElement.js";
-import path from "path";
+import Path from "path";
 import fs from "fs";
 
 export class ExistingDirElement extends AbstractDirElement implements ExistingElement
@@ -10,7 +10,7 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
 
     public constructor(existingDirPath: string, ...morePaths: ReadonlyArray<string>)
     {
-        super(path.normalize([existingDirPath].concat(morePaths).join(path.sep)), {exists: true});
+        super(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)), {exists: true});
         this.#direntsArray = fs.readdirSync(this.path, {withFileTypes: true});
     }
 
@@ -94,8 +94,8 @@ export const dirSize = (directoryPath: string): number =>
         const getAllFilePaths = (dirPath: string): ReadonlyArray<string> => {
             return fs.readdirSync(dirPath, {withFileTypes: true})
                      .flatMap(dirent => dirent.isDirectory()
-                                                 ? getAllFilePaths(path.join(dirPath, dirent.name))
-                                                 : path.join(dirPath, dirent.name));};
+                                                 ? getAllFilePaths(Path.join(dirPath, dirent.name))
+                                                 : Path.join(dirPath, dirent.name));};
 
         return ((dirPath: string): number  =>
             getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
@@ -103,16 +103,64 @@ export const dirSize = (directoryPath: string): number =>
     }
 };
 
-export const parseDirents = (rootParentDirPath: string, dirents: ReadonlyArray<fs.Dirent>, filterOut?: {file?: boolean, directory?: boolean}): ExistingDirents =>
+export const readerSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents =>
 {
-    const direntsArray: ReadonlyArray<fs.Dirent> = dirents.filter(p => (filterOut?.file ? ! p.isFile() : true) && (filterOut?.directory ? ! p.isDirectory() : true));
+    const _dirents: ReadonlyArray<fs.Dirent> = fs.readdirSync(directoryPath, {withFileTypes: true});
+
+    // If recursive option isn't TRUE, just return info about the directories
+    // and files from the root of this `DirElement`
+    if (options?.recursive !== true)
+    {
+        return {
+            dirents: _dirents,
+            names: _dirents.map(dirent => dirent.name),
+            paths: _dirents.map(dirent => Path.join(directoryPath, dirent.name)),
+            count: _dirents.length
+        };
+    }
+    // If recursive option is TRUE
+    else
+    {
+        // Get all dirents a directory contains recursively
+        const getAllDirents = (dirPath: string): ReadonlyArray<fs.Dirent> => {
+            return fs.readdirSync(dirPath, {withFileTypes: true})
+                     .flatMap(dirent => dirent.isDirectory()
+                                                 ? getAllDirents(Path.join(dirPath, dirent.name)).concat(dirent)
+                                                 : dirent);};
+
+        // Get the paths of all files and directories a directory contains
+        // recursively
+        const getAllPaths = (dirPath: string): ReadonlyArray<string> => {
+            return fs.readdirSync(dirPath, {withFileTypes: true})
+                     .flatMap(dirent => dirent.isDirectory()
+                                                 ? getAllPaths(Path.join(dirPath, dirent.name))
+                                                 : Path.join(dirPath, dirent.name));};
+
+        const allPaths: ReadonlyArray<string> = getAllPaths(directoryPath);
+
+        const allDirents: ReadonlyArray<fs.Dirent> = getAllDirents(directoryPath);
+
+        return {
+            dirents: allDirents,
+            names: allDirents.map(dirent => dirent.name),
+            paths: allPaths,
+            count: allDirents.length,
+        };
+    }
+};
+
+const parseDirents = (rootParentDirPath: string, dirents: ReadonlyArray<fs.Dirent>, filterOut?: {file?: boolean, directory?: boolean}): ExistingDirents =>
+{
+    const direntsArray: ReadonlyArray<fs.Dirent> =
+        dirents.filter(p => (filterOut?.file ? ! p.isFile() : true)
+                       && (filterOut?.directory ? ! p.isDirectory() : true));
 
         return {
             dirents: direntsArray,
             names: direntsArray.map(dirent => dirent.name),
-            paths: direntsArray.map(dirent => path.join(rootParentDirPath, dirent.name)),
+            paths: direntsArray.map(dirent => Path.join(rootParentDirPath, dirent.name)),
             count: direntsArray.length
         };
 };
 
-export {ExistingDirElement as default};
+export {ExistingDirElement as default, readerSync as existingDirReader};
