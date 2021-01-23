@@ -19,14 +19,14 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return readerSync(this.path, options);
     }
 
-    public fileSync(): ExistingDirents
+    public fileSync(options?: {recursive: boolean}): ExistingDirents
     {
-        return parseDirents(this.path, this.#direntsArray, {directory: true});
+        return readerSync(this.path, options).file;
     }
 
-    public dirSync(): ExistingDirents
+    public dirSync(options?: {recursive: boolean}): ExistingDirents
     {
-        return parseDirents(this.path, this.#direntsArray, {file: true});
+        return readerSync(this.path, options).directory;
     }
 
     public direntSync(): ExistingDirents
