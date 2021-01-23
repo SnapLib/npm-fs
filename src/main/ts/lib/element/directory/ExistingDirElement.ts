@@ -151,7 +151,6 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
             count: _dirents.length
         };
     }
-    // FIXME paths property of directory recursive search returning empty array
     // If recursive option is TRUE
     else
     {
@@ -177,6 +176,7 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
         const _allFilePaths: ReadonlyArray<string> =
             _allPaths.filter(path => fs.lstatSync(path).isFile());
 
+        // FIXME paths property of directory recursive search returning empty array
         const _allDirPaths: ReadonlyArray<string> =
             _allPaths.filter(path => fs.lstatSync(path).isDirectory());
 
