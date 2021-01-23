@@ -159,6 +159,7 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
                                                  ? getAllDirents(Path.join(dirPath, dirent.name)).concat(dirent)
                                                  : dirent);};
 
+        // FIXME dirent name always gets appended to root directory, 'dirPath' path
         // Get the paths of all files and directories a directory contains
         // recursively
         const getAllPaths = (dirPath: string): ReadonlyArray<string> => {
