@@ -14,9 +14,14 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         this.#direntsArray = fs.readdirSync(this.path, {withFileTypes: true});
     }
 
-    public fileSync(options?: {recursive: boolean}): ExistingDirents
+    public readerSync(options?: {recursive: boolean}): ExistingDirents
     {
         return readerSync(this.path, options);
+    }
+
+    public fileSync(): ExistingDirents
+    {
+        return parseDirents(this.path, this.#direntsArray, {directory: true});
     }
 
     public dirSync(): ExistingDirents
@@ -103,7 +108,7 @@ export const dirSize = (directoryPath: string): number =>
     }
 };
 
-export const readerSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {files: ExistingDirents, directories: ExistingDirents} =>
+export const readerSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {file: ExistingDirents, directory: ExistingDirents} =>
 {
 
     // If recursive option isn't TRUE, just return info about the directories
@@ -139,8 +144,8 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
             dirents: _dirents,
             names: _dirents.map(dirent => dirent.name),
             paths: _dirents.map(dirent => Path.join(directoryPath, dirent.name)),
-            files: _fileExistingDirents,
-            directories: _dirExistingDirents,
+            file: _fileExistingDirents,
+            directory: _dirExistingDirents,
             count: _dirents.length
         };
     }
@@ -192,8 +197,8 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
             dirents: _allDirents,
             names: _allDirents.map(dirent => dirent.name),
             paths: _allPaths,
-            files: _fileExistingDirents,
-            directories: _dirExistingDirents,
+            file: _fileExistingDirents,
+            directory: _dirExistingDirents,
             count: _allDirents.length,
         };
     }
