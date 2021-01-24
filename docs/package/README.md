@@ -23,7 +23,7 @@ The [`AbstractElement`][2] is an abstract class that every file and directory
 element inherits from. This class provides implementations of properties and
 behaviors that are shared by both files and directories.
 
-## File
+## FileElement interface
 
 ---
 The [`FileElement`][3] interface is an extension of the [`Element`][1] interface
@@ -32,10 +32,10 @@ directory. By default it's interpreted as text. However there are classes that
 extend the [`FileElement`][3] class to represent specific types of files (such
 as json files and typescript source code files for instance).
 
-## Directory
+## DirElement interface
 
 ---
-The [`DirElement`][4] class is an implementation of the [`Element`][1] interface
+The [`DirElement`][4] interface is an extension of the [`Element`][1] interface
 used to represent a directory. A directory is a file system element that can
 contain other file system elements.
 
