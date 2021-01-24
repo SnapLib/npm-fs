@@ -6,7 +6,7 @@
  * declared in this npm package to be used by other npm packages that install it
  * as a dependency.
  *
- * @author Snap <XxSnapperGeexX@gmail.com>
+ * @author Snap <snap@snaplib.org>
  */
 export {ExistingFileElement} from "./lib/element/file/ExistingFileElement.js";
 export {ExistingDirElement} from "./lib/element/directory/ExistingDirElement.js";
