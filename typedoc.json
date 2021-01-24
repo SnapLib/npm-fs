@@ -2,7 +2,7 @@
   "ignoreCompilerErrors": true,
   "inputFiles": ["src/main/ts"],
   "mode": "modules",
-  "out": "build/docs",
+  "out": "build/tsdocs",
   "readme": "docs/typedoc/README.md",
   "stripInternal": true
 }
