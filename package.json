@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build-dist": "tsc -p src/main/ts/tsconfig.dist.json --outDir build/dist/$npm_config_dist_root_pkg_dirname -d --declarationDir build/dist/$npm_config_dist_root_pkg_dirname/types && node scripts/build/build-dist.mjs $npm_config_dist_root_pkg_dirname",
-    "build-types": "tsc -p src/main/ts/tsconfig.json -d --emitDeclarationOnly --declarationDir build/dist/snaplib__npm-fs",
+    "build-dist-types": "tsc -p src/main/ts/tsconfig.dist.json -d --emitDeclarationOnly --declarationDir build/dist/snaplib__npm-fs",
     "clean": "node scripts/clean.mjs",
     "lint": "eslint --ext ts src/main/ts",
     "mocha": "mocha -r ts-node/register --extension ts --recursive true",
@@ -31,7 +31,7 @@
     "test-report": "mocha -r ts-node/register --extension ts --recursive true src/test/ts --reporter mochawesome --reporter-options consoleReporter=none,reportDir=build/test,reportFilename=index",
     "ts-node": "ts-node",
     "tsc": "tsc",
-    "tsc-src": "tsc -p src/main/ts/tsconfig.json --outDir build/js",
+    "tsc-src": "tsc -p src/main/ts/tsconfig.dev.json --outDir build/js",
     "typedoc": "typedoc"
   },
   "keywords": [
