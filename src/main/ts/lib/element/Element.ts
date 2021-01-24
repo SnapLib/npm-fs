@@ -11,7 +11,7 @@
  * @see DirElement
  * @see FileElement
  *
- * @author Snap <XxSnapperGeexX@gmail.com>
+ * @author Snap <snap@snaplib.org>
  */
 
 /**
