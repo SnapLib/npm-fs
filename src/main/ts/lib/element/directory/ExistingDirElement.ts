@@ -16,6 +16,29 @@ import fs from "fs";
  */
 export class ExistingDirElement extends AbstractDirElement implements ExistingElement
 {
+    /**
+     * Constructs an existing directory element out of the directory the
+     * provided path string argument points to.
+     *
+     * One or more string arguments can optionally be provided. The following
+     * examples showing the 2 instantiation statements would be interpreted
+     * equally.
+     *
+     * @example Constructor arguments
+     * ```javascript
+     * const existingDirOne = new ExistingDirElement("path/to/directory");
+     *
+     * const existingDirTwo = new ExistingDirElement("path", "to", "directory");
+     * ```
+     *
+     * @param existingDirPath The absolute path or the prefix of the absolute
+     *                        path.of this file system element
+     *
+     * @param morePaths Additional optional paths that will be appended as
+     *                  nested paths to each other
+     *
+     * @constructor
+     */
     public constructor(existingDirPath: string, ...morePaths: ReadonlyArray<string>)
     {
         super(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)), {exists: true});
@@ -41,17 +64,20 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         };
     }
 
+    /** @inheritDoc */
     public inodeSync(): number
     {
         return fs.lstatSync(this.path).ino;
     }
 
+    /** @inheritDoc */
     public deleteSync(): boolean
     {
         fs.rmdirSync(this.path, {recursive: true});
         return ! fs.existsSync(this.path);
     }
 
+    /** @inheritDoc */
     public renameSync(newName: string, options?: { overwrite: boolean; }): boolean
     {
         // If overwrite option isn't true and element exists return false
