@@ -46,12 +46,6 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return fs.lstatSync(this.path).ino;
     }
 
-    public deleteSync(): boolean
-    {
-        fs.rmdirSync(this.path, {recursive: true});
-        return ! fs.existsSync(this.path);
-    }
-
     public renameSync(newName: string, options?: { overwrite: boolean; }): boolean
     {
         if ( ! options?.overwrite && fs.existsSync(newName))
