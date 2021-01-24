@@ -4,6 +4,8 @@ export interface ExistingElement extends Element
 {
     inodeSync(): number;
 
+    deleteSync(): boolean;
+
     copyToSync(dest: string, options?: {overwrite: boolean}): boolean;
 
     renameSync(newName: string, options?: {overwrite: boolean}): boolean;
