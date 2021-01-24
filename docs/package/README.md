@@ -20,9 +20,10 @@ hierarchy.
 
 ### Element abstract class
 
-The [`AbstractElement`][2] is an abstract class that every file and directory
-element inherits from. This class provides implementations of properties and
-behaviors that are shared by both files and directories.
+The [`AbstractElement`][2] class is an abstract class that every file and
+directory element extends from. This class provides an implementations for the
+constructor so this element object can be created with the path and
+element properties provided via constructor arguments.
 
 ## FileElement interface
 
