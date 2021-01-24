@@ -35,7 +35,8 @@ constructor or one of it's functions to create an existing file element object:
 const existingFile =
     new ExistingFileElement("/Users/Main/Projects/snaplib-npm-fs/README.md");
 
-// The following statement would result in an Error to be thrown
+// The following statement would result in an Error to be thrown since the
+// provided path doesn't point to an existing file
 const nonExistingFile =
     new ExistingFileElement("/Users/Main/Projects/snaplib-npm-fs/RRREADMEE.mdz");
 
@@ -61,7 +62,8 @@ object:
 const existingDirectory =
     new ExistingDirElement("/Users/Main/Projects/snaplib-npm-fs");
 
-// The following statement would result in an Error to be thrown
+// The following statement would result in an Error to be thrown since the
+// provided path doesn't point to an existing directory
 const nonExistingDir =
     new ExistingDirElement("/path/to/nonexistent/directory");
 
