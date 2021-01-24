@@ -218,7 +218,7 @@ To create a virtual file or directory element, any path can be provided. This
 will be the path of the virtual element if it were to get written to disk:
 
 ```typescript
-const virtualFile = new VirtualFileElement("path/of/this/file/element.md");
+const virtualFile = new VirtualFileElement("/path/of/this/file/element.md");
 
 console.log(virtualFile.elementType);
 // Prints "FILE"
@@ -232,7 +232,7 @@ console.log(virtualFile.name);
 console.log(virtualFile.parent);
 // Prints "path/of/this/file"
 
-const virtualDirectory = new VirtualDirElement("path/of/this/directory/element");
+const virtualDirectory = new VirtualDirElement("/path/of/this/directory/element");
 
 console.log(virtualDirectory.elementType);
 // Prints "DIRECTORY"
