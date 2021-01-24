@@ -68,6 +68,46 @@ export interface DirElement extends Element
             directory: (fileNameOrPath: string) => boolean,
             dirent: (fileNameOrPath: string) => boolean
         }
+
+    /**
+     * Returns the number of files and directories this directory element
+     * contains. By default, only returns the number of files and directories
+     * from the root of this directory element (depth of 0).
+     *
+     * @returns the number of files and directories this directory element
+     *          contains
+     *
+     * @override
+     * @abstract
+     * @function
+     */
+    length(): number;
+
+    /**
+     * Returns `true` if this directory element doesn't contain any files or
+     * directories.
+     *
+     * @returns `true` if this directory element doesn't contain any files or
+     *          directories
+     *
+     * @override
+     * @abstract
+     * @function
+     */
+    isEmpty(): boolean;
+
+    /**
+     * Returns a string representation of this directory element object.
+     * Contains this information such as this directory element's path and
+     * names of any files/directories located in its root.
+     *
+     * @returns a string representation of this `Element` object
+     *
+     * @override
+     * @abstract
+     * @function
+     */
+    toString(): string;
 }
 
 interface Dirents
