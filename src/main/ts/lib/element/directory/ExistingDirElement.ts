@@ -179,7 +179,15 @@ export const dirReaderSync = (directoryPath: string, options?: {recursive: boole
                                                  : Path.join(dirPath, dirent.name)).concat(dirPath);
         };
 
-        const _allPaths: ReadonlyArray<string> = getAllPaths(directoryPath);
+        // HACK stream all paths filtering out root directory path
+        const _allPaths: ReadonlyArray<string> = ((dirPath: string) =>
+        {
+            const _paths: ReadonlyArray<string> = getAllPaths(dirPath);
+
+            return _paths.includes(dirPath)
+                   ? _paths.filter(path => path !== dirPath)
+                   : _paths;
+        })(directoryPath);
 
         const _allDirents: ReadonlyArray<fs.Dirent> = getAllDirents(directoryPath);
 
