@@ -18,7 +18,6 @@
         "preserveConstEnums": true,
         "removeComments": true,
         "rootDir": ".",
-        "sourceMap": true,
         "strict": true,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
