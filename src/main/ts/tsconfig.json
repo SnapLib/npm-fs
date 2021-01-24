@@ -15,7 +15,6 @@
         "noUncheckedIndexedAccess": true,
         "noUnusedLocals": false,
         "noUnusedParameters": false,
-        "preserveConstEnums": true,
         "removeComments": true,
         "rootDir": ".",
         "strict": true,
