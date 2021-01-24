@@ -132,7 +132,7 @@ export interface DirElement extends Element
     toString(): string;
 }
 
-interface Dirents
+interface ReturnedDirents
 {
     dirents?: ReturnType<() => ReadonlyArray<Dirent>>,
     names: ReturnType<() => ReadonlyArray<string>>,
@@ -147,7 +147,7 @@ interface Dirents
  * `Dirent` objects. The total number of directory entries can be returned as
  * well.
  */
-export type ExistingDirents = Required<Dirents>;
+export type ExistingDirents = Required<ReturnedDirents>;
 
 /**
  * Contains the type of properties the directory entries (dirents) of a virtual
@@ -155,6 +155,6 @@ export type ExistingDirents = Required<Dirents>;
  * returned as absolute path strings and name strings. The total number of
  * directory entries can be returned as well.
  */
-export type VirtualDirents = Required<Omit<Dirents, "dirents">>;
+export type VirtualDirents = Required<Omit<ReturnedDirents, "dirents">>;
 
 export {DirElement as default};
