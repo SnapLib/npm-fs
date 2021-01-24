@@ -92,7 +92,7 @@ export interface Element
 }
 
 /**
- * Enum to identify file element types
+ * Enum to identify file system element types.
  *
  * @readonly
  * @enum string
