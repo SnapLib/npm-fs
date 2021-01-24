@@ -3,16 +3,54 @@ import { ElementType } from "./Element.js";
 import { existsSync, lstatSync } from "fs";
 import { dirname, basename } from "path";
 
+/**
+ * Contains the root constructor implementation used to set the absolute path
+ * and properties of this file system element.
+ *
+ * @classdesc
+ * This class makes it possible to define what this element object is going to
+ * be represent via it's constructor arguments during instantiation. There are
+ * 3 key properties used to define a file system element:
+ *
+ * 1. An absolute path for this element is required.
+ * 2. A property indicating whether this element exists or not (whether it's
+ *    virtual or not).
+ * 3. What type of element this element is intended to be, a file or directory.
+ *
+ * @author Snap <snap@snaplib.org>
+ *
+ * @see AbstractFileElement
+ * @see AbstractDirElement
+ */
 export abstract class AbstractElement implements Element
 {
+    /** @inheritDoc */
     public readonly elementType: ElementType;
 
+    /** @inheritDoc */
     public readonly path: string;
 
+    /** @inheritDoc */
     public readonly name: string;
 
+    /** @inheritDoc */
     public readonly parent: string;
 
+    /**
+     * Constructs a file system element with the provided path and properties.
+     *
+     * Throws an error if file system element should exist but provided path
+     * doesn't point to an existing file or directory or if the type this
+     * element is set to isn't the same type as what it's path points to.
+     *
+     * @param path The absolute path of this file system element.
+     * @param options options indicating whether this file system element is
+     *                read from disk or virtual and what type of file system
+     *                element this element is.
+     *
+     * @protected
+     * @constructor
+     */
     protected constructor(path: string, options: {exists?: boolean, type?: "file" | "directory" | ElementType})
     {
         if (path.trim().length === 0)
