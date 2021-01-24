@@ -78,7 +78,7 @@ export interface Element
     length(): number;
 
     /**
-     * Returns `true` if this element exists and contains data.
+     * Returns `true` if this element contains data.
      *
      * @returns `true` if this element exists and contains data
      */
