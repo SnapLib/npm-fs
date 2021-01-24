@@ -5,11 +5,12 @@ import Path from "path";
 import fs from "fs";
 
 /**
- * Class to create existing file system directory elements.
+ * Class to create existing file system directory element objects.
  *
  * @classdesc
  * This class creates a Directory Element based on an existing directory that
- * has been read from disk.
+ * has been read from disk. It contains various methods to query the files and
+ * directories this existing directory element contains.
  *
  * @author Snap <snap@snaplib.org>
  */
@@ -18,11 +19,6 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
     public constructor(existingDirPath: string, ...morePaths: ReadonlyArray<string>)
     {
         super(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)), {exists: true});
-    }
-
-    public dirReaderSync(options?: {recursive: boolean}): ExistingDirents
-    {
-        return dirReaderSync(this.path, options);
     }
 
     public fileSync(options?: {recursive: boolean}): ExistingDirents
@@ -121,7 +117,6 @@ export const dirSize = (directoryPath: string): number =>
 
 export const dirReaderSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {file: ExistingDirents, directory: ExistingDirents} =>
 {
-
     // If recursive option isn't TRUE, just return info about the directories
     // and files from the root of this `DirElement`
     if (options?.recursive !== true)
