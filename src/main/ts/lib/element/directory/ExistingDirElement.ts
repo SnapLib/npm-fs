@@ -54,10 +54,12 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
 
     public renameSync(newName: string, options?: { overwrite: boolean; }): boolean
     {
+        // If overwrite option isn't true and element exists return false
         if ( ! options?.overwrite && fs.existsSync(newName))
         {
             return false;
         }
+        // If element doesn't exist or overwrite option is true
         else
         {
             fs.renameSync(this.path, newName);
@@ -91,17 +93,30 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
     }
 }
 
+/**
+ * Returns the total size (in bytes) of the existing directory the provided
+ * string path argument points to. This includes the sum of all the sizes of
+ * it's sub directories and files.
+ *
+ * If the provided path doesn't point to an existing file system element, `-1`
+ * is returned. If the provided path argument doesn't point to a directory, an
+ * error is thrown.
+ *
+ * @param directoryPath The path pointing to the directory to return the size
+ *                      of.
+ *
+ * @returns The total size (in bytes) of the directory at the proved path.
+ *
+ * @throws Error If provided path points to an element that's not a directory.
+ */
 export const dirSize = (directoryPath: string): number =>
 {
     if ( ! fs.existsSync(directoryPath))
     {
         return -1;
     }
-    else if (fs.lstatSync(directoryPath).isFile())
-    {
-        throw new Error(`path points to a file: ${directoryPath}`);
-    }
-    else
+    // Parse directory size if provided path points to a directory
+    else if (fs.lstatSync(directoryPath).isDirectory())
     {
         const getAllFilePaths = (dirPath: string): ReadonlyArray<string> => {
             return fs.readdirSync(dirPath, {withFileTypes: true})
@@ -113,8 +128,26 @@ export const dirSize = (directoryPath: string): number =>
             getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
                                     .reduce((fileSize, nextFileSize) => fileSize + nextFileSize))(directoryPath);
     }
+    // If provided path doesn't point to a directory throw an error
+    else
+    {
+        throw new Error(`path doesn't point to a directory: ${directoryPath}`);
+    }
 };
 
+/**
+ * Reads the directory that the provided path string argument points to and
+ * returns the files and directories it contains in a filtered and/or formatted
+ * manner.
+ *
+ * If the recursive option isn't `true`, then the directory is read to a depth
+ * of `0`. This means only the root of the directory is read. All other files
+ * and directories are ignored.
+ *
+ * @param directoryPath The path to the directory to read.
+ *
+ * @param options To read directory recursively or not.
+ */
 export const dirReaderSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {file: ExistingDirents, directory: ExistingDirents} =>
 {
     // If recursive option isn't TRUE, just return info about the directories
@@ -180,6 +213,8 @@ export const dirReaderSync = (directoryPath: string, options?: {recursive: boole
         };
 
         // HACK stream all paths filtering out root directory path
+        // The absolute paths of all files and directories the directory at the
+        // provided directory path contains recursively
         const _allPaths: ReadonlyArray<string> = ((dirPath: string) =>
         {
             const _paths: ReadonlyArray<string> = getAllPaths(dirPath);
@@ -189,8 +224,12 @@ export const dirReaderSync = (directoryPath: string, options?: {recursive: boole
                    : _paths;
         })(directoryPath);
 
+        // Every directory entry the directory at the provided path contains
+        // recursively
         const _allDirents: ReadonlyArray<fs.Dirent> = getAllDirents(directoryPath);
 
+        // The absolute paths to all files the directory at the provided path
+        // contains recursively
         const _allFilePaths: ReadonlyArray<string> =
             _allPaths.filter(path => fs.lstatSync(path).isFile());
 
