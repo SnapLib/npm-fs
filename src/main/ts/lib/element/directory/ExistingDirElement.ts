@@ -25,17 +25,17 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
      * equally.
      *
      * @example Constructor arguments
-     * ```javascript
+     * ```typescript
      * const existingDirOne = new ExistingDirElement("path/to/directory");
      *
      * const existingDirTwo = new ExistingDirElement("path", "to", "directory");
      * ```
      *
      * @param existingDirPath The absolute path or the prefix of the absolute
-     *                        path.of this file system element
+     *                        path of this file system element
      *
      * @param morePaths Additional optional paths that will be appended as
-     *                  nested paths to each other
+     *                  nested paths.
      *
      * @constructor
      */
