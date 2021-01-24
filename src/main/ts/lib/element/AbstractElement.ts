@@ -1,7 +1,7 @@
 import type Element from "./Element.js";
 import { ElementType } from "./Element.js";
 import { existsSync, lstatSync } from "fs";
-import { dirname, basename, isAbsolute, sep } from "path";
+import { dirname, basename, isAbsolute, fileSep } from "path";
 
 /**
  * Contains the root constructor implementation used to set the absolute path
@@ -53,7 +53,7 @@ export abstract class AbstractElement implements Element
      */
     protected constructor(path: string, options: {exists?: boolean, type?: "file" | "directory" | ElementType})
     {
-        const formattedPath: string = isAbsolute(path) ? path : sep.concat(path);
+        const formattedPath: string = isAbsolute(path) ? path : fileSep.concat(path);
 
         if (path.trim().length === 0)
         {
