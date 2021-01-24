@@ -25,7 +25,8 @@
     },
     "typeAcquisition":
     {
-        "exclude": ["chai",
+        "exclude": ["node_modules",
+                    "chai",
                     "eslint",
                     "mocha",
                     "mochawesome",
