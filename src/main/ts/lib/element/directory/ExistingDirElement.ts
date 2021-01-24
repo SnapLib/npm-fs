@@ -105,7 +105,7 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
  * @param directoryPath The path pointing to the directory to return the size
  *                      of.
  *
- * @returns The total size (in bytes) of the directory at the proved path.
+ * @returns The total size (in bytes) of the directory at the provided path.
  *
  * @throws Error If provided path points to an element that's not a directory.
  */
