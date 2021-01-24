@@ -78,15 +78,23 @@ export interface Element
     length(): number;
 
     /**
-     * Returns `true` if this element contains data.
+     * Returns `true` if this element contains no data.
      *
      * @returns `true` if this element exists and contains data
+     *
+     * @abstract
+     * @function
      */
     isEmpty(): boolean;
 
     /**
      * Returns a string representation of this Element object. Contains this
      * Element's properties formatted in a nice way for debugging purposes.
+     *
+     * @returns a string representation of this `Element` object
+     *
+     * @abstract
+     * @function
      */
     toString(): string;
 }
