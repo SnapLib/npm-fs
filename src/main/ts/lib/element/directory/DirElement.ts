@@ -1,6 +1,18 @@
 import type Element from "../Element.js";
 import type {Dirent} from "fs";
 
+/**
+ * Interface for objects that represent directory elements.
+ *
+ * @classdesc
+ * A `DirElement` is used to represent directory of a fle system. It can contain
+ * files and directories and be read/searched either recursively or not. It's
+ * possible to return the files and directories either filtered separately or
+ * combined. Certain properties of the files and directories can be returned
+ * such as their absolute paths and size.
+ *
+ * @author Snap <snap@snaplib.org>
+ */
 export interface DirElement extends Element
 {
     /**
