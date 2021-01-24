@@ -8,6 +8,9 @@ comprised of. This package contains classes to represent these elements (and
 specific "sub-types" of these elements) as objects. It also provides some
 utility expressions for parsing file system elements.
 
+The [README][5] for this package's repository contains examples and further
+information and would be a better starting point than this document.
+
 ## Element
 
 ---
@@ -47,3 +50,4 @@ and directory entries (if applicable).
 [2]: https://github.com/SnapLib/npm-fs/blob/dev/src/main/ts/lib/element/AbstractElement.ts "AbstractElement abstract class"
 [3]: https://github.com/SnapLib/npm-fs/blob/dev/src/main/ts/lib/element/file/FileElement.ts "FileElement interface"
 [4]: https://github.com/SnapLib/npm-fs/blob/dev/src/main/ts/lib/element/directory/DirElement.ts "DirElement interface"
+[5]: https://github.com/SnapLib/npm-fs/blob/stable/README.md "Package repo README"
