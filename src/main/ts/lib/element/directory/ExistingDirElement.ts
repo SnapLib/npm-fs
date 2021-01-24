@@ -4,6 +4,15 @@ import type { ExistingDirents } from "./DirElement.js";
 import Path from "path";
 import fs from "fs";
 
+/**
+ * Class to create existing file system directory elements.
+ *
+ * @classdesc
+ * This class creates a Directory Element based on an existing directory that
+ * has been read from disk.
+ *
+ * @author Snap <snap@snaplib.org>
+ */
 export class ExistingDirElement extends AbstractDirElement implements ExistingElement
 {
     public constructor(existingDirPath: string, ...morePaths: ReadonlyArray<string>)
@@ -164,9 +173,7 @@ export const dirReaderSync = (directoryPath: string, options?: {recursive: boole
         };
 
         // FIXME Returned paths array contains path to parent root directory, it
-        //  should not be included in returned array
-        // HACK Sort array and remove index 0 object to prevent getting root
-        //  parent directory path
+        //  should not be included in returned array, only nested paths
         // Get the paths of all files and directories a directory contains
         // recursively
         const getAllPaths = (dirPath: string): ReadonlyArray<string> =>
