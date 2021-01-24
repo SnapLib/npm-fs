@@ -1,0 +1,8 @@
+{
+  "esModuleInterop": false,
+  "noEmitOnError": false,
+  "noUnusedLocals": false,
+  "noUnusedParameters": false,
+  "preserveConstEnums": true,
+  "sourceMap": true
+}
