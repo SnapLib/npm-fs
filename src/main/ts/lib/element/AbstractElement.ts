@@ -90,10 +90,13 @@ export abstract class AbstractElement implements Element
         }
     }
 
+    /** @inheritDoc */
     public abstract length(): number;
 
+    /** @inheritDoc */
     public abstract isEmpty(): boolean;
 
+    /** @inheritDoc */
     public abstract toString(): string;
 }
 
