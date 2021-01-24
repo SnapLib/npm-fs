@@ -3,6 +3,6 @@
   "inputFiles": ["src/main/ts"],
   "mode": "modules",
   "out": "build/docs",
-  "readme": "docs/package/README.md",
+  "readme": "docs/typedoc/README.md",
   "stripInternal": true
 }
