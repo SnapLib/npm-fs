@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions":
   {
+    "esModuleInterop": false,
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
