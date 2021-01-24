@@ -15,7 +15,8 @@ utility expressions for parsing file system elements.
 ### Element interface
 
 The [`Element`][1] interface is an interface that every file and directory
-element implements.
+element implements. It's the root interface of the SnapLib npm file system
+hierarchy.
 
 ### Element abstract class
 
