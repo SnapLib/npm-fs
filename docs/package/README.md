@@ -4,9 +4,9 @@ API that provides a mostly objective oriented approach to interacting with a
 file system.
 
 A file system's most fundamental elements are the files and directories it's
-comprised of. These files and directories ***are*** the file system. This
-package contains classes to represent these elements (and specific "sub-types"
-of these elements) as objects.
+comprised of. This package contains classes to represent these elements (and
+specific "sub-types" of these elements) as objects. It also provides some
+utility expressions for parsing file system elements.
 
 ## Element
 
@@ -37,7 +37,9 @@ as json files and typescript source code files for instance).
 ---
 The [`DirElement`][4] interface is an extension of the [`Element`][1] interface
 used to represent a directory. A directory is a file system element that can
-contain other file system elements.
+contain other file system elements. The properties of these file system elements
+can be filtered into files or directories and returned as paths, simple names,
+and directory entries (if applicable).
 
 [1]: https://github.com/SnapLib/npm-fs/blob/dev/src/main/ts/lib/element/Element.ts "Element interface"
 [2]: https://github.com/SnapLib/npm-fs/blob/dev/src/main/ts/lib/element/AbstractElement.ts "AbstractElement abstract class"
