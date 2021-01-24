@@ -18,7 +18,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/SnapLib/npm-fs.git"
+    "url": "https://github.com/SnapLib/npm-fs/tree/stable"
   },
   "scripts": {
     "build-dist": "tsc -p src/main/ts/tsconfig.json --outDir build/dist/$npm_config_dist_root_pkg_dirname -d --declarationDir build/dist/$npm_config_dist_root_pkg_dirname/types && node scripts/build/build-dist.mjs $npm_config_dist_root_pkg_dirname",
