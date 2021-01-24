@@ -22,6 +22,10 @@ export interface DirElement extends Element
      * This function can be used to retrieve and perform operations on all files
      * this directory element contains.
      *
+     * By default, only files contained in the root of this directory element
+     * are returned. The `recursive` option can be used to return all files this
+     * directory element contains recursively.
+     *
      * @param options Whether to retrieve files recursively or not. If not set
      *                to true, only directory entries contained in the root of
      *                this existing directory element are returned.
@@ -41,6 +45,10 @@ export interface DirElement extends Element
      * This function can be used to retrieve and perform operations on all
      * directories this directory element contains.
      *
+     * By default, only directories contained in the root of this directory
+     * element are returned. The `recursive` option can be used to return all
+     * directories this directory element contains recursively.
+     *
      * @param options Whether to retrieve directories recursively or not. If not
      *                set to true, only directory entries contained in the root
      *                of this existing directory element are returned.
@@ -59,6 +67,11 @@ export interface DirElement extends Element
      *
      * This function can be used to retrieve and perform operations on all files
      * and directories this directory element contains.
+     *
+     * By default, only files and directories contained in the root of this
+     * directory element are returned. The `recursive` option can be used to
+     * return all files and directories this directory element contains
+     * recursively.
      *
      * @param options Whether to retrieve directory entries recursively or not.
      *                If not set to true, only directory entries contained in
