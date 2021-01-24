@@ -1,7 +1,7 @@
 import type Element from "./Element.js";
 import { ElementType } from "./Element.js";
 import { existsSync, lstatSync } from "fs";
-import { dirname, basename, isAbsolute, fileSep } from "path";
+import { dirname, basename, isAbsolute, sep as fileSep } from "path";
 
 /**
  * Contains the root constructor implementation used to set the absolute path
