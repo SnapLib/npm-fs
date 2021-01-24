@@ -1,7 +1,7 @@
 import type Element from "./Element.js";
 import { ElementType } from "./Element.js";
 import { existsSync, lstatSync } from "fs";
-import { dirname, basename } from "path";
+import { dirname, basename, isAbsolute, sep } from "path";
 
 /**
  * Contains the root constructor implementation used to set the absolute path
@@ -53,6 +53,8 @@ export abstract class AbstractElement implements Element
      */
     protected constructor(path: string, options: {exists?: boolean, type?: "file" | "directory" | ElementType})
     {
+        const formattedPath: string = isAbsolute(path) ? path : sep.concat(path);
+
         if (path.trim().length === 0)
         {
             throw new Error("blank path argument");
@@ -61,19 +63,19 @@ export abstract class AbstractElement implements Element
         {
             throw new Error("element missing both exist and type properties");
         }
-        else if (options?.exists && ! existsSync(path))
+        else if (options?.exists && ! existsSync(formattedPath))
         {
-            throw new Error(`path does not exists: "${path}"`);
+            throw new Error(`path does not exists: "${formattedPath}"`);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.FILE, undefined, {sensitivity: "base"}) === 0
-            && lstatSync(path).isDirectory())
+            && lstatSync(formattedPath).isDirectory())
         {
             throw new Error(`existing file element path points to a directory: "${path}"`);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.DIRECTORY, undefined, {sensitivity: "base"}) === 0
-            && lstatSync(path).isFile())
+            && lstatSync(formattedPath).isFile())
         {
             throw new Error(`existing directory element path points to a file: "${path}"`);
         }
@@ -81,10 +83,10 @@ export abstract class AbstractElement implements Element
         {
             this.elementType = options?.type === ElementType.FILE ? ElementType.FILE
                              : options?.type === ElementType.DIRECTORY ? ElementType.DIRECTORY
-                             : lstatSync(path).isFile() ? ElementType.FILE
+                             : lstatSync(formattedPath).isFile() ? ElementType.FILE
                              : ElementType.DIRECTORY;
 
-            this.path = path;
+            this.path = formattedPath;
             this.name = basename(this.path);
             this.parent = dirname(this.path);
         }
