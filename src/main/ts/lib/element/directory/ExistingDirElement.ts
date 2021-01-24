@@ -11,28 +11,28 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         super(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)), {exists: true});
     }
 
-    public readerSync(options?: {recursive: boolean}): ExistingDirents
+    public dirReaderSync(options?: {recursive: boolean}): ExistingDirents
     {
-        return readerSync(this.path, options);
+        return dirReaderSync(this.path, options);
     }
 
     public fileSync(options?: {recursive: boolean}): ExistingDirents
     {
-        return readerSync(this.path, options).file;
+        return dirReaderSync(this.path, options).file;
     }
 
     public dirSync(options?: {recursive: boolean}): ExistingDirents
     {
-        return readerSync(this.path, options).directory;
+        return dirReaderSync(this.path, options).directory;
     }
 
     public direntSync(options?: {recursive: boolean}): ExistingDirents
     {
         return {
-            dirents: readerSync(this.path, options).dirents,
-            names: readerSync(this.path, options).names,
-            paths: readerSync(this.path, options).paths,
-            count: readerSync(this.path, options).count
+            dirents: dirReaderSync(this.path, options).dirents,
+            names: dirReaderSync(this.path, options).names,
+            paths: dirReaderSync(this.path, options).paths,
+            count: dirReaderSync(this.path, options).count
         };
     }
 
@@ -110,7 +110,7 @@ export const dirSize = (directoryPath: string): number =>
     }
 };
 
-export const readerSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {file: ExistingDirents, directory: ExistingDirents} =>
+export const dirReaderSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {file: ExistingDirents, directory: ExistingDirents} =>
 {
 
     // If recursive option isn't TRUE, just return info about the directories
@@ -155,19 +155,27 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
     else
     {
         // Get all dirents a directory contains recursively
-        const getAllDirents = (dirPath: string): ReadonlyArray<fs.Dirent> => {
+        const getAllDirents = (dirPath: string): ReadonlyArray<fs.Dirent> =>
+        {
             return fs.readdirSync(dirPath, {withFileTypes: true})
                      .flatMap(dirent => dirent.isDirectory()
                                                  ? getAllDirents(Path.join(dirPath, dirent.name)).concat(dirent)
-                                                 : dirent);};
+                                                 : dirent);
+        };
 
+        // FIXME Returned paths array contains path to parent root directory, it
+        //  should not be included in returned array
+        // HACK Sort array and remove index 0 object to prevent getting root
+        //  parent directory path
         // Get the paths of all files and directories a directory contains
         // recursively
-        const getAllPaths = (dirPath: string): ReadonlyArray<string> => {
+        const getAllPaths = (dirPath: string): ReadonlyArray<string> =>
+        {
             return fs.readdirSync(dirPath, {withFileTypes: true})
                      .flatMap(dirent => dirent.isDirectory()
                                                  ? getAllPaths(Path.join(dirPath, dirent.name))
-                                                 : Path.join(dirPath, dirent.name));};
+                                                 : Path.join(dirPath, dirent.name)).concat(dirPath);
+        };
 
         const _allPaths: ReadonlyArray<string> = getAllPaths(directoryPath);
 
@@ -176,7 +184,6 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
         const _allFilePaths: ReadonlyArray<string> =
             _allPaths.filter(path => fs.lstatSync(path).isFile());
 
-        // FIXME paths property of directory recursive search returning empty array
         const _allDirPaths: ReadonlyArray<string> =
             _allPaths.filter(path => fs.lstatSync(path).isDirectory());
 
@@ -213,4 +220,4 @@ export const readerSync = (directoryPath: string, options?: {recursive: boolean}
     }
 };
 
-export {ExistingDirElement as default, readerSync as existingDirReader};
+export {ExistingDirElement as default, dirReaderSync as existingDirReader};
