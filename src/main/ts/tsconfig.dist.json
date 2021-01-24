@@ -6,6 +6,7 @@
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "preserveConstEnums": false,
     "sourceMap": false,
   }
 }
