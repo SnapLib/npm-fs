@@ -28,7 +28,7 @@ from the module.
 ## Examples
 
 To create an existing file element, pass a string composed of a path to a
-pre-existing file as an argument to the `ExistingFileElement`
+pre-existing file as an argument to the [`ExistingFileElement`][3]
 constructor or one of it's functions to create an existing file element object:
 
 ```typescript
@@ -54,7 +54,7 @@ console.log(existingFile.name);
 ```
 
 To create an existing directory element, pass a string composed of a path to a
-pre-existing directory as an argument to the `ExistingDirElement`
+pre-existing directory as an argument to the [`ExistingDirElement`][4]
 constructor or one of it's functions to create an existing directory element
 object:
 
@@ -275,24 +275,24 @@ can be represented programmatically via JavaScript objects.
 
 ### Element
 
-An `Element` (short for file system element) contains all the properties that
+An [`Element`][5] (short for file system element) contains all the properties that
 are shared between the 2 file element types, files and directories. This
 includes properties such as the element type, path, name, size, and parent
 directory it's contained in.
 
 ### File Element
 
-A `FileElement` (short for file system file element) is used to represent a
+A [`FileElement`][6] (short for file system file element) is used to represent a
 file (both existing and virtual) of a file system.
 
 ### Directory Element
 
-A `DirElement` (short for file system directory element) is used to represent
+A [`DirElement`][7] (short for file system directory element) is used to represent
 a directory (both existing and virtual) of a file system.
 
 ### Existing Element
 
-An `ExistingElement` (short for existing file system element) is a file system
+An [`ExistingElement`][8] (short for existing file system element) is a file system
 element representing a directory or file that has been written to a disk. For
 instance, when using the `readdir` function from the Node file system module,
 the directory passed as an argument to this function can be represented as an
@@ -300,7 +300,7 @@ existing directory element with this API.
 
 ### Virtual Element
 
-A `VirtualElement` (short for virtual file system element) is a representation
+A "Virtual Element" (short for virtual file system element) is a representation
 of a file or directory that exists purely as a JavaScript object. For instance,
 a programmer may want to programmatically create a new directory. With this
 API, you'd create an object to represent that directory before it's written to
@@ -331,3 +331,9 @@ There are 2 key differences between existing and virtual elements:
 
 [1]: https://nodejs.org/api/fs.html "Node File System"
 [2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
+[3]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/ExistingFileElement.ts "ExistingFileElement interface"
+[4]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/directory/ExistingDirElement.ts "ExistingDirElement interface"
+[5]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/Element.ts "Element interface"
+[6]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/FileElement.ts "FileElement interface"
+[7]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/directory/DirElement.ts "DirElement interface"
+[8]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/ExistingElement.ts "ExistingElement interface"
