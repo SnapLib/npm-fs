@@ -2,8 +2,21 @@ import type Element from "./Element.js";
 
 export interface ExistingElement extends Element
 {
+    /**
+     * Synchronously returns the inode number of this existing directory
+     * element.
+     *
+     * @returns The inode number of this existing directory element
+     */
     inodeSync(): number;
 
+    /**
+     * Synchronously removes the directory located at this directory element's
+     * path.
+     *
+     * @returns `true` if nothing exists at this directory element's path after
+     *           performing remove operation.
+     */
     deleteSync(): boolean;
 
     copyToSync(dest: string, options?: {overwrite: boolean}): boolean;
