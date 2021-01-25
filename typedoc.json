@@ -1,8 +1,10 @@
 {
+  "gitRemote": "upstream",
   "ignoreCompilerErrors": true,
   "inputFiles": ["src/main/ts"],
   "mode": "modules",
-  "out": "build/docs",
-  "readme": "docs/package/README.md",
-  "stripInternal": true
+  "out": "build/tsdocs",
+  "readme": "docs/typedoc/README.md",
+  "stripInternal": true,
+  "tsconfig": "./src/main/ts/tsconfig.dev.json"
 }

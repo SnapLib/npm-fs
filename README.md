@@ -28,7 +28,7 @@ from the module.
 ## Examples
 
 To create an existing file element, pass a string composed of a path to a
-pre-existing file as an argument to the `ExistingFileElement`
+pre-existing file as an argument to the [`ExistingFileElement`][3]
 constructor or one of it's functions to create an existing file element object:
 
 ```typescript
@@ -54,7 +54,7 @@ console.log(existingFile.name);
 ```
 
 To create an existing directory element, pass a string composed of a path to a
-pre-existing directory as an argument to the `ExistingDirElement`
+pre-existing directory as an argument to the [`ExistingDirElement`][4]
 constructor or one of it's functions to create an existing directory element
 object:
 
@@ -218,7 +218,7 @@ To create a virtual file or directory element, any path can be provided. This
 will be the path of the virtual element if it were to get written to disk:
 
 ```typescript
-const virtualFile = new VirtualFileElement("path/of/this/file/element.md");
+const virtualFile = new VirtualFileElement("/path/of/this/file/element.md");
 
 console.log(virtualFile.elementType);
 // Prints "FILE"
@@ -232,7 +232,7 @@ console.log(virtualFile.name);
 console.log(virtualFile.parent);
 // Prints "path/of/this/file"
 
-const virtualDirectory = new VirtualDirElement("path/of/this/directory/element");
+const virtualDirectory = new VirtualDirElement("/path/of/this/directory/element");
 
 console.log(virtualDirectory.elementType);
 // Prints "DIRECTORY"
@@ -250,6 +250,8 @@ console.log(virtualDirectory.parent);
 // well
 const nonExistingDir = new VirtualDirElement("/Users/Main/Projects/snaplib-npm-fs");
 ```
+
+The source code for these classes/scripts can be found [here][5].
 
 ## File System Elements
 
@@ -275,24 +277,24 @@ can be represented programmatically via JavaScript objects.
 
 ### Element
 
-An `Element` (short for file system element) contains all the properties that
+An [`Element`][6] (short for file system element) contains all the properties that
 are shared between the 2 file element types, files and directories. This
 includes properties such as the element type, path, name, size, and parent
 directory it's contained in.
 
 ### File Element
 
-A `FileElement` (short for file system file element) is used to represent a
+A [`FileElement`][7] (short for file system file element) is used to represent a
 file (both existing and virtual) of a file system.
 
 ### Directory Element
 
-A `DirElement` (short for file system directory element) is used to represent
+A [`DirElement`][8] (short for file system directory element) is used to represent
 a directory (both existing and virtual) of a file system.
 
 ### Existing Element
 
-An `ExistingElement` (short for existing file system element) is a file system
+An [`ExistingElement`][9] (short for existing file system element) is a file system
 element representing a directory or file that has been written to a disk. For
 instance, when using the `readdir` function from the Node file system module,
 the directory passed as an argument to this function can be represented as an
@@ -300,7 +302,7 @@ existing directory element with this API.
 
 ### Virtual Element
 
-A `VirtualElement` (short for virtual file system element) is a representation
+A "Virtual Element" (short for virtual file system element) is a representation
 of a file or directory that exists purely as a JavaScript object. For instance,
 a programmer may want to programmatically create a new directory. With this
 API, you'd create an object to represent that directory before it's written to
@@ -313,7 +315,7 @@ are changed, it's essentially indistinguishable from the existing element it's
 based on. However there are a couple of key differences in the functionality
 between existing and virtual elements.
 
-## Differences between existing and virtual elements
+### Differences between existing and virtual elements
 
 There are 2 key differences between existing and virtual elements:
 
@@ -329,5 +331,63 @@ There are 2 key differences between existing and virtual elements:
     existing element is to read pre-existing files and directories and to
     create virtual elements based on existing elements.
 
+---
+
+## npm Package Project
+
+### npm package project rules, linting, and styles
+
+This project enforces certain linting rules enforced via `tsc` (the
+typescript compiler) linting [`options`][10], [ESlint][11], and
+[EditorConfig][12] settings. The rules themselves may vary slightly depending on
+the context of the source code. For example, the typescript compiler is set to
+enforce stricter linting (enforces more rules) when compiling for the
+distributable build versus the dev build.
+
+The rules defined for eslint can be found in the root [`.eslintrc.json`][13]
+file.
+
+ The rules defined for editorconfig can be found in the root
+[`.editorconfig`][14] file.
+
+The rules for the typescript compiler depend on the type of build the typescript
+is being compiled for. Theres one tsconfig file for distributable builds and
+another one for dev builds. Then there's one default tsconfig file that both the
+distributable and dev tsconfig files extend.
+
+- [default tsconfig][15]
+- [distributable build tsconfig][16]
+- [dev build tsconfig][17]
+
+### npm package project scripts
+
+This npm project contains scripts it uses for building, running, testing, and
+generating documentation. These scripts can be found in 2 locations:
+
+1. Defined inside the root [`package.json`][18] file of this npm package
+   project.
+1. Contained as a javascript mjs module inside this npm package project's
+   root [`scripts`][19] directory.
+
+Additional info can be found [here][20]
+
 [1]: https://nodejs.org/api/fs.html "Node File System"
 [2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
+[3]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/ExistingFileElement.ts "ExistingFileElement interface"
+[4]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/directory/ExistingDirElement.ts "ExistingDirElement interface"
+[5]: https://github.com/SnapLib/npm-fs/tree/stable/src/main/ts/lib/element "Element directory"
+[6]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/Element.ts "Element interface"
+[7]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/FileElement.ts "FileElement interface"
+[8]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/directory/DirElement.ts "DirElement interface"
+[9]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/ExistingElement.ts "ExistingElement interface"
+[10]: https://www.typescriptlang.org/tsconfig "typescript tsc config options"
+[11]: https://eslint.org/docs/rules/ "eslint rules"
+[12]: https://editorconfig.org/ "EditorConfig"
+[13]: https://github.com/SnapLib/npm-fs/blob/stable/.eslintrc.json "root eslintrc file"
+[14]: https://github.com/SnapLib/npm-fs/blob/stable/.editorconfig "root editorconfig file"
+[15]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.json "default tsconfig"
+[16]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.dist.json "distributable build tsconfig"
+[17]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.dev.json "dev build tsconfig"
+[18]: https://github.com/SnapLib/npm-fs/blob/stable/package.json "root package.json"
+[19]: https://github.com/SnapLib/npm-fs/tree/stable/scripts "npm package project scripts"
+[20]: https://github.com/SnapLib/npm-fs/blob/stable/docs/project/scripts/README.md

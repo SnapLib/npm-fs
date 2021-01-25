@@ -11,7 +11,7 @@
  * @see DirElement
  * @see FileElement
  *
- * @author Snap <XxSnapperGeexX@gmail.com>
+ * @author Snap <snap@snaplib.org>
  */
 
 /**
@@ -26,7 +26,7 @@
 export interface Element
 {
     /**
-     * The type of file element this element is.
+     * The type of file system element this element is.
      *
      * @readonly
      * @property
@@ -34,7 +34,7 @@ export interface Element
     readonly elementType: ElementType;
 
     /**
-     * The absolute path of this element.
+     * The absolute path of this file system element.
      *
      * @readonly
      * @property
@@ -42,8 +42,8 @@ export interface Element
     readonly path: string;
 
     /**
-     * The name of this file or directory element including its extension. This
-     * is the the name that is at the tail or endmost part of its path.
+     * The name of this file system element including its extension. This is the
+     * name that is at the tail or endmost part of its path.
      *
      * @readonly
      * @property
@@ -51,9 +51,9 @@ export interface Element
     readonly name: string;
 
     /**
-     * The absolute path of the directory this element resides in. If this
-     * element does not have a parent directory (i.e. it resides in the root
-     * directory of the operating system) then this property is set to
+     * The absolute path of the directory this file system element resides in.
+     * If this element does not have a parent directory (i.e. it resides in the
+     * root directory of the operating system) then this property is set to
      * `undefined`.
      *
      * @readonly
@@ -62,7 +62,7 @@ export interface Element
     readonly parent: string;
 
     /**
-     * Returns the length of this element.
+     * Returns the length of this file system element.
      *
      * @remarks If this element is a directory, returns the number of entries
      * this directory contains in its root (non-recursive).
@@ -70,7 +70,7 @@ export interface Element
      * @remarks If this element is a file, returns the number of lines this file
      * contains.
      *
-     * @returns the length of this element
+     * @returns the length of this file system element
      *
      * @abstract
      * @function
@@ -78,15 +78,24 @@ export interface Element
     length(): number;
 
     /**
-     * Returns `true` if this element exists and contains data.
+     * Returns `true` if this file system element contains no data.
      *
      * @returns `true` if this element exists and contains data
+     *
+     * @abstract
+     * @function
      */
     isEmpty(): boolean;
 
     /**
-     * Returns a string representation of this Element object. Contains this
-     * Element's properties formatted in a nice way for debugging purposes.
+     * Returns a string representation of this file system element object.
+     * Contains this element's properties formatted in a nice way for debugging
+     * purposes.
+     *
+     * @returns a string representation of this file system element object
+     *
+     * @abstract
+     * @function
      */
     toString(): string;
 }

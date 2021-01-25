@@ -42,11 +42,11 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
             file: (fileNameOrPath: string) =>
                 {return checkForFileOrDirName(this.fileSync(), fileNameOrPath);},
 
-            directory: (fileNameOrPath: string) =>
-                {return checkForFileOrDirName(this.dirSync(), fileNameOrPath);},
+            directory: (dirNameOrPath: string) =>
+                {return checkForFileOrDirName(this.dirSync(), dirNameOrPath);},
 
-            dirent: (fileNameOrPath: string) =>
-                {return checkForFileOrDirName(this.direntSync(), fileNameOrPath);}
+            dirent: (fileOrDirNameOrPath: string) =>
+                {return checkForFileOrDirName(this.direntSync(), fileOrDirNameOrPath);}
         };
     }
 
