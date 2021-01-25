@@ -365,7 +365,7 @@ generating documentation. These scripts can be found in 2 locations:
 1. Defined inside the root [`package.json`][18] file of this npm package
    project.
 1. Contained as a javascript mjs module inside this npm package project's
-   [`scripts`][19] directory.
+   root [`scripts`][19] directory.
 
 Additional info can be found [here][20]
 
