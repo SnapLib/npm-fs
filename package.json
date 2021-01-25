@@ -18,7 +18,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/SnapLib/npm-fs/tree/stable"
+    "url": "https://github.com/SnapLib/npm-fs/tree/release"
   },
   "scripts": {
     "build-dev": "tsc -p src/main/ts/tsconfig.dev.json --outDir build/js",
