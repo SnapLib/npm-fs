@@ -130,7 +130,7 @@ export class VirtualDirElement extends AbstractDirElement
 
     public length(): number
     {
-        return this.direntSync().names.length;
+        return this.direntSync().count;
     }
 
     public toString(): string
