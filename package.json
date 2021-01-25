@@ -22,7 +22,8 @@
   },
   "scripts": {
     "build-dev": "tsc -p src/main/ts/tsconfig.dev.json --outDir build/js",
-    "build-dist": "tsc -p src/main/ts/tsconfig.dist.json --outDir build/dist/$npm_config_dist_root_pkg_dirname -d --declarationDir build/dist/$npm_config_dist_root_pkg_dirname/types && node scripts/build/build-dist.mjs $npm_config_dist_root_pkg_dirname",
+    "prebuild-dist": "tsc -p src/main/ts/tsconfig.dist.json --outDir build/dist/$npm_config_dist_root_pkg_dirname -d --declarationDir build/dist/$npm_config_dist_root_pkg_dirname/types",
+    "build-dist": "node scripts/build/build-dist.mjs $npm_config_dist_root_pkg_dirname",
     "build-dist-types": "tsc -p src/main/ts/tsconfig.dist.json -d --emitDeclarationOnly --declarationDir build/dist/snaplib__npm-fs",
     "build-tsdocs": "typedoc --options ./typedoc.json",
     "clean": "node scripts/clean.mjs",
