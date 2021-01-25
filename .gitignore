@@ -1,9 +1,9 @@
 !**
-node_modules
 build
+node_modules
+!docs/**
 !scripts/**
 .idea
 .project
 **/.DS_Store
 *~
-!/docs/**
