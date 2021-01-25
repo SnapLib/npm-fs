@@ -362,7 +362,7 @@ distributable and dev tsconfig files extend.
 This npm project contains scripts it uses for building, running, testing, and
 generating documentation. These scripts can be found in 2 locations:
 
-1. Defined inside the root [`.package.json`][18] file of this npm package
+1. Defined inside the root [`package.json`][18] file of this npm package
    project.
 1. Contained as a javascript mjs module inside this npm package project's
    [`scripts`][19] directory.
