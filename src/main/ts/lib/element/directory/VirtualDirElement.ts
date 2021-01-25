@@ -39,8 +39,33 @@ export class VirtualDirElement extends AbstractDirElement
 
         return {
             names: fileRelativePathsArray,
-            paths: fileRelativePathsArray.map(fileName => path.join(this.path, fileName)),
-            count: fileRelativePathsArray.length
+            paths: fileRelativePathsArray.map(fileRelPath => path.join(this.path, fileRelPath)),
+            count: fileRelativePathsArray.length,
+            contains: {
+                name: (fileName:string, options?: {matchCase: boolean}): boolean =>
+                {
+                    if (options?.matchCase)
+                    {
+                        return fileRelativePathsArray.some(fileRelativePath => fileName === path.basename(fileRelativePath));
+                    }
+                    else
+                    {
+                        return fileRelativePathsArray.some(fileRelativePath => fileName.localeCompare(path.basename(fileRelativePath), undefined, {sensitivity: "base"}) === 0);
+                    }
+                },
+
+                path: (fileAbsOrRelPath: string, options?: {matchCase: boolean}): boolean =>
+                {
+                    if (options?.matchCase)
+                    {
+                        return fileRelativePathsArray.some(fileRelPath => fileRelPath === fileAbsOrRelPath || path.join(this.path, fileRelPath) === fileAbsOrRelPath);
+                    }
+                    else
+                    {
+                        return fileRelativePathsArray.some(fileRelPath => fileAbsOrRelPath.localeCompare(fileRelPath, undefined, {sensitivity: "base"}) === 0 || fileAbsOrRelPath.localeCompare(path.join(this.path, fileRelPath), undefined, {sensitivity: "base"}) === 0);
+                    }
+                }
+            }
         };
     }
 
@@ -52,7 +77,32 @@ export class VirtualDirElement extends AbstractDirElement
         return {
             names: relativeDirPathsArray,
             paths: relativeDirPathsArray.map(dirName => path.join(this.path, dirName)),
-            count: relativeDirPathsArray.length
+            count: relativeDirPathsArray.length,
+            contains: {
+                name: (dirName:string, options?: {matchCase: boolean}): boolean =>
+                {
+                    if (options?.matchCase)
+                    {
+                        return relativeDirPathsArray.some(dirRelativePath => dirName === path.basename(dirRelativePath));
+                    }
+                    else
+                    {
+                        return relativeDirPathsArray.some(dirRelativePath => dirName.localeCompare(path.basename(dirRelativePath), undefined, {sensitivity: "base"}) === 0);
+                    }
+                },
+
+                path: (dirAbsOrRelPath: string, options?: {matchCase: boolean}): boolean =>
+                {
+                    if (options?.matchCase)
+                    {
+                        return relativeDirPathsArray.some(dirRelPath => dirRelPath === dirAbsOrRelPath || path.join(this.path, dirRelPath) === dirAbsOrRelPath);
+                    }
+                    else
+                    {
+                        return relativeDirPathsArray.some(dirRelPath => dirAbsOrRelPath.localeCompare(dirRelPath, undefined, {sensitivity: "base"}) === 0 || dirAbsOrRelPath.localeCompare(path.join(this.path, dirRelPath), undefined, {sensitivity: "base"}) === 0);
+                    }
+                }
+            }
         };
     }
 
@@ -61,7 +111,20 @@ export class VirtualDirElement extends AbstractDirElement
         return {
             names: this.fileSync().names.concat(this.dirSync().names),
             paths: this.fileSync().paths.concat(this.dirSync().paths),
-            count: this.fileSync().count + this.direntSync().count
+            count: this.fileSync().count + this.direntSync().count,
+            contains: {
+                name: (direntName:string, options?: {matchCase: boolean}): boolean =>
+                {
+                    return this.fileSync().contains.name(direntName, options)
+                           || this.dirSync().contains.name(direntName, options);
+                },
+
+                path: (direntAbsOrRelPath: string, options?: {matchCase: boolean}): boolean =>
+                {
+                    return this.fileSync().contains.path(direntAbsOrRelPath, options)
+                           || this.dirSync().contains.path(direntAbsOrRelPath, options);
+                }
+            }
         };
     }
 
