@@ -331,6 +331,8 @@ There are 2 key differences between existing and virtual elements:
     existing element is to read pre-existing files and directories and to
     create virtual elements based on existing elements.
 
+---
+
 ## npm Package Project
 
 ### npm package project rules, linting, and styles
