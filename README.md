@@ -335,11 +335,12 @@ There are 2 key differences between existing and virtual elements:
 
 ### npm package project rules, linting, and styles
 
-This project enforces certain linting rules enforced via [`tsc`][10] (the
-typescript compiler) [ESlint][11], and [EditorConfig][12] settings. The rules
-themselves may vary slightly depending on the context of the source code. For
-example, the compiler is set to enforce stricter linting (enforces more rules)
-when compiling as part of the build distributable process.
+This project enforces certain linting rules enforced via `tsc` (the
+typescript compiler) linting [`options`][10], [ESlint][11], and
+[EditorConfig][12] settings. The rules themselves may vary slightly depending on
+the context of the source code. For example, the typescript compiler is set to
+enforce stricter linting (enforces more rules) when compiling for the
+distributable build versus the dev build.
 
 The rules defined for eslint can be found in the root [`.eslintrc.json`][13]
 file.
@@ -356,6 +357,11 @@ distributable and dev tsconfig files extend.
 - [distributable build tsconfig][16]
 - [dev build tsconfig][17]
 
+### npm package project scripts
+
+This npm project contains scripts it uses for building, running, testing, and
+generating documentation.
+
 [1]: https://nodejs.org/api/fs.html "Node File System"
 [2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
 [3]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/ExistingFileElement.ts "ExistingFileElement interface"
@@ -365,7 +371,7 @@ distributable and dev tsconfig files extend.
 [7]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/FileElement.ts "FileElement interface"
 [8]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/directory/DirElement.ts "DirElement interface"
 [9]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/ExistingElement.ts "ExistingElement interface"
-[10]: https://github.com/SnapLib/npm-fs/tree/stable/src/main/ts/lib/element "typescript tsc"
+[10]: https://www.typescriptlang.org/tsconfig "typescript tsc config options"
 [11]: https://eslint.org/docs/rules/ "eslint rules"
 [12]: https://editorconfig.org/ "EditorConfig"
 [13]: https://github.com/SnapLib/npm-fs/blob/stable/.eslintrc.json "root eslintrc file"
