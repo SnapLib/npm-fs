@@ -32,7 +32,7 @@
     "test": "mocha -r ts-node/register --extension ts --recursive true src/test/ts",
     "test-report": "mocha -r ts-node/register --extension ts --recursive true src/test/ts --reporter mochawesome --reporter-options consoleReporter=none,reportDir=build/testreport,reportFilename=index",
     "ts-node": "ts-node",
-    "tsc": "tsc",
+    "tsc": "tsc"
   },
   "keywords": [
     "snaplib",
