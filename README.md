@@ -331,7 +331,7 @@ There are 2 key differences between existing and virtual elements:
     existing element is to read pre-existing files and directories and to
     create virtual elements based on existing elements.
 
-## npm package project
+## npm Package Project
 
 ### npm package project rules, linting, and styles
 
@@ -360,7 +360,14 @@ distributable and dev tsconfig files extend.
 ### npm package project scripts
 
 This npm project contains scripts it uses for building, running, testing, and
-generating documentation.
+generating documentation. These scripts can be found in 2 locations:
+
+1. Defined inside the root [`.package.json`][18] file of this npm package
+   project.
+1. Contained as a javascript mjs module inside this npm package project's
+   [`scripts`][19] directory.
+
+Additional info can be found [here][20]
 
 [1]: https://nodejs.org/api/fs.html "Node File System"
 [2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
@@ -379,3 +386,6 @@ generating documentation.
 [15]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.json "default tsconfig"
 [16]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.dist.json "distributable build tsconfig"
 [17]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.dev.json "dev build tsconfig"
+[18]: https://github.com/SnapLib/npm-fs/blob/stable/package.json "root package.json"
+[19]: https://github.com/SnapLib/npm-fs/tree/stable/scripts "npm package project scripts"
+[20]: https://github.com/SnapLib/npm-fs/blob/stable/docs/project/scripts/README.md
