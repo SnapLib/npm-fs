@@ -1,6 +1,6 @@
 {
   "name": "@snaplib/npm-fs",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Object oriented file system API",
   "type": "module",
   "main": "./npm-fs.js",
