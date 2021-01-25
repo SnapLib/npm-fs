@@ -223,11 +223,11 @@ export const dirReaderSync = (directoryPath: string, options?: {recursive: boole
                             && existingDirElementAbsPaths.some(existingDirPath =>
                                                                      existingDirAbsOrRelPath.localeCompare(existingDirPath,
                                                                                                            undefined,
-                                                                                                           {sensitivity: "base"}
+                                                                                                           {sensitivity: "base"}) === 0
                                                                      || existingDirAbsOrRelPath.slice(directoryPath.length + 1)
                                                                                                .localeCompare(existingDirPath,
                                                                                                               undefined,
-                                                                                                              {sensitivity: "base"}))))
+                                                                                                              {sensitivity: "base"}) === 0))
                         {
                             return true;
                         }
