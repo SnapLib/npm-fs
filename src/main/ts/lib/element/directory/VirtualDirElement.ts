@@ -97,7 +97,7 @@ export class VirtualDirElement extends AbstractDirElement
  * @param contents The files and/or directories the directory at the provided
  *                 `dirPath` contains
  */
-const dirReader = (dirPath: string, contents?: {fileRelPaths?: ReadonlyArray<string>, dirRelPaths?: ReadonlyArray<string>}): VirtualDirents & {file: VirtualDirents, directory: VirtualDirents} =>
+const dirReader = (dirPath: string, contents?: {fileRelPaths?: ReadonlyArray<string>, dirRelPaths?: ReadonlyArray<string>}): Readonly<VirtualDirents & {file: VirtualDirents, directory: VirtualDirents}> =>
 {
     const _fileRelPaths: ReadonlyArray<string> =
         contents?.fileRelPaths?.map(filePath => path.isAbsolute(filePath) ? filePath.slice(1) : filePath) ?? [];
