@@ -190,6 +190,10 @@ export const dirSize = (directoryPath: string): number =>
  * of `0`. This means only the root of the directory is read. All other files
  * and directories are ignored.
  *
+ * @remarks
+ * This expression can probably be refactored and combined with the similar
+ * expression located in the {@link VirtualDirElement} class.
+ *
  * @param directoryPath The path to the directory to read.
  *
  * @param options To read directory recursively or not.
@@ -215,6 +219,10 @@ export const dirReaderSync = (directoryPath: string, options?: {recursive: boole
 
                 path: (existingDirElementAbsPaths: ReadonlyArray<string>, existingDirAbsOrRelPath: string, options?: {matchCase: boolean}): boolean =>
                     {
+                        if (existingDirElementAbsPaths.includes(existingDirAbsOrRelPath))
+                        {
+                            return true;
+                        }
                         /*
                         If matchCase option isn't explicitly set to false,
                         perform check case insensitively.
@@ -238,14 +246,9 @@ export const dirReaderSync = (directoryPath: string, options?: {recursive: boole
                          of this.path + 1 from the absolute path and then strict
                          comparing it to the provided string argument.
                          */
-                        else if (existingDirElementAbsPaths.includes(existingDirAbsOrRelPath)
-                                 || existingDirElementAbsPaths.some(existingDirPath => existingDirPath.slice(directoryPath.length + 1) === existingDirAbsOrRelPath))
-                        {
-                            return true;
-                        }
                         else
                         {
-                            return false;
+                            return existingDirElementAbsPaths.some(existingDirPath => existingDirPath.slice(directoryPath.length + 1) === existingDirAbsOrRelPath);
                         }
                     }
             };
