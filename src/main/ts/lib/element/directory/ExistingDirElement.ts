@@ -34,14 +34,11 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
      * @param existingDirPath The absolute path or the prefix of the absolute
      *                        path of this file system element
      *
-     * @param morePaths Additional paths that will be appended as nested paths
-     *                  to `existingDirPath`
-     *
      * @constructor
      */
-    public constructor(existingDirPath: string, ...morePaths: ReadonlyArray<string>)
+    public constructor(existingDirPath: string)
     {
-        super(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)), {exists: true});
+        super(existingDirPath, {exists: true});
     }
 
     public fileSync(options?: {recursive: boolean}): Readonly<ExistingDirents>
@@ -136,6 +133,17 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
     public toString(): string
     {
         return "ExistingDirElement:\n".concat(super.toString());
+    }
+
+    /**
+     *
+     * @param existingDirPath
+     * @param morePaths Additional paths that will be appended as nested paths
+     *                  to `existingDirPath`
+     */
+    public static of(existingDirPath: string, ...morePaths: ReadonlyArray<string>): Readonly<ExistingDirElement>
+    {
+        return new ExistingDirElement(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)));
     }
 }
 
