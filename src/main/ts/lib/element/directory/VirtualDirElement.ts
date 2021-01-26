@@ -75,6 +75,12 @@ export class VirtualDirElement extends AbstractDirElement
         return "VirtualDirElement:\n".concat(super.toString());
     }
 
+    /**
+     *
+     * @param virtualDirPath
+     * @param morePaths Additional paths that will be appended as nested paths
+     *                  to `virtualDirPath`
+     */
     public static withPath(virtualDirPath:string, ...morePaths: ReadonlyArray<string>): VirtualDirElement
     {
         return new VirtualDirElement(path.normalize([virtualDirPath].concat(morePaths).join(path.sep)));
