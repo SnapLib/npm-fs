@@ -3,6 +3,7 @@ import AbstractDirElement from "./AbstractDirElement.js";
 import type { ExistingDirents } from "./DirElement.js";
 import Path from "path";
 import fs from "fs";
+import {fileURLToPath} from "url";
 
 /**
  * Class to create existing file system directory element objects.
@@ -137,13 +138,29 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
 
     /**
      *
-     * @param existingDirPath
+     * @param existingDirPath The absolute path or root of the absolute path of
+     *                        an existing directory
+     *
      * @param morePaths Additional paths that will be appended as nested paths
      *                  to `existingDirPath`
+     *
+     * @returns An ExistingDirElement object created from the provided path
+     *          argument(s)
      */
     public static of(existingDirPath: string, ...morePaths: ReadonlyArray<string>): Readonly<ExistingDirElement>
     {
         return new ExistingDirElement(Path.normalize([existingDirPath].concat(morePaths).join(Path.sep)));
+    }
+
+    /**
+     *
+     * @param directoryUrl The url to an existing directory
+     *
+     * @returns An ExistingDirElement object created from the provided url
+     */
+    public static ofUrl(directoryUrl: string): Readonly<ExistingDirElement>
+    {
+        return new ExistingDirElement(fileURLToPath(directoryUrl));
     }
 }
 
