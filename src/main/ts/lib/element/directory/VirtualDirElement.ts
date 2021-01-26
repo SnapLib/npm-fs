@@ -8,9 +8,9 @@ export class VirtualDirElement extends AbstractDirElement
     readonly #relativeFilePaths: Set<string>;
     readonly #relativeDirPaths: Set<string>;
 
-    public constructor(virtualDirPath:string, ...morePaths: ReadonlyArray<string>)
+    public constructor(virtualDirPath: string)
     {
-        super(path.normalize([virtualDirPath].concat(morePaths).join(path.sep)), {exists: false});
+        super(virtualDirPath, {exists: false});
 
         if (fs.existsSync(this.path) && fs.lstatSync(this.path).isDirectory())
         {
@@ -73,6 +73,11 @@ export class VirtualDirElement extends AbstractDirElement
     public toString(): string
     {
         return "VirtualDirElement:\n".concat(super.toString());
+    }
+
+    public static withPath(virtualDirPath:string, ...morePaths: ReadonlyArray<string>): VirtualDirElement
+    {
+        return new VirtualDirElement(path.normalize([virtualDirPath].concat(morePaths).join(path.sep)));
     }
 }
 
