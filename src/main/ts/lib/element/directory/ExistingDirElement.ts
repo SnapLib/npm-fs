@@ -198,7 +198,7 @@ export const dirSize = (directoryPath: string): number =>
  *
  * @param options To read directory recursively or not.
  */
-export const dirReaderSync = (directoryPath: string, options?: {recursive: boolean}): ExistingDirents & {file: ExistingDirents, directory: ExistingDirents} =>
+export const dirReaderSync = (directoryPath: string, options?: {recursive: boolean}): Readonly<ExistingDirents & {file: ExistingDirents, directory: ExistingDirents}> =>
 {
     const _contains =
             {
