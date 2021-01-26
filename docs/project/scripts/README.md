@@ -77,14 +77,14 @@ $npm run build-dist
 After running the script, a `build` directory gets created in the root of this
 project containing a directory named `dist`. A directory inside this `dist`
 directory gets created with its name provided externally to the script. This
-project uses the `dist_root_pkg_dirname` npm config environment variable from
+project uses the [`dist_root_pkg_dirname`][1] npm config environment variable from
 this project's [`.npmrc`][1]. Inside this directory, the src code from
 [`src/main/ts`][5] gets compiled while maintaining its file structure.
 
 It calls `tsc` (the typescript compiler) with:
 
 - the `project` option set to [`src/main/ts/tsconfig.dist.json`][6]
-- the `outDir` option set to `build/dist/$npm_config_dist_root_pkg_dirname`
+- the `outDir` option set to `build/dist/`[`$npm_config_dist_root_pkg_dirname`][1]
 - the `declarationDir` option set to
 `build/dist/$npm_config_dist_root_pkg_dirname/types`
 
@@ -127,8 +127,21 @@ If passed 1 argument, the passed argument takes precedence and is used to
 resolve the path to the distributable npm package root directory over the
 `dist_root_pkg_dirname` npm config environment variable.
 
-If passed 2 arguments, second argument takes precedence over both the first
+If passed 2 arguments, the second argument takes precedence over both the first
 argument and the `dist_root_pkg_dirname` npm config environment variable.
+
+By default it's called with no arguments passed so the default dist package
+root directory name retrieved from the npm config environment variable is used.
+
+### **NOTE:**
+
+If the distributable package root directory from the prebuild step can't be
+found in the `build/dist` directory an error gets thrown. This script looks for
+a directory with the same name as the provided argument in the `build/dist`
+directory. Since by default this script is called with no arguments and uses the
+same npm config environment variable value that's used in the prebuild step,
+this works. However, if this script were passed an argument that didn't match
+that value, an error of not being able to find the directory will be thrown.
 
 [1]: ../../../.npmrc "root npm config file"
 [2]: ../../project/build/README.md "root build directory readme"
