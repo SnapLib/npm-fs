@@ -1,4 +1,4 @@
-import {ExistingDirElement} from "../../../../../main/ts/lib/element/directory/ExistingDirElement";
+import {ExistingDirElement} from "../../../../../main/ts/lib/element/directory/ExistingDirElement.js";
 import {assert} from "chai";
 import {describe, it} from "mocha";
 
@@ -9,7 +9,7 @@ describe("MockExistingDirectory", function () {
     {
         it("should not throw when constructed", function ()
         {
-            assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirPath), /^.*?$/g);
+            assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirPath));
         });
     });
 });
