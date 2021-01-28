@@ -9,11 +9,11 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         super(path, {exists: options.exists, type: "directory"});
     }
 
-    public abstract fileSync(): ExistingDirents | VirtualDirents;
+    public abstract fileSync(options?: {recursive: boolean}): ExistingDirents | VirtualDirents;
 
-    public abstract dirSync(): ExistingDirents | VirtualDirents;
+    public abstract dirSync(options?: {recursive: boolean}): ExistingDirents | VirtualDirents;
 
-    public abstract direntSync(): ExistingDirents | VirtualDirents;
+    public abstract direntSync(options?: {recursive: boolean}): ExistingDirents | VirtualDirents;
 
     public abstract length(): number;
 
