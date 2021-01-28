@@ -24,18 +24,18 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
                    dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean }>
     {
         const checkForFileOrDirName = (dirents: ExistingDirents | VirtualDirents,
-                                       compareString: string) =>
+                                       fileOrDirSearchString: string) =>
         {
-            if (isAbsolute(compareString) && ! compareString.startsWith(compareString))
+            if (isAbsolute(fileOrDirSearchString) && ! fileOrDirSearchString.startsWith(fileOrDirSearchString))
             {
                 return false;
             }
             // Perform case insensitive search if ignore case is true
             else
             {
-                const formattedCompareString = isAbsolute(compareString)
-                                               ? compareString
-                                               : join(this.path, compareString);
+                const formattedCompareString = isAbsolute(fileOrDirSearchString)
+                                               ? fileOrDirSearchString
+                                               : join(this.path, fileOrDirSearchString);
 
                 if (options?.ignoreCase === true)
                 {
