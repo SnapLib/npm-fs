@@ -29,7 +29,7 @@
     "clean": "node scripts/clean.mjs",
     "lint": "eslint --ext ts src/main/ts",
     "npm-fs": "node build/js/npm-fs.js",
-    "test": "mocha -r ts-node/register --extension ts --recursive true src/test/ts",
+    "test": "env TS_NODE_PROJECT='src/test/ts/tsconfig.json' mocha -r ts-node/register --extension ts --recursive true src/test/ts",
     "test-report": "mocha -r ts-node/register --extension ts --recursive true src/test/ts --reporter mochawesome --reporter-options consoleReporter=none,reportDir=build/testreport,reportFilename=index",
     "ts-node": "ts-node",
     "tsc": "tsc"
