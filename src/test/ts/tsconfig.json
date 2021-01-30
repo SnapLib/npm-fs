@@ -1,0 +1,14 @@
+{
+  "include": ["./**/*.ts", "../../main/ts/**/*.ts"],
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "lib": ["ES2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": false,
+    "removeComments": true,
+    "target": "ES2020"
+  }
+}
