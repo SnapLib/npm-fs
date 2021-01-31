@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.src.json",
   "compilerOptions": {
+    "declaration": false,
     "noEmitOnError": false,
     "noImplicitReturns": false,
     "noUncheckedIndexedAccess": false,
