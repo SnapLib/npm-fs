@@ -2,7 +2,6 @@
   "extends": "./tsconfig.src.json",
   "compilerOptions":
   {
-    "esModuleInterop": true,
     "noEmitOnError": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
