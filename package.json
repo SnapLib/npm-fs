@@ -21,14 +21,15 @@
     "url": "https://github.com/SnapLib/npm-fs/tree/release"
   },
   "scripts": {
-    "build-dev": "tsc -p src/main/ts/tsconfig.dev.json --outDir build/js",
+    "build-dev": "tsc -p src/main/ts/tsconfig.dev.json --outDir build/dev/js",
     "prebuild-dist": "tsc -p src/main/ts/tsconfig.dist.json --outDir build/dist/$npm_config_dist_root_pkg_dirname -d --declarationDir build/dist/$npm_config_dist_root_pkg_dirname/types",
     "build-dist": "node scripts/build/build-dist.mjs",
     "build-dist-types": "tsc -p src/main/ts/tsconfig.dist.json -d --emitDeclarationOnly --declarationDir build/dist/snaplib__npm-fs",
+    "build-test": "tsc -p src/test/ts/tsconfig.json --outDir build/test/js",
     "build-tsdocs": "typedoc --options ./typedoc.json",
     "clean": "node scripts/clean.mjs",
     "lint": "eslint --ext ts src/main/ts",
-    "npm-fs": "node build/js/npm-fs.js",
+    "npm-fs": "node build/dev/js/npm-fs.js",
     "test": "env TS_NODE_PROJECT='src/test/ts/tsconfig.json' mocha -r ts-node/register --extension ts --recursive true src/test/ts",
     "test-report": "mocha -r ts-node/register --extension ts --recursive true src/test/ts --reporter mochawesome --reporter-options consoleReporter=none,reportDir=build/testreport-report,reportFilename=index",
     "ts-node": "ts-node",
