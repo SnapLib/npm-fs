@@ -2,12 +2,14 @@
   "include": ["../../main/ts/**/*.ts"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
     "esModuleInterop": true,
     "inlineSourceMap": true,
     "lib": ["ES2020"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitOnError": false,
+    "rootDir": ".",
     "removeComments": true,
     "target": "ES2020"
   }
