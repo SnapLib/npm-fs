@@ -2,13 +2,16 @@
   "extends": "./tsconfig.src.json",
   "compilerOptions":
   {
+    "alwaysStrict": true,
     "noEmitOnError": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
+    "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "preserveConstEnums": false,
+    "removeComments": false,
     "sourceMap": false,
     "strict": true,
     "strictBindCallApply": true,
