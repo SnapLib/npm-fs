@@ -12,5 +12,10 @@
     "rootDir": ".",
     "removeComments": true,
     "target": "ES2020"
+  },
+  "typeAcquisition":
+  {
+    "include": ["chai",
+                "mocha"]
   }
 }
