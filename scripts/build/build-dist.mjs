@@ -243,7 +243,7 @@ const distPkgDirName = ((cliArgs) =>
     { console.log(
         "no distributable npm root package directory name command line argument"
      +  "\nprovided. Setting distributable package root directory name to npm"
-     +  '\n"dist_root_pkg_dirname" config property value: '
+     +  '\n"dist_root_pkg_dirname" config property value:\n'
      +  `"${process.env.npm_config_dist_root_pkg_dirname}"\n`);
 
         return process.env.npm_config_dist_root_pkg_dirname;

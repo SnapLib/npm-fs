@@ -1,11 +1,15 @@
 {
-  "extends": "./tsconfig.json",
+  "extends": "./tsconfig.src.json",
   "compilerOptions": {
-    "esModuleInterop": false,
+    "declaration": false,
     "noEmitOnError": false,
+    "noImplicitReturns": false,
+    "noUncheckedIndexedAccess": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "preserveConstEnums": true,
-    "sourceMap": true
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": false
   }
 }

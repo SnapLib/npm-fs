@@ -138,6 +138,13 @@ interface ReturnedDirents
     names: ReturnType<() => ReadonlyArray<string>>,
     paths: ReturnType<() => ReadonlyArray<string>>,
     count: number;
+
+    readonly contains:
+        {
+            readonly dirent?: (aDirent: Dirent) => boolean,
+            readonly name: (elementName: string, options?: {matchCase: boolean}) => boolean,
+            readonly path: (elementAbsOrRelPath: string, options?: {matchCase: boolean}) => boolean
+        };
 }
 
 /**
@@ -147,7 +154,15 @@ interface ReturnedDirents
  * `Dirent` objects. The total number of directory entries can be returned as
  * well.
  */
-export type ExistingDirents = Required<ReturnedDirents>;
+export interface ExistingDirents extends Required<ReturnedDirents>
+{
+    readonly contains:
+        {
+            readonly dirent: (aDirent: Dirent) => boolean,
+            readonly name: (existingElementName: string, options?: {matchCase: boolean}) => boolean,
+            readonly path: (existingElementAbsOrRelPath: string, options?: {matchCase: boolean}) => boolean
+        };
+}
 
 /**
  * Contains the type of properties the directory entries (dirents) of a virtual
@@ -155,6 +170,13 @@ export type ExistingDirents = Required<ReturnedDirents>;
  * returned as absolute path strings and name strings. The total number of
  * directory entries can be returned as well.
  */
-export type VirtualDirents = Required<Omit<ReturnedDirents, "dirents">>;
+export interface VirtualDirents extends Required<Omit<ReturnedDirents, "dirents">>
+{
+    readonly contains:
+        {
+            readonly name: (virtualElementName: string, options?: {matchCase: boolean}) => boolean,
+            readonly path: (virtualElementAbsOrRelPath: string, options?: {matchCase: boolean}) => boolean
+        };
+}
 
 export {DirElement as default};

@@ -1,0 +1,18 @@
+{
+  "extends": "../../../tsconfig.json",
+  "include": ["./**/*.ts"],
+  "compilerOptions":
+  {
+    "baseUrl": "./",
+    "rootDir": ".",
+  },
+  "typeAcquisition":
+  {
+    "exclude": ["chai",
+                "eslint",
+                "mocha",
+                "mochawesome",
+                "ts-node",
+                "typedoc"]
+  }
+}

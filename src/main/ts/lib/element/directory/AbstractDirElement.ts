@@ -1,6 +1,7 @@
 import AbstractElement from "../AbstractElement.js";
 import DirElement from "./DirElement.js";
 import type {ExistingDirents, VirtualDirents} from "./DirElement.js";
+import {isAbsolute, join} from "path";
 
 export abstract class AbstractDirElement extends AbstractElement implements DirElement
 {
@@ -9,11 +10,11 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         super(path, {exists: options.exists, type: "directory"});
     }
 
-    public abstract fileSync(): ExistingDirents | VirtualDirents;
+    public abstract fileSync(options?: {recursive: boolean}): ExistingDirents | VirtualDirents;
 
-    public abstract dirSync(): ExistingDirents | VirtualDirents;
+    public abstract dirSync(options?: {recursive: boolean}): ExistingDirents | VirtualDirents;
 
-    public abstract direntSync(): ExistingDirents | VirtualDirents;
+    public abstract direntSync(options?: {recursive: boolean}): ExistingDirents | VirtualDirents;
 
     public abstract length(): number;
 
@@ -23,30 +24,42 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
                    dirent: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean }>
     {
         const checkForFileOrDirName = (dirents: ExistingDirents | VirtualDirents,
-                                       compareString: string) =>
+                                       fileOrDirSearchString: string) =>
         {
-            // Perform case insensitive search if ignore case is true
-            if (options?.ignoreCase === true)
+            if (isAbsolute(fileOrDirSearchString) && ! fileOrDirSearchString.startsWith(fileOrDirSearchString))
             {
-                return dirents.names.some(direntName => compareString.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0)
-                       || dirents.paths.some(direntPath => compareString.localeCompare(direntPath, undefined, {sensitivity: "base"}) === 0);
+                return false;
             }
+            // Perform case insensitive search if ignore case is true
             else
             {
-                return dirents.names.includes(compareString)
-                       || dirents.paths.includes(compareString);
+                const formattedCompareString = isAbsolute(fileOrDirSearchString)
+                                               ? fileOrDirSearchString
+                                               : join(this.path, fileOrDirSearchString);
+
+                if (options?.ignoreCase === true)
+                {
+
+                    return dirents.names.some(direntName => formattedCompareString.localeCompare(direntName, undefined, {sensitivity: "base"}) === 0)
+                           || dirents.paths.some(direntPath => formattedCompareString.localeCompare(direntPath, undefined, {sensitivity: "base"}) === 0);
+                }
+                else
+                {
+                    return dirents.names.includes(formattedCompareString)
+                           || dirents.paths.includes(formattedCompareString);
+                }
             }
         };
 
         return {
             file: (fileNameOrPath: string) =>
-                {return checkForFileOrDirName(this.fileSync(), fileNameOrPath);},
+                {return checkForFileOrDirName(this.fileSync({recursive: options?.recursive ?? false}), fileNameOrPath);},
 
             directory: (dirNameOrPath: string) =>
-                {return checkForFileOrDirName(this.dirSync(), dirNameOrPath);},
+                {return checkForFileOrDirName(this.dirSync({recursive: options?.recursive ?? false}), dirNameOrPath);},
 
             dirent: (fileOrDirNameOrPath: string) =>
-                {return checkForFileOrDirName(this.direntSync(), fileOrDirNameOrPath);}
+                {return checkForFileOrDirName(this.direntSync({recursive: options?.recursive ?? false}), fileOrDirNameOrPath);}
         };
     }
 

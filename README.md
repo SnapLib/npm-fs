@@ -12,7 +12,7 @@ of the above warning.
 
 API to interact with a file system.
 
-![npm (scoped)](https://img.shields.io/npm/v/@snaplib/npm-fs?color=%2366ff66&logo=npm&style=flat-square) ![NPM](https://img.shields.io/npm/l/@snaplib/npm-fs?color=%2366ff66&style=flat-square)
+![npm (scoped)](https://img.shields.io/npm/v/@snaplib/npm-fs?color=%2366ff66&logo=npm&style=flat-square) ![NPM](https://img.shields.io/npm/l/@snaplib/npm-fs?color=%2366ff66&style=flat-square) ![Libraries.io dependency status for latest release, scoped npm package](https://img.shields.io/librariesio/release/npm/@snaplib/npm-fs?logo=npm&style=flat-square)
 
 ## Synopsis
 
@@ -73,11 +73,11 @@ console.log(existingDirectory.elementType);
 console.log(existingDirectory.path);
 // Prints "/Users/Main/Projects/snaplib-npm-fs"
 
-console.log(existingDirectory.name);
-// Prints "snaplib-npm-fs"
-
 console.log(existingDirectory.parent);
 // Prints "/Users/Main/Projects"
+
+console.log(existingDirectory.name);
+// Prints "snaplib-npm-fs"
 
 console.log(existingDirectory.fileSync().names);
 /*
@@ -140,8 +140,7 @@ console.log(existingDirectory.dirSync().paths);
 
 console.log(existingDirectory.dirSync().paths);
 /*
- * Prints string array of absolute paths of directories retrieved in a
- * synchronous manner:
+ * Prints Dirent array of directories retrieved in a synchronous manner:
  * [ Dirent { name: '.git', [Symbol(type)]: 2 },
  *   Dirent { name: '.idea', [Symbol(type)]: 2 },
  *   Dirent { name: 'build', [Symbol(type)]: 2 },
@@ -226,11 +225,11 @@ console.log(virtualFile.elementType);
 console.log(virtualFile.path);
 // Prints "path/of/this/file/element.md"
 
-console.log(virtualFile.name);
-// Prints "element.md"
-
 console.log(virtualFile.parent);
 // Prints "path/of/this/file"
+
+console.log(virtualFile.name);
+// Prints "element.md"
 
 const virtualDirectory = new VirtualDirElement("/path/of/this/directory/element");
 
@@ -240,11 +239,11 @@ console.log(virtualDirectory.elementType);
 console.log(virtualDirectory.path);
 // Prints "path/of/this/directory/element"
 
-console.log(virtualDirectory.name);
-// Prints "element"
-
 console.log(virtualDirectory.parent);
 // Prints "path/of/this/file"
+
+console.log(virtualDirectory.name);
+// Prints "element"
 
 // Existing file and directory paths can be used to create virtual elements as
 // well
@@ -364,8 +363,8 @@ distributable and dev tsconfig files extend.
 This npm project contains scripts it uses for building, running, testing, and
 generating documentation. These scripts can be found in 2 locations:
 
-1. Defined inside the root [`package.json`][18] file of this npm package
-   project.
+1. Defined inside the `scripts` section in the root [`package.json`][18] file of
+   this npm package project.
 1. Contained as a javascript mjs module inside this npm package project's
    root [`scripts`][19] directory.
 
@@ -373,21 +372,21 @@ Additional info can be found [here][20]
 
 [1]: https://nodejs.org/api/fs.html "Node File System"
 [2]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
-[3]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/ExistingFileElement.ts "ExistingFileElement interface"
-[4]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/directory/ExistingDirElement.ts "ExistingDirElement interface"
+[3]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/lib/element/file/ExistingFileElement.ts "ExistingFileElement interface"
+[4]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/lib/element/directory/ExistingDirElement.ts "ExistingDirElement interface"
 [5]: https://github.com/SnapLib/npm-fs/tree/stable/src/main/ts/lib/element "Element directory"
-[6]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/Element.ts "Element interface"
-[7]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/file/FileElement.ts "FileElement interface"
-[8]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/directory/DirElement.ts "DirElement interface"
-[9]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/lib/element/ExistingElement.ts "ExistingElement interface"
+[6]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/lib/element/Element.ts "Element interface"
+[7]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/lib/element/file/FileElement.ts "FileElement interface"
+[8]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/lib/element/directory/DirElement.ts "DirElement interface"
+[9]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/lib/element/ExistingElement.ts "ExistingElement interface"
 [10]: https://www.typescriptlang.org/tsconfig "typescript tsc config options"
 [11]: https://eslint.org/docs/rules/ "eslint rules"
 [12]: https://editorconfig.org/ "EditorConfig"
-[13]: https://github.com/SnapLib/npm-fs/blob/stable/.eslintrc.json "root eslintrc file"
-[14]: https://github.com/SnapLib/npm-fs/blob/stable/.editorconfig "root editorconfig file"
-[15]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.json "default tsconfig"
-[16]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.dist.json "distributable build tsconfig"
-[17]: https://github.com/SnapLib/npm-fs/blob/stable/src/main/ts/tsconfig.dev.json "dev build tsconfig"
-[18]: https://github.com/SnapLib/npm-fs/blob/stable/package.json "root package.json"
+[13]: https://github.com/SnapLib/npm-fs/blob/release/.eslintrc.json "root eslintrc file"
+[14]: https://github.com/SnapLib/npm-fs/blob/release/.editorconfig "root editorconfig file"
+[15]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/tsconfig.json "default tsconfig"
+[16]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/tsconfig.dist.json "distributable build tsconfig"
+[17]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/tsconfig.dev.json "dev build tsconfig"
+[18]: https://github.com/SnapLib/npm-fs/blob/release/package.json "root package.json"
 [19]: https://github.com/SnapLib/npm-fs/tree/stable/scripts "npm package project scripts"
-[20]: https://github.com/SnapLib/npm-fs/blob/stable/docs/project/scripts/README.md
+[20]: https://github.com/SnapLib/npm-fs/blob/release/docs/project/scripts/README.md
