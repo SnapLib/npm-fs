@@ -24,7 +24,7 @@
     "build-dev": "tsc -p src/main/ts/tsconfig.dev.json --outDir build/dev/js",
     "prebuild-dist": "tsc -p src/main/ts/tsconfig.dist.json --outDir build/dist/$npm_config_dist_root_pkg_dirname --declarationDir build/dist/$npm_config_dist_root_pkg_dirname/types",
     "build-dist": "node scripts/build/build-dist.mjs",
-    "build-dist-types": "tsc -p src/main/ts/tsconfig.dist.json -d --emitDeclarationOnly --declarationDir build/dist/snaplib__npm-fs",
+    "build-types": "tsc -p src/main/ts/tsconfig.dist.json --emitDeclarationOnly --declarationDir build/types/snaplib__npm-fs",
     "build-test": "tsc -p src/test/ts/tsconfig.test.json --outDir build/test/js",
     "build-tsdocs": "typedoc --options ./typedoc.json",
     "clean": "node scripts/clean.mjs",
