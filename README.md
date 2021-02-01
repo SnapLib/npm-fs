@@ -73,11 +73,11 @@ console.log(existingDirectory.elementType);
 console.log(existingDirectory.path);
 // Prints "/Users/Main/Projects/snaplib-npm-fs"
 
-console.log(existingDirectory.name);
-// Prints "snaplib-npm-fs"
-
 console.log(existingDirectory.parent);
 // Prints "/Users/Main/Projects"
+
+console.log(existingDirectory.name);
+// Prints "snaplib-npm-fs"
 
 console.log(existingDirectory.fileSync().names);
 /*
@@ -140,8 +140,7 @@ console.log(existingDirectory.dirSync().paths);
 
 console.log(existingDirectory.dirSync().paths);
 /*
- * Prints string array of absolute paths of directories retrieved in a
- * synchronous manner:
+ * Prints Dirent array of directories retrieved in a synchronous manner:
  * [ Dirent { name: '.git', [Symbol(type)]: 2 },
  *   Dirent { name: '.idea', [Symbol(type)]: 2 },
  *   Dirent { name: 'build', [Symbol(type)]: 2 },
@@ -226,11 +225,11 @@ console.log(virtualFile.elementType);
 console.log(virtualFile.path);
 // Prints "path/of/this/file/element.md"
 
-console.log(virtualFile.name);
-// Prints "element.md"
-
 console.log(virtualFile.parent);
 // Prints "path/of/this/file"
+
+console.log(virtualFile.name);
+// Prints "element.md"
 
 const virtualDirectory = new VirtualDirElement("/path/of/this/directory/element");
 
@@ -240,11 +239,11 @@ console.log(virtualDirectory.elementType);
 console.log(virtualDirectory.path);
 // Prints "path/of/this/directory/element"
 
-console.log(virtualDirectory.name);
-// Prints "element"
-
 console.log(virtualDirectory.parent);
 // Prints "path/of/this/file"
+
+console.log(virtualDirectory.name);
+// Prints "element"
 
 // Existing file and directory paths can be used to create virtual elements as
 // well
