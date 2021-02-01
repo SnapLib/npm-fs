@@ -145,7 +145,7 @@ that value, an error of not being able to find the directory will be thrown.
 
 [1]: ../../../.npmrc "root npm config file"
 [2]: ../../project/build/README.md "root build directory readme"
-[3]: ../../../src/main/ts/tsconfig.json "default tsconfig for all builds"
+[3]: ../../../src/main/ts/tsconfig.src.json "default tsconfig for all source code"
 [4]: ../../../src/main/ts/tsconfig.dev.json "tsconfig for dev build"
 [5]: ../../../src/main/ts "typescript source code"
 [6]: ../../../src/main/ts/tsconfig.dist.json "tsconfig for distributable build"
