@@ -5,6 +5,7 @@
   "type": "module",
   "main": "./npm-fs.js",
   "types": "./types/npm-fs.d.ts",
+  "engines": {"node": ">=14"},
   "directories": {
     "bin": "bin",
     "lib": "lib"
