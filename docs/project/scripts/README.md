@@ -17,8 +17,8 @@ This project (as of updating this) contains 6 build scripts:
 1. [***build-dev***](#build-dev)
 1. [***prebuild-dist***](#prebuild-dist)
 1. [***build-dist***](#build-dist)
-1. [***build-dist-types***](#build-dist-types)
 1. [***build-tsdocs***](#build-tsdocs)
+1. [***build-types***](#build-types)
 1. [***test-report***](#test-report)
 
 Each of these scripts generate some output that appears in the [`build`][2]
@@ -77,8 +77,8 @@ $npm run build-dist
 After running the script, a `build` directory gets created in the root of this
 project containing a directory named `dist`. A directory inside this `dist`
 directory gets created with its name provided externally to the script. This
-project uses the [`dist_root_pkg_dirname`][1] npm config environment variable from
-this project's [`.npmrc`][1]. Inside this directory, the src code from
+project uses the [`dist_root_pkg_dirname`][1] npm config environment variable
+from this project's [`.npmrc`][1]. Inside this directory, the src code from
 [`src/main/ts`][5] gets compiled while maintaining its file structure.
 
 It calls `tsc` (the typescript compiler) with:
@@ -97,9 +97,8 @@ in the `scripts` section in this npm package project's[`package.json`][7].
 
 ## build-dist
 
-The `build-dist` script is responsible for creating the npm elements in the
-distributable npm package root directory created in `build/dist` during the
-prebuild step of this script.
+The `build-dist` script is responsible for generating the distributable npm
+package to publish to npm.
 
 It can be called via:
 
@@ -143,6 +142,25 @@ same npm config environment variable value that's used in the prebuild step,
 this works. However, if this script were passed an argument that didn't match
 that value, an error of not being able to find the directory will be thrown.
 
+## build-tsdocs
+
+The `build-tsdocs` script is repsonsible for generating the typescript source
+code doc comments.
+
+It can be called via:
+
+```shell
+$npm run build-tsdocs
+```
+
+Calling this script is an alias for executing `$typedoc --options ./typedoc.`
+`json`. The typedoc config file can be found [here][9]. This generates the html,
+css, javascript, and other elements resulting from parsing the doc comments
+in this package's typescript source code with [`typedoc`][10]. It outputs the
+generated documentation to `build/tsdocs` and sets `index.html` as the primary
+entry point of the documentation. It also uses the markdown file located at
+`docs/typedoc/README.md` as the default root readme
+
 [1]: ../../../.npmrc "root npm config file"
 [2]: ../../project/build/README.md "root build directory readme"
 [3]: ../../../src/main/ts/tsconfig.src.json "default tsconfig for all source code"
@@ -151,3 +169,5 @@ that value, an error of not being able to find the directory will be thrown.
 [6]: ../../../src/main/ts/tsconfig.dist.json "tsconfig for distributable build"
 [7]: ../../../package.json "root package.json"
 [8]: ../../../scripts/build/build-dist.mjs "build distributable script"
+[9]: ../../../typedoc.json "typedoc config file"
+[10]: https://www.npmjs.com/package/typedoc "typedoc npm package"

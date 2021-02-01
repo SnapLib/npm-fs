@@ -6,5 +6,5 @@
   "out": "build/tsdocs",
   "readme": "docs/typedoc/README.md",
   "stripInternal": true,
-  "tsconfig": "./src/main/ts/tsconfig.dev.json"
+  "tsconfig": "./src/main/ts/tsconfig.dist.json"
 }
