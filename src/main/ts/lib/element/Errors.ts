@@ -85,8 +85,6 @@ export class MalFormedElementPathError extends IllegalPathError
 /**
  * Error thrown indicating that an existing element was passed a path that
  * doesn't exist (point to a pre-existing file or directory).
- *
- * @sealed
  */
 export class PathDoesNotExistError extends IllegalPathError
 {
@@ -112,6 +110,13 @@ export class PathDoesNotExistError extends IllegalPathError
     }
 }
 
+/**
+ * Error thrown indicating that an element was passed a path that pointed to
+ * the wrong type of file system element.
+ *
+ * For example, if an existing directory element is initialized with a path that
+ * points to an existing file.
+ */
 export class IllegalPathType extends IllegalPathError
 {
     public constructor(msg?: string, path?: string)
