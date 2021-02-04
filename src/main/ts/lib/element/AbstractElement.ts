@@ -55,7 +55,7 @@ export abstract class AbstractElement implements Element
     protected constructor(path: string, options: {exists?: boolean, type?: "file" | "directory" | ElementType})
     {
         const formattedPath: string =
-            Path.isAbsolute(path) ? path : Path.sep.concat(path);
+            Path.isAbsolute(path) ? path : Path.sep.concat(Path.normalize(path));
 
         if (path.length === 0)
         {
@@ -67,7 +67,7 @@ export abstract class AbstractElement implements Element
         }
         else if (options?.exists && ! existsSync(formattedPath))
         {
-            throw new PathDoesNotExistError(`"${formattedPath}"`, formattedPath);
+            throw new PathDoesNotExistError(`path does not exist: "${formattedPath}"`, formattedPath);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.FILE, undefined, {sensitivity: "base"}) === 0
