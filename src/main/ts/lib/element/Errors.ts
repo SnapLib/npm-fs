@@ -67,7 +67,7 @@ export class MalFormedElementPathError extends IllegalPathError
      * @param regexPattern The regex pattern (if one was being used) that caused
      *                     this error to be thrown
      */
-    constructor(msg?: string, path?: string, regexPattern?: RegExp)
+    public constructor(msg?: string, path?: string, regexPattern?: RegExp)
     {
         super(msg, path);
 
@@ -99,7 +99,7 @@ export class PathDoesNotExistError extends IllegalPathError
      * @param path The path string that triggered this error to be
      *             thrown
      */
-    constructor(msg?: string, path?: string)
+    public constructor(msg?: string, path?: string)
     {
         super(msg, path);
 
@@ -114,7 +114,7 @@ export class PathDoesNotExistError extends IllegalPathError
 
 export class IllegalPathType extends IllegalPathError
 {
-    constructor(msg?: string, path?: string)
+    public constructor(msg?: string, path?: string)
     {
         super(msg, path);
 
