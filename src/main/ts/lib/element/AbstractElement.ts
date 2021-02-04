@@ -1,6 +1,6 @@
 import type Element from "./Element.js";
 import { ElementType } from "./Element.js";
-import { MalFormedElementPathError, PathDoesNotExistError } from "./Errors.js";
+import { MalFormedElementPathError, PathDoesNotExistError, IllegalPathType } from "./Errors.js";
 import { existsSync, lstatSync } from "fs";
 import Path from "path";
 
@@ -67,26 +67,27 @@ export abstract class AbstractElement implements Element
         }
         else if (options?.exists && ! existsSync(formattedPath))
         {
-            throw new PathDoesNotExistError(`"${formattedPath}"`);
+            throw new PathDoesNotExistError(`"${formattedPath}"`, formattedPath);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.FILE, undefined, {sensitivity: "base"}) === 0
             && lstatSync(formattedPath).isDirectory())
         {
-            throw new Error(`existing file element path points to a directory: "${path}"`);
+            throw new IllegalPathType(`existing file element path points to a directory: "${formattedPath}"`, formattedPath);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.DIRECTORY, undefined, {sensitivity: "base"}) === 0
             && lstatSync(formattedPath).isFile())
         {
-            throw new Error(`existing directory element path points to a file: "${path}"`);
+            throw new IllegalPathType(`existing directory element path points to a file: "${formattedPath}"`, formattedPath);
         }
         else
         {
             this.elementType = options?.type === ElementType.FILE ? ElementType.FILE
                              : options?.type === ElementType.DIRECTORY ? ElementType.DIRECTORY
                              : lstatSync(formattedPath).isFile() ? ElementType.FILE
-                             : ElementType.DIRECTORY;
+                             : lstatSync(formattedPath).isDirectory() ? ElementType.DIRECTORY
+                             : ElementType.OTHER;
 
             this.path = formattedPath;
             this.name = Path.basename(this.path);
