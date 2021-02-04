@@ -55,7 +55,7 @@ export abstract class AbstractElement implements Element
     protected constructor(path: string, options: {exists?: boolean, type?: "file" | "directory" | ElementType})
     {
         const formattedPath: string =
-            Path.isAbsolute(path) ? path : Path.sep.concat(Path.normalize(path));
+            Path.isAbsolute(path) ? path : Path.resolve(path);
 
         if (path.length === 0)
         {
