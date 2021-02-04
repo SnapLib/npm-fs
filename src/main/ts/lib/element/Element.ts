@@ -111,7 +111,9 @@ export enum ElementType
     /** Type of file elements*/
     FILE = "FILE",
     /** Type of directory elements*/
-    DIRECTORY = "DIRECTORY"
+    DIRECTORY = "DIRECTORY",
+    /** Type of element that's not a file or directory */
+    OTHER = "OTHER"
 }
 
 export {Element as default};
