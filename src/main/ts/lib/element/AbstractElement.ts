@@ -1,5 +1,6 @@
 import type Element from "./Element.js";
 import { ElementType } from "./Element.js";
+import { MalFormedElementPathError, PathDoesNotExistError } from "./Errors.js";
 import { existsSync, lstatSync } from "fs";
 import Path from "path";
 
@@ -56,17 +57,17 @@ export abstract class AbstractElement implements Element
         const formattedPath: string =
             Path.isAbsolute(path) ? path : Path.sep.concat(path);
 
-        if (path.trim().length === 0)
+        if (path.length === 0)
         {
-            throw new Error("blank path argument");
+            throw new MalFormedElementPathError("blank path");
         }
         else if (options.exists === undefined && options.type === undefined)
         {
-            throw new Error("element missing both exist and type properties");
+            throw new Error("element missing exist and element type properties");
         }
         else if (options?.exists && ! existsSync(formattedPath))
         {
-            throw new Error(`path does not exists: "${formattedPath}"`);
+            throw new PathDoesNotExistError(`"${formattedPath}"`);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.FILE, undefined, {sensitivity: "base"}) === 0
