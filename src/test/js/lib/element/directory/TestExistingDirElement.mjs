@@ -8,9 +8,11 @@ const assert = chai.assert;
 
 const fileUrlToPath = url.fileURLToPath;
 
-const cwd = path.dirname(fileUrlToPath(import.meta.url));
+const __filename = fileUrlToPath(import.meta.url);
 
-const mockExistingDirRelPath = path.resolve("../../../../resources/MockExistingDirectory");
+const __dirname = path.dirname(__filename);
+
+// const mockExistingDirRelPath = path.resolve("../../../../resources/MockExistingDirectory");
 const mockExistingDirAbsPath = "/Users/Main/Projects/snaplib-npm-fs/src/test/resources/MockExistingDirectory";
 
 describe("MockExistingDirectory", function () {
@@ -21,17 +23,27 @@ describe("MockExistingDirectory", function () {
             assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirAbsPath));
         });
 
-        it(`new ExistingDirElement("${cwd}") should not throw`, function ()
+        it(`new ExistingDirElement("${__dirname}") should not throw`, function ()
         {
-            assert.doesNotThrow(() => new ExistingDirElement(cwd));
+            assert.doesNotThrow(() => new ExistingDirElement(__dirname));
         });
     });
 
     describe("invalid initialization", function ()
     {
-        it(`new ExistingDirElement("") should not throw`, function ()
+        it("new ExistingDirElement() should throw", function ()
         {
-            assert.doesNotThrow(() => new ExistingDirElement());
+            assert.throws(() => new ExistingDirElement());
+        });
+
+        it('new ExistingDirElement("") should throw', function ()
+        {
+            assert.throws(() => new ExistingDirElement(""));
+        });
+
+        it(`new ExistingDirElement("${__filename}") should throw`, function ()
+        {
+            assert.throws(() => new ExistingDirElement(""));
         });
     });
 });
