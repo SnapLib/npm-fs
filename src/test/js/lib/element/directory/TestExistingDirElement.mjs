@@ -52,37 +52,44 @@ describe("ExistingDirElement initialization", function () {
     });
 });
 
-describe("ExistingDirElement.elementType", function () {
+describe(`<${__dirname}>.elementType`, function () {
     it(`should equal ${ElementType.DIRECTORY}`, function ()
     {
         assert.strictEqual(new ExistingDirElement(__dirname).elementType, ElementType.DIRECTORY);
     });
 });
 
-describe("ExistingDirElement.path", function () {
+describe(`<${__dirname}>.path`, function () {
     it(`should equal ${__dirname}`, function ()
     {
         assert.strictEqual(new ExistingDirElement(__dirname).path, __dirname);
     });
 });
 
-describe("ExistingDirElement.name", function () {
+describe(`<${__dirname}>.name`, function () {
     it(`should equal ${path.basename(__dirname)}`, function ()
     {
         assert.strictEqual(new ExistingDirElement(__dirname).name, path.basename(__dirname));
     });
 });
 
-describe("ExistingDirElement.parent", function () {
+describe(`<${__dirname}>.parent`, function () {
     it(`should equal ${path.dirname(__dirname)}`, function ()
     {
         assert.strictEqual(new ExistingDirElement(__dirname).parent, path.dirname(__dirname));
     });
 });
 
-describe(`ExistingDirElement.inodeSync()`, function () {
+describe(`<${__dirname}>.inodeSync()`, function () {
     it(`should equal ${__dirinode}`, function ()
     {
         assert.strictEqual(new ExistingDirElement(__dirname).inodeSync(), __dirinode);
+    });
+});
+
+describe(`<${__dirname}>.isEmpty()`, function () {
+    it("should be false", function ()
+    {
+        assert.isFalse(new ExistingDirElement(__dirname).isEmpty());
     });
 });
