@@ -1,3 +1,6 @@
+import type ElementType from "./ElementType";
+export { ElementType } from "./ElementType";
+
 /**
  * @overview
  * The most fundamental elements of an npm file system are the directories and
@@ -98,22 +101,6 @@ export interface Element
      * @function
      */
     toString(): string;
-}
-
-/**
- * Enum to identify file system element types.
- *
- * @readonly
- * @enum string
- */
-export enum ElementType
-{
-    /** Type of file elements*/
-    FILE = "FILE",
-    /** Type of directory elements*/
-    DIRECTORY = "DIRECTORY",
-    /** Type of element that's not a file or directory */
-    OTHER = "OTHER"
 }
 
 export {Element as default};
