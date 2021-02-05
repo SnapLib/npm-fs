@@ -1,5 +1,5 @@
 import type Element from "./Element.js";
-import { ElementType } from "./Element.js";
+import ElementType from "./ElementType.js";
 import { MalFormedElementPathError,
          PathDoesNotExistError,
          IllegalPathTypeError,
