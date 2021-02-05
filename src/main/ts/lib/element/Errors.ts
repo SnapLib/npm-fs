@@ -89,6 +89,14 @@ export class MalFormedElementPathError extends IllegalPathError
 export class PathDoesNotExistError extends IllegalPathError
 {
     /**
+     * @override
+     * @public
+     * @readonly
+     * @property
+     */
+    public readonly name: string = "PathDoesNotExistError";
+
+    /**
      * Constructs a `PathDoesNotExistError` with the optionally passed
      * message string, mal formed path string, and regex pattern arguments.
      *
@@ -117,8 +125,16 @@ export class PathDoesNotExistError extends IllegalPathError
  * For example, if an existing directory element is initialized with a path that
  * points to an existing file.
  */
-export class IllegalPathType extends IllegalPathError
+export class IllegalPathTypeError extends IllegalPathError
 {
+    /**
+     * @override
+     * @public
+     * @readonly
+     * @property
+     */
+    public readonly name: string = "IllegalPathTypeError";
+
     public constructor(msg?: string, path?: string)
     {
         super(msg, path);
@@ -127,7 +143,7 @@ export class IllegalPathType extends IllegalPathError
         // available on V8)
         if (Error.captureStackTrace)
         {
-          Error.captureStackTrace(this, IllegalPathType);
+          Error.captureStackTrace(this, IllegalPathTypeError);
         }
     }
 }
