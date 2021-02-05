@@ -24,7 +24,35 @@ abstract class IllegalPathError extends Error
         super(msg);
         this.path = path;
     }
+}
 
+export class UndefinedPathError extends IllegalPathError
+{
+    /**
+     * @override
+     * @public
+     * @readonly
+     * @property
+     */
+    public readonly name: string = "UndefinedPathError";
+
+    /**
+     * Constructs an `UndefinedPathError` with the optionally passed message
+     * string. `undefined` is set to this IllegalPathError's path property.
+     *
+     * @param msg the message printed when this error is thrown
+     */
+    public constructor(msg?: string)
+    {
+        super(msg, undefined);
+
+        // Maintains proper stack trace for where our error was thrown (only
+        // available on V8)
+        if (Error.captureStackTrace)
+        {
+          Error.captureStackTrace(this, MalFormedElementPathError);
+        }
+    }
 }
 
 /**
