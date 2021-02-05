@@ -1,5 +1,5 @@
 import { ExistingDirElement } from "../../../../../../build/dist/npm-fs/lib/element/directory/ExistingDirElement.js";
-import { ElementType } from "../../../../../../build/dist/npm-fs/lib/element/Element.js";
+import ElementType from "../../../../../../build/dist/npm-fs/lib/element/ElementType.js";
 import chai from "chai";
 import { describe, it } from "mocha";
 import fs from "fs";
