@@ -1,6 +1,9 @@
 import type Element from "./Element.js";
 import { ElementType } from "./Element.js";
-import { MalFormedElementPathError, PathDoesNotExistError, IllegalPathTypeError } from "./Errors.js";
+import { MalFormedElementPathError,
+         PathDoesNotExistError,
+         IllegalPathTypeError,
+         UndefinedPathError } from "./Errors.js";
 import { existsSync, lstatSync } from "fs";
 import Path from "path";
 
@@ -54,7 +57,11 @@ export abstract class AbstractElement implements Element
      */
     protected constructor(path: string, options: {exists?: boolean, type?: "file" | "directory" | ElementType})
     {
-        if (path.length === 0)
+        if (path === undefined)
+        {
+            throw new UndefinedPathError("path string argument missing or undefined");
+        }
+        else if (path.length === 0)
         {
             throw new MalFormedElementPathError("blank path");
         }
