@@ -1,6 +1,8 @@
 import { ExistingDirElement } from "../../../../../../build/dist/npm-fs/lib/element/directory/ExistingDirElement.js";
+import { ElementType } from "../../../../../../build/dist/npm-fs/lib/element/Element.js";
 import chai from "chai";
 import { describe, it } from "mocha";
+import fs from "fs";
 import path from "path";
 import url from "url";
 
@@ -12,10 +14,12 @@ const __filename = fileUrlToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
+const __dirinode = fs.lstatSync(__dirname).ino;
+
 // const mockExistingDirRelPath = path.resolve("../../../../resources/MockExistingDirectory");
 const mockExistingDirAbsPath = "/Users/Main/Projects/snaplib-npm-fs/src/test/resources/MockExistingDirectory";
 
-describe("MockExistingDirectory", function () {
+describe("ExistingDirElement initialization", function () {
     describe("valid initialization", function ()
     {
         it(`new ExistingDirElement("${mockExistingDirAbsPath}") should not throw`, function ()
@@ -45,5 +49,40 @@ describe("MockExistingDirectory", function () {
         {
             assert.throws(() => new ExistingDirElement(""));
         });
+    });
+});
+
+describe("ExistingDirElement.elementType", function () {
+    it(`should equal ${ElementType.DIRECTORY}`, function ()
+    {
+        assert.strictEqual(new ExistingDirElement(__dirname).elementType, ElementType.DIRECTORY);
+    });
+});
+
+describe("ExistingDirElement.path", function () {
+    it(`should equal ${__dirname}`, function ()
+    {
+        assert.strictEqual(new ExistingDirElement(__dirname).path, __dirname);
+    });
+});
+
+describe("ExistingDirElement.name", function () {
+    it(`should equal ${path.basename(__dirname)}`, function ()
+    {
+        assert.strictEqual(new ExistingDirElement(__dirname).name, path.basename(__dirname));
+    });
+});
+
+describe("ExistingDirElement.parent", function () {
+    it(`should equal ${path.dirname(__dirname)}`, function ()
+    {
+        assert.strictEqual(new ExistingDirElement(__dirname).parent, path.dirname(__dirname));
+    });
+});
+
+describe(`ExistingDirElement.inodeSync()`, function () {
+    it(`should equal ${__dirinode}`, function ()
+    {
+        assert.strictEqual(new ExistingDirElement(__dirname).inodeSync(), __dirinode);
     });
 });
