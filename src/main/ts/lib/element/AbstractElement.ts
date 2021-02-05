@@ -1,6 +1,6 @@
 import type Element from "./Element.js";
 import { ElementType } from "./Element.js";
-import { MalFormedElementPathError, PathDoesNotExistError, IllegalPathType } from "./Errors.js";
+import { MalFormedElementPathError, PathDoesNotExistError, IllegalPathTypeError } from "./Errors.js";
 import { existsSync, lstatSync } from "fs";
 import Path from "path";
 
@@ -54,42 +54,43 @@ export abstract class AbstractElement implements Element
      */
     protected constructor(path: string, options: {exists?: boolean, type?: "file" | "directory" | ElementType})
     {
-        const formattedPath: string =
-            Path.isAbsolute(path) ? path : Path.resolve(path);
-
         if (path.length === 0)
         {
             throw new MalFormedElementPathError("blank path");
+        }
+        else if ( ! Path.isAbsolute(path))
+        {
+            throw new MalFormedElementPathError(`path is not absolute:"${path}"`);
         }
         else if (options.exists === undefined && options.type === undefined)
         {
             throw new Error("element missing exist and element type properties");
         }
-        else if (options?.exists && ! existsSync(formattedPath))
+        else if (options?.exists && ! existsSync(path))
         {
-            throw new PathDoesNotExistError(`path does not exist: "${formattedPath}"`, formattedPath);
+            throw new PathDoesNotExistError(`path does not exist: "${path}"`, path);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.FILE, undefined, {sensitivity: "base"}) === 0
-            && lstatSync(formattedPath).isDirectory())
+            && lstatSync(path).isDirectory())
         {
-            throw new IllegalPathType(`existing file element path points to a directory: "${formattedPath}"`, formattedPath);
+            throw new IllegalPathTypeError(`existing file element path points to a directory: "${path}"`, path);
         }
         else if (options?.exists
             && options?.type?.localeCompare(ElementType.DIRECTORY, undefined, {sensitivity: "base"}) === 0
-            && lstatSync(formattedPath).isFile())
+            && lstatSync(path).isFile())
         {
-            throw new IllegalPathType(`existing directory element path points to a file: "${formattedPath}"`, formattedPath);
+            throw new IllegalPathTypeError(`existing directory element path points to a file: "${path}"`, path);
         }
         else
         {
             this.elementType = options?.type === ElementType.FILE ? ElementType.FILE
                              : options?.type === ElementType.DIRECTORY ? ElementType.DIRECTORY
-                             : lstatSync(formattedPath).isFile() ? ElementType.FILE
-                             : lstatSync(formattedPath).isDirectory() ? ElementType.DIRECTORY
+                             : lstatSync(path).isFile() ? ElementType.FILE
+                             : lstatSync(path).isDirectory() ? ElementType.DIRECTORY
                              : ElementType.OTHER;
 
-            this.path = formattedPath;
+            this.path = path;
             this.name = Path.basename(this.path);
             this.parent = Path.dirname(this.path);
         }
