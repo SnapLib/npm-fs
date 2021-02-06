@@ -1,7 +1,7 @@
 import { ExistingDirElement } from "../../../../../../build/dist/npm-fs/lib/element/directory/ExistingDirElement.js";
 import ElementType from "../../../../../../build/dist/npm-fs/lib/element/ElementType.js";
 import chai from "chai";
-import { describe, it } from "mocha";
+import { before, suite, test } from "mocha";
 import fs from "fs";
 import path from "path";
 import url from "url";
@@ -16,80 +16,158 @@ const __dirname = path.dirname(__filename);
 
 const __dirinode = fs.lstatSync(__dirname).ino;
 
-// const mockExistingDirRelPath = path.resolve("../../../../resources/MockExistingDirectory");
-const mockExistingDirAbsPath = "/Users/Main/Projects/snaplib-npm-fs/src/test/resources/MockExistingDirectory";
+const __dirNameShort = __dirname.substring(__dirname.indexOf("src/"), __dirname.length);
 
-describe("ExistingDirElement initialization", function () {
-    describe("valid initialization", function ()
+const mockExistingDirResourcePath =
+    path.resolve(path.join(__dirname, "../../../../resources/MockExistingDirectory"));
+
+const mockExistingDirResourcePathShort =
+    mockExistingDirResourcePath.substring(mockExistingDirResourcePath.indexOf("src/"), mockExistingDirResourcePath.length);
+
+let mockExistingDirResourceInode;
+
+let mockExistingDirDirname;
+let mockExistingDirMockResource;
+
+before("Test object instantiation first", function TestInitializers()
     {
-        it(`new ExistingDirElement("${mockExistingDirAbsPath}") should not throw`, function ()
-        {
-            assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirAbsPath));
-        });
+       suite("ExistingDirElement initialization", function ()
+       {
+           suite("valid initialization", function ()
+           {
+               test(`new ExistingDirElement("${__dirname}") should not throw`, function ()
+               {
+                   assert.doesNotThrow(() => new ExistingDirElement(__dirname));
+               });
 
-        it(`new ExistingDirElement("${__dirname}") should not throw`, function ()
-        {
-            assert.doesNotThrow(() => new ExistingDirElement(__dirname));
-        });
+               test(`new ExistingDirElement("${mockExistingDirResourcePath}") should not throw`, function ()
+               {
+                   assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirResourcePath));
+               });
+           });
+
+           suite("invalid initialization", function ()
+           {
+               test("new ExistingDirElement() should throw", function ()
+               {
+                   assert.throws(() => new ExistingDirElement());
+               });
+
+               test('new ExistingDirElement("") should throw', function ()
+               {
+                   assert.throws(() => new ExistingDirElement(""));
+               });
+
+               test(`new ExistingDirElement("${__filename}") should throw`, function ()
+               {
+                   assert.throws(() => new ExistingDirElement(""));
+               });
+           });
+
+           try
+           {
+               mockExistingDirDirname = new ExistingDirElement(__dirname);
+           }
+           catch (err)
+           {
+               // throw new Error("error instantiating new existing directory element");
+               throw {name: "ExistingDirElementInstantiationError",
+                      message: "error instantiating mock existing dir __dirname element",
+                      stack: err.stack};
+           }
+
+           try
+           {
+               mockExistingDirMockResource = new ExistingDirElement(mockExistingDirResourcePath);
+           }
+           catch (err)
+           {
+               throw {name: "ExistingDirElementInstantiationError",
+                      message: "error instantiating mock existing existing dir resource element",
+                      stack: err.stack};
+           }
+
+           if (fs.lstatSync(mockExistingDirResourcePath) === undefined)
+           {
+               throw {name: "MockExistingDirInodeError",
+                      message: "error getting inode of existing mock directory resource",
+                      stack: this.stack};
+           }
+           else
+           {
+               mockExistingDirResourceInode = fs.lstatSync(mockExistingDirResourcePath).ino;
+           }
+       });
     });
 
-    describe("invalid initialization", function ()
+suite("#.elementType", function () {
+    test(`<${__dirNameShort}> element type should equal ${ElementType.DIRECTORY}`, function ()
     {
-        it("new ExistingDirElement() should throw", function ()
-        {
-            assert.throws(() => new ExistingDirElement());
-        });
+        assert.strictEqual(mockExistingDirDirname.elementType, ElementType.DIRECTORY);
+    });
 
-        it('new ExistingDirElement("") should throw', function ()
-        {
-            assert.throws(() => new ExistingDirElement(""));
-        });
-
-        it(`new ExistingDirElement("${__filename}") should throw`, function ()
-        {
-            assert.throws(() => new ExistingDirElement(""));
-        });
+    test(`<${mockExistingDirResourcePathShort}> element type should equal ${ElementType.DIRECTORY}`, function ()
+    {
+        assert.strictEqual(mockExistingDirDirname.elementType, ElementType.DIRECTORY);
     });
 });
 
-describe(`<${__dirname}>.elementType`, function () {
-    it(`should equal ${ElementType.DIRECTORY}`, function ()
+suite("#.path", function () {
+    test(`path should equal "${__dirname}"`, function ()
     {
-        assert.strictEqual(new ExistingDirElement(__dirname).elementType, ElementType.DIRECTORY);
+        assert.strictEqual(mockExistingDirDirname.path, __dirname);
+    });
+
+    test(`path should equal "${mockExistingDirResourcePath}"`, function ()
+    {
+        assert.strictEqual(mockExistingDirMockResource.path, mockExistingDirResourcePath);
     });
 });
 
-describe(`<${__dirname}>.path`, function () {
-    it(`should equal ${__dirname}`, function ()
+suite("#.name", function () {
+    test(`should equal "${path.basename(__dirname)}"`, function ()
     {
-        assert.strictEqual(new ExistingDirElement(__dirname).path, __dirname);
+        assert.strictEqual(mockExistingDirDirname.name, path.basename(__dirname));
+    });
+
+    test(`should equal "${path.basename(mockExistingDirResourcePath)}"`, function ()
+    {
+        assert.strictEqual(mockExistingDirMockResource.name, path.basename(mockExistingDirResourcePath));
     });
 });
 
-describe(`<${__dirname}>.name`, function () {
-    it(`should equal ${path.basename(__dirname)}`, function ()
+suite(`#.parent`, function () {
+    test(`should equal "${path.dirname(__dirname)}"`, function ()
     {
-        assert.strictEqual(new ExistingDirElement(__dirname).name, path.basename(__dirname));
+        assert.strictEqual(mockExistingDirDirname.parent, path.dirname(__dirname));
+    });
+
+    test(`should equal "${path.dirname(mockExistingDirResourcePath)}"`, function ()
+    {
+        assert.strictEqual(mockExistingDirMockResource.parent, path.dirname(mockExistingDirResourcePath));
     });
 });
 
-describe(`<${__dirname}>.parent`, function () {
-    it(`should equal ${path.dirname(__dirname)}`, function ()
+suite("#.inodeSync()", function () {
+    test(`should equal ${__dirinode}`, function ()
     {
-        assert.strictEqual(new ExistingDirElement(__dirname).parent, path.dirname(__dirname));
+        assert.strictEqual(mockExistingDirDirname.inodeSync(), __dirinode);
+    });
+
+    test(`should equal ${mockExistingDirResourceInode}`, function ()
+    {
+        assert.strictEqual(mockExistingDirMockResource.inodeSync(), mockExistingDirResourceInode);
     });
 });
 
-describe(`<${__dirname}>.inodeSync()`, function () {
-    it(`should equal ${__dirinode}`, function ()
+suite("#.isEmpty()", function () {
+    test("should be false", function ()
     {
-        assert.strictEqual(new ExistingDirElement(__dirname).inodeSync(), __dirinode);
+        assert.isFalse(mockExistingDirDirname.isEmpty());
     });
-});
 
-describe(`<${__dirname}>.isEmpty()`, function () {
-    it("should be false", function ()
+    test("should be false", function ()
     {
-        assert.isFalse(new ExistingDirElement(__dirname).isEmpty());
+        assert.isFalse(mockExistingDirMockResource.isEmpty());
     });
 });
