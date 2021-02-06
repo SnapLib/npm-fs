@@ -227,7 +227,8 @@ suite("#direntSync()", function ()
     });
 });
 
-suite("#length()", function () {
+suite("#length()", function ()
+{
     test(`non recursive should equal ${dirNameDirents.length}`, function ()
     {
         assert.strictEqual(mockExistingDirDirname.length(), dirNameDirents.length);
@@ -239,7 +240,8 @@ suite("#length()", function () {
     });
 });
 
-suite("#isEmpty()", function () {
+suite("#isEmpty()", function ()
+{
     test("should be false", function ()
     {
         assert.isFalse(mockExistingDirDirname.isEmpty());
