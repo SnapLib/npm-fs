@@ -24,7 +24,7 @@ const mockExistingDirResourcePath =
 const mockExistingDirResourcePathShort =
     mockExistingDirResourcePath.substring(mockExistingDirResourcePath.indexOf("src/"), mockExistingDirResourcePath.length);
 
-let mockExistingDirResourceInode;
+const mockExistingDirResourceInode = fs.lstatSync(mockExistingDirResourcePath).ino;
 
 let mockExistingDirDirname;
 let mockExistingDirMockResource;
@@ -60,13 +60,13 @@ before("Test object instantiation first", function TestInitializers()
 
                test(`new ExistingDirElement("${__filename}") should throw`, function ()
                {
-                   assert.throws(() => new ExistingDirElement(""));
+                   assert.throws(() => new ExistingDirElement(__filename));
                });
            });
 
            try
            {
-               mockExistingDirDirname = new ExistingDirElement(__dirname);
+               mockExistingDirDirname = Object.freeze(new ExistingDirElement(__dirname));
            }
            catch (err)
            {
@@ -78,7 +78,7 @@ before("Test object instantiation first", function TestInitializers()
 
            try
            {
-               mockExistingDirMockResource = new ExistingDirElement(mockExistingDirResourcePath);
+               mockExistingDirMockResource = Object.freeze(new ExistingDirElement(mockExistingDirResourcePath));
            }
            catch (err)
            {
@@ -86,21 +86,10 @@ before("Test object instantiation first", function TestInitializers()
                       message: "error instantiating mock existing existing dir resource element",
                       stack: err.stack};
            }
-
-           if (fs.lstatSync(mockExistingDirResourcePath) === undefined)
-           {
-               throw {name: "MockExistingDirInodeError",
-                      message: "error getting inode of existing mock directory resource",
-                      stack: this.stack};
-           }
-           else
-           {
-               mockExistingDirResourceInode = fs.lstatSync(mockExistingDirResourcePath).ino;
-           }
        });
     });
 
-suite("#.elementType", function () {
+suite("#elementType", function () {
     test(`<${__dirNameShort}> element type should equal ${ElementType.DIRECTORY}`, function ()
     {
         assert.strictEqual(mockExistingDirDirname.elementType, ElementType.DIRECTORY);
@@ -112,7 +101,7 @@ suite("#.elementType", function () {
     });
 });
 
-suite("#.path", function () {
+suite("#path", function () {
     test(`path should equal "${__dirname}"`, function ()
     {
         assert.strictEqual(mockExistingDirDirname.path, __dirname);
@@ -124,7 +113,7 @@ suite("#.path", function () {
     });
 });
 
-suite("#.name", function () {
+suite("#name", function () {
     test(`should equal "${path.basename(__dirname)}"`, function ()
     {
         assert.strictEqual(mockExistingDirDirname.name, path.basename(__dirname));
@@ -136,7 +125,7 @@ suite("#.name", function () {
     });
 });
 
-suite(`#.parent`, function () {
+suite(`#parent`, function () {
     test(`should equal "${path.dirname(__dirname)}"`, function ()
     {
         assert.strictEqual(mockExistingDirDirname.parent, path.dirname(__dirname));
@@ -148,7 +137,7 @@ suite(`#.parent`, function () {
     });
 });
 
-suite("#.inodeSync()", function () {
+suite("#inodeSync()", function () {
     test(`should equal ${__dirinode}`, function ()
     {
         assert.strictEqual(mockExistingDirDirname.inodeSync(), __dirinode);
@@ -160,7 +149,7 @@ suite("#.inodeSync()", function () {
     });
 });
 
-suite("#.isEmpty()", function () {
+suite("#isEmpty()", function () {
     test("should be false", function ()
     {
         assert.isFalse(mockExistingDirDirname.isEmpty());
