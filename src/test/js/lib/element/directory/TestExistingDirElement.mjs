@@ -167,6 +167,18 @@ suite("#dirent()", function () {
     });
 });
 
+suite("#length()", function () {
+    test(`non recursive should equal ${dirNameDirents.length}`, function ()
+    {
+        assert.strictEqual(mockExistingDirDirname.length(), dirNameDirents.length);
+    });
+
+    test(`non recursive should equal ${mockDirResourceDirents.length}`, function ()
+    {
+        assert.strictEqual(mockExistingDirMockResource.length(), mockDirResourceDirents.length);
+    });
+});
+
 suite("#isEmpty()", function () {
     test("should be false", function ()
     {
