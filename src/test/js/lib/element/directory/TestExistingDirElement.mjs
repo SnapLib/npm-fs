@@ -14,6 +14,8 @@ const __filename = fileUrlToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
 
+const dirNameDirents = Object.freeze(fs.readdirSync(__dirname, {withFileTypes: true}));
+
 const __dirinode = fs.lstatSync(__dirname).ino;
 
 const __dirNameShort = __dirname.substring(__dirname.indexOf("src/"), __dirname.length);
@@ -21,12 +23,16 @@ const __dirNameShort = __dirname.substring(__dirname.indexOf("src/"), __dirname.
 const mockExistingDirResourcePath =
     path.resolve(path.join(__dirname, "../../../../resources/MockExistingDirectory"));
 
+const mockDirResourceDirents =
+    Object.freeze(fs.readdirSync(mockExistingDirResourcePath, {withFileTypes: true}));
+
 const mockExistingDirResourcePathShort =
     mockExistingDirResourcePath.substring(mockExistingDirResourcePath.indexOf("src/"), mockExistingDirResourcePath.length);
 
 const mockExistingDirResourceInode = fs.lstatSync(mockExistingDirResourcePath).ino;
 
 let mockExistingDirDirname;
+
 let mockExistingDirMockResource;
 
 before("Test object instantiation first", function TestInitializers()
@@ -146,6 +152,18 @@ suite("#inodeSync()", function () {
     test(`should equal ${mockExistingDirResourceInode}`, function ()
     {
         assert.strictEqual(mockExistingDirMockResource.inodeSync(), mockExistingDirResourceInode);
+    });
+});
+
+suite("#dirent()", function () {
+    test(`should equal ${dirNameDirents}`, function ()
+    {
+        assert.deepStrictEqual(mockExistingDirDirname.direntSync().dirents, dirNameDirents);
+    });
+
+    test(`should equal ${mockDirResourceDirents}`, function ()
+    {
+        assert.deepStrictEqual(mockExistingDirMockResource.direntSync().dirents, mockDirResourceDirents);
     });
 });
 
