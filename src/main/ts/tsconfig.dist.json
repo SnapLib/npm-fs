@@ -9,7 +9,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "preserveConstEnums": false,
-    "removeComments": false,
+    "removeComments": true,
     "sourceMap": false,
     "strict": true
   }
