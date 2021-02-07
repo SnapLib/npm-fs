@@ -3,6 +3,7 @@
   "compilerOptions":
   {
     "declaration": true,
+    "module": "commonjs",
     "noEmitOnError": true,
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
