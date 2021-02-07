@@ -378,8 +378,8 @@ Additional info can be found [here][24]
 
 [1]: https://img.shields.io/npm/v/@snaplib/npm-fs?color=%2366ff66&logo=npm&style=flat-square
 [2]: https://img.shields.io/npm/l/@snaplib/npm-fs?color=%2366ff66&style=flat-square
-[3]: https://img.shields.io/librariesio/release/npm/@snaplib/npm-fs?logo=npm&style=flat-square
-[4]: https://img.shields.io/node/v/@snaplib/npm-fs?logo=node.js&style=flat-square
+[3]: https://img.shields.io/librariesio/release/npm/@snaplib/npm-fs?color=%2366ff66&logo=npm&style=flat-square
+[4]: https://img.shields.io/node/v/@snaplib/npm-fs?color=%2366ff66&&logo=node.js&style=flat-square
 [5]: https://nodejs.org/api/fs.html "Node File System"
 [6]: https://nodejs.org/api/fs.html#fs_class_fs_dirent "Dirent class"
 [7]: https://github.com/SnapLib/npm-fs/blob/release/src/main/ts/lib/element/file/ExistingFileElement.ts "ExistingFileElement interface"
