@@ -1,5 +1,4 @@
 import { ExistingDirElement } from "../../../../../../build/dist/npm-fs/lib/element/directory/ExistingDirElement.js";
-import ElementType from "../../../../../../build/dist/npm-fs/lib/element/ElementType.js";
 import chai from "chai";
 import { before, suite, test } from "mocha";
 import fs from "fs";
@@ -16,7 +15,7 @@ const __dirname = path.dirname(__filename);
 
 const dirNameDirents = Object.freeze(fs.readdirSync(__dirname, {withFileTypes: true}));
 
-const __dirinode = fs.lstatSync(__dirname).ino;
+const __dirInode = fs.lstatSync(__dirname).ino;
 
 const __dirNameShort = __dirname.substring(__dirname.indexOf("src/"), __dirname.length);
 
@@ -97,14 +96,14 @@ before("Test object instantiation first", function TestInitializers()
 
 suite("#elementType", function TestElementType()
 {
-    test(`<${__dirNameShort}> element type should equal ${ElementType.DIRECTORY}`, function()
+    test(`<${__dirNameShort}> element type should equal "DIRECTORY"`, function()
     {
-        assert.strictEqual(mockExistingDirDirname.elementType, ElementType.DIRECTORY);
+        assert.strictEqual(mockExistingDirDirname.elementType, "DIRECTORY");
     });
 
-    test(`<${mockExistingDirResourcePathShort}> element type should equal ${ElementType.DIRECTORY}`, function()
+    test(`<${mockExistingDirResourcePathShort}> element type should equal "DIRECTORY"`, function()
     {
-        assert.strictEqual(mockExistingDirDirname.elementType, ElementType.DIRECTORY);
+        assert.strictEqual(mockExistingDirDirname.elementType, "DIRECTORY");
     });
 });
 
@@ -149,9 +148,9 @@ suite(`#parent`, function TestParent()
 
 suite("#inodeSync()", function TestInodeSync()
 {
-    test(`should equal ${__dirinode}`, function()
+    test(`should equal ${__dirInode}`, function()
     {
-        assert.strictEqual(mockExistingDirDirname.inodeSync(), __dirinode);
+        assert.strictEqual(mockExistingDirDirname.inodeSync(), __dirInode);
     });
 
     test(`should equal ${mockExistingDirResourceInode}`, function()
