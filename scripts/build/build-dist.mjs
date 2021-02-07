@@ -105,12 +105,15 @@ else if ( ! fs.lstatSync(global.ROOT_PKG_JSON_FILE_PATH).isFile())
  * @param keysToInclude Keys to include from the json file that's getting
  *                      objectified. All other keys are not included.
  *
+ * @param assignProperty Property key-value entry to assign to newly created JS
+ *                       object
+ *
  * @throws Error if provided json file path can't be parsed correctly or
  *         invalid omit or include key arguments are passed.
  *
  * @returns [p: string]: any
  */
-const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: keysToInclude}) =>
+const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: keysToInclude}, assignProperty = {}) =>
 {
     if (keysToOmit && keysToInclude)
     {
@@ -155,30 +158,49 @@ const objectifyJsonFile = (pathToJsonFile, {omitKeys: keysToOmit, includeKeys: k
     })(jsonFileString);
 
     // Create new JS object with specified keys omitted or included
+    // TODO fix `assignProperty` object properties not overriding properties from
+    //  original js obj
     const newJsObj = Object.freeze(
-        Object.fromEntries(Object.entries(originalJsObj)
-                                 .filter(pkgJsonEntry =>
-                                             // If specified keys to include, only include those keys
-                                             keysToInclude?.includes(pkgJsonEntry[0])
-                                             // If specified keys to exclude, include only keys that don't match those keys
-                                             ?? ! keysToOmit?.includes(pkgJsonEntry[0])
-                                             // If no keys specified to include or exclude, include all keys
-                                             ?? true)));
+        Object.assign(
+            Object.fromEntries(Object.entries(originalJsObj)
+                                     .filter(pkgJsonEntry =>
+                                                 // If specified keys to include, only include those keys
+                                                 keysToInclude?.includes(pkgJsonEntry[0])
+                                                 // If specified keys to exclude, include only keys that don't match those keys
+                                                 ?? ! keysToOmit?.includes(pkgJsonEntry[0])
+                                                 // If no keys specified to include or exclude, include all keys
+                                                 ?? true)),
+            assignProperty));
 
-    // Create array from keys that are not present in new JS object
-    const oldNewJsObjDiff =
-        Object.keys(originalJsObj).filter(key => ! Object.keys(newJsObj).includes(key));
+    // Create array of keys that are not present in the newly created JS object,
+    // but are present in the original JS object
+    const keysOmittedFromOriginalJSObj = Object.freeze(
+        Object.keys(originalJsObj).filter(key => ! (key in newJsObj)));
+
+    const keysIncludedFromOriginalJSObj = Object.freeze(
+            Object.keys(originalJsObj).filter(key => ! keysOmittedFromOriginalJSObj.includes(key)));
+
+    const keysUpdatedFromOriginalJSObj = Object.freeze(
+        Object.keys(newJsObj).filter(key => (key in originalJsObj) && originalJsObj[key] !== newJsObj[key]));
 
     // If there is a difference in keys between original and new JS object,
     // print which keys are omitted and which keys are retained to console
-    if (oldNewJsObjDiff.length !== 0)
+    if (keysOmittedFromOriginalJSObj.length !== 0)
     {
-        const oldNewJsObjIntersection =
-            Object.keys(originalJsObj).filter(key => ! oldNewJsObjDiff.includes(key));
+        console.log(`omitting keys from distributable package.json:\n["${keysOmittedFromOriginalJSObj.join('", "')}"]\n`);
+    }
 
-        console.log(`omitting keys from distributable package.json:\n["${oldNewJsObjDiff.join('", "')}"]\n`);
+    if (keysIncludedFromOriginalJSObj.length !== 0)
+    {
+        console.log(`keys retained from npm root package.json:\n["${keysIncludedFromOriginalJSObj.join('", "')}"]\n`);
+    }
 
-        console.log(`keys retained from npm root package.json:\n["${oldNewJsObjIntersection.join('", "')}"]\n`);
+    if (keysUpdatedFromOriginalJSObj.length !== 0)
+    {
+        const updatedKeysArrayShowingOldNewValues = Object.freeze(
+            keysUpdatedFromOriginalJSObj.map(updatedKey => `${updatedKey}: "${originalJsObj[updatedKey]}" -> "${newJsObj[updatedKey]}"`));
+
+        console.log(`keys updated from npm root package.json:\n{${updatedKeysArrayShowingOldNewValues.join(",\n ")}}\n`);
     }
 
     // New JS object with specified keys omitted or included
@@ -300,7 +322,10 @@ const distPkgJsonPath = join(distPkgDirPath, "package.json");
  *
  * @type Readonly<{[p: string]: any}>
  */
-const distPkgJsonObj = objectifyJsonFile(global.ROOT_PKG_JSON_FILE_PATH, {omitKeys: ["config", "devDependencies", "private", "scripts"]});
+const distPkgJsonObj = Object.freeze(
+    objectifyJsonFile(global.ROOT_PKG_JSON_FILE_PATH,
+                      {omitKeys: ["config", "devDependencies", "private", "scripts"]},
+                      {type: "commonjs"}));
 
 // If a root README file exists, copy it into root distributable package directory
 if (fs.existsSync(rootReadMePath))

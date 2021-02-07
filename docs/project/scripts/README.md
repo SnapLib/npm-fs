@@ -37,21 +37,20 @@ It can be called via:
 $npm run build-dev
 ```
 
-After running the script, a directory named `build` will be generated in the
-root of this project. This directory will contain another directory called `js`
-that contains the javascript code compiled from the typescript source code, as
-well as the source maps for each javascript file. This build is intended to
-compile the code so it can be further tested/developed within this project
-environment only.
+After running the script, nested directories named `build/dev/js` will be
+generated in the root of this project. The nested `js` directory will contain
+the javascript code compiled from the typescript source code, as well as the
+source maps for each javascript file. This build is intended to compile the code
+so it can be further tested/developed within this project environment only.
 
 It calls `tsc` (the typescript compiler) with:
 
 - the `project` option set to [`src/main/ts/tsconfig.dev.json`][4]
-- the `outDir` option set to `build/js`
+- the `outDir` option set to `build/dev/js`
 
 This results in the src code located in the [`src/main/ts`][5] directory to be
-compiled and outputted to the root `build/js` directory in the same structure
-it's in in [`src/main/ts`][5].
+compiled and outputted to the root `build/dev/js` directory in the same
+structure it's in in [`src/main/ts`][5].
 
 The tsconfig compiler rules set in [`src/main/ts/tsconfig.dev.json`][4] are
 relatively lax compared to compiling for distribution. For instance, unused
