@@ -156,7 +156,7 @@ export const scanDirTree = (dirPath: string): Readonly<{for: Readonly<ScanQueryR
             {
                 return dirPathArg;
             }
-                // If provided path is root directory and doesn't contain `package.json`
+            // If provided path is root directory and doesn't contain `package.json`
             // file, return `null`
             else if (path.basename(dirPathArg).length === 0)
             {
