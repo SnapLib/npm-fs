@@ -1,5 +1,6 @@
 import type ExistingElement from "../ExistingElement";
 import AbstractDirElement from "./AbstractDirElement";
+import { dirSize } from "../../util/dirSize";
 import type { ExistingDirents } from "./DirElement";
 import Path from "path";
 import fs from "fs";
@@ -163,48 +164,6 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
         return new ExistingDirElement(fileURLToPath(directoryUrl));
     }
 }
-
-/**
- * Returns the total size (in bytes) of the existing directory the provided
- * string path argument points to. This includes the sum of all the sizes of
- * it's sub directories and files.
- *
- * If the provided path doesn't point to an existing file system element, `-1`
- * is returned. If the provided path argument doesn't point to a directory, an
- * error is thrown.
- *
- * @param directoryPath The path pointing to the directory to return the size
- *                      of.
- *
- * @returns The total size (in bytes) of the directory at the provided path.
- *
- * @throws Error If provided path points to an element that's not a directory.
- */
-export const dirSize = (directoryPath: string): number =>
-{
-    if ( ! fs.existsSync(directoryPath))
-    {
-        throw new Error(`path doesn't exist: ${directoryPath}`);
-    }
-    // Parse directory size if provided path points to a directory
-    else if (fs.lstatSync(directoryPath).isDirectory())
-    {
-        const getAllFilePaths = (dirPath: string): ReadonlyArray<string> => {
-            return fs.readdirSync(dirPath, {withFileTypes: true})
-                     .flatMap(dirent => dirent.isDirectory()
-                                                 ? getAllFilePaths(Path.join(dirPath, dirent.name))
-                                                 : Path.join(dirPath, dirent.name));};
-
-        return ((dirPath: string): number  =>
-            getAllFilePaths(dirPath).map(filePath => fs.lstatSync(filePath).size)
-                                    .reduce((fileSize, nextFileSize) => fileSize + nextFileSize))(directoryPath);
-    }
-    // If provided path doesn't point to a directory throw an error
-    else
-    {
-        throw new Error(`path doesn't point to a directory: ${directoryPath}`);
-    }
-};
 
 /**
  * Reads the directory that the provided path string argument points to and
