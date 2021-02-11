@@ -184,7 +184,7 @@ export const dirSize = (directoryPath: string): number =>
 {
     if ( ! fs.existsSync(directoryPath))
     {
-        return -1;
+        throw new Error(`path doesn't exist: ${directoryPath}`);
     }
     // Parse directory size if provided path points to a directory
     else if (fs.lstatSync(directoryPath).isDirectory())
