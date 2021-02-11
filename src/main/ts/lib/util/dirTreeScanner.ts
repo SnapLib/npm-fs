@@ -194,7 +194,7 @@ export const scanDirTree = (dirPath: string): Readonly<{for: Readonly<ScanQueryR
                     {
                         return dirPathTreeQueryResults(dirPath, dirNameQuery, {file: false, directory: true, isCaseSensitive: options?.caseSensitive});
                     },
-                    files: (fileName:string, options?: {caseSensitive?: boolean}): ReadonlyArray<string> =>
+                    files: (fileNameQuery:string, options?: {caseSensitive?: boolean}): ReadonlyArray<string> =>
                     {
                         return [];
                     },
