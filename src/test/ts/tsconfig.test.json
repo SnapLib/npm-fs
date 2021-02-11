@@ -7,7 +7,7 @@
     "inlineSourceMap": true,
     "lib": ["es2020"],
     "moduleResolution": "node",
-    "noEmitOnError": false,
+    "noEmitOnError": true,
     "rootDir": ".",
     "removeComments": true,
     "target": "es2020"
