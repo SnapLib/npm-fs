@@ -1,17 +1,15 @@
-import {scanDirTree, scanDirTreeUrl} from "../../../../main/ts/lib/util/dirTreeScanner";
+import { scanDirTree, scanDirTreeUrl } from "../../../../main/ts/lib/util/dirTreeScanner";
 import { assert } from "chai";
-import { before, suite, test } from "mocha";
+import { suite, test } from "mocha";
+import { basename } from "path";
 
-suite("", function TestDirTreeScanner()
+suite("TestDirTreeScanner", function TestDirTreeScanner()
 {
-    before("Test object instantiation first", function TestInitializers()
+    suite("scanDirTree(__dirname).for.file(basename(__filename) === __dirname)", function TestElementType()
     {
-    });
-
-    suite("#elementType", function TestElementType()
-    {
-        test("", function ()
+        test(`scanDirTree("${__dirname}").for.file("${basename(__filename)}") === "${__dirname}"`, function ()
         {
+            assert.strictEqual(scanDirTree(__dirname).for.file(basename(__filename)), __dirname);
         });
     });
 });
