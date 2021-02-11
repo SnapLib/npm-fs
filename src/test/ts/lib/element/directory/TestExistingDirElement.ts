@@ -26,59 +26,59 @@ let mockExistingDirDirname;
 let mockExistingDirMockResource;
 
 before("Test object instantiation first", function TestInitializers()
-    {
-       suite("ExistingDirElement initialization", function()
+{
+   suite("ExistingDirElement initialization", function()
+   {
+       suite("valid initialization", function ValidInitializers()
        {
-           suite("valid initialization", function ValidInitializers()
+           test(`new ExistingDirElement("${__dirname}") should not throw`, function DirNameArgConstructor()
            {
-               test(`new ExistingDirElement("${__dirname}") should not throw`, function DirNameArgConstructor()
-               {
-                   assert.doesNotThrow(() => new ExistingDirElement(__dirname));
-               });
-
-               test(`new ExistingDirElement("${mockExistingDirResourcePath}") should not throw`, function ResourceDirPathConstructor()
-               {
-                   assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirResourcePath));
-               });
+               assert.doesNotThrow(() => new ExistingDirElement(__dirname));
            });
 
-           suite("invalid initialization", function InvalidInitializers()
+           test(`new ExistingDirElement("${mockExistingDirResourcePath}") should not throw`, function ResourceDirPathConstructor()
            {
-               test('new ExistingDirElement("") should throw', function EmptyArgConstructor()
-               {
-                   assert.throws(() => new ExistingDirElement(""));
-               });
-
-               test(`new ExistingDirElement("${__filename}") should throw`, function ExistingFilePathArgConstructor()
-               {
-                   assert.throws(() => new ExistingDirElement(__filename));
-               });
+               assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirResourcePath));
            });
-
-           try
-           {
-               mockExistingDirDirname = Object.freeze(new ExistingDirElement(__dirname));
-           }
-           catch (err)
-           {
-               // throw new Error("error instantiating new existing directory element");
-               throw {name: "ExistingDirElementInstantiationError",
-                      message: "error instantiating mock existing dir __dirname element",
-                      stack: err.stack};
-           }
-
-           try
-           {
-               mockExistingDirMockResource = Object.freeze(new ExistingDirElement(mockExistingDirResourcePath));
-           }
-           catch (err)
-           {
-               throw {name: "ExistingDirElementInstantiationError",
-                      message: "error instantiating mock existing existing dir resource element",
-                      stack: err.stack};
-           }
        });
-    });
+
+       suite("invalid initialization", function InvalidInitializers()
+       {
+           test('new ExistingDirElement("") should throw', function EmptyArgConstructor()
+           {
+               assert.throws(() => new ExistingDirElement(""));
+           });
+
+           test(`new ExistingDirElement("${__filename}") should throw`, function ExistingFilePathArgConstructor()
+           {
+               assert.throws(() => new ExistingDirElement(__filename));
+           });
+       });
+
+       try
+       {
+           mockExistingDirDirname = Object.freeze(new ExistingDirElement(__dirname));
+       }
+       catch (err)
+       {
+           // throw new Error("error instantiating new existing directory element");
+           throw {name: "ExistingDirElementInstantiationError",
+                  message: "error instantiating mock existing dir __dirname element",
+                  stack: err.stack};
+       }
+
+       try
+       {
+           mockExistingDirMockResource = Object.freeze(new ExistingDirElement(mockExistingDirResourcePath));
+       }
+       catch (err)
+       {
+           throw {name: "ExistingDirElementInstantiationError",
+                  message: "error instantiating mock existing existing dir resource element",
+                  stack: err.stack};
+       }
+   });
+});
 
 suite("#elementType", function TestElementType()
 {
