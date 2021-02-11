@@ -236,3 +236,5 @@ export const scanDirTreeUrl = (urlString: string): Readonly<{for: ScanQueryResul
 {
     return scanDirTree(path.dirname(fileURLToPath(urlString)));
 };
+
+export {scanDirTree as default};
