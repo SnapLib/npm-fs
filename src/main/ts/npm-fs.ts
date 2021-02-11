@@ -8,7 +8,7 @@
  *
  * @author Snap <snap@snaplib.org>
  */
-export {ExistingFileElement} from "./lib/element/file/ExistingFileElement.js";
-export {ExistingDirElement} from "./lib/element/directory/ExistingDirElement.js";
-export {JSONFile} from "./lib/element/file/JSON-File.js";
-export {DirectoryRoot} from "./lib/element/directory/DirectoryRoot.js";
+export {ExistingFileElement} from "./lib/element/file/ExistingFileElement";
+export {ExistingDirElement} from "./lib/element/directory/ExistingDirElement";
+export {JSONFile} from "./lib/element/file/JSON-File";
+export {DirectoryRoot} from "./lib/element/directory/DirectoryRoot";
