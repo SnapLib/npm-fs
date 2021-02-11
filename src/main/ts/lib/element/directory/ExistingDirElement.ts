@@ -182,7 +182,7 @@ export class ExistingDirElement extends AbstractDirElement implements ExistingEl
  *
  * @param options To read directory recursively or not.
  */
-export const dirReaderSync = (directoryPath: string, options?: {recursive: boolean}): Readonly<ExistingDirents & {file: ExistingDirents, directory: ExistingDirents}> =>
+export const dirReaderSync = (directoryPath: string, options?: {recursive: boolean}): Readonly<ExistingDirents & {file: Readonly<ExistingDirents>, directory: Readonly<ExistingDirents>}> =>
 {
     const _contains =
             {
