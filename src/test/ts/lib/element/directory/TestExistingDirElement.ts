@@ -27,9 +27,9 @@ let mockExistingDirMockResource;
 
 suite("TestExistingDirElement", function TestExistingDirElement()
 {
-    before("Test object instantiation first", function TestInitializers()
+    before("Test object instantiation first", function TestInitializersFirst()
     {
-        suite("ExistingDirElement initialization", function ()
+        suite("ExistingDirElement initialization", function TestExistingDirElementInitializers()
         {
             suite("valid initialization", function ValidInitializers()
             {
