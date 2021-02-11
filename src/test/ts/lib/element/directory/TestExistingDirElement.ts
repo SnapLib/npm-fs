@@ -25,7 +25,7 @@ let mockExistingDirDirname;
 
 let mockExistingDirMockResource;
 
-suite("TestExistingDirElement", function()
+suite("TestExistingDirElement", function TestExistingDirElement()
 {
     before("Test object instantiation first", function TestInitializers()
     {
