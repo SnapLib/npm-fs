@@ -117,7 +117,7 @@ export const scanDirTree = (dirPath: string): Readonly<{for: ScanQueryResults}> 
     {
         throw new Error(`path does not point to a directory:\n"${dirPath}"`);
     }
-        // If path points to a valid existing directory, begin scanning for
+    // If path points to a valid existing directory, begin scanning for
     // `package.json` files
     else
     {
