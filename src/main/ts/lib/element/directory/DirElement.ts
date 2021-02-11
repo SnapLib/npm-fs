@@ -17,7 +17,7 @@ export interface DirElement extends Element
 {
     /**
      * Synchronously returns this existing directory element's files and
-     * formatted in various ways.
+     * directories organized and queryable in various ways.
      *
      * This function can be used to retrieve and perform operations on all files
      * this directory element contains.
