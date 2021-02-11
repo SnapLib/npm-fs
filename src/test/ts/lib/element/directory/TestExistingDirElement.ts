@@ -1,10 +1,8 @@
 import { ExistingDirElement } from "../../../../../main/ts/lib/element/directory/ExistingDirElement";
-import chai from "chai";
+import { assert } from "chai";
 import { before, suite, test } from "mocha";
 import fs from "fs";
 import path from "path";
-
-const assert = chai.assert;
 
 const dirNameDirents = Object.freeze(fs.readdirSync(__dirname, {withFileTypes: true}));
 
