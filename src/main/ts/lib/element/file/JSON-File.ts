@@ -1,4 +1,4 @@
-import ExistingFileElement from "./ExistingFileElement.js";
+import ExistingFileElement from "./ExistingFileElement";
 import { normalize, sep } from "path";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
 

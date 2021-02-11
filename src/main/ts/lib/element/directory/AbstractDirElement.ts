@@ -1,6 +1,6 @@
-import AbstractElement from "../AbstractElement.js";
-import DirElement from "./DirElement.js";
-import type {ExistingDirents, VirtualDirents} from "./DirElement.js";
+import AbstractElement from "../AbstractElement";
+import DirElement from "./DirElement";
+import type {ExistingDirents, VirtualDirents} from "./DirElement";
 import {isAbsolute, join} from "path";
 
 export abstract class AbstractDirElement extends AbstractElement implements DirElement

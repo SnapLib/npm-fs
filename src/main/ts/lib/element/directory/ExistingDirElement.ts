@@ -1,6 +1,6 @@
-import type ExistingElement from "../ExistingElement.js";
-import AbstractDirElement from "./AbstractDirElement.js";
-import type { ExistingDirents } from "./DirElement.js";
+import type ExistingElement from "../ExistingElement";
+import AbstractDirElement from "./AbstractDirElement";
+import type { ExistingDirents } from "./DirElement";
 import Path from "path";
 import fs from "fs";
 import {fileURLToPath} from "url";

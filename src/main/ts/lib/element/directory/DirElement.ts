@@ -1,4 +1,4 @@
-import type Element from "../Element.js";
+import type Element from "../Element";
 import type {Dirent} from "fs";
 
 /**

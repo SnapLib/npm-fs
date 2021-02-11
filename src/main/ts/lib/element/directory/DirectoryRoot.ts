@@ -1,5 +1,5 @@
-import ExistingDirElement from "./ExistingDirElement.js";
-import DirContents from "./DirContents.js";
+import ExistingDirElement from "./ExistingDirElement";
+import DirContents from "./DirContents";
 
 export class DirectoryRoot extends ExistingDirElement
 {

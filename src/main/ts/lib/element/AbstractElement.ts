@@ -1,9 +1,9 @@
-import type Element from "./Element.js";
-import ElementType from "./ElementType.js";
+import type Element from "./Element";
+import ElementType from "./ElementType";
 import { MalFormedElementPathError,
          PathDoesNotExistError,
          IllegalPathTypeError,
-         UndefinedPathError } from "./Errors.js";
+         UndefinedPathError } from "./Errors";
 import { existsSync, lstatSync } from "fs";
 import Path from "path";
 

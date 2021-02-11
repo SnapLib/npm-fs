@@ -1,5 +1,5 @@
-import AbstractDirElement from "./AbstractDirElement.js";
-import type { VirtualDirents } from "./DirElement.js";
+import AbstractDirElement from "./AbstractDirElement";
+import type { VirtualDirents } from "./DirElement";
 import fs from "fs";
 import path from "path";
 
