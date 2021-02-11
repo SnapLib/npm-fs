@@ -9,7 +9,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "preserveConstEnums": false,
-    "removeComments": true,
     "skipDefaultLibCheck": false,
     "skipLibCheck": false,
     "sourceMap": false,
