@@ -1,4 +1,5 @@
 import type { ExistingDirents, VirtualDirents } from "../../util/dirReader";
+export type { ExistingDirents, VirtualDirents } from "../../util/dirReader";
 import type Element from "../Element";
 
 /**
