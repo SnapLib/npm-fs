@@ -1,5 +1,5 @@
+import type { ExistingDirents, VirtualDirents } from "../../util/dirReader";
 import type Element from "../Element";
-import type {Dirent} from "fs";
 
 /**
  * Interface for objects that represent directory elements.
@@ -130,53 +130,6 @@ export interface DirElement extends Element
      * @function
      */
     toString(): string;
-}
-
-interface ReturnedDirents
-{
-    dirents?: ReturnType<() => ReadonlyArray<Dirent>>,
-    names: ReturnType<() => ReadonlyArray<string>>,
-    paths: ReturnType<() => ReadonlyArray<string>>,
-    count: number;
-
-    readonly contains:
-        {
-            readonly dirent?: (aDirent: Dirent) => boolean,
-            readonly name: (elementName: string, options?: {matchCase: boolean}) => boolean,
-            readonly path: (elementAbsOrRelPath: string, options?: {matchCase: boolean}) => boolean
-        };
-}
-
-/**
- * Contains the type of properties the directory entries (dirents) of an
- * existing directory element posses. The dirents of an existing directory
- * element can be returned as absolute path strings, name strings, and as
- * `Dirent` objects. The total number of directory entries can be returned as
- * well.
- */
-export interface ExistingDirents extends Required<ReturnedDirents>
-{
-    readonly contains:
-        {
-            readonly dirent: (aDirent: Dirent) => boolean,
-            readonly name: (existingElementName: string, options?: {matchCase: boolean}) => boolean,
-            readonly path: (existingElementAbsOrRelPath: string, options?: {matchCase: boolean}) => boolean
-        };
-}
-
-/**
- * Contains the type of properties the directory entries (dirents) of a virtual
- * directory element posses. The dirents of a virtual directory element can be
- * returned as absolute path strings and name strings. The total number of
- * directory entries can be returned as well.
- */
-export interface VirtualDirents extends Required<Omit<ReturnedDirents, "dirents">>
-{
-    readonly contains:
-        {
-            readonly name: (virtualElementName: string, options?: {matchCase: boolean}) => boolean,
-            readonly path: (virtualElementAbsOrRelPath: string, options?: {matchCase: boolean}) => boolean
-        };
 }
 
 export {DirElement as default};
