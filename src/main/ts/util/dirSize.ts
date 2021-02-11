@@ -1,5 +1,6 @@
 import fs from "fs";
 import {join} from "path";
+import {fileURLToPath} from "url";
 
 /**
  * Returns the total size (in bytes) of the existing directory the provided
@@ -41,3 +42,10 @@ export const dirSize = (directoryPath: string): number =>
         throw new Error(`path doesn't point to a directory: ${directoryPath}`);
     }
 };
+
+export const dirUrlSize = (directoryUrl: string): number =>
+{
+    return dirSize(fileURLToPath(directoryUrl));
+};
+
+export {dirSize as default};
