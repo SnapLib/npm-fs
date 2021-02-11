@@ -6,9 +6,8 @@ import {join} from "path";
  * string path argument points to. This includes the sum of all the sizes of
  * it's sub directories and files.
  *
- * If the provided path doesn't point to an existing file system element, `-1`
- * is returned. If the provided path argument doesn't point to a directory, an
- * error is thrown.
+ * If the provided path doesn't point to an existing directory system element,
+ * an error is thrown.
  *
  * @param directoryPath The path pointing to the directory to return the size
  *                      of.
