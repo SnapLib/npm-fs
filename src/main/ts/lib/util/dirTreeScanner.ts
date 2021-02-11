@@ -47,7 +47,7 @@ interface ScanQueryResults
      *
      * @returns ReadonlyArray<string>
      */
-    readonly files?: (fileNameQuery:string, options?: {caseSensitive?: boolean}) => ReadonlyArray<string>,
+    readonly files: (fileNameQuery:string, options?: {caseSensitive?: boolean}) => ReadonlyArray<string>,
 
     /**
      * @readonly
@@ -57,7 +57,7 @@ interface ScanQueryResults
      *
      * @returns ReadonlyArray<string>
      */
-    readonly directories?: (dirNameQuery:string, options?: {caseSensitive?: boolean}) => ReadonlyArray<string>
+    readonly directories: (dirNameQuery:string, options?: {caseSensitive?: boolean}) => ReadonlyArray<string>
 }
 
 /**
@@ -90,7 +90,7 @@ interface ScanQueryResults
  * @sealed
  * @function
  */
-export const scanDirTree = (dirPath: string): Readonly<{for: ScanQueryResults}> =>
+export const scanDirTree = (dirPath: string): Readonly<{for: Readonly<ScanQueryResults>}> =>
 {
     if (dirPath.length === 0)
     {
@@ -193,6 +193,14 @@ export const scanDirTree = (dirPath: string): Readonly<{for: ScanQueryResults}> 
                     directory: (dirNameQuery:string, options?: {caseSensitive?: boolean}): string | null =>
                     {
                         return dirPathTreeQueryResults(dirPath, dirNameQuery, {file: false, directory: true, isCaseSensitive: options?.caseSensitive});
+                    },
+                    files: (fileName:string, options?: {caseSensitive?: boolean}): ReadonlyArray<string> =>
+                    {
+                        return [];
+                    },
+                    directories: (dirNameQuery:string, options?: {caseSensitive?: boolean}): ReadonlyArray<string> =>
+                    {
+                        return [];
                     }
                 }
         };
