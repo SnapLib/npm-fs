@@ -32,17 +32,17 @@ import ReadOnlyDict = NodeJS.ReadOnlyDict;
  *
  * @returns [p: string]: any
  */
-export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit: ReadonlyArray<string>, keysToInclude: ReadonlyArray<string>}, assignProperty = new Array<string>()): ReadOnlyDict<unknown> =>
+export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperty = new Array<string>()): ReadOnlyDict<unknown> =>
 {
     if (options?.keysToOmit && options?.keysToInclude)
     {
         throw new Error("Keys to omit and include simultaneously defined");
     }
-    else if (options?.keysToOmit.length === 0)
+    else if (options?.keysToOmit?.length === 0)
     {
         throw new Error("Empty omit keys array");
     }
-    else if (options?.keysToInclude.length === 0)
+    else if (options?.keysToInclude?.length === 0)
     {
         throw new Error("Empty include keys array");
     }
@@ -84,9 +84,9 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit:
             Object.fromEntries(Object.entries(originalJsObj)
                                      .filter(pkgJsonEntry =>
                                                  // If specified keys to include, only include those keys
-                                                 options?.keysToInclude.includes(pkgJsonEntry[0])
+                                                 options?.keysToInclude?.includes(pkgJsonEntry[0])
                                                  // If specified keys to exclude, include only keys that don't match those keys
-                                                 ?? ! options?.keysToOmit.includes(pkgJsonEntry[0])
+                                                 ?? ! options?.keysToOmit?.includes(pkgJsonEntry[0])
                                                  // If no keys specified to include or exclude, include all keys
                                                  ?? true)),
             assignProperty);
