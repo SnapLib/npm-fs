@@ -1,6 +1,5 @@
 import fs from "fs";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
-import path from "path";
 
 export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): ReadOnlyDict<unknown> =>
 {
