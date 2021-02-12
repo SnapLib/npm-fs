@@ -1,5 +1,6 @@
 import fs from "fs";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
+import path from "path";
 
 /**
  * Converts a json file to a frozen JavaScript object. Optionally, values can
@@ -32,7 +33,8 @@ import ReadOnlyDict = NodeJS.ReadOnlyDict;
  *
  * @returns [p: string]: any
  */
-export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperty = new Array<string>()): ReadOnlyDict<unknown> =>
+// TODO make assign property correctly assign key value entry/entries
+export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperty?: ReadonlyArray<ReadonlyArray<string>>): ReadOnlyDict<unknown> =>
 {
     if (options?.keysToOmit && options?.keysToInclude)
     {
@@ -89,7 +91,7 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?
                                                  ?? ! options?.keysToOmit?.includes(pkgJsonEntry[0])
                                                  // If no keys specified to include or exclude, include all keys
                                                  ?? true)),
-            assignProperty);
+            Object.fromEntries(assignProperty) ?? new Array<string>());
 
     // Create array of keys that are not present in the newly created JS object,
     // but are present in the original JS object
