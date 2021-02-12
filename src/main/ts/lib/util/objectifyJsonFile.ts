@@ -78,8 +78,6 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?
     })(jsonFileString);
 
     // Create new JS object with specified keys omitted or included
-    // TODO fix `assignProperty` object properties not overriding properties from
-    //  original js obj
     const newJsObj: ReadOnlyDict<unknown> =
         Object.assign(
             Object.fromEntries(Object.entries(originalJsObj)
@@ -107,12 +105,12 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?
     // print which keys are omitted and which keys are retained to console
     if (keysOmittedFromOriginalJSObj.length !== 0)
     {
-        console.log(`omitting keys from distributable package.json:\n["${keysOmittedFromOriginalJSObj.join('", "')}"]\n`);
+        console.log(`omitted keys from original package.json file:\n["${keysOmittedFromOriginalJSObj.join('", "')}"]\n`);
     }
 
     if (keysIncludedFromOriginalJSObj.length !== 0)
     {
-        console.log(`keys retained from npm root package.json:\n["${keysIncludedFromOriginalJSObj.join('", "')}"]\n`);
+        console.log(`retained keys from original package.json file:\n["${keysIncludedFromOriginalJSObj.join('", "')}"]\n`);
     }
 
     if (keysUpdatedFromOriginalJSObj.length !== 0)
@@ -120,7 +118,7 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?
         const updatedKeysArrayShowingOldNewValues =
             keysUpdatedFromOriginalJSObj.map(updatedKey => `${updatedKey}: "${originalJsObj[updatedKey]}" -> "${newJsObj[updatedKey]}"`);
 
-        console.log(`keys updated from npm root package.json:\n{${updatedKeysArrayShowingOldNewValues.join(",\n ")}}\n`);
+        console.log(`updated key values from original package.json file:\n{${updatedKeysArrayShowingOldNewValues.join(",\n ")}}\n`);
     }
 
     // New JS object with specified keys omitted or included
