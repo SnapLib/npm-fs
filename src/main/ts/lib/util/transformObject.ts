@@ -26,26 +26,6 @@ export function transformObject<T>(obj: T, options?: {keysToOmit?: ReadonlyArray
     const keysUpdatedFromOriginalJSObj: ReadonlyArray<string> =
         Object.keys(newJsObj).filter(key => (key in obj) && obj[key] !== newJsObj[key]);
 
-    // If there is a difference in keys between original and new JS object,
-    // print which keys are omitted and which keys are retained to console
-    if (keysOmittedFromOriginalJSObj.length !== 0)
-    {
-        console.log(`omitted keys from original package.json file:\n["${keysOmittedFromOriginalJSObj.join('", "')}"]\n`);
-    }
-
-    if (keysIncludedFromOriginalJSObj.length !== 0)
-    {
-        console.log(`retained keys from original package.json file:\n["${keysIncludedFromOriginalJSObj.join('", "')}"]\n`);
-    }
-
-    if (keysUpdatedFromOriginalJSObj.length !== 0)
-    {
-        const updatedKeysArrayShowingOldNewValues =
-            keysUpdatedFromOriginalJSObj.map(updatedKey => `${updatedKey}: "${obj[updatedKey]}" -> "${newJsObj[updatedKey]}"`);
-
-        console.log(`updated key values from original package.json file:\n{${updatedKeysArrayShowingOldNewValues.join(",\n ")}}\n`);
-    }
-
     return {
         to: {
             original: obj,
