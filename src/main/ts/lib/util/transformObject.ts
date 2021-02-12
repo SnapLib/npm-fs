@@ -30,6 +30,29 @@ import ReadOnlyDict = NodeJS.ReadOnlyDict;
  *   newly generated JavaScript object (defined by the argument initially passed
  *   to the function)
  *
+ * @example Accessing transformed outputted object and meta data about transformations
+ * ```ts
+ * const mockObj: any = {val1: 1, val2: true, val3: "third"};
+ *
+ * console.log(transformObject(mockObj, {keysToOmit: ["val2"]}).to.new);
+ * // prints "{val1: 1, val3: "third"}"
+ *
+ * console.log(transformObject(mockObj, {keysToInclude: ["val2"]}).to.new);
+ * // prints "{val2: true}"
+ *
+ * console.log(transformObject(mockObj, {keysToInclude: ["val2"]}).to.original);
+ * // prints "{val1: 1, val2: true, val3: "third"}"
+ *
+ * console.log(transformObject(mockObj, {keysToOmit: ["val2"]}).get.includedKeys);
+ * // prints "['val1', 'val3']"
+ *
+ * console.log(transformObject(mockObj, {keysToInclude: ["val1", "val3", "foo"]}).get.keysToInclude);
+ * // prints "['val1', 'val3', 'foo']"
+ *
+ * console.log(transformObject(mockObj, {keysToInclude: ["val1", "val3"]}).get.omittedKeys);
+ * // prints "['val2']"
+ * ```
+ *
  * @summary Converts a JavaScript object to a new JavaScript object with
  *          transformations applied.
  *
@@ -129,4 +152,4 @@ interface ObjectTransformMeta
  */
 export type TransformObjectReturnType<T> = {to: ObjectTransform<T>, get: ObjectTransformMeta}
 
-export {transformObject as default}
+export {transformObject as default};
