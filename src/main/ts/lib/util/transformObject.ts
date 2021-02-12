@@ -44,6 +44,8 @@ import ReadOnlyDict = NodeJS.ReadOnlyDict;
  * @returns TransformObjectReturnType Returns the newly generated JavaScript
  *          object from the target JavaScript object with transformations
  *          applied.
+ *
+ * @author Snap <snap@snaplib.org>
  */
 export function transformObject<T>(obj: T, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): Readonly<TransformObjectReturnType<T>>
 {
@@ -119,4 +121,12 @@ interface ObjectTransformMeta
     updatedKeys: ReadonlyArray<{key: string, original: unknown, new: unknown}>;
 }
 
+/**
+ * The new JavaScript object generated from the target JavaScript object with
+ * the transformations applied. Also contains meta information about the type
+ * of transformations applied and how the outputted JavaScript object compares
+ * to the target JavaScript object.
+ */
 export type TransformObjectReturnType<T> = {to: ObjectTransform<T>, get: ObjectTransformMeta}
+
+export {transformObject as default}
