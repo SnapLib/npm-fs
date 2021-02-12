@@ -26,6 +26,8 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
         const checkForFileOrDirName = (dirents: ExistingDirents | VirtualDirents,
                                        fileOrDirSearchString: string) =>
         {
+            // If passed path argument that's absolute and doesn't start with
+            // with file or directory path being searched for
             if (isAbsolute(fileOrDirSearchString) && ! fileOrDirSearchString.startsWith(fileOrDirSearchString))
             {
                 return false;
