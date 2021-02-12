@@ -1,38 +1,13 @@
 import fs from "fs";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
+import path from "path";
 
-export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): ReadOnlyDict<unknown> =>
+export const transform = (obj: ReadOnlyDict<unknown>, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): ReadOnlyDict<unknown> =>
 {
-    if (options?.keysToOmit && options?.keysToInclude)
-    {
-        throw new Error("Keys to omit and include simultaneously defined");
-    }
-    else if (options?.keysToOmit?.length === 0)
-    {
-        throw new Error("Empty omit keys array");
-    }
-    else if (options?.keysToInclude?.length === 0)
-    {
-        throw new Error("Empty include keys array");
-    }
-
-    // Parse json file to JavaScript object
-    const originalJsObj: ReadOnlyDict<unknown> = (jsonString =>
-    {
-        try
-        {
-            return JSON.parse(jsonString);
-        }
-        catch (err)
-        {
-            throw new Error(`error parsing package.json at "${jsonString}"`);
-        }
-    })(jsonString);
-
     // Create new JS object with specified keys omitted or included
     const newJsObj: ReadOnlyDict<unknown> =
         Object.assign(
-            Object.fromEntries(Object.entries(originalJsObj)
+            Object.fromEntries(Object.entries(obj)
                                      .filter(pkgJsonEntry =>
                                                  // If specified keys to include, only include those keys
                                                  options?.keysToInclude?.includes(pkgJsonEntry[0])
@@ -45,13 +20,13 @@ export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: 
     // Create array of keys that are not present in the newly created JS object,
     // but are present in the original JS object
     const keysOmittedFromOriginalJSObj: ReadonlyArray<string> =
-        Object.keys(originalJsObj).filter(key => ! (key in newJsObj));
+        Object.keys(obj).filter(key => ! (key in newJsObj));
 
     const keysIncludedFromOriginalJSObj: ReadonlyArray<string> =
-            Object.keys(originalJsObj).filter(key => ! keysOmittedFromOriginalJSObj.includes(key));
+            Object.keys(obj).filter(key => ! keysOmittedFromOriginalJSObj.includes(key));
 
     const keysUpdatedFromOriginalJSObj: ReadonlyArray<string> =
-        Object.keys(newJsObj).filter(key => (key in originalJsObj) && originalJsObj[key] !== newJsObj[key]);
+        Object.keys(newJsObj).filter(key => (key in obj) && obj[key] !== newJsObj[key]);
 
     // If there is a difference in keys between original and new JS object,
     // print which keys are omitted and which keys are retained to console
@@ -68,13 +43,26 @@ export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: 
     if (keysUpdatedFromOriginalJSObj.length !== 0)
     {
         const updatedKeysArrayShowingOldNewValues =
-            keysUpdatedFromOriginalJSObj.map(updatedKey => `${updatedKey}: "${originalJsObj[updatedKey]}" -> "${newJsObj[updatedKey]}"`);
+            keysUpdatedFromOriginalJSObj.map(updatedKey => `${updatedKey}: "${obj[updatedKey]}" -> "${newJsObj[updatedKey]}"`);
 
         console.log(`updated key values from original package.json file:\n{${updatedKeysArrayShowingOldNewValues.join(",\n ")}}\n`);
     }
 
     // New JS object with specified keys omitted, included, or updated
     return newJsObj;
+};
+
+export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): ReadOnlyDict<unknown> =>
+{
+    try
+    {
+        // New JS object with specified keys omitted, included, or updated
+        return transform(JSON.parse(jsonString), options, assignProperties);
+    }
+    catch (err)
+    {
+        throw new Error(`error parsing package.json at "${jsonString}"`);
+    }
 };
 
 /**
