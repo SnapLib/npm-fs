@@ -25,8 +25,8 @@ import path from "path";
  *                              getting objectified. All other keys are not
  *                              included.
  *
- * @param assignProperty Property key-value entry to assign to newly created JS
- *                       object
+ * @param assignProperties Property key-value entry to assign to newly created
+ *                         JS object
  *
  * @throws Error if provided json file path can't be parsed correctly or
  *         invalid omit or include key arguments are passed.
@@ -34,7 +34,7 @@ import path from "path";
  * @returns [p: string]: any
  */
 // TODO make assign property correctly assign key value entry/entries
-export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperty?: ReadonlyArray<ReadonlyArray<string>>): ReadOnlyDict<unknown> =>
+export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): ReadOnlyDict<unknown> =>
 {
     if (options?.keysToOmit && options?.keysToInclude)
     {
@@ -91,7 +91,7 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?
                                                  ?? ! options?.keysToOmit?.includes(pkgJsonEntry[0])
                                                  // If no keys specified to include or exclude, include all keys
                                                  ?? true)),
-            Object.fromEntries(assignProperty) ?? new Array<string>());
+            assignProperties ?? {});
 
     // Create array of keys that are not present in the newly created JS object,
     // but are present in the original JS object
