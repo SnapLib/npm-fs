@@ -33,7 +33,6 @@ import path from "path";
  *
  * @returns [p: string]: any
  */
-// TODO make assign property correctly assign key value entry/entries
 export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): ReadOnlyDict<unknown> =>
 {
     if (options?.keysToOmit && options?.keysToInclude)
