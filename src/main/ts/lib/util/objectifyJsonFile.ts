@@ -122,7 +122,7 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?
     }
     else
     {
-        return objectifyJsonString(fs.readFileSync(pathToJsonFile, {encoding: "utf-8"}));
+        return objectifyJsonString(fs.readFileSync(pathToJsonFile, {encoding: "utf-8"}), options, assignProperties);
     }
 };
 
