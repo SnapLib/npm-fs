@@ -1,6 +1,5 @@
 import fs from "fs";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
-import path from "path";
 
 /**
  * Converts a json file to a frozen JavaScript object. Optionally, values can
@@ -121,7 +120,7 @@ export const objectifyJsonFile = (pathToJsonFile: string, options?: {keysToOmit?
         console.log(`updated key values from original package.json file:\n{${updatedKeysArrayShowingOldNewValues.join(",\n ")}}\n`);
     }
 
-    // New JS object with specified keys omitted or included
+    // New JS object with specified keys omitted, included, or updated
     return newJsObj;
 };
 
