@@ -18,6 +18,7 @@ export abstract class AbstractDirElement extends AbstractElement implements DirE
 
     public abstract length(): number;
 
+    // TODO create dedicated util file for this function
     public contains(options?: {ignoreCase?: boolean, recursive?: boolean}):
         Readonly<{ file: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
                    directory: (fileNameOrPath: string, options?: {ignoreCase: boolean}) => boolean;
