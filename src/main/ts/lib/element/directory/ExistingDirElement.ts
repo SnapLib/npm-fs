@@ -1,7 +1,7 @@
 import type ExistingElement from "../ExistingElement";
 import AbstractDirElement from "./AbstractDirElement";
 import { dirSize } from "../../util/dirSize";
-import { dirReaderSync } from "../../util/dirReader";
+import { dirReaderSync } from "../../util/dirEntriesReader";
 import type { ExistingDirents } from "./DirElement";
 import Path from "path";
 import fs from "fs";
