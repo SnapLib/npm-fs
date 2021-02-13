@@ -3,6 +3,18 @@ import { transformObject } from "./transformObject";
 import fs from "fs";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
 
+/**
+ * Generates an object from a json string that can have transformations applied
+ * to the generated JavaScript object.
+ *
+ * @param jsonString json string to objectify.
+ *
+ * @param options Options to omit or only include specific keys in the
+ *                outputted objectified JSON string object.
+ *
+ * @param assignProperties An object whose properties get assigned to the
+ *                         outputted objectified json object.
+ */
 export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: ReadonlyArray<string>, keysToInclude?: ReadonlyArray<string>}, assignProperties?: ReadOnlyDict<unknown>): TransformObjectReturnType<unknown> =>
 {
     try
