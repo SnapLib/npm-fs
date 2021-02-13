@@ -25,6 +25,4 @@ export const project =
     }
 };
 
-console.log(project.test.resources);
-
 export {project as default};
