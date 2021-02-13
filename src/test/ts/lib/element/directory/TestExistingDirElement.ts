@@ -1,3 +1,4 @@
+import project from "../../../global";
 import { ExistingDirElement } from "../../../../../main/ts/lib/element/directory/ExistingDirElement";
 import { assert } from "chai";
 import { before, suite, test } from "mocha";
@@ -11,7 +12,7 @@ const __dirInode = fs.lstatSync(__dirname).ino;
 const __dirNameShort = __dirname.substring(__dirname.indexOf("src/"), __dirname.length);
 
 const mockExistingDirResourcePath =
-    path.resolve(path.join(__dirname, "../../../../resources/MockExistingDirectory"));
+    path.resolve(path.join(project.test.resources, "MockExistingDirectory"));
 
 const mockDirResourceDirents =
     Object.freeze(fs.readdirSync(mockExistingDirResourcePath, {withFileTypes: true}));
@@ -86,7 +87,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite("#elementType", function TestElementType()
+    suite("ExistingDirElement.prototype.elementType", function TestElementType()
     {
         test(`<${__dirNameShort}> element type should equal "DIRECTORY"`, function ()
         {
@@ -99,7 +100,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite("#path", function TestPath()
+    suite("ExistingDirElement.prototype.path", function TestPath()
     {
         test(`path should equal "${__dirname}"`, function ()
         {
@@ -112,7 +113,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite("#name", function TestName()
+    suite("ExistingDirElement.prototype.name", function TestName()
     {
         test(`should equal "${path.basename(__dirname)}"`, function ()
         {
@@ -125,7 +126,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite(`#parent`, function TestParent()
+    suite("ExistingDirElement.prototype.parent", function TestParent()
     {
         test(`should equal "${path.dirname(__dirname)}"`, function ()
         {
@@ -138,7 +139,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite("#inodeSync()", function TestInodeSync()
+    suite("ExistingDirElement.prototype.inodeSync()", function TestInodeSync()
     {
         test(`should equal ${__dirInode}`, function ()
         {
@@ -151,9 +152,9 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite("#direntSync()", function TestDirentSync()
+    suite("ExistingDirElement.prototype.direntSync()", function TestDirentSync()
     {
-        suite("#dirents", function TestDirentDirents()
+        suite("ExistingDirElement.prototype.dirents", function TestDirentDirents()
         {
             test(`should equal ${dirNameDirents}`, function ()
             {
@@ -166,7 +167,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
             });
         });
 
-        suite("#names", function TestDirentNames()
+        suite("ExistingDirElement.prototype.names", function TestDirentNames()
         {
             const dirNameDirentNames =
                 Object.freeze(dirNameDirents.map(dirent => dirent.name));
@@ -185,7 +186,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
             });
         });
 
-        suite("#paths", function TestDirentPaths()
+        suite("ExistingDirElement.prototype.paths", function TestDirentPaths()
         {
             const dirNameDirentPaths =
                 Object.freeze(dirNameDirents.map(dirent => path.join(__dirname, dirent.name)));
@@ -204,7 +205,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
             });
         });
 
-        suite("#count", function TestDirentCount()
+        suite("ExistingDirElement.prototype.count", function TestDirentCount()
         {
             test(`should equal ${dirNameDirents.length}`, function ()
             {
@@ -218,7 +219,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite("#length()", function TestLength()
+    suite("ExistingDirElement.prototype.length()", function TestLength()
     {
         test(`non recursive should equal ${dirNameDirents.length}`, function ()
         {
@@ -231,7 +232,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
         });
     });
 
-    suite("#isEmpty()", function TestIsEmpty()
+    suite("ExistingDirElement.prototype.isEmpty()", function TestIsEmpty()
     {
         test("should be false", function ()
         {
