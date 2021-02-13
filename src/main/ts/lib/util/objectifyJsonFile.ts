@@ -28,7 +28,6 @@ export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: 
             name: "ObjectTransformationError",
             message: `Error transforming object: ${jsonString}`,
             stack: err.stack
-
         };
     }
 };
