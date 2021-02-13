@@ -10,5 +10,5 @@
  */
 export {ExistingFileElement} from "./lib/element/file/ExistingFileElement";
 export {ExistingDirElement} from "./lib/element/directory/ExistingDirElement";
-export {JSONFile} from "./lib/element/file/JSON-File";
+export {JSONFile} from "./lib/element/file/JSONFile";
 export {DirectoryRoot} from "./lib/element/directory/DirectoryRoot";
