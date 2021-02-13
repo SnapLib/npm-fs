@@ -1,4 +1,4 @@
-import project from "../../../global";
+import { TEST_RESOURCES } from "../../../global";
 import { ExistingDirElement } from "../../../../../main/ts/lib/element/directory/ExistingDirElement";
 import { assert } from "chai";
 import { before, suite, test } from "mocha";
@@ -12,7 +12,7 @@ const __dirInode = fs.lstatSync(__dirname).ino;
 const __dirNameShort = __dirname.substring(__dirname.indexOf("src/"), __dirname.length);
 
 const mockExistingDirResourcePath =
-    path.resolve(path.join(project.test.resources, "MockExistingDirectory"));
+    path.resolve(path.join(TEST_RESOURCES, "MockExistingDirectory"));
 
 const mockDirResourceDirents =
     Object.freeze(fs.readdirSync(mockExistingDirResourcePath, {withFileTypes: true}));
