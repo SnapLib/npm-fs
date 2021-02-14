@@ -1,9 +1,13 @@
 import ExistingFileElement from "./ExistingFileElement";
+import { objectifyJsonFile } from "../../util/objectifyJsonFile";
 import { normalize, sep } from "path";
 import ReadOnlyDict = NodeJS.ReadOnlyDict;
 
 export class JSONFile extends ExistingFileElement
 {
+    readonly #originalJsonObj: ReadOnlyDict<unknown>;
+    readonly #newJsonObj: ReadOnlyDict<unknown>;
+
     private readonly _jsonObject: ReadOnlyDict<unknown>;
 
     public constructor(jsonFilePath: string, ...nestedJsonFilePaths: ReadonlyArray<string>)
@@ -23,10 +27,9 @@ export class JSONFile extends ExistingFileElement
         })();
     }
 
-    public getOriginalJsObj(): ReadOnlyDict<unknown>
-    {
-        return this._jsonObject;
-    }
+    public getOriginalJsonString = () => {return this.toString();};
+
+    public getOriginalJsonObject = () => {return this.#originalJsonObj;};
 
     public entries(): readonly [string, unknown][]
     {
