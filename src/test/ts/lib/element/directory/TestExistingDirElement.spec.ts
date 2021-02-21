@@ -1,9 +1,11 @@
-import { TEST_RESOURCES } from "../../../global";
 import { ExistingDirElement } from "../../../../../main/ts/lib/element/directory/ExistingDirElement";
 import { assert } from "chai";
 import { before, suite, test } from "mocha";
 import fs from "fs";
 import path from "path";
+
+const MOCK_EXISTING_DIR_PATH =
+    path.resolve(path.join(__dirname, "..", "..", "..", "..", "resources", "MockExistingDirectory"));
 
 const dirNameDirents = Object.freeze(fs.readdirSync(__dirname, {withFileTypes: true}));
 
@@ -11,16 +13,13 @@ const __dirInode = fs.lstatSync(__dirname).ino;
 
 const __dirNameShort = __dirname.substring(__dirname.indexOf("src/"), __dirname.length);
 
-const mockExistingDirResourcePath =
-    path.resolve(path.join(TEST_RESOURCES, "MockExistingDirectory"));
-
 const mockDirResourceDirents =
-    Object.freeze(fs.readdirSync(mockExistingDirResourcePath, {withFileTypes: true}));
+    Object.freeze(fs.readdirSync(MOCK_EXISTING_DIR_PATH, {withFileTypes: true}));
 
 const mockExistingDirResourcePathShort =
-    mockExistingDirResourcePath.substring(mockExistingDirResourcePath.indexOf("src/"), mockExistingDirResourcePath.length);
+    MOCK_EXISTING_DIR_PATH.substring(MOCK_EXISTING_DIR_PATH.indexOf("src/"), MOCK_EXISTING_DIR_PATH.length);
 
-const mockExistingDirResourceInode = fs.lstatSync(mockExistingDirResourcePath).ino;
+const mockExistingDirResourceInode = fs.lstatSync(MOCK_EXISTING_DIR_PATH).ino;
 
 let mockExistingDirDirname;
 
@@ -39,9 +38,9 @@ suite("TestExistingDirElement", function TestExistingDirElement()
                     assert.doesNotThrow(() => new ExistingDirElement(__dirname));
                 });
 
-                test(`new ExistingDirElement("${mockExistingDirResourcePath}") should not throw`, function ResourceDirPathConstructor()
+                test(`new ExistingDirElement("${MOCK_EXISTING_DIR_PATH}") should not throw`, function ResourceDirPathConstructor()
                 {
-                    assert.doesNotThrow(() => new ExistingDirElement(mockExistingDirResourcePath));
+                    assert.doesNotThrow(() => new ExistingDirElement(MOCK_EXISTING_DIR_PATH));
                 });
             });
 
@@ -74,7 +73,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
 
             try
             {
-                mockExistingDirMockResource = Object.freeze(new ExistingDirElement(mockExistingDirResourcePath));
+                mockExistingDirMockResource = Object.freeze(new ExistingDirElement(MOCK_EXISTING_DIR_PATH));
             }
             catch (err)
             {
@@ -107,9 +106,9 @@ suite("TestExistingDirElement", function TestExistingDirElement()
             assert.strictEqual(mockExistingDirDirname.path, __dirname);
         });
 
-        test(`path should equal "${mockExistingDirResourcePath}"`, function ()
+        test(`path should equal "${MOCK_EXISTING_DIR_PATH}"`, function ()
         {
-            assert.strictEqual(mockExistingDirMockResource.path, mockExistingDirResourcePath);
+            assert.strictEqual(mockExistingDirMockResource.path, MOCK_EXISTING_DIR_PATH);
         });
     });
 
@@ -120,9 +119,9 @@ suite("TestExistingDirElement", function TestExistingDirElement()
             assert.strictEqual(mockExistingDirDirname.name, path.basename(__dirname));
         });
 
-        test(`should equal "${path.basename(mockExistingDirResourcePath)}"`, function ()
+        test(`should equal "${path.basename(MOCK_EXISTING_DIR_PATH)}"`, function ()
         {
-            assert.strictEqual(mockExistingDirMockResource.name, path.basename(mockExistingDirResourcePath));
+            assert.strictEqual(mockExistingDirMockResource.name, path.basename(MOCK_EXISTING_DIR_PATH));
         });
     });
 
@@ -133,9 +132,9 @@ suite("TestExistingDirElement", function TestExistingDirElement()
             assert.strictEqual(mockExistingDirDirname.parent, path.dirname(__dirname));
         });
 
-        test(`should equal "${path.dirname(mockExistingDirResourcePath)}"`, function ()
+        test(`should equal "${path.dirname(MOCK_EXISTING_DIR_PATH)}"`, function ()
         {
-            assert.strictEqual(mockExistingDirMockResource.parent, path.dirname(mockExistingDirResourcePath));
+            assert.strictEqual(mockExistingDirMockResource.parent, path.dirname(MOCK_EXISTING_DIR_PATH));
         });
     });
 
@@ -192,7 +191,7 @@ suite("TestExistingDirElement", function TestExistingDirElement()
                 Object.freeze(dirNameDirents.map(dirent => path.join(__dirname, dirent.name)));
 
             const mockDirResourceDirentPaths =
-                Object.freeze(mockDirResourceDirents.map(dirent => path.join(mockExistingDirResourcePath, dirent.name)));
+                Object.freeze(mockDirResourceDirents.map(dirent => path.join(MOCK_EXISTING_DIR_PATH, dirent.name)));
 
             test(`should equal ["${dirNameDirentPaths.join('", "')}"]`, function ()
             {
