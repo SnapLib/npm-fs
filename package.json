@@ -26,7 +26,7 @@
     "prebuild-dist": "tsc -p src/main/ts/tsconfig.dist.json --outDir build/dist/$npm_config_dist_root_pkg_dirname --declarationDir build/dist/$npm_config_dist_root_pkg_dirname/types",
     "build-dist": "node scripts/build/build-dist.mjs",
     "build-types": "tsc -p src/main/ts/tsconfig.dist.json --emitDeclarationOnly --declarationDir build/types/snaplib__npm-fs",
-    "build-tsdoc": "typedoc --options ./typedoc.js",
+    "build-tsdoc": "typedoc --options ./.root/typedoc.js",
     "clean": "node scripts/clean.mjs",
     "lint": "eslint --ext ts src/main/ts",
     "mocha": "mocha",
