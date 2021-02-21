@@ -45,15 +45,7 @@ export const objectifyJsonString = (jsonString: string, options?: {keysToOmit?: 
  * @param pathToJsonFile A path to a json file
  *
  * @param options Options to tweak the outputted object of the objectified JSON
- *                        file.
- *
- * @param options.keysToOmit Keys to not include in the generated JS object if
- *                           they're present in json file that gets getting
- *                           objectified.
- *
- * @param options.keysToInclude Keys to include from the json file that's
- *                              getting objectified. All other keys are not
- *                              included.
+ *                file.
  *
  * @param assignProperties Property key-value entry to assign to newly created
  *                         JS object
