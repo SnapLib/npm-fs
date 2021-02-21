@@ -3,12 +3,14 @@
   "compilerOptions":
   {
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "../src/main/ts",
     "esModuleInterop": true,
     "importHelpers": true,
     "lib": ["es2020"],
     "module": "commonjs",
     "moduleResolution": "node",
     "removeComments": true,
+    "rootDir": "../src/main/ts",
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "target": "es2020"
